@@ -1,11 +1,5 @@
-// ej2.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
-//
+// Nieves Alonso Gilsanz
 
-#include <iostream>
-#include <array>
-#include <fstream>
-
-#include "Date.h"
 #include "Catalogo.h"
 #include "ListaPrestamo.h"
 
@@ -21,6 +15,5 @@ int main()
 
     listaPrestamo.mostrarPrestamos();
 
-    catalogo.~Catalogo();
-    listaPrestamo.~ListaPrestamo();
+    return 0;
 }

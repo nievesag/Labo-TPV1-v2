@@ -51,9 +51,9 @@ public:
 		return fecha;
 	}
 
-	Date* getDateDevol()
+	Date* getDateDevol(Prestamo* prestamo)
 	{
-		return fechaDevolucion;
+		return fecha + duracionPrestamo((*prestamo->ejemplar).getTipo());
 	}
 
 	int duracionPrestamo(int tipo)

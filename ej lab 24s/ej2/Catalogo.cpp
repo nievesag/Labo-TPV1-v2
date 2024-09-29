@@ -67,3 +67,7 @@ Ejemplar* Catalogo::buscarEjemplar(int cod, int ini, int fin)
 
     return nullptr;
 }
+
+Catalogo::~Catalogo()
+{
+}

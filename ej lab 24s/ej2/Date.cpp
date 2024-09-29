@@ -9,7 +9,8 @@
 
 using namespace std;
 
-Date::Date() {
+Date::Date()
+{
 	using namespace std::chrono;
 
 	// Obtiene la fecha actual con la biblioteca chrono de C++20
@@ -68,14 +69,15 @@ bool Date::operator<(const Date& date) const {
 	                             (month == date.month && day < date.day))));
 }
 
-
-int Date::diff(const Date& date) const {
+int Date::diff(const Date& date) const
+{
 	return calculateValue() - date.calculateValue();
 }
 
 // Métodos privados
 
-int Date::calculateValue() const{
+int Date::calculateValue() const
+{
 	// Días desde el año 2000
 	int v = 365 * (year - 1) + ((year - 1) / 4 + 1 - (year - 1) / 100 + (year - 1) / 400);
 
@@ -118,7 +120,8 @@ istream& operator>>(istream& in, Date& d){
 	return (in >> d.day >> c >> d.month >> c >> d.year);
 }
 
-ostream& operator<<(ostream& out, const Date& d){
+ostream& operator<<(ostream& out, const Date& d)
+{
 	out << format("{:0>2}/{:0>2}/{:0>2}", d.day, d.month, d.year);
 	return out;
 }

@@ -1,5 +1,13 @@
 #include "ListaPrestamo.h"
+
+#include <algorithm>
 #include <fstream>
+#include <cmath>
+#include <vector>
+
+ListaPrestamo::~ListaPrestamo()
+{
+}
 
 bool ListaPrestamo::leerPrestamos(Catalogo& catalogo)
 {
@@ -53,15 +61,38 @@ bool ListaPrestamo::leerPrestamos(Catalogo& catalogo)
 
 void ListaPrestamo::ordenarPrestamos()
 {
+    int quedan;
+    Date pres;
+    Date devol;
 
+    for (int i = 0; i < tamArrayPrestamo; i++)
+    {
+
+    }
 }
 
 void ListaPrestamo::mostrarPrestamos()
 {
+    int quedan;
+    Date pres;
+    Date devol;
+    Date* hoy = new Date();
+
     for(int i = 0; i < tamArrayPrestamo; i++)
     {
-        std::cout << ArrayPrestamo[i].getDate() + ArrayPrestamo[i].duracionPrestamo((ArrayPrestamo[i].getEjemplar())->getTipo());
+        pres = *ArrayPrestamo[i].getDate();
+        devol = pres + (ArrayPrestamo[i].duracionPrestamo((ArrayPrestamo[i].getEjemplar())->getTipo()));
+        std::cout << (devol);
         std::cout << " ";
-        std::cout << "(en " << ArrayPrestamo[i].getDate() - 
+        quedan = (devol.diff(*hoy));
+        std::cout << "(en " << quedan << " dias)";
+        std::cout << " ";
+        std::cout << ArrayPrestamo[i].getEjemplar()->getNombre();
+        if(quedan < 0)
+        {
+	        std::cout << " ";
+	        std::cout << "(" << abs(quedan)*2 << " dias de penalizacion)";
+        }
+        std::cout << std::endl;
     }
 }

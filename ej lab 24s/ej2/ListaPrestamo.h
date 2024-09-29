@@ -16,6 +16,8 @@ public:
 	// constructora
 	ListaPrestamo() : ArrayPrestamo(nullptr), tamArrayPrestamo(0) {};
 
+	~ListaPrestamo();
+
 	bool leerPrestamos(Catalogo& catalogo);
 	void ordenarPrestamos();
 	void mostrarPrestamos();
