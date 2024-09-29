@@ -5,7 +5,7 @@
 #include <format>
 #include <chrono>
 
-#include "Date.h"
+#include "Date.hpp"
 
 using namespace std;
 
@@ -30,7 +30,7 @@ Date::Date(int d, int m, int y)
 Date::Date(const Date& date)
  : day(date.day), month(date.month), year(date.year) { }
 
-void Date::operator++() {
+Date& Date::operator++() {
 	day++;
 
 	// Pasa de mes
@@ -43,14 +43,22 @@ void Date::operator++() {
 			year++;
 		}
 	}
+
+	return *this;
 }
 
-void Date::operator+=(int n) {
+Date& Date::operator+=(int n) {
 	// Esta implementación no es eficiente, pues suma días
 	// y comprueba el paso de meses y años de uno en uno
 
 	for (int i = 0; i < n; i++)
 		operator++();
+
+	return *this;
+}
+
+Date Date::operator+(int n) const {
+	return Date(*this) += n;
 }
 
 bool Date::operator<(const Date& date) const {

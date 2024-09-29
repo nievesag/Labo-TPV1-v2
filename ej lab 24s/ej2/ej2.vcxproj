@@ -128,11 +128,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\material-24s\Date.cpp" />
+    <ClCompile Include="Catalogo.cpp" />
+    <ClCompile Include="Date.cpp" />
     <ClCompile Include="ej2.cpp" />
+    <ClCompile Include="Ejemplar.cpp" />
+    <ClCompile Include="ListaPrestamo.cpp" />
+    <ClCompile Include="Prestamo.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\material-24s\Date.h" />
+    <ClInclude Include="Catalogo.h" />
+    <ClInclude Include="Date.h" />
+    <ClInclude Include="Ejemplar.h" />
+    <ClInclude Include="ListaPrestamo.h" />
+    <ClInclude Include="Prestamo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

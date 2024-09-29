@@ -8,20 +8,21 @@
 #define DATE_H_
 
 class Date {
-public:
+private:
 	int day;
 	int month;
 	int year;
 
 public:
 	// Constructores
-	Date();
-	Date(int d, int m, int y);
-	Date(const Date& date);
+	Date();  // construye una fecha con el día de hoy
+	Date(int d, int m, int y);  // construye una fecha con día, mes y año
+	Date(const Date& date);  // constructor por copia (lo veremos en el tema 2)
 
-	// Operadores aritméticos
-	void operator++();
-	void operator+=(int n);
+	// Operadores aritméticos (aumentan días)
+	Date& operator++();
+	Date& operator+=(int n);
+	Date operator+(int n) const;
 
 	// Operador de comparación
 	bool operator<(const Date& date) const;

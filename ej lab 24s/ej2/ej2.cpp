@@ -1,38 +1,14 @@
 // ej2.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
 //
 
-#include "Date.h"
 #include <iostream>
 #include <array>
 #include <fstream>
 
-struct Ejemplar
-{
-    int codigo;
-    char tipo;
-    std::string nombre;
-};
 
-struct Prestamo
-{
-    int codigo;
-    Date fecha;
-    int user;
-};
-
-struct Catalogo
-{
-    Ejemplar* listCatalogo;
-    int tamCat;
-    int realCat;
-};
-
-struct ListaPrestamo
-{
-    Prestamo* listPrestamos;
-    int tamPres;
-    int realPres;
-};
+#include "Date.h"
+#include "Catalogo.h"
+#include "ListaPrestamo.h"
 
 int main()
 {
