@@ -8,6 +8,7 @@ bool ListaPrestamo::leerPrestamos(Catalogo& catalogo)
 
     int c; // codigo del ejemplar
     int u; // usuario del prestamo
+    int tam = 0;
 
     // fecha del prestamo
     int day;
@@ -25,7 +26,9 @@ bool ListaPrestamo::leerPrestamos(Catalogo& catalogo)
     for (int i = 0; i < tamArrayPrestamo; i++)
     {
         prestamoRead >> c; // lee el codigo
-        ArrayPrestamo[i].setEjemplar(catalogo.buscarEjemplar(c)); // lo mete
+
+        tam = catalogo.getTam();
+        ArrayPrestamo[i].setEjemplar(catalogo.buscarEjemplar(c, 0, tam)); // lo mete
 
         // lee la fecha
     	barra = ' ';
@@ -46,4 +49,19 @@ bool ListaPrestamo::leerPrestamos(Catalogo& catalogo)
     }
 
     return prestamoRead.is_open(); // true -> archivo prestamos abierto / false -> error  
+}
+
+void ListaPrestamo::ordenarPrestamos()
+{
+
+}
+
+void ListaPrestamo::mostrarPrestamos()
+{
+    for(int i = 0; i < tamArrayPrestamo; i++)
+    {
+        std::cout << ArrayPrestamo[i].getDate() + ArrayPrestamo[i].duracionPrestamo((ArrayPrestamo[i].getEjemplar())->getTipo());
+        std::cout << " ";
+        std::cout << "(en " << ArrayPrestamo[i].getDate() - 
+    }
 }

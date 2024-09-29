@@ -9,7 +9,6 @@ class ListaPrestamo
 private:
 	// array dinamico ArrayPrestamo de punteros a estructuras de tipo Prestamo
 	Prestamo* ArrayPrestamo;
-	Prestamo* prestamo;
 	int tamArrayPrestamo;
 
 	// metodos publicos
@@ -18,5 +17,8 @@ public:
 	ListaPrestamo() : ArrayPrestamo(nullptr), tamArrayPrestamo(0) {};
 
 	bool leerPrestamos(Catalogo& catalogo);
-	void OrdenarPrestamos();
+	void ordenarPrestamos();
+	void mostrarPrestamos();
+
+	friend std::ostream& operator<<(std::ostream& out, const ListaPrestamo&);
 };

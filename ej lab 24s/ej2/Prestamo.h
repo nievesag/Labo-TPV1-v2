@@ -9,6 +9,7 @@ class Prestamo
 private:
     Ejemplar* ejemplar;
 	Date* fecha;
+	Date* fechaDevolucion;
     int user;
 
     // metodos publicos
@@ -50,6 +51,11 @@ public:
 		return fecha;
 	}
 
+	Date* getDateDevol()
+	{
+		return fechaDevolucion;
+	}
+
 	int duracionPrestamo(int tipo)
 	{
 		// libros
@@ -74,5 +80,10 @@ public:
 	void setEjemplar(Ejemplar* e)
 	{
 		ejemplar = e;
+	}
+
+	Ejemplar* getEjemplar()
+	{
+		return ejemplar;
 	}
 };
