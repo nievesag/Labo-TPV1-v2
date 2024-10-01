@@ -1,6 +1,16 @@
 #include "Catalogo.h"
 #include <fstream>
 
+Catalogo::Catalogo(std::istream&)
+{
+
+}
+
+Catalogo::~Catalogo()
+{
+
+}
+
 bool Catalogo::leerCatalogo()
 {
     // abre el archivo coches.txt
@@ -47,7 +57,7 @@ bool Catalogo::leerCatalogo()
     return catalogoRead.is_open(); // true -> archivo catalogo abierto / false -> error  
 }
 
-Ejemplar* Catalogo::buscarEjemplar(int cod, int ini, int fin)
+Ejemplar* Catalogo::buscarEjemplar(int cod, int ini, int fin) const
 {
     int elems = fin - ini;
 
@@ -68,6 +78,7 @@ Ejemplar* Catalogo::buscarEjemplar(int cod, int ini, int fin)
     return nullptr;
 }
 
-Catalogo::~Catalogo()
+void Catalogo::insertaEjemplar(int tipo, std::string nombre)
 {
+
 }

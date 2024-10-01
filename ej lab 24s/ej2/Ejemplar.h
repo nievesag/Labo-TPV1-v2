@@ -12,58 +12,44 @@ private:
 	{
 		LIBRO, AUDIOVISUAL, JUEGO
 	};
-
 	int t;
 
 	std::string nombre;
 
+	bool disponible;
+
 	// metodos publicos
 public:
 	// constructoras
-	Ejemplar() : codigo(0), t(0), nombre("") {};
+	Ejemplar();
 	Ejemplar(int c, char t, std::string n);
-	Ejemplar(const Ejemplar& coche);
 
-	// declaracion de operadores
+	// ----- declaracion de operadores
 	// lee
 	friend std::istream& operator>>(std::istream& in, Ejemplar& e);
 	// escribe
-	friend std::ostream& operator<<(std::ostream& in, const Ejemplar& e);
+	friend std::ostream& operator<<(std::ostream& out, const Ejemplar& e);
 
-	// para acceso externo a variables privadas
+	// ----- acceso externo a variables privadas
+	// --- codigo
 	// Setter
-	void setCodigo(int c)
-	{
-		codigo = c;
-	}
-
+	void setCodigo(int c) { codigo = c; }
 	// Getter
-	int getCodigo()
-	{
-		return codigo;
-	}
+	int getCodigo() { return codigo; }
 
+	// --- tipo
 	// Setter
-	void setTipo(int tipo)
-	{
-		t = Tipo(tipo);
-	}
-
+	void setTipo(int tipo) { t = Tipo(tipo); }
 	// Getter
-	int getTipo()
-	{
-		return Tipo(t);
-	}
+	int getTipo() { return Tipo(t); }
 
+	// --- nombre
 	// Setter
-	void setNombre(std::string n)
-	{
-		nombre = n;
-	}
-
+	void setNombre(std::string n) { nombre = n; }
 	// Getter
-	std::string getNombre()
-	{
-		return nombre;
-	}
+	std::string getNombre() const { return nombre; }
+
+	// ----- metodos
+	void presta();
+	void devuelve();
 };

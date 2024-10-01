@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Ejemplar.h"
+#include "checkML.h"
 
 class Catalogo
 {
@@ -8,38 +9,25 @@ class Catalogo
 private:
 	// array dinamico ArrayCatalogo de punteros a estructuras de tipo Ejemplar
 	Ejemplar* ArrayCatalogo;
-	Ejemplar* ejemplar;
 	int tamArrayCatalogo;
+	int maxArrayCatalogo;
 
 	// metodos publicos
 public:
 	// constructora
-	Catalogo() : ArrayCatalogo(nullptr), tamArrayCatalogo(0) {};
+	Catalogo(std::istream&);
 
-	bool leerCatalogo();
-	Ejemplar* buscarEjemplar(int cod, int ini, int fin);
-
+	// destructora
 	~Catalogo();
 
-	// setter
-	int setTam(int tam)
-	{
-		tamArrayCatalogo = tam;
-	}
+	// lectura
+	bool leerCatalogo();
 
-	// Getter
-	int getTam()
-	{
-		return tamArrayCatalogo;
-	}
+	// Getters
+	int getTam() { return tamArrayCatalogo; }
+	Ejemplar* getEjemplar(int pos) const { return &ArrayCatalogo[pos]; }
 
-	void setEjemplar(Ejemplar* e)
-	{
-		ejemplar = e;
-	}
-
-	Ejemplar* getEjemplar(int pos)
-	{
-		return &ArrayCatalogo[pos];
-	}
+	// metodos
+	Ejemplar* buscarEjemplar(int cod, int ini, int fin) const;
+	void insertaEjemplar(int tipo, std::string nombre);
 };

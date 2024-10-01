@@ -5,8 +5,14 @@
 #include <cmath>
 #include <vector>
 
+ListaPrestamo::ListaPrestamo(std::istream& const e, const Catalogo& c)
+{
+
+}
+
 ListaPrestamo::~ListaPrestamo()
 {
+
 }
 
 bool ListaPrestamo::leerPrestamos(Catalogo& catalogo)
@@ -16,13 +22,7 @@ bool ListaPrestamo::leerPrestamos(Catalogo& catalogo)
 
     int c; // codigo del ejemplar
     int u; // usuario del prestamo
-    int tam = 0;
-
-    // fecha del prestamo
-    int day;
-    int month;
-    int year;
-    char barra;
+    Date fecha; // fecha del prestamo
 
     // saca el tamaño de la lista de coches
     prestamoRead >> tamArrayPrestamo;
@@ -34,23 +34,10 @@ bool ListaPrestamo::leerPrestamos(Catalogo& catalogo)
     for (int i = 0; i < tamArrayPrestamo; i++)
     {
         prestamoRead >> c; // lee el codigo
-
-        tam = catalogo.getTam();
-        ArrayPrestamo[i].setEjemplar(catalogo.buscarEjemplar(c, 0, tam)); // lo mete
-
-        // lee la fecha
-    	barra = ' ';
-        day = 0;
-        month = 0;
-        year = 0;
-
-        prestamoRead >> day;
-        prestamoRead >> barra;
-        prestamoRead >> month;
-        prestamoRead >> barra;
-        prestamoRead >> year;
-
-        ArrayPrestamo[i].setDate(day, month, year); // lo mete
+        ArrayPrestamo[i].setEjemplar(catalogo.buscarEjemplar(c, 0, catalogo.getTam())); // lo mete
+        
+        prestamoRead >> fecha; // lee la fecha
+        ArrayPrestamo[i].setDate(fecha); // la mete
 
         prestamoRead >> u; // lee el user
         ArrayPrestamo[i].setUser(u); // lo mete 
@@ -71,12 +58,17 @@ void ListaPrestamo::ordenarPrestamos()
 
     for (int i = 0; i < tamArrayPrestamo; i++)
     {
-        pres = *ArrayPrestamo[i].getDate();
+        pres = ArrayPrestamo[i].getDate();
         devol = pres + (ArrayPrestamo[i].duracionPrestamo((ArrayPrestamo[i].getEjemplar())->getTipo()));
         quedan = (devol.diff(*hoy));
 
         aux.push_back(quedan);
     }
+}
+
+void ListaPrestamo::insertaPrestamo(const Prestamo&)
+{
+
 }
 
 void ListaPrestamo::mostrarPrestamos()
@@ -88,8 +80,8 @@ void ListaPrestamo::mostrarPrestamos()
 
     for(int i = 0; i < tamArrayPrestamo; i++)
     {
-        pres = *ArrayPrestamo[i].getDate();
-        devol = pres + (ArrayPrestamo[i].duracionPrestamo((ArrayPrestamo[i].getEjemplar())->getTipo()));
+        pres = ArrayPrestamo[i].getDate();
+        devol = ArrayPrestamo[i].getDateDevol();
         std::cout << (devol);
         std::cout << " ";
         quedan = (devol.diff(*hoy));
