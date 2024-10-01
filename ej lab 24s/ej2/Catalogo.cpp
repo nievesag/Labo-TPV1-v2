@@ -1,6 +1,7 @@
 #include "Catalogo.h"
 
 #include <fstream>
+#include <iostream>
 
 Catalogo::Catalogo()
 {
