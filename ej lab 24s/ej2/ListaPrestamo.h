@@ -16,6 +16,7 @@ private:
 	// metodos publicos
 public:
 	// constructora
+	ListaPrestamo();
 	ListaPrestamo(std::istream& const e, const Catalogo& c);
 
 	// destructora

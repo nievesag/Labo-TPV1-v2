@@ -1,5 +1,11 @@
 #include "Catalogo.h"
+
 #include <fstream>
+
+Catalogo::Catalogo()
+{
+
+}
 
 Catalogo::Catalogo(std::istream&)
 {
@@ -78,7 +84,25 @@ Ejemplar* Catalogo::buscarEjemplar(int cod, int ini, int fin) const
     return nullptr;
 }
 
-void Catalogo::insertaEjemplar(int tipo, std::string nombre)
+void Catalogo::insertaEjemplar(char tipo, std::string nombre)
 {
+    // codigo -> ultimo ejemplar +1
+    Ejemplar insertado = Ejemplar(0, tipo, nombre);
+    
+    // meter en el catalogo
+}
 
+void Catalogo::mostrarCatalogo()
+{
+    for (int i = 0; i < tamArrayCatalogo; i++)
+    {
+        std::cout << ArrayCatalogo[i].getCodigo();
+        std::cout << " ";
+        if (ArrayCatalogo[i].getTipo() == 0) { std::cout << "L"; }
+        else if (ArrayCatalogo[i].getTipo() == 1) { std::cout << "A"; }
+        else { std::cout << "J"; }
+        std::cout << " ";
+        std::cout << ArrayCatalogo[i].getNombre();
+        std::cout << std::endl;
+    }
 }

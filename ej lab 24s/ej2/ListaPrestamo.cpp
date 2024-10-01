@@ -5,6 +5,11 @@
 #include <cmath>
 #include <vector>
 
+ListaPrestamo::ListaPrestamo()
+{
+
+}
+
 ListaPrestamo::ListaPrestamo(std::istream& const e, const Catalogo& c)
 {
 

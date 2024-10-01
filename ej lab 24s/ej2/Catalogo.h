@@ -15,6 +15,7 @@ private:
 	// metodos publicos
 public:
 	// constructora
+	Catalogo();
 	Catalogo(std::istream&);
 
 	// destructora
@@ -29,5 +30,8 @@ public:
 
 	// metodos
 	Ejemplar* buscarEjemplar(int cod, int ini, int fin) const;
-	void insertaEjemplar(int tipo, std::string nombre);
+	void insertaEjemplar(char tipo, std::string nombre);
+
+	// render
+	void mostrarCatalogo();
 };
