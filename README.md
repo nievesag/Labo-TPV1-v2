@@ -14,4 +14,4 @@ Prácticas y ejercicios. Curso 2024-2025.
 
 | Plantilla | Código |
 |:--:|:--:|
-SDL Plantilla|[carpeta]()|
+SDL Plantilla|[carpeta](https://github.com/nievesag/Labo-TPV1-v2/tree/main/plantillaSDL)|
