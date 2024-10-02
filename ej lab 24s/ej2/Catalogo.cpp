@@ -61,7 +61,7 @@ bool Catalogo::leerCatalogo()
         ArrayCatalogo[i].setNombre(n); // lo mete
     }
 
-    return catalogoRead.is_open(); // true -> archivo catalogo abierto / false -> error  
+    return catalogoRead.is_open(); // true -> archivo catalogo abierto / false -> error
 }
 
 Ejemplar* Catalogo::buscarEjemplar(int cod, int ini, int fin) const
@@ -88,9 +88,42 @@ Ejemplar* Catalogo::buscarEjemplar(int cod, int ini, int fin) const
 void Catalogo::insertaEjemplar(char tipo, std::string nombre)
 {
     // codigo -> ultimo ejemplar +1
-    Ejemplar insertado = Ejemplar(0, tipo, nombre);
-    
+    int cod = ArrayCatalogo[tamArrayCatalogo - 1].getCodigo() + 1;
+
+    int tamAux = tamArrayCatalogo + 1;
+	Ejemplar* aux = new Ejemplar[tamAux];
+
+    std::copy(ArrayCatalogo, ArrayCatalogo + 1, aux);
+
+    delete[] ArrayCatalogo;
+
+    ArrayCatalogo = aux;
+    tamArrayCatalogo = tamAux;
+
     // meter en el catalogo
+    ArrayCatalogo[tamArrayCatalogo - 1].setCodigo(cod);
+
+    int t = 0;
+    if (tipo == 'L') // libros
+    {
+        t = 0;
+    }
+    else if (tipo == 'A') // audiovisual
+    {
+        t = 1;
+    }
+    else // juegos
+    {
+        t = 2;
+    }
+
+    ArrayCatalogo[tamArrayCatalogo - 1].setTipo(t);
+    ArrayCatalogo[tamArrayCatalogo - 1].setNombre(nombre);
+
+    // abre el archivo coches.txt
+    std::ofstream catalogoWrite("catalogo.txt");
+    catalogoWrite << ArrayCatalogo[tamArrayCatalogo-1].getCodigo() << " " << tipo << " " << ArrayCatalogo[tamArrayCatalogo - 1].getNombre() << std::endl;
+    catalogoWrite.close(); // close the file
 }
 
 void Catalogo::mostrarCatalogo()

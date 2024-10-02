@@ -3,6 +3,8 @@
 #include "Catalogo.h"
 #include "ListaPrestamo.h"
 #include <windows.h>
+#include <iostream>
+#include <string>
 
 int main()
 {
@@ -55,13 +57,15 @@ int main()
     {
         system("cls");
 
-        int tipo = 0;
-        std::string nombre = " ";
+        char tipo = ' ';
+        std::string nombre;
 
         std::cout << "De que tipo es tu ejemplar: L) Libros / A) Audiovisual / J) Juegos" << std::endl;
         std::cin >> tipo;
         std::cout << "Inserte el nombre del ejemplar" << std::endl;
+        //std::getline(std::cin, nombre);
         std::cin >> nombre;
+        std::cout << "nombre: " << nombre << std::endl;
 
         catalogo.insertaEjemplar(tipo, nombre);
     }
