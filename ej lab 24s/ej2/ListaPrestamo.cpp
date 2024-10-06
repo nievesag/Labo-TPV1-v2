@@ -17,7 +17,7 @@ ListaPrestamo::ListaPrestamo(std::istream& const e, const Catalogo& c)
 
 ListaPrestamo::~ListaPrestamo()
 {
-
+    delete[] ArrayPrestamo;
 }
 
 bool ListaPrestamo::leerPrestamos(Catalogo& catalogo)
@@ -69,6 +69,8 @@ void ListaPrestamo::ordenarPrestamos()
 
         aux.push_back(quedan);
     }
+
+    delete hoy;
 }
 
 void ListaPrestamo::insertaPrestamo(const Prestamo&)
@@ -100,4 +102,6 @@ void ListaPrestamo::mostrarPrestamos()
         }
         std::cout << std::endl;
     }
+
+    delete hoy;
 }
