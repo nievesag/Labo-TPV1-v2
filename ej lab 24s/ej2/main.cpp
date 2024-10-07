@@ -95,6 +95,7 @@ int main()
         Prestamo p = Prestamo(e, hoy, u);
 
         listaPrestamo.insertaPrestamo(p);
+        p.getEjemplar()->presta();
 
         listaPrestamo.ordenarPrestamos();
     }
@@ -104,20 +105,12 @@ int main()
     {
         system("cls");
 
-        std::cout << "Inserta el codigo del ejemplar a prestar" << std::endl;
+        std::cout << "Inserta el codigo del ejemplar a devolver" << std::endl;
         int cod = 0;
         std::cin >> cod;
         Ejemplar* e = catalogo.buscarEjemplar(cod, 0, catalogo.getTam());
 
-        Date hoy = Date();
-
-        std::cout << "Inserta tu numero de usuario" << std::endl;
-        int u = 0;
-        std::cin >> u;
-
-        Prestamo p = Prestamo(e, hoy, u);
-
-        listaPrestamo.insertaPrestamo(p);
+        e->devuelve();
 
         listaPrestamo.ordenarPrestamos();
     }

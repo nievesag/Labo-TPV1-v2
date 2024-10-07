@@ -60,6 +60,12 @@ void ListaPrestamo::ordenarPrestamos()
 
 void ListaPrestamo::insertaPrestamo(const Prestamo&)
 {
+    // insertar en el hueco que le corresponde por orden de código
+    
+}
+
+void ListaPrestamo::devuelvePrestamo()
+{
 
 }
 
