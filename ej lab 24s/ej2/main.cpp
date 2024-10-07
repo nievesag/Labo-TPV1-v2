@@ -43,16 +43,22 @@ int main()
 
     char input = ' ';
     std::cin >> input;
+
+    // mostrar catalogo
     if (input == 'a')
     {
         system("cls");
         catalogo.mostrarCatalogo();
     }
+
+    // mostrar prestamos
     else if (input == 'b') 
     {
         system("cls");
         listaPrestamo.mostrarPrestamos();
     }
+
+    // insertar ejemplar (catalogo)
     else if (input == 'c')
     {
         system("cls");
@@ -69,6 +75,8 @@ int main()
 
         catalogo.insertaEjemplar(tipo, nombre);
     }
+
+    // prestar ejemplar
     else if (input == 'd')
     {
         system("cls");
@@ -90,6 +98,8 @@ int main()
 
         listaPrestamo.ordenarPrestamos();
     }
+
+    // devolver ejemplar
     else if (input == 'e')
     {
         system("cls");

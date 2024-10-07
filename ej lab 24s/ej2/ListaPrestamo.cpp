@@ -18,6 +18,7 @@ ListaPrestamo::ListaPrestamo(std::istream& const e, const Catalogo& c)
 ListaPrestamo::~ListaPrestamo()
 {
     delete[] ArrayPrestamo;
+    ArrayPrestamo = nullptr;
 }
 
 bool ListaPrestamo::leerPrestamos(Catalogo& catalogo)
@@ -53,24 +54,8 @@ bool ListaPrestamo::leerPrestamos(Catalogo& catalogo)
 
 void ListaPrestamo::ordenarPrestamos()
 {
-    // no me ha dado tiempo :(
-    int quedan;
-    Date pres;
-    Date devol;
-    Date* hoy = new Date();
-
-    std::vector<int> aux(tamArrayPrestamo);
-
-    for (int i = 0; i < tamArrayPrestamo; i++)
-    {
-        pres = ArrayPrestamo[i].getDate();
-        devol = pres + (ArrayPrestamo[i].duracionPrestamo((ArrayPrestamo[i].getEjemplar())->getTipo()));
-        quedan = (devol.diff(*hoy));
-
-        aux.push_back(quedan);
-    }
-
-    delete hoy;
+    Prestamo* a = ArrayPrestamo + 8;
+    std::sort(ArrayPrestamo, a);
 }
 
 void ListaPrestamo::insertaPrestamo(const Prestamo&)

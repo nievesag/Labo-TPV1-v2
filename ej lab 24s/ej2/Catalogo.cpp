@@ -16,6 +16,7 @@ Catalogo::Catalogo(std::istream&)
 Catalogo::~Catalogo()
 {
     delete[] ArrayCatalogo;
+    ArrayCatalogo = nullptr;
 }
 
 bool Catalogo::leerCatalogo()
