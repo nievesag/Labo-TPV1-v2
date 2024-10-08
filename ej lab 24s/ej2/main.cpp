@@ -94,10 +94,16 @@ int main()
 
         Prestamo p = Prestamo(e, hoy, u);
 
-        listaPrestamo.insertaPrestamo(p);
-        p.getEjemplar()->presta();
-
-        listaPrestamo.ordenarPrestamos();
+        if (listaPrestamo.insertaPrestamo(p))
+        {
+            std::cout << "Ejemplar prestado" << std::endl;
+            p.getEjemplar()->presta();
+            //listaPrestamo.ordenarPrestamos();
+        }
+        else 
+        {
+            std::cout << "Ya se han prestado demasiadas cosas por hoy" << std::endl;
+        }
     }
 
     // devolver ejemplar

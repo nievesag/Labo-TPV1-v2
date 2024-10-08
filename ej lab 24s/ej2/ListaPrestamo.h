@@ -11,7 +11,8 @@ private:
 	// array dinamico ArrayPrestamo de punteros a estructuras de tipo Prestamo
 	Prestamo* ArrayPrestamo;
 	int tamArrayPrestamo;
-	int maxArrayPrestamo;
+	int maxArrayPrestamo = 20;
+	int contPrestamos = 0;
 
 	// metodos publicos
 public:
@@ -30,7 +31,7 @@ public:
 
 	// metodos
 	void ordenarPrestamos();
-	void insertaPrestamo(const Prestamo&);
+	bool insertaPrestamo(const Prestamo&);
 	void devuelvePrestamo();
 
 	// render

@@ -10,7 +10,8 @@ private:
 	// array dinamico ArrayCatalogo de punteros a estructuras de tipo Ejemplar
 	Ejemplar* ArrayCatalogo;
 	int tamArrayCatalogo;
-	int maxArrayCatalogo;
+	int maxArrayCatalogo = 20;
+	int contCatalogo = 0;
 
 	// metodos publicos
 public:

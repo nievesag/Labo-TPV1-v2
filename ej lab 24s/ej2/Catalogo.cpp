@@ -60,6 +60,8 @@ bool Catalogo::leerCatalogo()
 
         std::getline(catalogoRead, n); // lee el nombre
         ArrayCatalogo[i].setNombre(n); // lo mete
+
+        contCatalogo++;
     }
 
     return catalogoRead.is_open(); // true -> archivo catalogo abierto / false -> error
@@ -88,43 +90,48 @@ Ejemplar* Catalogo::buscarEjemplar(int cod, int ini, int fin) const
 
 void Catalogo::insertaEjemplar(char tipo, std::string nombre)
 {
-    // codigo -> ultimo ejemplar +1
-    int cod = ArrayCatalogo[tamArrayCatalogo - 1].getCodigo() + 1;
-
-    int tamAux = tamArrayCatalogo + 1;
-	Ejemplar* aux = new Ejemplar[tamAux];
-
-    std::copy(ArrayCatalogo, ArrayCatalogo + 1, aux);
-
-    delete[] ArrayCatalogo;
-
-    ArrayCatalogo = aux;
-    tamArrayCatalogo = tamAux;
-
-    // meter en el catalogo
-    ArrayCatalogo[tamArrayCatalogo - 1].setCodigo(cod);
-
-    int t = 0;
-    if (tipo == 'L') // libros
+    if (contCatalogo < maxArrayCatalogo) 
     {
-        t = 0;
-    }
-    else if (tipo == 'A') // audiovisual
-    {
-        t = 1;
-    }
-    else // juegos
-    {
-        t = 2;
-    }
+        // codigo -> ultimo ejemplar +1
+        int cod = ArrayCatalogo[tamArrayCatalogo - 1].getCodigo() + 1;
 
-    ArrayCatalogo[tamArrayCatalogo - 1].setTipo(t);
-    ArrayCatalogo[tamArrayCatalogo - 1].setNombre(nombre);
+        int tamAux = tamArrayCatalogo + 1;
+	    Ejemplar* aux = new Ejemplar[tamAux];
 
-    // abre el archivo coches.txt
-    std::ofstream catalogoWrite("catalogo.txt");
-    catalogoWrite << cod << " " << tipo << " " << ArrayCatalogo[tamArrayCatalogo - 1].getNombre() << std::endl;
-    catalogoWrite.close(); // close the file
+        std::copy(ArrayCatalogo, ArrayCatalogo + 1, aux);
+
+        delete[] ArrayCatalogo;
+
+        ArrayCatalogo = aux;
+        tamArrayCatalogo = tamAux;
+
+        // meter en el catalogo
+        ArrayCatalogo[tamArrayCatalogo - 1].setCodigo(cod);
+
+        int t = 0;
+        if (tipo == 'L') // libros
+        {
+            t = 0;
+        }
+        else if (tipo == 'A') // audiovisual
+        {
+            t = 1;
+        }
+        else // juegos
+        {
+            t = 2;
+        }
+
+        ArrayCatalogo[tamArrayCatalogo - 1].setTipo(t);
+        ArrayCatalogo[tamArrayCatalogo - 1].setNombre(nombre);
+
+        contCatalogo++;
+
+        // abre el archivo coches.txt
+        std::ofstream catalogoWrite("catalogo.txt", std::ios::app);
+        catalogoWrite << cod << " " << tipo << " " << ArrayCatalogo[tamArrayCatalogo - 1].getNombre() << std::endl;
+        catalogoWrite.close(); // close the file
+    }
 }
 
 void Catalogo::mostrarCatalogo()

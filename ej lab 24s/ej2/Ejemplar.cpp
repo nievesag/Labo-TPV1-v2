@@ -5,7 +5,7 @@ Ejemplar::Ejemplar()
 
 }
 
-Ejemplar::Ejemplar(int c, char t, std::string n)
+Ejemplar::Ejemplar(int c, char t, std::string n) : codigo(c), t(t), nombre(n)
 {
 
 }

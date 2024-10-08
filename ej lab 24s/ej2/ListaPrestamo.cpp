@@ -47,6 +47,8 @@ bool ListaPrestamo::leerPrestamos(Catalogo& catalogo)
 
         prestamoRead >> u; // lee el user
         ArrayPrestamo[i].setUser(u); // lo mete 
+
+        contPrestamos++;
     }
 
     return prestamoRead.is_open(); // true -> archivo prestamos abierto / false -> error  
@@ -58,12 +60,26 @@ void ListaPrestamo::ordenarPrestamos()
     std::sort(ArrayPrestamo, a);
 }
 
-void ListaPrestamo::insertaPrestamo(const Prestamo& prestamo)
+bool ListaPrestamo::insertaPrestamo(const Prestamo& p)
 {
-     // insertar en el hueco que le corresponde por orden de código
-   
+    if (contPrestamos < maxArrayPrestamo) 
+    {
+        for (int i = contPrestamos-1; i > 0; i--) 
+        {
+            if (p.getDateDevol() < ArrayPrestamo[i].getDateDevol())
+            {
+                ArrayPrestamo[i+1] = ArrayPrestamo[i];
+                ArrayPrestamo[i] = p; 
+            }
+            else 
+            {
+                ArrayPrestamo[i + 1] = p;
+            }
+        }
 
-    
+        return true;
+    }
+    return false;
 }
 
 void ListaPrestamo::devuelvePrestamo()

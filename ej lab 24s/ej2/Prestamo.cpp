@@ -5,9 +5,9 @@ Prestamo::Prestamo()
 
 }
 
-Prestamo::Prestamo(Ejemplar* e, Date f, int u)
+Prestamo::Prestamo(Ejemplar* e, Date f, int u) : ejemplar(e), fecha(f), user(u)
 {
-
+	
 }
 
 bool Prestamo::operator<(const Prestamo& prestamo) const
