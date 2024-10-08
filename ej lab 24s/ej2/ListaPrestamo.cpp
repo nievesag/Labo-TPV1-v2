@@ -54,8 +54,8 @@ bool ListaPrestamo::leerPrestamos(Catalogo& catalogo)
 
 void ListaPrestamo::ordenarPrestamos()
 {
-    Prestamo* a = ArrayPrestamo + 8;
-    std::sort(ArrayPrestamo, a);
+    ////Prestamo* a = ArrayPrestamo + 8;
+    ////std::sort(ArrayPrestamo, a);
 }
 
 void ListaPrestamo::insertaPrestamo(const Prestamo&)
