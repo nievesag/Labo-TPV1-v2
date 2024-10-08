@@ -35,4 +35,8 @@ public:
 
 	// render
 	void mostrarPrestamos();
+
+	int getTamArrayPrestamo() {
+		return tamArrayPrestamo;
+	}
 };

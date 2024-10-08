@@ -54,13 +54,15 @@ bool ListaPrestamo::leerPrestamos(Catalogo& catalogo)
 
 void ListaPrestamo::ordenarPrestamos()
 {
-    ////Prestamo* a = ArrayPrestamo + 8;
-    ////std::sort(ArrayPrestamo, a);
+    Prestamo* a = ArrayPrestamo + tamArrayPrestamo;
+    std::sort(ArrayPrestamo, a);
 }
 
-void ListaPrestamo::insertaPrestamo(const Prestamo&)
+void ListaPrestamo::insertaPrestamo(const Prestamo& prestamo)
 {
-    // insertar en el hueco que le corresponde por orden de código
+     // insertar en el hueco que le corresponde por orden de código
+   
+
     
 }
 
