@@ -12,7 +12,7 @@ private:
 	Prestamo* ArrayPrestamo;
 	int tamArrayPrestamo;
 	int maxArrayPrestamo = 20;
-	int contPrestamos = 0;
+	int contPrestamos = 0;	
 
 	// metodos publicos
 public:

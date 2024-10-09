@@ -77,8 +77,17 @@ bool ListaPrestamo::insertaPrestamo(const Prestamo& p)
             }
         }
 
+        contPrestamos++;
+
+        // abre el archivo 
+        std::ofstream prestamosWrite("prestamos.txt", std::ios::app);
+        // habria q reescribirlo desde 0????? creo q si jiji
+        //prestamosWrite << p.getEjemplar() << " " << p.getDateDevol() << " " << p.getUser() << std::endl;
+        prestamosWrite.close(); // close the file
+
         return true;
     }
+
     return false;
 }
 

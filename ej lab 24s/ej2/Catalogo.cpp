@@ -127,7 +127,6 @@ void Catalogo::insertaEjemplar(char tipo, std::string nombre)
 
         contCatalogo++;
 
-        // abre el archivo coches.txt
         std::ofstream catalogoWrite("catalogo.txt", std::ios::app);
         catalogoWrite << cod << " " << tipo << " " << ArrayCatalogo[tamArrayCatalogo - 1].getNombre() << std::endl;
         catalogoWrite.close(); // close the file
