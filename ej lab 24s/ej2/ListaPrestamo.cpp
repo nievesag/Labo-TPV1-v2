@@ -81,7 +81,21 @@ bool ListaPrestamo::insertaPrestamo(const Prestamo& p)
 
 bool ListaPrestamo::devuelvePrestamo(const Prestamo& p)
 {
+    int i = 0;
+    bool encontrado = false;
 
+    while (!encontrado && i < contPrestamos) {
+
+        if (ArrayPrestamo[i].getEjemplar()->getCodigo() == p.getEjemplar()->getCodigo()) {
+
+            encontrado = true;
+            ArrayPrestamo[i] = ArrayPrestamo[contPrestamos - 2];
+            contPrestamos--;
+        }
+        i++;
+    }
+
+    return encontrado;
 }
 
 void ListaPrestamo::mostrarPrestamos()
@@ -107,7 +121,6 @@ void ListaPrestamo::mostrarPrestamos()
 	        std::cout << "(" << abs(quedan)*2 << " dias de penalizacion)";
         }
         std::cout << std::endl;
-        std::cout << contPrestamos;
     }
 
     delete hoy;

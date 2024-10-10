@@ -24,11 +24,11 @@ public:
 
 	// ----- declaracion de operadores
 	// lee
-	//friend std::istream& operator>>(std::istream& in, Prestamo& p);
+	friend std::istream& operator>>(std::istream& in, Prestamo& p);
 	// escribe
-	//friend std::ostream& operator<<(std::ostream& out, const Prestamo& p);
+	friend std::ostream& operator<<(std::ostream& out, const Prestamo& p);
 	// comparación
-	//bool operator<(const Prestamo& prestamo) const;
+	bool operator<(const Prestamo& prestamo) const;
 
 	// ----- para acceso externo a variables privadas
 	// --- usuario

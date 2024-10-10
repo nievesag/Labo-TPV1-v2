@@ -128,7 +128,7 @@ int main()
 
         if (listaPrestamo.devuelvePrestamo(p))
         {
-            std::cout << "Ejemplar prestado" << std::endl;
+            std::cout << "Ejemplar prestado devuelto" << std::endl;
             p.getEjemplar()->devuelve();
             listaPrestamo.ordenarPrestamos();
         }
