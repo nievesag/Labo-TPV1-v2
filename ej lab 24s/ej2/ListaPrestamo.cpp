@@ -17,8 +17,7 @@ ListaPrestamo::ListaPrestamo(std::istream& const e, const Catalogo& c)
 
 ListaPrestamo::~ListaPrestamo()
 {
-  /*  delete[] ArrayPrestamo;
-    ArrayPrestamo = nullptr;*/
+    delete[] ArrayPrestamo;
 }
 
 bool ListaPrestamo::leerPrestamos(Catalogo& catalogo)
