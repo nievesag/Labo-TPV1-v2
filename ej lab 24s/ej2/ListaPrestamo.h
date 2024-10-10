@@ -32,7 +32,7 @@ public:
 	// metodos
 	void ordenarPrestamos();
 	bool insertaPrestamo(const Prestamo& p);
-	void devuelvePrestamo();
+	bool devuelvePrestamo(const Prestamo& p);
 
 	// render
 	void mostrarPrestamos();

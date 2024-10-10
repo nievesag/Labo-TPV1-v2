@@ -118,9 +118,24 @@ int main()
         std::cin >> cod;
         Ejemplar* e = catalogo.buscarEjemplar(cod, 0, catalogo.getTam());
 
-        e->devuelve();
+        Date hoy = Date();
 
-        listaPrestamo.ordenarPrestamos();
+        std::cout << "Inserta tu numero de usuario" << std::endl;
+        int u = 0;
+        std::cin >> u;
+
+        Prestamo p = Prestamo(e, hoy, u);
+
+        if (listaPrestamo.devuelvePrestamo(p))
+        {
+            std::cout << "Ejemplar prestado" << std::endl;
+            p.getEjemplar()->devuelve();
+            listaPrestamo.ordenarPrestamos();
+        }
+        else
+        {
+            std::cout << "No se ha podido devolver" << std::endl;
+        }
     }
     else if (input == 'f')
     {

@@ -79,7 +79,7 @@ bool ListaPrestamo::insertaPrestamo(const Prestamo& p)
     return false;
 }
 
-void ListaPrestamo::devuelvePrestamo()
+bool ListaPrestamo::devuelvePrestamo(const Prestamo& p)
 {
 
 }
