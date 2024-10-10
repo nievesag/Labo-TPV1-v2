@@ -136,7 +136,7 @@ void Catalogo::insertaEjemplar(char tipo, std::string nombre)
 
 void Catalogo::mostrarCatalogo()
 {
-    for (int i = 0; i < contCatalogo; i++)
+    for (int i = 0; i < contCatalogo-1; i++)
     {
         std::cout << ArrayCatalogo[i].getCodigo();
         std::cout << " ";
