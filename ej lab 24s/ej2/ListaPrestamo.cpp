@@ -33,8 +33,7 @@ bool ListaPrestamo::leerPrestamos(Catalogo& catalogo)
     prestamoRead >> tamArrayPrestamo;
 
     // crea el array dinamico
-    ArrayPrestamo = new Prestamo[tamArrayPrestamo];
-
+    ArrayPrestamo = new Prestamo[maxArrayPrestamo];
 
     int i = 0;
     while (i < tamArrayPrestamo && (prestamoRead >> c >> fecha >> u)) //mientras pueda seguir leyendo c >> fecha >> u no se sale
@@ -102,6 +101,7 @@ void ListaPrestamo::mostrarPrestamos()
 
     for(int i = 0; i < contPrestamos; i++)
     {
+
         pres = ArrayPrestamo[i].getDate();
         devol = ArrayPrestamo[i].getDateDevol();
         std::cout << (devol);
@@ -117,6 +117,23 @@ void ListaPrestamo::mostrarPrestamos()
         }
         std::cout << std::endl;
         std::cout << contPrestamos;
+
+        /*std:: cout << ArrayPrestamo[i];
+        std::cout << std::endl;*/
+
+        //pres = ArrayPrestamo[i].getDate();
+        //devol = ArrayPrestamo[i].getDateDevol();
+        //std::cout << (devol);
+        //std::cout << " ";
+        //quedan = (devol.diff(*hoy));
+        //std::cout << "(en  " << quedan << " dias)";
+        //std::cout << " ";
+        //std::cout << ArrayPrestamo[i].getEjemplar()->getNombre();
+        //if(quedan < 0)
+        //{
+	       // std::cout << " ";
+	       // std::cout << "(" << abs(quedan)*2 << " dias de penalizacion)";
+        //}
     }
 
     delete hoy;

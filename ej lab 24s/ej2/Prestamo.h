@@ -74,5 +74,25 @@ public:
 		}
 	}
 
+	const int quedanDias()
+	{
+		Date* hoy = new Date();
+		Date devol = getDateDevol();
+		int quedan = (devol.diff(*hoy));
+		delete hoy;
+		return quedan;
+	}
+
+	const int penal()
+	{
+		Date* hoy = new Date();
+		Date devol = getDateDevol();
+		int quedan = (devol.diff(*hoy));
+		delete hoy;
+
+		int const pen = abs(quedan) * 2;
+		return pen;
+	}
+
 	void leePrestamo(const Catalogo&);
 };

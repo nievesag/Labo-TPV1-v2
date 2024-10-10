@@ -32,7 +32,7 @@ bool Catalogo::leerCatalogo()
     catalogoRead >> tamArrayCatalogo;
 
     // crea el array dinamico
-    ArrayCatalogo = new Ejemplar[tamArrayCatalogo];
+    ArrayCatalogo = new Ejemplar[maxArrayCatalogo];
 
     // bucle para leer los datos
     for (int i = 0; i < tamArrayCatalogo; i++)
