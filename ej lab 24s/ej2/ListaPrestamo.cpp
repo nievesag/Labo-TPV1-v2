@@ -17,8 +17,8 @@ ListaPrestamo::ListaPrestamo(std::istream& const e, const Catalogo& c)
 
 ListaPrestamo::~ListaPrestamo()
 {
-    delete[] ArrayPrestamo;
-    ArrayPrestamo = nullptr;
+  /*  delete[] ArrayPrestamo;
+    ArrayPrestamo = nullptr;*/
 }
 
 bool ListaPrestamo::leerPrestamos(Catalogo& catalogo)
@@ -82,7 +82,9 @@ bool ListaPrestamo::insertaPrestamo(const Prestamo& p)
         // abre el archivo 
         std::ofstream prestamosWrite("prestamos.txt", std::ios::app);
         // habria q reescribirlo desde 0????? creo q si jiji
-        //prestamosWrite << p.getEjemplar() << " " << p.getDateDevol() << " " << p.getUser() << std::endl;
+        //prestamosWrite << p.getEjemplar() << " " 
+        int user = p.getUser();
+        prestamosWrite << p.getEjemplar()->getCodigo() << " " << p.getDateDevol() << " " << user << std::endl;
         prestamosWrite.close(); // close the file
 
         return true;
@@ -118,7 +120,7 @@ void ListaPrestamo::mostrarPrestamos()
 	        std::cout << " ";
 	        std::cout << "(" << abs(quedan)*2 << " dias de penalizacion)";
         }
-        std::cout << std::endl;
+     
     }
 
     delete hoy;

@@ -35,21 +35,21 @@ public:
 	// Setter
 	void setUser(int u) { user = u; }
 	// Getter
-	char getUser() { return user; }
+	char getUser() const { return user; }
 
 	// --- fecha
 	// Setter
 	void setDate(Date f) { fecha = f; }
 	void setDateDevol(Date f) { fechaDevolucion = f; }
 	// Getters
-	Date getDate() { return fecha; }
+	Date getDate() const { return fecha; }
 	Date getDateDevol() const { return fecha + duracionPrestamo((*this->ejemplar).getTipo()); }
 
 	// --- ejemplar
 	// Setter
-	void setEjemplar(Ejemplar* e) { ejemplar = e; }
+	void setEjemplar(Ejemplar* e) { ejemplar = e; } ;
 	// Getter
-	Ejemplar* getEjemplar() { return ejemplar; }
+	Ejemplar* getEjemplar() const { return ejemplar; }
 
 	// ----- metodos
 	// calcula duracion de prestamo
