@@ -34,14 +34,10 @@ bool Catalogo::leerCatalogo()
     // crea el array dinamico
     ArrayCatalogo = new Ejemplar[maxArrayCatalogo];
 
-    // bucle para leer los datos
-    for (int i = 0; i < tamArrayCatalogo; i++)
+    int i = 0;
+    while (i < tamArrayCatalogo && (catalogoRead >> c >> tc >> n)) //mientras pueda seguir leyendo c >> fecha >> u no se sale
     {
-        catalogoRead >> c; // lee el codigo
-        ArrayCatalogo[i].setCodigo(c); // lo mete
-
-        catalogoRead >> tc; // lee el tipo
-
+        ArrayCatalogo[i].setCodigo(c);
         if(tc == 'L') // libros
         {
             ti = 0;
@@ -54,12 +50,12 @@ bool Catalogo::leerCatalogo()
         {
             ti = 2;
         }
-
-        ArrayCatalogo[i].setTipo(ti); // lo mete 
+        ArrayCatalogo[i].setTipo(ti);
 
         std::getline(catalogoRead, n); // lee el nombre
-        ArrayCatalogo[i].setNombre(n); // lo mete
+        ArrayCatalogo[i].setNombre(n);
 
+        i++;
         contCatalogo++;
     }
 
