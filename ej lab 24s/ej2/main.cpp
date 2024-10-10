@@ -1,4 +1,5 @@
 // Nieves Alonso Gilsanz
+// Daniel Zhu
 
 #include "Catalogo.h"
 #include "ListaPrestamo.h"

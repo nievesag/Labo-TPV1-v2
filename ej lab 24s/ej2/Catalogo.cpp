@@ -3,15 +3,9 @@
 #include <fstream>
 #include <iostream>
 
-Catalogo::Catalogo()
-{
+Catalogo::Catalogo() {}
 
-}
-
-Catalogo::Catalogo(std::istream&)
-{
-
-}
+Catalogo::Catalogo(std::istream&) {}
 
 Catalogo::~Catalogo()
 {

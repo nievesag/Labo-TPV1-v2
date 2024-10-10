@@ -24,7 +24,7 @@ public:
 	~ListaPrestamo();
 
 	// operador salida
-	friend std::ostream& operator<<(std::ostream& out, const ListaPrestamo&);
+	//friend std::ostream& operator<<(std::ostream& out, const ListaPrestamo&);
 
 	// lectura
 	bool leerPrestamos(Catalogo& catalogo); // esto ya no se lee aqui

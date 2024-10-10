@@ -5,15 +5,9 @@
 #include <cmath>
 #include <vector>
 
-ListaPrestamo::ListaPrestamo()
-{
+ListaPrestamo::ListaPrestamo() {}
 
-}
-
-ListaPrestamo::ListaPrestamo(std::istream& const e, const Catalogo& c)
-{
-
-}
+ListaPrestamo::ListaPrestamo(std::istream& const e, const Catalogo& c) {}
 
 ListaPrestamo::~ListaPrestamo()
 {
@@ -75,8 +69,6 @@ bool ListaPrestamo::insertaPrestamo(const Prestamo& p)
 
         // abre el archivo 
         std::ofstream prestamosWrite("prestamos.txt", std::ios::app);
-        // habria q reescribirlo desde 0????? creo q si jiji
-        //prestamosWrite << p.getEjemplar() << " " 
         int user = p.getUser();
         prestamosWrite << p.getEjemplar()->getCodigo() << " " << p.getDateDevol() << " " << user << std::endl;
         prestamosWrite.close(); // close the file
@@ -101,7 +93,6 @@ void ListaPrestamo::mostrarPrestamos()
 
     for(int i = 0; i < contPrestamos; i++)
     {
-
         pres = ArrayPrestamo[i].getDate();
         devol = ArrayPrestamo[i].getDateDevol();
         std::cout << (devol);
@@ -117,23 +108,6 @@ void ListaPrestamo::mostrarPrestamos()
         }
         std::cout << std::endl;
         std::cout << contPrestamos;
-
-        /*std:: cout << ArrayPrestamo[i];
-        std::cout << std::endl;*/
-
-        //pres = ArrayPrestamo[i].getDate();
-        //devol = ArrayPrestamo[i].getDateDevol();
-        //std::cout << (devol);
-        //std::cout << " ";
-        //quedan = (devol.diff(*hoy));
-        //std::cout << "(en  " << quedan << " dias)";
-        //std::cout << " ";
-        //std::cout << ArrayPrestamo[i].getEjemplar()->getNombre();
-        //if(quedan < 0)
-        //{
-	       // std::cout << " ";
-	       // std::cout << "(" << abs(quedan)*2 << " dias de penalizacion)";
-        //}
     }
 
     delete hoy;

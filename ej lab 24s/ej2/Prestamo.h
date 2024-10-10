@@ -24,11 +24,11 @@ public:
 
 	// ----- declaracion de operadores
 	// lee
-	friend std::istream& operator>>(std::istream& in, Prestamo& p);
+	//friend std::istream& operator>>(std::istream& in, Prestamo& p);
 	// escribe
-	friend std::ostream& operator<<(std::ostream& out, const Prestamo& p);
+	//friend std::ostream& operator<<(std::ostream& out, const Prestamo& p);
 	// comparación
-	bool operator<(const Prestamo& prestamo) const;
+	//bool operator<(const Prestamo& prestamo) const;
 
 	// ----- para acceso externo a variables privadas
 	// --- usuario
@@ -47,7 +47,7 @@ public:
 
 	// --- ejemplar
 	// Setter
-	void setEjemplar(Ejemplar* e) { ejemplar = e; } ;
+	void setEjemplar(Ejemplar* e) { ejemplar = e; } 
 	// Getter
 	Ejemplar* getEjemplar() const { return ejemplar; }
 
@@ -74,6 +74,7 @@ public:
 		}
 	}
 
+	/*
 	const int quedanDias()
 	{
 		Date* hoy = new Date();
@@ -93,6 +94,5 @@ public:
 		int const pen = abs(quedan) * 2;
 		return pen;
 	}
-
-	void leePrestamo(const Catalogo&);
+	*/
 };
