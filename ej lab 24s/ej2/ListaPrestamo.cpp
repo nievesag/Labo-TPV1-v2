@@ -35,19 +35,15 @@ bool ListaPrestamo::leerPrestamos(Catalogo& catalogo)
     // crea el array dinamico
     ArrayPrestamo = new Prestamo[tamArrayPrestamo];
 
-    // bucle para leer los datos
-    for (int i = 0; i < tamArrayPrestamo; i++)
+
+    int i = 0;
+    while (i < tamArrayPrestamo && (prestamoRead >> c >> fecha >> u)) //mientras pueda seguir leyendo c >> fecha >> u no se sale
     {
-        prestamoRead >> c; // lee el codigo
-        ArrayPrestamo[i].setEjemplar(catalogo.buscarEjemplar(c, 0, catalogo.getTam())); // lo mete
-        
-        prestamoRead >> fecha; // lee la fecha
-        ArrayPrestamo[i].setDate(fecha); // la mete
-
-        prestamoRead >> u; // lee el user
-        ArrayPrestamo[i].setUser(u); // lo mete 
-
+        ArrayPrestamo[i].setEjemplar(catalogo.buscarEjemplar(c, 0, catalogo.getTam())); 
+        ArrayPrestamo[i].setDate(fecha); 
+        ArrayPrestamo[i].setUser(u); 
         contPrestamos++;
+        i++; 
     }
 
     return prestamoRead.is_open(); // true -> archivo prestamos abierto / false -> error  
@@ -55,13 +51,13 @@ bool ListaPrestamo::leerPrestamos(Catalogo& catalogo)
 
 void ListaPrestamo::ordenarPrestamos()
 {
-    Prestamo* a = ArrayPrestamo + tamArrayPrestamo;
+    Prestamo* a = ArrayPrestamo + contPrestamos;
     std::sort(ArrayPrestamo, a);
 }
 
 bool ListaPrestamo::insertaPrestamo(const Prestamo& p)
 {
-    if (contPrestamos < maxArrayPrestamo) 
+    if (contPrestamos < tamArrayPrestamo) 
     {
         for (int i = contPrestamos-1; i > 0; i--) 
         {
@@ -104,7 +100,7 @@ void ListaPrestamo::mostrarPrestamos()
     Date devol;
     Date* hoy = new Date();
 
-    for(int i = 0; i < tamArrayPrestamo; i++)
+    for(int i = 0; i < contPrestamos; i++)
     {
         pres = ArrayPrestamo[i].getDate();
         devol = ArrayPrestamo[i].getDateDevol();
@@ -119,7 +115,8 @@ void ListaPrestamo::mostrarPrestamos()
 	        std::cout << " ";
 	        std::cout << "(" << abs(quedan)*2 << " dias de penalizacion)";
         }
-     
+        std::cout << std::endl;
+        std::cout << contPrestamos;
     }
 
     delete hoy;

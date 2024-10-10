@@ -55,6 +55,7 @@ int main()
     else if (input == 'b') 
     {
         system("cls");
+        listaPrestamo.ordenarPrestamos();
         listaPrestamo.mostrarPrestamos();
     }
 
@@ -98,7 +99,7 @@ int main()
         {
             std::cout << "Ejemplar prestado" << std::endl;
             p.getEjemplar()->presta();
-            //listaPrestamo.ordenarPrestamos();
+            listaPrestamo.ordenarPrestamos();
         }
         else 
         {
