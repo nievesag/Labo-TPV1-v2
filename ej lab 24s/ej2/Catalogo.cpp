@@ -35,9 +35,15 @@ bool Catalogo::leerCatalogo()
     ArrayCatalogo = new Ejemplar[maxArrayCatalogo];
 
     int i = 0;
-    while (i < tamArrayCatalogo && (catalogoRead >> c >> tc >> n)) //mientras pueda seguir leyendo c >> fecha >> u no se sale
+    bool seguir = true;
+    while (i < tamArrayCatalogo && seguir) //mientras pueda seguir leyendo c >> fecha >> u no se sale
     {
+        catalogoRead >> c; // lee el codigo
+
+        if (i > 0 && c == ArrayCatalogo[i - 1].getCodigo()) seguir = false;
         ArrayCatalogo[i].setCodigo(c);
+
+        catalogoRead >> tc; // lee el tipo
         if(tc == 'L') // libros
         {
             ti = 0;
@@ -130,7 +136,7 @@ void Catalogo::insertaEjemplar(char tipo, std::string nombre)
 
 void Catalogo::mostrarCatalogo()
 {
-    for (int i = 0; i < tamArrayCatalogo; i++)
+    for (int i = 0; i < contCatalogo; i++)
     {
         std::cout << ArrayCatalogo[i].getCodigo();
         std::cout << " ";
