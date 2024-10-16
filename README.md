@@ -3,8 +3,8 @@ Prácticas y ejercicios. Curso 2024-2025. Nieves Alonso Gilsanz.
 
 | Práctica | Código |
 |:--:|:--:|
-[Prepráctica 24S](https://github.com/nievesag/Labo-TPV1-v2/blob/main/ej%20lab%2024s/ejercicioLab2.pdf)|[carpeta](https://github.com/nievesag/Labo-TPV1-v2/tree/main/ej%20lab%2024s/ej2)|
-[Práctica 1]()|[carpeta]()|
+[Bibliotecas](https://github.com/nievesag/Labo-TPV1-v2/blob/main/ej%20lab%2024s/ejercicioLab3.pdf)|[carpeta](https://github.com/nievesag/Labo-TPV1-v2/tree/main/ej%20lab%2024s/ej2)|
+[Práctica 1](https://github.com/nievesag/Labo-TPV1-v2/blob/main/Practica%201/enunPract1.pdf)|[carpeta](https://github.com/nievesag/Labo-TPV1-v2/tree/main/Practica%201/plantillaSDL/HolaSDL)|
 [Práctica 2]()|[carpeta]()|
 [Práctica 3]()|[carpeta]()|
 
@@ -14,4 +14,4 @@ Prácticas y ejercicios. Curso 2024-2025. Nieves Alonso Gilsanz.
 
 | Plantilla | Código |
 |:--:|:--:|
-SDL Plantilla|[carpeta](https://github.com/nievesag/Labo-TPV1-v2/tree/main/plantillaSDL)|
+SDL Plantilla|[carpeta]([https://github.com/nievesag/Labo-TPV1-v2/tree/main/plantillaSDL](https://github.com/nievesag/Labo-TPV1-v2/blob/main/plantillaSDL.zip))|
