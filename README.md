@@ -14,4 +14,4 @@ Prácticas y ejercicios. Curso 2024-2025. Nieves Alonso Gilsanz.
 
 | Plantilla | Código |
 |:--:|:--:|
-SDL Plantilla|[carpeta]([https://github.com/nievesag/Labo-TPV1-v2/tree/main/plantillaSDL](https://github.com/nievesag/Labo-TPV1-v2/blob/main/plantillaSDL.zip))|
+SDL Plantilla|[zip](https://github.com/nievesag/Labo-TPV1-v2/blob/main/plantillaSDL.zip)|
