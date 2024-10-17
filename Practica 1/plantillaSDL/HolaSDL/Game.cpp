@@ -1,63 +1,65 @@
-#include <string>
-
 #include "Game.h"
+
+#include <string>
+#include <iostream>
 
 using namespace std;
 
-// Formato de la especificación de una textura
+// Formato de la especificacion de una textura
 struct TextureSpec
 {
-	const char* name;	// Ruta del archivo
-	uint numColumns;	// Número de frames por fila
-	uint numRows;		// Número de frames por columna
+	const char* route;	// Ruta del archivo
+	uint numColumns;	// num de frames por fila, nw
+	uint numRows;		// num de frames por columna, nh
 };
 
-// Directorio raíz de los archivos de textura
-const string textureRoot = "../images/";
+// directorio raiz de los archivos de textura
+const string textureRoot = "../assets/imgs/";
 
-// Especificación de las texturas del juego
-const array<TextureSpec, Game::NUM_TEXTURES> textureSpec{
+// especificacion de las texturas del juego
+const array<TextureSpec, Game::NUM_TEXTURES> textureSpec
+{
 	TextureSpec{"background1.png", 1, 1},
 	{"dog.png", 6, 1},
 	{"helicopter.png", 5, 1},
 };
 
-Game::Game()
- : seguir(true)
+Game::Game() : randomGenerator(time(nullptr)), exit(false)
 {
-	// Inicializa la SDL
+	int winX, winY; // Posici�n de la ventana
+	winX = winY = SDL_WINDOWPOS_CENTERED;
+
+	// Inicializaci�n del sistema, ventana y renderer
 	SDL_Init(SDL_INIT_EVERYTHING);
-	window = SDL_CreateWindow("First test with SDL",
-	                          SDL_WINDOWPOS_CENTERED,
-	                          SDL_WINDOWPOS_CENTERED,
-	                          WIN_WIDTH,
-	                          WIN_HEIGHT,
-	                          SDL_WINDOW_SHOWN);
 
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	// ERRORES DE SDL
+	try 
+	{
+		// crea la ventana
+		window = SDL_CreateWindow("Super Mario", winX, winY, WIN_WIDTH, WIN_HEIGHT, SDL_WINDOW_SHOWN);
 
-	if (window == nullptr || renderer == nullptr)
-		throw "Error cargando SDL"s;
+		// crea el renderer para la ventana
+		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-	// Carga las texturas
-	for (int i = 0; i < NUM_TEXTURES; ++i)
-		textures[i] = new Texture(renderer,
-		                          (textureRoot + textureSpec[i].name).c_str(),
-		                          textureSpec[i].numRows,
-					  textureSpec[i].numColumns);
+		if (window == nullptr || renderer == nullptr)
+			throw "Error cargando ventana de juego o renderer"s;
+	}
+	catch (...) 
+	{
+		std::cout << "Error cargando ventana de juego o renderer";
+		EndGame();
+	}
 
-	// Crea los objetos del juego
-	perro = new Dog(this, -textures[DOG]->getFrameWidth(), 390);
+	init();
 }
 
 Game::~Game()
 {
 	// Elimina los objetos del juego
-	delete perro;
+	
 
 	// Elimina las texturas
-	for (Texture* texture : textures)
-		delete texture;
+	for (Texture* texture : textures) delete texture;
 
 	// Desactiva la SDL
 	SDL_DestroyRenderer(renderer);
@@ -65,57 +67,111 @@ Game::~Game()
 	SDL_Quit();
 }
 
-void
-Game::run()
+// ----- LOGICA DE JUEGO -----
+// cargar | manejar eventos -> actualizar -> pintar -> manejar eventos etc
+
+void Game::init()
 {
-	// Bucle principal del juego
-	while (seguir) {
-		// Marca de tiempo del inicio de la iteración
-		uint32_t inicio = SDL_GetTicks();
-
-		update();       // Actualiza el estado de los objetos del juego
-		render();       // Dibuja los objetos en la venta
-		handleEvents(); // Maneja los eventos de la SDL
-
-		// Tiempo que se ha tardado en ejecutar lo anterior
-		uint32_t elapsed = SDL_GetTicks() - inicio;
-
-		// Duerme el resto de la duraci�n del frame
-		if (elapsed < FRAME_RATE)
-			SDL_Delay(FRAME_RATE - elapsed);
-	}
+	loadTextures();
+	loadMap();
 }
 
-void
-Game::render() const
+// CARGA
+void Game::loadTextures()
 {
-	SDL_RenderClear(renderer);
+	try {
+		// bucle para rellenar el array de texturas
+		for (int i = 0; i < NUM_TEXTURES; i++) {
 
-	// Pinta los objetos del juego
-	textures[BACKGROUND]->render();
-	perro->render();
+			// crea la textura con el url, width y height
+			Texture* tex = new Texture(renderer, 
+								(textureRoot + textureSpec[i].route).c_str(), 
+										textureSpec[i].numRows, 
+										textureSpec[i].numColumns);
 
-	SDL_RenderPresent(renderer);
-}
+			// la mete en el array
+			textures[i] = tex;
 
-void
-Game::update()
-{
-	// Actualiza los objetos del juego
-	perro->update();
-}
-
-void
-Game::handleEvents()
-{
-	// Procesamiento de eventos
-	SDL_Event evento;
-
-	while (SDL_PollEvent(&evento)) {
-		if (evento.type == SDL_QUIT)
-			seguir = false;
-		else if (evento.type == SDL_KEYDOWN) {
-			perro->handleEvent(evento);
+			if (textures[i] == nullptr) 
+			{
+				std::cout << "Textura null";
+			}
 		}
 	}
+	catch (...) {
+		cout << "Textura no encontrada";
+		EndGame();
+	}
+}
+
+void Game::loadMap()
+{
+
+}
+
+// RUN
+void Game::run()
+{
+	// get ticks al inicio del bucle
+	startTime = SDL_GetTicks();
+
+	while (!exit)
+	{
+		handleEvents();
+
+		// tiempo desde ultima actualizacion
+		frameTime = SDL_GetTicks() - startTime;
+
+		if (frameTime > TIME_BT_FRAMES) {
+			update(); // actualiza todos los objetos de juego
+			startTime = SDL_GetTicks();
+		}
+		render(); // renderiza todos los objetos de juego
+	}
+}
+
+// ACTUALIZAR
+void Game::update()
+{
+	
+}
+
+// PINTAR
+void Game::render() const
+{
+	
+}
+
+// MANEJAR EVENTOS
+void Game::handleEvents()
+{
+	SDL_Event event; // crea evento
+
+	// MIENTRAS HAYA EVENTOS
+		// si hay eventos &event se llena con el evento a ejecutar si no NULL
+		// es decir, pollea hasta que se hayan manejado todos los eventos
+	while (SDL_PollEvent(&event) && !exit) {
+
+		// si se solicita quit bool exit = true
+		if (event.type == SDL_QUIT) EndGame();
+
+		// MANEJO DE EVENTOS DE OBJETOS DE JUEGO
+		//else { player->handleEvents(event); }
+	}
+}
+
+// MANEJO DE COLISONES
+void Game::collides()
+{
+	
+}
+
+void Game::EndGame()
+{
+	exit = true;
+}
+
+void Game::playerLives()
+{
+	//cout << "VIDAS RESTANTES: " <<  << endl;
 }

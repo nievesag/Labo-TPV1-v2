@@ -68,16 +68,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Block.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Goomba.cpp" />
+    <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mushroom.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TileMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Block.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Goomba.h" />
+    <ClInclude Include="Koopa.h" />
+    <ClInclude Include="Mushroom.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TileMap.h" />
+    <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
