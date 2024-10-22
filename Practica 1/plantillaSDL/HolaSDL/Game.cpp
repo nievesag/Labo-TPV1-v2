@@ -1,6 +1,8 @@
 #include "Game.h"
 
+
 #include <string>
+#include <fstream>
 #include <iostream>
 
 using namespace std;
@@ -17,11 +19,9 @@ struct TextureSpec
 const string textureRoot = "../assets/imgs/";
 
 // especificacion de las texturas del juego
-const array<TextureSpec, Game::NUM_TEXTURES> textureSpec
-{
-	TextureSpec{"background1.png", 1, 1},
-	{"dog.png", 6, 1},
-	{"helicopter.png", 5, 1},
+const array<TextureSpec, Game::NUM_TEXTURES> textureSpec{
+	TextureSpec{"background.png", 9, 7},
+	{"mario.png", 12, 1},
 };
 
 Game::Game() : randomGenerator(time(nullptr)), exit(false)
@@ -73,7 +73,7 @@ Game::~Game()
 void Game::init()
 {
 	loadTextures();
-	loadMap();
+	loadMap("../assets/maps/world1.csv");
 }
 
 // CARGA
@@ -104,9 +104,39 @@ void Game::loadTextures()
 	}
 }
 
-void Game::loadMap()
+void Game::loadMap(string file)
 {
 
+	ifstream fichero;
+	fichero.open(file);
+	if (!fichero.is_open()) {
+		throw string("fichero de mapa no encontrado");
+	}
+	else {
+		string line;
+		vector<std::string> fila;
+
+		while (getline(fichero, line)) {
+			stringstream ss(line);
+			string num;
+
+			while (getline(ss, num, ',')) {
+				fila.push_back(num);
+			}
+
+			// Imprimir los valores de la fila
+			//for (const auto& elemento : fila) {
+			//	std::cout << elemento << " ";
+			//}
+			//std::cout << std::endl;
+
+		}
+
+		tilemap = new TileMap(this, fila);
+
+	}
+
+	fichero.close();
 }
 
 // RUN
@@ -139,7 +169,13 @@ void Game::update()
 // PINTAR
 void Game::render() const
 {
-	
+	SDL_RenderClear(renderer);
+
+	// Pinta los objetos del juego
+	//textures[BACKGROUND]->render();
+	tilemap->render();
+	// escena en pantalla 
+	SDL_RenderPresent(renderer);
 }
 
 // MANEJAR EVENTOS

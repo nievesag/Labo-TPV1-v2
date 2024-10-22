@@ -2,7 +2,7 @@
 #define GAME_H
 
 // Biblioteca estándar de C++
-#include <array>
+
 
 // Biblioteca SDL
 #include <SDL.h>
@@ -23,23 +23,29 @@
 #include <fstream>
 #include <random>
 #include <time.h>
+#include <sstream> 
 	// classes
 #include "texture.h"
 /*#include "Vector2D.h"
 
 // GAME OBJECTS
+
 #include "Player.h"
 #include "Block.h"
 #include "Goomba.h"
 #include "Mushroom.h"
 #include "Koopa.h"*/
+#include "Tilemap.h"
 
 using uint = unsigned int;
+using namespace std;
 
 // gestion de frames y framerate 
 static constexpr double
 					FRAMERATE = 50,						// frames por segundo
 					TIME_BT_FRAMES = 1 / FRAMERATE;		// tiempo entre frames
+
+class TileMap;
 
 // ------------------------------ GAME ------------------------------
 class Game
@@ -49,8 +55,7 @@ public:
 	// Identificadores de las texturas
 	enum TextureName {
 		BACKGROUND,
-		DOG,
-		HELICOPTER,
+		MARIO,
 		NUM_TEXTURES,  // Truco C++: número de texturas definidas
 	};
 
@@ -77,12 +82,13 @@ private:
 	std::mt19937_64 randomGenerator;
 	uint32_t startTime, frameTime;	// manejo de tiempo en run
 
+
 public:
 	// ---- constructora ----
-	Game::Game();
+	Game();
 
 	// ---- destructora ----
-	Game::~Game();
+	~Game();
 
 	// ---- run ----
 	// inicializa elementos del juego
@@ -117,9 +123,10 @@ public:
 	uint getWinHeight() { return WIN_HEIGHT; }
 	int getMapOffset() { return mapOffset; }
 	Texture* getTexture(TextureName name) const;
+	array<Texture*, NUM_TEXTURES> getTexturesArray() const { return textures; }
 	SDL_Renderer* getRenderer() { return renderer; }
 	bool GetExit() { return exit; }
-	int Game::getRandomRange(int min, int max) { return std::uniform_int_distribution<int>(min, max)(randomGenerator); }
+	int getRandomRange(int min, int max) { return std::uniform_int_distribution<int>(min, max)(randomGenerator); }
 
 	// ----- SETTERS -----
 	void EndGame();
@@ -131,7 +138,7 @@ private:
 	void loadTextures();
 
 	// ---- loadMap ----
-	void loadMap();
+	void loadMap(string file);
 
 	// ---- renderBackground ----
 	void renderBackground();
