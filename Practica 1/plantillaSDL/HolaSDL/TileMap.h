@@ -23,11 +23,12 @@ private:
 
 public:
 	TileMap();
-	TileMap(Game* g, vector<vector<int>> ind);
+	TileMap(Game* g, std::string in);
 	~TileMap();
 
 	void render();
 	void update();
+	void load(std::string file);
 
 	// detecta colisiones
 	void hit();

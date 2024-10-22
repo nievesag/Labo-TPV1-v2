@@ -9,14 +9,46 @@ TileMap::TileMap()
 
 }
 
-TileMap::TileMap(Game* g, vector<vector<int>> ind) : indices(ind), game(g), x(0), y(0)
+TileMap::TileMap(Game* g, std::string in) : game(g)
 {
-	texture = game->getTexture(Game::BACKGROUND);
+	load(in);
 }
 
 TileMap::~TileMap()
 {
 
+}
+
+void TileMap::load(std::string file)
+{
+	ifstream fichero;
+	fichero.open(file);
+	if (!fichero.is_open()) 
+	{
+		throw string("fichero de mapa no encontrado");
+	}
+	else {
+		string line;
+		vector<int> fila;
+
+		while (getline(fichero, line))
+		{
+			std::istringstream stream(line);
+			string num;
+
+			while (getline(stream, num, ','))
+			{
+				std::istringstream convertir(num); // construye flujo temporal istringstream
+				int n;
+				convertir >> n; // el flujo convierte a int desde lectura
+				fila.push_back(n); // mete n a fila
+			}
+
+			indices.push_back(fila); // mete fila a la matriz
+		}
+	}
+
+	fichero.close();
 }
 
 void TileMap::render()

@@ -5,7 +5,6 @@
 #include <SDL.h>
 #include "Vector2D.h"
 #include "texture.h"
-#include <iostream>
 #include <istream>
 
 // es una promesa de la existencia de la clase game
@@ -21,7 +20,7 @@ private:
 	Texture* texture = nullptr;	// puntero a su textura
 	Game* game = nullptr;		// puntero al juego
 
-	int lifes;					// numero de vidas restantes, 3 al inicio
+	int lives;					// numero de vidas restantes, 3 al inicio
 
 	// MOVIMIENTO
 	Point2D<double> position;	// posicion actual en Point2D
@@ -35,7 +34,7 @@ private:
 	SDL_Rect destRect;
 public:
 	Player();
-	Player(Game* game, std::stringstream lineStream);
+	Player(Game* game, std::istream& in);
 };
 
 #endif	

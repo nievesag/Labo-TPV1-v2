@@ -73,7 +73,7 @@ Game::~Game()
 void Game::init()
 {
 	loadTextures();
-	loadMap("../assets/maps/world1.csv");
+	tilemap = new TileMap(this, "../assets/maps/world1.csv");
 	loadObjectMap("../assets/maps/world1.txt");
 }
 
@@ -105,50 +105,10 @@ void Game::loadTextures()
 	}
 }
 
-void Game::loadMap(std::string file)
-{
-	ifstream fichero;
-	fichero.open(file);
-	if (!fichero.is_open()) {
-		throw string("fichero de mapa no encontrado");
-	}
-	else {
-		string line;
-		vector<int> fila;
-		vector<vector<int>> matriz;
-
-		while (getline(fichero, line)) 
-		{
-			std::istringstream stream(line);
-			string num;
-
-			while (getline(stream, num, ','))
-			{
-				std::istringstream convertir(num); // construye flujo temporal istringstream
-				int n;
-				convertir >> n; // el flujo convierte a int desde lectura
-				fila.push_back(n); // mete n a fila
-			}
-
-			matriz.push_back(fila); // mete fila a la matriz
-
-			// Imprimir los valores de la fila
-			//for (const auto& elemento : fila) {
-			//	std::cout << elemento << " ";
-			//}
-			//std::cout << std::endl;
-		}
-
-		tilemap = new TileMap(this, matriz);
-	}
-
-	fichero.close();
-}
-
 void Game::loadObjectMap(const char* mapa)
 {
 	// Carga el mapa
-	istream file(mapa);
+	ifstream file(mapa);
 
 	// Leemos el mapa linea a linea para evitar acarreo de errores
 	// y permitir extensiones del formato
@@ -172,7 +132,6 @@ void Game::loadObjectMap(const char* mapa)
 		case 'B':
 			break;
 		}
-
 	}
 }
 

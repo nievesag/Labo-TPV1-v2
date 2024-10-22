@@ -71,6 +71,13 @@ public:
 		os << "(" << v.x << "," << v.y << ")";
 		return os;
 	}
+
+	// operador entrada consola >>
+	friend std::istream& operator>>(std::istream& is, Vector2D& v)
+	{
+		is >> v.x >> v.y;
+		return is;
+	}
 };
 
 template <class T = int> // int o double?
