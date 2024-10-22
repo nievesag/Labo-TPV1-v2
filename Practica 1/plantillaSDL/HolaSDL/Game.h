@@ -23,16 +23,19 @@
 #include <fstream>
 #include <random>
 #include <time.h>
+#include <string>
+#include <sstream>
 	// classes
 #include "texture.h"
-/*#include "Vector2D.h"
+#include "Vector2D.h"
+class TileMap;
 
 // GAME OBJECTS
 #include "Player.h"
 #include "Block.h"
 #include "Goomba.h"
 #include "Mushroom.h"
-#include "Koopa.h"*/
+#include "Koopa.h"
 
 using uint = unsigned int;
 
@@ -40,6 +43,13 @@ using uint = unsigned int;
 static constexpr double
 					FRAMERATE = 50,						// frames por segundo
 					TIME_BT_FRAMES = 1 / FRAMERATE;		// tiempo entre frames
+
+	// para render de tilemap
+	static constexpr int TILE_SIDE = 32;  // constantes estáticas en Game
+	static constexpr int WINDOW_WIDTH = 18;
+	static constexpr int WINDOW_HEIGHT = 16;
+
+	static int mapOffset = 0; // desplazamiento actual de mapa, llevará la coordenada x del extremo izquierdo de la vista (inicialmente cero)
 
 // ------------------------------ GAME ------------------------------
 class Game
@@ -49,9 +59,8 @@ public:
 	// Identificadores de las texturas
 	enum TextureName {
 		BACKGROUND,
-		DOG,
-		HELICOPTER,
-		NUM_TEXTURES,  // Truco C++: número de texturas definidas
+		MARIO,
+		NUM_TEXTURES  // Truco C++: número de texturas definidas
 	};
 
 
@@ -69,9 +78,10 @@ private:
 
 	bool exit; // salida de juego
 
-	int mapOffset = 0; // desplazamiento actual de mapa
+	TileMap* tilemap = nullptr;
 
 	// declaración de los elementos de juego -> con el tipo vector (?)
+	Player* player = nullptr;
 
 	// crea semilla
 	std::mt19937_64 randomGenerator;
@@ -79,10 +89,10 @@ private:
 
 public:
 	// ---- constructora ----
-	Game::Game();
+	Game();
 
 	// ---- destructora ----
-	Game::~Game();
+	~Game();
 
 	// ---- run ----
 	// inicializa elementos del juego
@@ -119,7 +129,7 @@ public:
 	Texture* getTexture(TextureName name) const;
 	SDL_Renderer* getRenderer() { return renderer; }
 	bool GetExit() { return exit; }
-	int Game::getRandomRange(int min, int max) { return std::uniform_int_distribution<int>(min, max)(randomGenerator); }
+	int getRandomRange(int min, int max) { return std::uniform_int_distribution<int>(min, max)(randomGenerator); }
 
 	// ----- SETTERS -----
 	void EndGame();
@@ -131,7 +141,8 @@ private:
 	void loadTextures();
 
 	// ---- loadMap ----
-	void loadMap();
+	void loadMap(std::string file);
+	void loadObjectMap(const char* mapa);
 
 	// ---- renderBackground ----
 	void renderBackground();

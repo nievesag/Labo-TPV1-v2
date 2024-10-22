@@ -1,6 +1,8 @@
 #ifndef VECTOR2D_H
 #define VECTOR2D_H
 
+#include <ostream>
+
 template <class T>
 class Vector2D
 {
@@ -11,8 +13,8 @@ private:
 	// metodos publicos
 public:
 	// ---- CONSTRUCTORAS ----
-	Vector2D::Vector2D() {}
-	Vector2D::Vector2D(T x, T y)
+	Vector2D() {}
+	Vector2D(T x, T y)
 		: x(x), y(y) {}
 
 	// ---- SETTERS Y GETTERS ----

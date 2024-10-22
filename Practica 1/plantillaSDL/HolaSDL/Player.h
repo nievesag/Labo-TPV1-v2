@@ -5,6 +5,8 @@
 #include <SDL.h>
 #include "Vector2D.h"
 #include "texture.h"
+#include <iostream>
+#include <istream>
 
 // es una promesa de la existencia de la clase game
 // para evitar inclusiones cruzadas
@@ -31,6 +33,9 @@ private:
 
 	// rect destino
 	SDL_Rect destRect;
+public:
+	Player();
+	Player(Game* game, std::stringstream lineStream);
 };
 
 #endif	

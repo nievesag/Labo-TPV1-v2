@@ -2,6 +2,8 @@
 
 #include <string>
 #include <iostream>
+#include <istream>
+#include "TileMap.h"
 
 using namespace std;
 
@@ -17,11 +19,9 @@ struct TextureSpec
 const string textureRoot = "../assets/imgs/";
 
 // especificacion de las texturas del juego
-const array<TextureSpec, Game::NUM_TEXTURES> textureSpec
-{
-	TextureSpec{"background1.png", 1, 1},
-	{"dog.png", 6, 1},
-	{"helicopter.png", 5, 1},
+const array<TextureSpec, Game::NUM_TEXTURES> textureSpec{
+	TextureSpec{"background.png", 9, 7},
+	{"mario.png", 12, 1},
 };
 
 Game::Game() : randomGenerator(time(nullptr)), exit(false)
@@ -73,7 +73,8 @@ Game::~Game()
 void Game::init()
 {
 	loadTextures();
-	loadMap();
+	loadMap("../assets/maps/world1.csv");
+	loadObjectMap("../assets/maps/world1.txt");
 }
 
 // CARGA
@@ -85,9 +86,9 @@ void Game::loadTextures()
 
 			// crea la textura con el url, width y height
 			Texture* tex = new Texture(renderer, 
-								(textureRoot + textureSpec[i].route).c_str(), 
-										textureSpec[i].numRows, 
-										textureSpec[i].numColumns);
+												(textureRoot + textureSpec[i].route).c_str(), 
+												textureSpec[i].numRows, 
+												textureSpec[i].numColumns);
 
 			// la mete en el array
 			textures[i] = tex;
@@ -104,9 +105,75 @@ void Game::loadTextures()
 	}
 }
 
-void Game::loadMap()
+void Game::loadMap(std::string file)
 {
+	ifstream fichero;
+	fichero.open(file);
+	if (!fichero.is_open()) {
+		throw string("fichero de mapa no encontrado");
+	}
+	else {
+		string line;
+		vector<int> fila;
+		vector<vector<int>> matriz;
 
+		while (getline(fichero, line)) 
+		{
+			std::istringstream stream(line);
+			string num;
+
+			while (getline(stream, num, ','))
+			{
+				std::istringstream convertir(num); // construye flujo temporal istringstream
+				int n;
+				convertir >> n; // el flujo convierte a int desde lectura
+				fila.push_back(n); // mete n a fila
+			}
+
+			matriz.push_back(fila); // mete fila a la matriz
+
+			// Imprimir los valores de la fila
+			//for (const auto& elemento : fila) {
+			//	std::cout << elemento << " ";
+			//}
+			//std::cout << std::endl;
+		}
+
+		tilemap = new TileMap(this, matriz);
+	}
+
+	fichero.close();
+}
+
+void Game::loadObjectMap(const char* mapa)
+{
+	// Carga el mapa
+	istream file(mapa);
+
+	// Leemos el mapa linea a linea para evitar acarreo de errores
+	// y permitir extensiones del formato
+	string line;
+	getline(file, line);
+
+	while (!file) 
+	{
+		// Usamos un stringstream para leer la linea como si fuera un flujo
+		stringstream lineStream(line);
+
+		char tipo;
+		lineStream >> tipo;
+
+		switch (tipo) {
+		case 'M':
+			player = new Player(this, lineStream);
+			break;
+		case 'G':
+			break;
+		case 'B':
+			break;
+		}
+
+	}
 }
 
 // RUN
