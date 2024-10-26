@@ -50,7 +50,7 @@ static constexpr double
 	static constexpr int WINDOW_WIDTH = 18;
 	static constexpr int WINDOW_HEIGHT = 16;
 
-	static int mapOffset = 0; // desplazamiento actual de mapa, llevará la coordenada x del extremo izquierdo de la vista (inicialmente cero)
+
 
 // ------------------------------ GAME ------------------------------
 class Game
@@ -87,6 +87,9 @@ private:
 	// crea semilla
 	std::mt19937_64 randomGenerator;
 	uint32_t startTime, frameTime;	// manejo de tiempo en run
+
+	int mapOffset = 0; // desplazamiento actual de mapa, llevará la coordenada x del extremo izquierdo de la vista (inicialmente cero)
+
 
 public:
 	// ---- constructora ----

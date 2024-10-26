@@ -85,13 +85,11 @@ void Game::loadTextures()
 		for (int i = 0; i < NUM_TEXTURES; i++) {
 
 			// crea la textura con el url, width y height
-			Texture* tex = new Texture(renderer, 
-												(textureRoot + textureSpec[i].route).c_str(), 
-												textureSpec[i].numRows, 
-												textureSpec[i].numColumns);
+			textures[i] = new Texture(renderer,
+									(textureRoot + textureSpec[i].route).c_str(), 
+									textureSpec[i].numRows, 
+									textureSpec[i].numColumns);
 
-			// la mete en el array
-			textures[i] = tex;
 
 			if (textures[i] == nullptr) 
 			{
@@ -138,21 +136,25 @@ void Game::loadObjectMap(const char* mapa)
 // RUN
 void Game::run()
 {
+
 	// get ticks al inicio del bucle
 	startTime = SDL_GetTicks();
 
 	while (!exit)
 	{
+		
+		update(); // actualiza todos los objetos de juego
+		render(); // renderiza todos los objetos de juego
 		handleEvents();
 
 		// tiempo desde ultima actualizacion
 		frameTime = SDL_GetTicks() - startTime;
 
 		if (frameTime > TIME_BT_FRAMES) {
-			update(); // actualiza todos los objetos de juego
+			
 			startTime = SDL_GetTicks();
 		}
-		render(); // renderiza todos los objetos de juego
+		
 	}
 }
 
@@ -161,7 +163,7 @@ void Game::update()
 {
 	tilemap->update();
 
-	player->update();
+	//player->update();
 }
 
 // PINTAR
@@ -171,10 +173,10 @@ void Game::render() const
 	SDL_RenderClear(renderer);
 
 	// render mapa
-	tilemap->render();
+	//tilemap->render();
 
 	// render mario
-	player->render();
+	//player->render();
 
 	// presenta la escena en pantalla
 	SDL_RenderPresent(renderer);
@@ -192,9 +194,16 @@ void Game::handleEvents()
 
 		// si se solicita quit bool exit = true
 		if (event.type == SDL_QUIT) EndGame();
-
-		// MANEJO DE EVENTOS DE OBJETOS DE JUEGO
-		else { player->handleEvents(event); }
+		else if (event.type == SDL_KEYDOWN)
+		{
+			if (event.key.keysym.sym == SDLK_RIGHT)
+			{
+				mapOffset++;
+				cout << "sisisisi";
+			}
+			// MANEJO DE EVENTOS DE OBJETOS DE JUEGO
+			//else { player->handleEvents(event); }
+		}
 	}
 }
 

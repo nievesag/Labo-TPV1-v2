@@ -19,6 +19,7 @@ using uint = unsigned int;
 
 int main(int argc, char* argv[])
 {
+	cout << "hola";
 	Game game;
 
 	game.run();
