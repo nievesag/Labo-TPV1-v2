@@ -7,11 +7,18 @@ Player::Player(Game* g, std::istream& in)
 {
 	in >> position; // pos de mario
 	in >> lives;	// num de vidas
+	direction = Vector2D<int>(1,0);
+
+	texture = game->getTexture(Game::MARIO); // textura inicial de mario
+
+	marioFrame = 0;
+
+	marioState = 'm';
 }
 
 void Player::render() const
 {
-	texture->render(destRect);
+	texture->renderFrame(destRect, 0, marioFrame);
 }
 
 void Player::update()
@@ -83,23 +90,38 @@ void Player::moveMario()
 	// PARAR
 	if (keyA == keyD) // si se pulsan 2 teclas a la vez
 	{
-		direction = Vector2D<double>(0, 0);
+		direction = Vector2D<int>(0, 0);
 	}
 	// MOVER
 	else if (keyA != keyD) // si NO se pulsan 2 teclas a la vez
 	{
 		// -- IZQ
 		// direction X = -1
-		if (keyA) direction = Vector2D<double>(-1, 0);
+		if (keyA) direction = Vector2D<int>(-1, 0);
 		// -- DER
 		// direction X = +1
-		else if (keyD) direction = Vector2D<double>(1, 0);
+		else if (keyD) direction = Vector2D<int>(1, 0);
+		// -- SALTO
+		else if (keySpace && grounded)
+		{
+			grounded = false;
+			direction = direction + Vector2D<int>(0, 1);
+		}
 	}
+	// -- AGACHARSE
+	// solo si es supermario
+	// if (keyS && (marioState == 's')) ;
+
 	// SALIR
 	if (keyE) game->EndGame();
 
-	// se mueve la mario
+	// se mueve a mario
 	position.setX(position.getX() + (direction.getX() * MARIO_SPEED));
+
+	if(!grounded)
+	{
+		position.setY(position.getY() + (direction.getY() * MARIO_SPEED));
+	}
 
 	// para que no se salga por la izq, lo que ya se ha movido
 	if (position.getX() < 0) position.setX(0);
