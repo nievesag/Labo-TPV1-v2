@@ -74,8 +74,8 @@ private:
 	SDL_Renderer* renderer = nullptr; // puntero a Renderizador de la SDL (para dibujar)
 
 	// Constante globales
-	static constexpr uint WIN_WIDTH = 800;  // ancho ventana
-	static constexpr uint WIN_HEIGHT = 600; // alto ventana
+	static constexpr uint WIN_WIDTH = TILE_SIDE * WINDOW_WIDTH;  // ancho ventana
+	static constexpr uint WIN_HEIGHT = TILE_SIDE * WINDOW_HEIGHT; // alto ventana
 
 	bool exit; // salida de juego
 

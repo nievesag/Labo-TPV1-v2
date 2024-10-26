@@ -9,7 +9,7 @@
 using namespace std;
 using uint = unsigned int;
 
-//class Game;
+class Game;
 
 // dibuja el fondo y los obstaculos segun avanza el personaje
 class TileMap
@@ -34,5 +34,4 @@ public:
 	// detecta colisiones
 	void hit();
 
-	void setBackground(Texture* bg) { background = bg; }
 };

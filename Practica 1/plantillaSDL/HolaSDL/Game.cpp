@@ -172,8 +172,11 @@ void Game::render() const
 	// limpia pantalla
 	SDL_RenderClear(renderer);
 
+	//Fondo azul
+	SDL_SetRenderDrawColor(renderer, 138, 132, 255, 255);
+
 	// render mapa
-	//tilemap->render();
+	tilemap->render();
 
 	// render mario
 	//player->render();
@@ -199,7 +202,7 @@ void Game::handleEvents()
 			if (event.key.keysym.sym == SDLK_RIGHT)
 			{
 				mapOffset++;
-				cout << "sisisisi";
+				
 			}
 			// MANEJO DE EVENTOS DE OBJETOS DE JUEGO
 			//else { player->handleEvents(event); }
