@@ -159,13 +159,25 @@ void Game::run()
 // ACTUALIZAR
 void Game::update()
 {
-	
+	tilemap->update();
+
+	player->update();
 }
 
 // PINTAR
 void Game::render() const
 {
-	
+	// limpia pantalla
+	SDL_RenderClear(renderer);
+
+	// render mapa
+	tilemap->render();
+
+	// render mario
+	player->render();
+
+	// presenta la escena en pantalla
+	SDL_RenderPresent(renderer);
 }
 
 // MANEJAR EVENTOS
@@ -182,7 +194,7 @@ void Game::handleEvents()
 		if (event.type == SDL_QUIT) EndGame();
 
 		// MANEJO DE EVENTOS DE OBJETOS DE JUEGO
-		//else { player->handleEvents(event); }
+		else { player->handleEvents(event); }
 	}
 }
 

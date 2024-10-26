@@ -19,7 +19,10 @@ private:
 	Texture* texture = nullptr;	// puntero a su textura
 	Game* game = nullptr;		// puntero al juego
 
+	int maxLives = 3;
 	int lives;					// numero de vidas restantes, 3 al inicio
+
+	bool isAlive = true;
 
 	// MOVIMIENTO
 	Point2D<double> position;	// posicion actual en Point2D
@@ -48,7 +51,7 @@ public:
 	void update();
 
 	// -- handleEvent --     
-	void handleEvent(const SDL_Event& event);
+	void handleEvents(const SDL_Event& event);
 
 	// -- hit --
 	void hit(SDL_Rect* rect);

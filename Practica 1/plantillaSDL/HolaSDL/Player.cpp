@@ -17,9 +17,11 @@ void Player::render() const
 void Player::update()
 {
 	moveMario();
+
+	updateRect();
 }
 
-void Player::handleEvent(const SDL_Event& event)
+void Player::handleEvents(const SDL_Event& event)
 {
 	// escanea y evalua que tecla has tocado
 	SDL_Scancode key = event.key.keysym.scancode;
@@ -65,7 +67,8 @@ void Player::handleEvent(const SDL_Event& event)
 
 void Player::hit(SDL_Rect* rect)
 {
-	lives--;
+	if (lives > 0) lives--;
+	else isAlive = false;
 }
 
 void Player::updateRect()
