@@ -42,7 +42,8 @@ using uint = unsigned int;
 // gestion de frames y framerate 
 static constexpr double
 					FRAMERATE = 50,						// frames por segundo
-					TIME_BT_FRAMES = 1 / FRAMERATE;		// tiempo entre frames
+					TIME_BT_FRAMES = 1 / FRAMERATE,		// tiempo entre frames
+					MARIO_SPEED = 1 * TIME_BT_FRAMES;	// velocidad de mario
 
 	// para render de tilemap
 	static constexpr int TILE_SIDE = 32;  // constantes estáticas en Game

@@ -7,7 +7,6 @@
 #include "texture.h"
 #include <istream>
 
-// es una promesa de la existencia de la clase game
 // para evitar inclusiones cruzadas
 class Game;
 
@@ -27,14 +26,38 @@ private:
 	Vector2D<double> direction;	// direccion de movimiento
 	float speed = 0.05;			// velocidad de movimiento
 
-	// input
-	bool keyA = false, keyD = false, keySpace = false;
+	// INPUT
+	// flags para control de input
+	bool keyA = false, keyD = false, keyS = false, keySpace = false, keyE = false;
 
 	// rect destino
 	SDL_Rect destRect;
+
 public:
-	Player();
-	Player(Game* game, std::istream& in);
+	Player(Game* g, std::istream& i); // no se si pasarle la textura
+
+	// -- render --
+	void render() const;
+
+	// -- update --
+	// movimiento:
+	// Es importante no realizar la actualizacion de la pos directamente
+	// al pulsar la tecla, sino a traves de la dir, porque si no Mario se desplazara a trompicones
+	// Si se pulsa la barra espaciadora y esta apoyado sobre un obstaculo, Mario saltara hasta
+	// alcanzar una determinada altura o colisionar con un objeto, momento en el que empezara a caer
+	void update();
+
+	// -- handleEvent --     
+	void handleEvent(const SDL_Event& event);
+
+	// -- hit --
+	void hit(SDL_Rect* rect);
+
+	//
+	void updateRect();
+
+private:
+	void moveMario();
 };
 
 #endif	
