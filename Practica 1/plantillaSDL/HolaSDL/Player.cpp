@@ -110,6 +110,11 @@ void Player::moveMario() {
 	}
 	else if (keyD) {
 		position.setX(position.getX() + step);
+		if (position.getX() >= TILE_SIDE * WINDOW_WIDTH / 2) {
+			game->addMapOffset(5);
+			
+		}
+		cout << position.getX() << endl;
 		keyD = false;
 	}
 
@@ -131,44 +136,46 @@ void Player::moveMario() {
 			position.setY(13);  // Ajustar posici�n al suelo
 			grounded = true;  // Restablecer el estado de aterrizaje
 			direction.setY(0);  // Reiniciar la direcci�n vertical
-	// MOVER
-	else if ((keyA != keyD) && grounded) // si NO se pulsan 2 teclas a la vez y esta en el suelo
-	{
-		// -- IZQ
-		// direction X = -1
-		if (keyA) direction = Vector2D<int>(-1, 0);
-		// -- DER
-		// direction X = +1
-		else if (keyD) direction = Vector2D<int>(1, 0);
-		// -- SALTO
-		else if (keySpace)
-		{
-			direction = direction + Vector2D<int>(0, 1);
-			maxHeight = position.getY() + 4 * TILE_SIDE;
-			grounded = false;
 		}
 	}
+	//// MOVER
+	// if ((keyA != keyD) && grounded) // si NO se pulsan 2 teclas a la vez y esta en el suelo
+	//{
+	//	// -- IZQ
+	//	// direction X = -1
+	//	if (keyA) direction = Vector2D<int>(-1, 0);
+	//	// -- DER
+	//	// direction X = +1
+	//	else if (keyD) direction = Vector2D<int>(1, 0);
+	//	// -- SALTO
+	//	else if (keySpace)
+	//	{
+	//		direction = direction + Vector2D<int>(0, 1);
+	//		maxHeight = position.getY() + 4 * TILE_SIDE;
+	//		grounded = false;
+	//	}
+	//}
 
-	// Limitar el movimiento horizontal al �rea del juego
-	if (position.getX() < 0) position.setX(0);  // L�mite a la izquierda
+	//// Limitar el movimiento horizontal al �rea del juego
+	//if (position.getX() < 0) position.setX(0);  // L�mite a la izquierda
 
-	// se mueve a mario
-	position.setX(position.getX() + (direction.getX() * MARIO_SPEED));
+	//// se mueve a mario
+	//position.setX(position.getX() + (direction.getX() * MARIO_SPEED));
 
-	// 
-	if(!grounded && position.getY() < maxHeight)
-	{
-		position.setY(position.getY() + (direction.getY() * MARIO_SPEED));
-	}
-	// llega a altura max
-	if(!grounded && position.getY() >= maxHeight)
-	{
-		position.setY(position.getY() - (direction.getY() * MARIO_SPEED));
-	}
+	//// 
+	//if(!grounded && position.getY() < maxHeight)
+	//{
+	//	position.setY(position.getY() + (direction.getY() * MARIO_SPEED));
+	//}
+	//// llega a altura max
+	//if(!grounded && position.getY() >= maxHeight)
+	//{
+	//	position.setY(position.getY() - (direction.getY() * MARIO_SPEED));
+	//}
 
-	// comprobar si se esta en el suelo
-	if(position.getY() == groundedYPos) grounded = true;
+	//// comprobar si se esta en el suelo
+	//if(position.getY() == groundedYPos) grounded = true;
 
-	// para que no se salga por la izq, lo que ya se ha movido
-	if (position.getX() < 0) position.setX(0);
+	//// para que no se salga por la izq, lo que ya se ha movido
+	//if (position.getX() < 0) position.setX(0);
 }
