@@ -129,6 +129,7 @@ public:
 	uint getWinWidth() { return WIN_HEIGHT; }
 	uint getWinHeight() { return WIN_HEIGHT; }
 	int getMapOffset() { return mapOffset; }
+	
 	Texture* getTexture(TextureName name) const;
 	SDL_Renderer* getRenderer() { return renderer; }
 	bool GetExit() { return exit; }
@@ -137,6 +138,7 @@ public:
 	// ----- SETTERS -----
 	void EndGame();
 	void setExit(bool aux) { exit = aux; }
+	void addMapOffset(int newOffset) { mapOffset += newOffset; }
 
 private:
 	// ---- loadTexture ----

@@ -20,19 +20,18 @@ Player::Player(Game* g, std::istream& in)
 
 void Player::render() const
 {
+
+	SDL_Rect destRect;
 	// tamanio
-	int w = destRect.w;
-	w = texture->getFrameWidth();
-	int h = destRect.h;
-	h = texture->getFrameHeight();
+	destRect.w = texture->getFrameWidth();
+	destRect.h = texture->getFrameHeight();
 
-	// posicion
-	int x = destRect.x;
-	x = position.getX() * TILE_SIDE;
-	int y = destRect.y;
-	y = position.getY() * TILE_SIDE;
+	//posicion
+	destRect.x = position.getX() * TILE_SIDE;
+	destRect.y = position.getY() * TILE_SIDE;
 
-	texture->renderFrame(destRect, 0, marioFrame);
+
+	texture->renderFrame(destRect, 0, 0);
 }
 
 void Player::update()
@@ -95,54 +94,46 @@ void Player::hit(SDL_Rect* rect)
 void Player::updateRect()
 {
 	// posicion
-	destRect.x = position.getX();
-	destRect.y = position.getY();
+	/*destRect.x = position.getX();
+	destRect.y = position.getY();*/
 }
 
-void Player::moveMario()
-{
-	// PARAR
-	if (keyA == keyD) // si se pulsan 2 teclas a la vez
-	{
-		direction = Vector2D<int>(0, 0);
+void Player::moveMario() {
+	const float step = 1.0f;
+
+	// Movimiento horizontal
+	if (keyA) {
+		position.setX(position.getX() - step);
+		keyA = false;
 	}
-	// MOVER
-	else if (keyA != keyD) // si NO se pulsan 2 teclas a la vez
-	{
-		// -- IZQ
-		// direction X = -1
-		if (keyA) direction = Vector2D<int>(-1, 0);
-		// -- DER
-		// direction X = +1
-		else if (keyD) direction = Vector2D<int>(1, 0);
-		// -- SALTO
-		else if (keySpace && grounded)
-		{
-			direction = direction + Vector2D<int>(0, 1);
-			maxHeight = position.getY() + 4 * TILE_SIDE;
-			grounded = false;
+	else if (keyD) {
+		position.setX(position.getX() + step);
+		keyD = false;
+	}
+
+	// Control del salto
+	if (keySpace && grounded) {
+		direction.setY(-5.0f);  // Velocidad inicial de salto
+		grounded = false;  // en el aire
+		keySpace = false;  // Resetea el salto hasta la siguiente pulsación
+	}
+
+	if (!grounded) {
+		direction.setY(direction.getY() + 0.3f);  // Gravedad aplicada
+
+		// Actualizar la posición de Mario
+		position.setY(position.getY() + direction.getY());
+
+		// Chequeo de colisión con el suelo
+		if (position.getY() >= 13) {  // Detectar el suelo
+			position.setY(13);  // Ajustar posición al suelo
+			grounded = true;  // Restablecer el estado de aterrizaje
+			direction.setY(0);  // Reiniciar la dirección vertical
 		}
 	}
-	// -- AGACHARSE
-	// solo si es supermario
-	// if (keyS && (marioState == 's')) ;
 
-	// SALIR
-	if (keyE) game->EndGame();
+	// Limitar el movimiento horizontal al área del juego
+	if (position.getX() < 0) position.setX(0);  // Límite a la izquierda
 
-	// se mueve a mario
-	position.setX(position.getX() + (direction.getX() * MARIO_SPEED));
-
-	// si 
-	if(!grounded && position.getY() < maxHeight)
-	{
-		position.setY(position.getY() + (direction.getY() * MARIO_SPEED));
-	}
-	else if(position.getY() == maxHeight)
-	{
-		
-	}
-
-	// para que no se salga por la izq, lo que ya se ha movido
-	if (position.getX() < 0) position.setX(0);
+	cout << position.getY() << endl;
 }

@@ -215,7 +215,7 @@ void Game::handleEvents()
 		{
 			if (event.key.keysym.sym == SDLK_RIGHT)
 			{
-				mapOffset++;
+				mapOffset+= 10;
 			}
 			// MANEJO DE EVENTOS DE OBJETOS DE JUEGO
 			else { player->handleEvents(event); }

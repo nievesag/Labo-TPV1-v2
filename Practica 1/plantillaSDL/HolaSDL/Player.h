@@ -6,11 +6,15 @@
 #include "Vector2D.h"
 #include "texture.h"
 #include <istream>
+#include <iostream>
+#include <fstream>
+#include <string>
 
 // para evitar inclusiones cruzadas
 class Game;
 
 using uint = unsigned int;
+using namespace std;
 
 class Player
 {
@@ -39,6 +43,7 @@ private:
 	// INPUT
 	// flags para control de input
 	bool keyA = false, keyD = false, keyS = false, keySpace = false, keyE = false;
+
 
 	// rect destino
 	SDL_Rect destRect;
