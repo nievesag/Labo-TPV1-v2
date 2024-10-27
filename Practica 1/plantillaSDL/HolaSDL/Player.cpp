@@ -6,7 +6,7 @@ Player::Player(Game* g, std::istream& in)
 	: game(g)
 {
 	in >> position; // pos de mario
-	position = position - Point2D<double>(0, 1);
+	position = position - Point2D<double>(0, 1); // coloca bien a mario
 	in >> lives;	// num de vidas
 	direction = Vector2D<int>(0,0);
 
@@ -107,36 +107,6 @@ void Player::updateRect()
 
 void Player::moveMario()
 {
-	// Es importante no realizar la actualizacion
-	// de la posición directamente al pulsar la tecla, sino a través de la dir,
-	// porque si no Mario se desplazara a trompicones.
-
-	/*
-	if (position.getX() >= TILE_SIDE * WINDOW_WIDTH / 2)
-	{
-		game->addMapOffset(5);
-	}
-
-	if (keySpace && grounded)
-	{
-		direction.setY(-5.0f);
-		grounded = false;
-		keySpace = false;
-
-		if (!grounded)
-		{
-			direction.setY(direction.getY() + 0.3f);
-			position.setY(position.getY() + direction.getY());
-
-			if (position.getY() >= 13)
-			{
-				position.setY(13);
-				grounded = true;
-				direction.setY(0);
-			}
-		}
-	}*/
-
 	Vector2D<double> dir(0, 0);
 
 	// se queda quieto
@@ -164,7 +134,9 @@ void Player::moveMario()
 	else if (keySpace)
 	{
 		direction = direction + Vector2D<int>(0, -1);
-		maxHeight = position.getY() + 4 * TILE_SIDE;
+		cout << position.getY() << endl;
+		//maxHeight = position.getY() - 1; // por algun motivo si pongo a capon 12 si va????
+		maxHeight = 12;
 		grounded = false;
 	}
 	else if(keyDer)
@@ -174,17 +146,23 @@ void Player::moveMario()
 
 	// se mueve a mario
 	position.setX(position.getX() + (dir.getX() * MARIO_SPEED));
-	//cout << keyD << endl;
 
-	// salto
-	if(!grounded && position.getY() < maxHeight)
+	// esta saltando
+	if(!grounded)
 	{
-		position.setY(position.getY() + (direction.getY() * MARIO_SPEED));
-	}
-	// llega a altura max
-	if(!grounded && position.getY() >= maxHeight)
-	{
-		position.setY(position.getY() - (direction.getY() * MARIO_SPEED));
+		// no ha llegado a la altura max
+		if(position.getY() > maxHeight)
+		{
+			position.setY(position.getY() + (direction.getY() * MARIO_SPEED));
+		}
+		// llega a altura max
+		else if(position.getY() < maxHeight-1)
+		{
+			position.setY(0); // debug
+			//position.setY(position.getY() - (direction.getY() * MARIO_SPEED));
+		}
+
+		cout << position.getY() << endl;
 	}
 
 	// comprobar si se esta en el suelo

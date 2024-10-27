@@ -35,7 +35,7 @@ private:
 
 	bool grounded;		// si esta en el suelo, solo puede saltar cuando lo este
 	double groundedYPos;	// posicion en el suelo
-	double maxHeight;
+	int maxHeight;
 	
 	char marioState; // m(mario), s(supermario)
 
