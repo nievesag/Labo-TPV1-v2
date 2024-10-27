@@ -6,7 +6,7 @@ Player::Player(Game* g, std::istream& in)
 	: game(g)
 {
 	in >> position; // pos de mario
-	//position = position - Point2D<double>(0, 1);
+	position = position - Point2D<double>(0, 1);
 	in >> lives;	// num de vidas
 	direction = Vector2D<int>(0,0);
 
@@ -118,8 +118,9 @@ void Player::moveMario()
 		// -- SALTO
 		else if (keySpace && grounded)
 		{
-			grounded = false;
 			direction = direction + Vector2D<int>(0, 1);
+			maxHeight = position.getY() + 4 * TILE_SIDE;
+			grounded = false;
 		}
 	}
 	// -- AGACHARSE
@@ -132,9 +133,14 @@ void Player::moveMario()
 	// se mueve a mario
 	position.setX(position.getX() + (direction.getX() * MARIO_SPEED));
 
-	if(!grounded)
+	// si 
+	if(!grounded && position.getY() < maxHeight)
 	{
 		position.setY(position.getY() + (direction.getY() * MARIO_SPEED));
+	}
+	else if(position.getY() == maxHeight)
+	{
+		
 	}
 
 	// para que no se salga por la izq, lo que ya se ha movido

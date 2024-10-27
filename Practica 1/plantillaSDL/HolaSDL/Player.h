@@ -29,6 +29,7 @@ private:
 	Vector2D<int> direction;	// direccion de movimiento
 	float speed = 0.05;			// velocidad de movimiento
 	bool grounded;		// si esta en el suelo, solo puede saltar cuando lo este
+	double maxHeight;
 
 	char marioState; // m(mario), s(supermario)
 

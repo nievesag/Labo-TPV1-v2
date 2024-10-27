@@ -138,7 +138,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 
 		switch (tipo) {
 		case 'M':
-			player = new Player(this, lineStream);
+			this->player = new Player(this, lineStream);
 			break;
 		case 'G':
 			break;
@@ -153,7 +153,6 @@ void Game::loadObjectMap(std::ifstream& mapa)
 // RUN
 void Game::run()
 {
-
 	// get ticks al inicio del bucle
 	startTime = SDL_GetTicks();
 
@@ -166,11 +165,10 @@ void Game::run()
 		// tiempo desde ultima actualizacion
 		frameTime = SDL_GetTicks() - startTime;
 
-		if (frameTime > TIME_BT_FRAMES) {
-			
+		if (frameTime > TIME_BT_FRAMES) 
+		{
 			startTime = SDL_GetTicks();
 		}
-		
 	}
 }
 

@@ -63,10 +63,10 @@ void TileMap::render()
 	{
 		for (int j = 0; j < WINDOW_HEIGHT; ++j) 
 		{
-			// ?ndice en el conjunto de patrones de la matriz de ?ndices
+			// indice en el conjunto de patrones de la matriz de ?ndices
 			int indice = indices[j][i + x0];
 
-			// Separa n?mero de fila y de columna
+			// Separa numero de fila y de columna
 			int fx = indice % 9;
 			int fy = indice / 9;
 
@@ -75,8 +75,6 @@ void TileMap::render()
 
 			// Usa renderFrame para pintar la tesela
 			texture->renderFrame(rect, fy, fx);
-			
-
 		}
 	}
 }
