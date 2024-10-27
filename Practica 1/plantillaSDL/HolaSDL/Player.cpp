@@ -21,12 +21,16 @@ Player::Player(Game* g, std::istream& in)
 void Player::render() const
 {
 	// tamanio
-	destRect.w = texture->getFrameWidth();
-	destRect.h = texture->getFrameHeight();
+	int w = destRect.w;
+	w = texture->getFrameWidth();
+	int h = destRect.h;
+	h = texture->getFrameHeight();
 
 	// posicion
-	destRect.x = position.getX() * TILE_SIDE;
-	destRect.y = position.getY() * TILE_SIDE;
+	int x = destRect.x;
+	x = position.getX() * TILE_SIDE;
+	int y = destRect.y;
+	y = position.getY() * TILE_SIDE;
 
 	texture->renderFrame(destRect, 0, marioFrame);
 }

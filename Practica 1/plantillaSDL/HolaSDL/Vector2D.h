@@ -6,7 +6,7 @@
 // !!! por las plantillas usar definiciones de funciones en el h ->
 // el codigo depende del argumento que le pases (codigo no cerrado)
 
-template <typename T>
+template <class T>
 class Vector2D
 {
 	// variables privadas
@@ -16,13 +16,14 @@ private:
 	// metodos publicos
 public:
 	// ---- CONSTRUCTORAS ----
-	Vector2D(T x, T y)
-		: x(x), y(y) {}
+	Vector2D() {}
+	Vector2D(T _x, T _y)
+		: x(_x), y(_y) {}
 
 	// ---- SETTERS Y GETTERS ----
 	// ---- getters ----
-	T getX() { return x; }
-	T getY() { return y; }
+	T getX() const { return x; }
+	T getY() const { return y; }
 	// ---- setters ----
 	void setX(T newX) { x = newX; }
 	void setY(T newY) { y = newY; }
