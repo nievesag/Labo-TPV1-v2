@@ -73,8 +73,26 @@ Game::~Game()
 void Game::init()
 {
 	loadTextures();
-	tilemap = new TileMap(this, "../assets/maps/world1.csv");
-	loadObjectMap("../assets/maps/world1.txt");
+
+	// TILEMAP
+	std::ifstream tiles("../assets/maps/world1.csv");
+	// control de errores
+	if (!tiles.is_open()) 
+	{
+		std::cout << "Error cargando el tilemap";
+	}
+	tilemap = new TileMap(this, tiles);
+	tiles.close();
+
+	// MAPA
+	std::ifstream mapa("../assets/maps/world1.txt");
+	// control de errores
+	if (!mapa.is_open())
+	{
+		std::cout << "Error cargando el mapa";
+	}
+	loadObjectMap(mapa);
+	mapa.close();
 }
 
 // CARGA
@@ -103,17 +121,14 @@ void Game::loadTextures()
 	}
 }
 
-void Game::loadObjectMap(const char* mapa)
+void Game::loadObjectMap(std::ifstream& mapa)
 {
-	// Carga el mapa
-	ifstream file(mapa);
-
 	// Leemos el mapa linea a linea para evitar acarreo de errores
 	// y permitir extensiones del formato
 	string line;
-	getline(file, line);
+	getline(mapa, line);
 
-	while (!file) 
+	while (mapa) 
 	{
 		// Usamos un stringstream para leer la linea como si fuera un flujo
 		stringstream lineStream(line);
@@ -130,6 +145,8 @@ void Game::loadObjectMap(const char* mapa)
 		case 'B':
 			break;
 		}
+
+		getline(mapa, line);
 	}
 }
 
@@ -142,7 +159,6 @@ void Game::run()
 
 	while (!exit)
 	{
-		
 		update(); // actualiza todos los objetos de juego
 		render(); // renderiza todos los objetos de juego
 		handleEvents();
@@ -179,7 +195,7 @@ void Game::render() const
 	tilemap->render();
 
 	// render mario
-	//player->render();
+	player->render();
 
 	// presenta la escena en pantalla
 	SDL_RenderPresent(renderer);

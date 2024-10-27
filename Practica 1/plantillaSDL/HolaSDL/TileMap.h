@@ -24,12 +24,12 @@ private:
 
 public:
 	TileMap();
-	TileMap(Game* g, std::string in);
+	TileMap(Game* g, std::istream& in);
 	~TileMap();
 
 	void render();
 	void update();
-	void load(std::string file);
+	void load(std::istream& file);
 
 	// detecta colisiones
 	void hit();

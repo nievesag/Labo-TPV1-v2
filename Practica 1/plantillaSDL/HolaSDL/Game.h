@@ -145,7 +145,7 @@ private:
 	void loadTextures();
 
 	// ---- loadMap ----
-	void loadObjectMap(const char* mapa);
+	void loadObjectMap(std::ifstream& mapa);
 
 	// ---- renderBackground ----
 	void renderBackground();

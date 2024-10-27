@@ -9,7 +9,7 @@ TileMap::TileMap()
 
 }
 
-TileMap::TileMap(Game* g, std::string in) : game(g)
+TileMap::TileMap(Game* g, std::istream& in) : game(g)
 {
 	load(in);
 	texture = game->getTexture(Game::BACKGROUND);
@@ -20,11 +20,11 @@ TileMap::~TileMap()
 
 }
 
-void TileMap::load(std::string file)
+void TileMap::load(std::istream& file)
 {
 	std::ifstream archivo("../assets/maps/world1.csv");
 	if (!archivo.is_open()) {
-		std::cerr << "Error al abrir el archivo: " << file << std::endl;
+		std::cerr << "Error al abrir el archivo" << std::endl;
 		return;
 	}
 
