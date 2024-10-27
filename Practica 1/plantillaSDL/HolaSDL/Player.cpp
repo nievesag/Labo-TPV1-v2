@@ -16,6 +16,8 @@ Player::Player(Game* g, std::istream& in)
 
 	marioState = 'm';
 	grounded = true;
+
+	groundedYPos = position.getY();
 }
 
 void Player::render() const
@@ -107,7 +109,7 @@ void Player::moveMario()
 		direction = Vector2D<int>(0, 0);
 	}
 	// MOVER
-	else if (keyA != keyD) // si NO se pulsan 2 teclas a la vez
+	else if ((keyA != keyD) && grounded) // si NO se pulsan 2 teclas a la vez y esta en el suelo
 	{
 		// -- IZQ
 		// direction X = -1
@@ -116,7 +118,7 @@ void Player::moveMario()
 		// direction X = +1
 		else if (keyD) direction = Vector2D<int>(1, 0);
 		// -- SALTO
-		else if (keySpace && grounded)
+		else if (keySpace)
 		{
 			direction = direction + Vector2D<int>(0, 1);
 			maxHeight = position.getY() + 4 * TILE_SIDE;
@@ -133,15 +135,19 @@ void Player::moveMario()
 	// se mueve a mario
 	position.setX(position.getX() + (direction.getX() * MARIO_SPEED));
 
-	// si 
+	// 
 	if(!grounded && position.getY() < maxHeight)
 	{
 		position.setY(position.getY() + (direction.getY() * MARIO_SPEED));
 	}
-	else if(position.getY() == maxHeight)
+	// llega a altura max
+	if(!grounded && position.getY() >= maxHeight)
 	{
-		
+		position.setY(position.getY() - (direction.getY() * MARIO_SPEED));
 	}
+
+	// comprobar si se esta en el suelo
+	if(position.getY() == groundedYPos) grounded = true;
 
 	// para que no se salga por la izq, lo que ya se ha movido
 	if (position.getX() < 0) position.setX(0);

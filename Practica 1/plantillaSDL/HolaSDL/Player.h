@@ -28,9 +28,11 @@ private:
 	Point2D<double> position;	// posicion actual en Point2D
 	Vector2D<int> direction;	// direccion de movimiento
 	float speed = 0.05;			// velocidad de movimiento
-	bool grounded;		// si esta en el suelo, solo puede saltar cuando lo este
-	double maxHeight;
 
+	bool grounded;		// si esta en el suelo, solo puede saltar cuando lo este
+	double groundedYPos;	// posicion en el suelo
+	double maxHeight;
+	
 	char marioState; // m(mario), s(supermario)
 
 	// ANIMACION
