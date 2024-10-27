@@ -6,18 +6,28 @@ Player::Player(Game* g, std::istream& in)
 	: game(g)
 {
 	in >> position; // pos de mario
+	//position = position - Point2D<double>(0, 1);
 	in >> lives;	// num de vidas
-	direction = Vector2D<int>(1,0);
+	direction = Vector2D<int>(0,0);
 
 	texture = game->getTexture(Game::MARIO); // textura inicial de mario
 
 	marioFrame = 0;
 
 	marioState = 'm';
+	grounded = true;
 }
 
 void Player::render() const
 {
+	// tamanio
+	destRect.w = texture->getFrameWidth();
+	destRect.h = texture->getFrameHeight();
+
+	// posicion
+	destRect.x = position.getX() * TILE_SIDE;
+	destRect.y = position.getY() * TILE_SIDE;
+
 	texture->renderFrame(destRect, 0, marioFrame);
 }
 

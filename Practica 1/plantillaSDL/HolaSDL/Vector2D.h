@@ -3,7 +3,10 @@
 
 #include <ostream>
 
-template <class T>
+// !!! por las plantillas usar definiciones de funciones en el h ->
+// el codigo depende del argumento que le pases (codigo no cerrado)
+
+template <typename T>
 class Vector2D
 {
 	// variables privadas
@@ -13,7 +16,6 @@ private:
 	// metodos publicos
 public:
 	// ---- CONSTRUCTORAS ----
-	Vector2D() {}
 	Vector2D(T x, T y)
 		: x(x), y(y) {}
 
@@ -80,9 +82,8 @@ public:
 	}
 };
 
-template <class T = int> // int o double?
-
 // establecer alias Point2D
-using Point2D = Vector2D<T>;
+// igualar T a int o double??
+template <class T> using Point2D = Vector2D<T>;
 
 #endif

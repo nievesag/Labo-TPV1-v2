@@ -45,12 +45,11 @@ static constexpr double
 					TIME_BT_FRAMES = 1 / FRAMERATE,		// tiempo entre frames
 					MARIO_SPEED = 1 * TIME_BT_FRAMES;	// velocidad de mario
 
-	// para render de tilemap
-	static constexpr int TILE_SIDE = 32;  // constantes estáticas en Game
-	static constexpr int WINDOW_WIDTH = 18;
-	static constexpr int WINDOW_HEIGHT = 16;
-
-
+// constantes estaticas en Game
+// -- para render de tilemap
+static constexpr int TILE_SIDE = 32;  
+static constexpr int WINDOW_WIDTH = 18;
+static constexpr int WINDOW_HEIGHT = 16;
 
 // ------------------------------ GAME ------------------------------
 class Game

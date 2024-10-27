@@ -179,7 +179,7 @@ void Game::update()
 {
 	tilemap->update();
 
-	//player->update();
+	player->update();
 }
 
 // PINTAR
@@ -218,10 +218,9 @@ void Game::handleEvents()
 			if (event.key.keysym.sym == SDLK_RIGHT)
 			{
 				mapOffset++;
-				
 			}
 			// MANEJO DE EVENTOS DE OBJETOS DE JUEGO
-			//else { player->handleEvents(event); }
+			else { player->handleEvents(event); }
 		}
 	}
 }
