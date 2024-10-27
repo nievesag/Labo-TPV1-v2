@@ -103,7 +103,7 @@ void Player::updateRect()
 void Player::moveMario() {
 	const float step = 1.0f;
 
-	// Movimiento horizontal
+	
 	if (keyA) {
 		position.setX(position.getX() - step);
 		keyA = false;
@@ -118,24 +118,23 @@ void Player::moveMario() {
 		keyD = false;
 	}
 
-	// Control del salto
+
 	if (keySpace && grounded) {
-		direction.setY(-5.0f);  // Velocidad inicial de salto
-		grounded = false;  // en el aire
-		keySpace = false;  // Resetea el salto hasta la siguiente pulsaci�n
-	}
+		direction.setY(-5.0f);  
+		grounded = false; 
+		keySpace = false;  
 
 	if (!grounded) {
-		direction.setY(direction.getY() + 0.3f);  // Gravedad aplicada
+		direction.setY(direction.getY() + 0.3f); 
 
-		// Actualizar la posici�n de Mario
+	
 		position.setY(position.getY() + direction.getY());
 
-		// Chequeo de colisi�n con el suelo
-		if (position.getY() >= 13) {  // Detectar el suelo
-			position.setY(13);  // Ajustar posici�n al suelo
-			grounded = true;  // Restablecer el estado de aterrizaje
-			direction.setY(0);  // Reiniciar la direcci�n vertical
+		
+		if (position.getY() >= 13) { 
+			position.setY(13); 
+			grounded = true;  
+			direction.setY(0); 
 		}
 	}
 	//// MOVER
