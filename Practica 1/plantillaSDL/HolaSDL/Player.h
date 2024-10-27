@@ -44,11 +44,10 @@ private:
 
 	// INPUT
 	// flags para control de input
-	bool keyA = false, keyD = false, keyS = false, keySpace = false, keyE = false;
-
+	bool keyA = false, keyD = false, keyS = false, keySpace = false, keyE = false, keyDer = false;
 
 	// rect destino
-	SDL_Rect destRect;
+	//SDL_Rect destRect;
 
 public:
 	Player(Game* g, std::istream& i); // no se si pasarle la textura

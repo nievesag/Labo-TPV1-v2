@@ -43,13 +43,16 @@ using uint = unsigned int;
 static constexpr double
 					FRAMERATE = 50,						// frames por segundo
 					TIME_BT_FRAMES = 1 / FRAMERATE,		// tiempo entre frames
-					MARIO_SPEED = 1 * TIME_BT_FRAMES;	// velocidad de mario
+					MARIO_SPEED = 0.001;	// velocidad de mario
 
 // constantes estaticas en Game
 // -- para render de tilemap
 static constexpr int TILE_SIDE = 32;  
 static constexpr int WINDOW_WIDTH = 18;
 static constexpr int WINDOW_HEIGHT = 16;
+
+// desplazamiento actual de mapa, llevará la coordenada x del extremo izquierdo de la vista (inicialmente cero)
+static int mapOffset = 0;
 
 // ------------------------------ GAME ------------------------------
 class Game
@@ -62,7 +65,6 @@ public:
 		MARIO,
 		NUM_TEXTURES  // Truco C++: número de texturas definidas
 	};
-
 
 private:
 	// ARRAY DE TEXTURAS -> array estático de tam NUM_TEXTURES de elementos de tipo Texture* 
@@ -86,9 +88,6 @@ private:
 	// crea semilla
 	std::mt19937_64 randomGenerator;
 	uint32_t startTime, frameTime;	// manejo de tiempo en run
-
-	int mapOffset = 0; // desplazamiento actual de mapa, llevará la coordenada x del extremo izquierdo de la vista (inicialmente cero)
-
 
 public:
 	// ---- constructora ----

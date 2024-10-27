@@ -207,19 +207,13 @@ void Game::handleEvents()
 	// MIENTRAS HAYA EVENTOS
 		// si hay eventos &event se llena con el evento a ejecutar si no NULL
 		// es decir, pollea hasta que se hayan manejado todos los eventos
-	while (SDL_PollEvent(&event) && !exit) {
-
+	while (SDL_PollEvent(&event) && !exit) 
+	{
 		// si se solicita quit bool exit = true
 		if (event.type == SDL_QUIT) EndGame();
-		else if (event.type == SDL_KEYDOWN)
-		{
-			if (event.key.keysym.sym == SDLK_RIGHT)
-			{
-				mapOffset+= 10;
-			}
-			// MANEJO DE EVENTOS DE OBJETOS DE JUEGO
-			else { player->handleEvents(event); }
-		}
+
+		// MANEJO DE EVENTOS DE OBJETOS DE JUEGO
+		else { player->handleEvents(event); }
 	}
 }
 
