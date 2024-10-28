@@ -123,35 +123,39 @@ void Player::updateOffset()
 	}
 }
 
+bool Player::checkFall()
+{
+	return false;
+}
+
 void Player::moveMario()
 {
-	Vector2D<double> dir(0, 0);
-
 	// Se queda quieto si A y D están presionadas simultáneamente
 	if (keyA == keyD) {
-		dir = Vector2D<double>(0, 0);
+		direction = Vector2D<int>(0, 0);
 	}
 
 	// Movimiento horizontal
 	if (keyA != keyD) {
-		if (keyA) dir = Vector2D<double>(-1, 0);  // Izquierda
-		else if (keyD) dir = Vector2D<double>(1, 0); // Derecha
+		if (keyA) direction = Vector2D<int>(-1, 0);  // Izquierda
+		else if (keyD) direction = Vector2D<int>(1, 0); // Derecha
 	}
 
+	// Salto
 	if (keySpace && grounded && !spacePressed) {
-		direction = Vector2D<int>(0, -1); 
+		direction = direction + Vector2D<int>(0, -1); 
 		maxHeight = position.getY() - 3; 
 		grounded = false;
 		isFalling = false;
 	}
 
 	// Movimiento en el eje X
-	position.setX(position.getX() + (dir.getX() * MARIO_SPEED * 0.05));
+	position.setX(position.getX() + (direction.getX() * MARIO_SPEED * 0.05));
 
 	// Saltando
 	if (!grounded) {
 		if (!isFalling && position.getY() > maxHeight) { // Aun no llega a la altura maxima
-			position.setY(position.getY() - MARIO_SPEED * 0.1);
+			position.setY(position.getY() + (direction.getY() * MARIO_SPEED * 0.1));
 		}
 		else { //Alcanza la altura maxima y comienza a descender
 			isFalling = true;
@@ -171,4 +175,3 @@ void Player::moveMario()
 
 	spacePressed = keySpace;
 }
-
