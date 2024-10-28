@@ -39,6 +39,8 @@ void Player::update()
 {
 	moveMario();
 
+	updateOffset();
+
 	updateRect();
 }
 
@@ -105,6 +107,16 @@ void Player::updateRect()
 	destRect.y = position.getY();*/
 }
 
+void Player::updateOffset()
+{
+	// si llega a la mitad actual en pantalla en ese momento
+	// actualiza el offset
+	if (position.getX() > game->getWinWidth() / 2) // lo de la movida de conversion entre coor de mundo y pantalla
+	{
+		game->addMapOffset(10);
+	}
+}
+
 void Player::moveMario()
 {
 	Vector2D<double> dir(0, 0);
@@ -141,7 +153,10 @@ void Player::moveMario()
 	}
 	else if(keyDer)
 	{
-		mapOffset += 10;
+		if (game->getMapOffset() < 6100)  
+		{
+			game->addMapOffset(10);
+		}
 	}
 
 	// se mueve a mario
@@ -156,7 +171,7 @@ void Player::moveMario()
 			position.setY(position.getY() + (direction.getY() * MARIO_SPEED));
 		}
 		// llega a altura max
-		else if(position.getY() < maxHeight-1)
+		if(position.getY() < maxHeight-1)
 		{
 			position.setY(0); // debug
 			//position.setY(position.getY() - (direction.getY() * MARIO_SPEED));

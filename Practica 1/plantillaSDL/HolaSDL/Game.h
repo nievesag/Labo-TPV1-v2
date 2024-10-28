@@ -43,16 +43,13 @@ using uint = unsigned int;
 static constexpr double
 					FRAMERATE = 50,						// frames por segundo
 					TIME_BT_FRAMES = 1 / FRAMERATE,		// tiempo entre frames
-					MARIO_SPEED = 0.001;	// velocidad de mario
+					MARIO_SPEED = 0.01;	// velocidad de mario
 
 // constantes estaticas en Game
 // -- para render de tilemap
 static constexpr int TILE_SIDE = 32;  
 static constexpr int WINDOW_WIDTH = 18;
 static constexpr int WINDOW_HEIGHT = 16;
-
-// desplazamiento actual de mapa, llevará la coordenada x del extremo izquierdo de la vista (inicialmente cero)
-static int mapOffset = 0;
 
 // ------------------------------ GAME ------------------------------
 class Game
@@ -81,6 +78,10 @@ private:
 	bool exit; // salida de juego
 
 	TileMap* tilemap = nullptr;
+
+	// desplazamiento actual de mapa, llevará la coordenada x del extremo izquierdo de la vista 
+	// (inicialmente cero)
+	int mapOffset = 0;
 
 	// declaración de los elementos de juego -> con el tipo vector (?)
 	Player* player = nullptr;
