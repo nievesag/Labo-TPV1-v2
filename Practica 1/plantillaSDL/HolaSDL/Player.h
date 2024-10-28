@@ -82,6 +82,8 @@ public:
 
 private:
 	void moveMario();
+
+	bool checkFall();
 };
 
 #endif	

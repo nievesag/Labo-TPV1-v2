@@ -29,12 +29,12 @@ void Player::render() const
 	destRect.h = texture->getFrameHeight();
 
 	// posicion
-	destRect.x = position.getX() * TILE_SIDE;
-	destRect.y = position.getY() * TILE_SIDE;
+	destRect.x = (position.getX() * TILE_SIDE) - game->getMapOffset();
+	destRect.y = (position.getY() * TILE_SIDE);
 	
 	//texture->renderFrame(destRect, 0, marioFrame);
 
-	// Usa el flip según la dirección
+	// Usa el flip segï¿½n la direcciï¿½n
 	SDL_RendererFlip flip = flipSprite ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE; //esta estructura es un if-else por si no lo conocias
 
 	texture->renderFrame(destRect, 0, marioFrame, 0.0, nullptr, flip);
@@ -47,6 +47,9 @@ void Player::update()
 	updateOffset();
 
 	updateAnims();
+	cout << (position.getX() * TILE_SIDE) - game->getMapOffset() << endl;
+
+	updateRect();
 }
 
 void Player::handleEvents(const SDL_Event& event)
@@ -141,21 +144,25 @@ void Player::updateOffset()
 	int screenX = position.getX() * TILE_SIDE - game->getMapOffset();
 
 	if (screenX > TILE_SIDE * WINDOW_WIDTH / 2) {
-		game->addMapOffset(10);  
+		game->addMapOffset(1);
 	}
+}
+
+bool Player::checkFall()
+{
+	return (position.getY() * TILE_SIDE - game->getMapOffset()) >= WINDOW_HEIGHT + texture->getFrameHeight();
 }
 
 void Player::moveMario()
 {
-	Vector2D<double> dir(0, 0);
-
-	// Se queda quieto si A y D están presionadas simultáneamente
+	// Se queda quieto si A y D estï¿½n presionadas simultï¿½neamente
 	if (keyA == keyD) {
-		dir = Vector2D<double>(0, 0);
+		direction = Vector2D<int>(0, 0);
 	}
 
 	// Movimiento horizontal
 	if (keyA != keyD) {
+
 		if (keyA) {
 			dir = Vector2D<double>(-1, 0);
 			flipSprite = true;  
@@ -169,6 +176,15 @@ void Player::moveMario()
 
 	if (keySpace && grounded && !canJump) {
 		direction = Vector2D<int>(0, -1); 
+
+		if (keyA) direction = Vector2D<int>(-1, 0);  // Izquierda
+		else if (keyD) direction = Vector2D<int>(1, 0); // Derecha
+	}
+
+	// Salto
+	if (keySpace && grounded && !spacePressed) {
+		direction = direction + Vector2D<int>(0, -1); 
+
 		maxHeight = position.getY() - 3; 
 		grounded = false;
 		isFalling = false;
@@ -180,7 +196,7 @@ void Player::moveMario()
 	// Saltando
 	if (!grounded) {
 		if (!isFalling && position.getY() > maxHeight) { // Aun no llega a la altura maxima
-			position.setY(position.getY() - MARIO_SPEED * 0.1);
+			position.setY(position.getY() + (direction.getY() * MARIO_SPEED * 0.1));
 		}
 		else { //Alcanza la altura maxima y comienza a descender
 			isFalling = true;
@@ -195,9 +211,8 @@ void Player::moveMario()
 		}
 	}
 
-	// Limita el movimiento a los límites del mapa
+	// Limita el movimiento a los lï¿½mites del mapa
 	if (position.getX() < 0) position.setX(0);
 
-	canJump = keySpace;
+	spacePressed = keySpace;
 }
-
