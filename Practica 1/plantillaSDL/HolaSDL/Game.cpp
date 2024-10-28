@@ -56,7 +56,7 @@ Game::Game() : randomGenerator(time(nullptr)), exit(false)
 Game::~Game()
 {
 	// Elimina los objetos del juego
-	
+	delete player;
 
 	// Elimina las texturas
 	for (Texture* texture : textures) delete texture;

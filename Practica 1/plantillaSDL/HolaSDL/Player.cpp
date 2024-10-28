@@ -111,7 +111,12 @@ void Player::updateOffset()
 {
 	// si llega a la mitad actual en pantalla en ese momento
 	// actualiza el offset
-	if (position.getX() > game->getWinWidth() / 2) // lo de la movida de conversion entre coor de mundo y pantalla
+
+	// CONVERSION DE COOR:
+	// COOR TOTALES => la pos de mario sin convertir
+	// COOR DE LA VISTA => COOR TOTALES - MAPOFFSET
+
+	if ((position.getX())-(game->getMapOffset()) > 18 / 2) // lo de la movida de conversion entre coor de mundo y pantalla
 	{
 		game->addMapOffset(10);
 	}
