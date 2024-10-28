@@ -32,7 +32,12 @@ void Player::render() const
 	destRect.x = position.getX() * TILE_SIDE;
 	destRect.y = position.getY() * TILE_SIDE;
 	
-	texture->renderFrame(destRect, 0, marioFrame);
+	//texture->renderFrame(destRect, 0, marioFrame);
+
+	// Usa el flip según la dirección
+	SDL_RendererFlip flip = flipSprite ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE; //esta estructura es un if-else por si no lo conocias
+
+	texture->renderFrame(destRect, 0, marioFrame, 0.0, nullptr, flip);
 }
 
 void Player::update()
@@ -41,7 +46,7 @@ void Player::update()
 
 	updateOffset();
 
-	updateRect();
+	updateAnims();
 }
 
 void Player::handleEvents(const SDL_Event& event)
@@ -100,11 +105,28 @@ void Player::hit(SDL_Rect* rect)
 	else isAlive = false;
 }
 
-void Player::updateRect()
+void Player::updateAnims()
 {
-	// posicion
-	/*destRect.x = position.getX();
-	destRect.y = position.getY();*/
+	if (!grounded) {
+		//Frame del salto
+		marioFrame = 6;
+	}
+	else if (keyA != keyD) {
+		frameTimer++;
+		if (frameTimer >= 200) {  // Velocidad del ciclo
+			frameTimer = 0;
+			animationFrame = (animationFrame + 1) % 4;  // Ciclo 0,1,2,3, y luego se reinicie 
+
+			// Ciclo de caminar 2 -> 3 -> 4 -> 3
+			if (animationFrame == 0 || animationFrame == 3) marioFrame = 2;
+			else if (animationFrame == 1) marioFrame = 3;
+			else if (animationFrame == 2) marioFrame = 4;
+		}
+	}
+	else {
+		//Cuando esta quieto
+		marioFrame = 0;
+	}
 }
 
 void Player::updateOffset()
@@ -134,11 +156,18 @@ void Player::moveMario()
 
 	// Movimiento horizontal
 	if (keyA != keyD) {
-		if (keyA) dir = Vector2D<double>(-1, 0);  // Izquierda
-		else if (keyD) dir = Vector2D<double>(1, 0); // Derecha
+		if (keyA) {
+			dir = Vector2D<double>(-1, 0);
+			flipSprite = true;  
+		}
+		else if (keyD) {
+			dir = Vector2D<double>(1, 0);
+			flipSprite = false; 
+		}
 	}
 
-	if (keySpace && grounded && !spacePressed) {
+
+	if (keySpace && grounded && !canJump) {
 		direction = Vector2D<int>(0, -1); 
 		maxHeight = position.getY() - 3; 
 		grounded = false;
@@ -146,7 +175,7 @@ void Player::moveMario()
 	}
 
 	// Movimiento en el eje X
-	position.setX(position.getX() + (dir.getX() * MARIO_SPEED * 0.05));
+	position.setX(position.getX() + (dir.getX() * MARIO_SPEED * 0.09));
 
 	// Saltando
 	if (!grounded) {
@@ -169,6 +198,6 @@ void Player::moveMario()
 	// Limita el movimiento a los límites del mapa
 	if (position.getX() < 0) position.setX(0);
 
-	spacePressed = keySpace;
+	canJump = keySpace;
 }
 

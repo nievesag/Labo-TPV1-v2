@@ -50,7 +50,10 @@ private:
 	//SDL_Rect destRect;
 
 	bool isFalling = false;
-	bool spacePressed = false;
+	bool canJump = false;
+	int animationFrame = 0;   // Contador para el ciclo de caminar
+	int frameTimer = 0;
+	bool flipSprite = false;
 
 public:
 	Player(Game* g, std::istream& i); // no se si pasarle la textura
@@ -73,7 +76,7 @@ public:
 	void hit(SDL_Rect* rect);
 
 	//
-	void updateRect();
+	void updateAnims();
 
 	void updateOffset();
 
