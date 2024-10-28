@@ -49,7 +49,6 @@ void Player::update()
 	updateAnims();
 	cout << (position.getX() * TILE_SIDE) - game->getMapOffset() << endl;
 
-	updateRect();
 }
 
 void Player::handleEvents(const SDL_Event& event)
@@ -155,64 +154,49 @@ bool Player::checkFall()
 
 void Player::moveMario()
 {
-	// Se queda quieto si A y D est�n presionadas simult�neamente
+	Vector2D<double> dir(0, 0);
+
 	if (keyA == keyD) {
-		direction = Vector2D<int>(0, 0);
+		dir = Vector2D<double>(0, 0);
 	}
 
-	// Movimiento horizontal
 	if (keyA != keyD) {
-
 		if (keyA) {
 			dir = Vector2D<double>(-1, 0);
-			flipSprite = true;  
+			flipSprite = true;  // Activa el flip al mover a la izquierda
 		}
 		else if (keyD) {
 			dir = Vector2D<double>(1, 0);
-			flipSprite = false; 
+			flipSprite = false; // Desactiva el flip al mover a la derecha
 		}
 	}
 
-
 	if (keySpace && grounded && !canJump) {
-		direction = Vector2D<int>(0, -1); 
-
-		if (keyA) direction = Vector2D<int>(-1, 0);  // Izquierda
-		else if (keyD) direction = Vector2D<int>(1, 0); // Derecha
-	}
-
-	// Salto
-	if (keySpace && grounded && !spacePressed) {
-		direction = direction + Vector2D<int>(0, -1); 
-
-		maxHeight = position.getY() - 3; 
+		direction = Vector2D<int>(0, -1);
+		maxHeight = position.getY() - 3;
 		grounded = false;
 		isFalling = false;
 	}
 
-	// Movimiento en el eje X
-	position.setX(position.getX() + (dir.getX() * MARIO_SPEED * 0.09));
+	position.setX(position.getX() + (dir.getX() * MARIO_SPEED * 0.3));
 
-	// Saltando
 	if (!grounded) {
-		if (!isFalling && position.getY() > maxHeight) { // Aun no llega a la altura maxima
-			position.setY(position.getY() + (direction.getY() * MARIO_SPEED * 0.1));
+		if (!isFalling && position.getY() > maxHeight) {
+			position.setY(position.getY() - MARIO_SPEED * 0.3);
 		}
-		else { //Alcanza la altura maxima y comienza a descender
+		else {
 			isFalling = true;
-			position.setY(position.getY() + MARIO_SPEED * 0.1);
+			position.setY(position.getY() + MARIO_SPEED * 0.3);
 		}
 
-		// Chequeo de aterrizaje
 		if (position.getY() >= groundedYPos) {
-			position.setY(groundedYPos); // Aterriza en el suelo
+			position.setY(groundedYPos);
 			grounded = true;
-			isFalling = false; 
+			isFalling = false;
 		}
 	}
 
-	// Limita el movimiento a los l�mites del mapa
 	if (position.getX() < 0) position.setX(0);
 
-	spacePressed = keySpace;
+	canJump = keySpace;
 }
