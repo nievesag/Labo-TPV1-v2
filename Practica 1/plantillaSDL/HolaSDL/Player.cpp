@@ -127,23 +127,22 @@ void Player::moveMario()
 {
 	Vector2D<double> dir(0, 0);
 
-	// Se queda quieto si A y D están presionadas simultaneamente
+	// Se queda quieto si A y D están presionadas simultáneamente
 	if (keyA == keyD) {
 		dir = Vector2D<double>(0, 0);
 	}
 
-	// Movimiento horizontal en el suelo
-	if ((keyA != keyD) && grounded) {
+	// Movimiento horizontal
+	if (keyA != keyD) {
 		if (keyA) dir = Vector2D<double>(-1, 0);  // Izquierda
 		else if (keyD) dir = Vector2D<double>(1, 0); // Derecha
 	}
 
-	// Salto
-	if (keySpace && grounded) {
-		direction = Vector2D<int>(0, -1); // Hacia arriba
-		maxHeight = position.getY() - 3; // Configura la altura máxima
+	if (keySpace && grounded && !spacePressed) {
+		direction = Vector2D<int>(0, -1); 
+		maxHeight = position.getY() - 3; 
 		grounded = false;
-		isFalling = false; 
+		isFalling = false;
 	}
 
 	// Movimiento en el eje X
@@ -151,17 +150,17 @@ void Player::moveMario()
 
 	// Saltando
 	if (!grounded) {
-		if (!isFalling && position.getY() > maxHeight) { // Aun no llega a la altura máxima
-			position.setY(position.getY() - MARIO_SPEED );
+		if (!isFalling && position.getY() > maxHeight) { // Aun no llega a la altura maxima
+			position.setY(position.getY() - MARIO_SPEED * 0.1);
 		}
-		else { // Ha alcanzado la altura maxima y comienza a descender
+		else { //Alcanza la altura maxima y comienza a descender
 			isFalling = true;
-			position.setY(position.getY() + MARIO_SPEED * 0.5);
+			position.setY(position.getY() + MARIO_SPEED * 0.1);
 		}
 
 		// Chequeo de aterrizaje
 		if (position.getY() >= groundedYPos) {
-			position.setY(groundedYPos); //En el suelo
+			position.setY(groundedYPos); // Aterriza en el suelo
 			grounded = true;
 			isFalling = false; 
 		}
@@ -169,4 +168,7 @@ void Player::moveMario()
 
 	// Limita el movimiento a los límites del mapa
 	if (position.getX() < 0) position.setX(0);
+
+	spacePressed = keySpace;
 }
+

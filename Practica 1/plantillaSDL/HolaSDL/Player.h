@@ -49,7 +49,8 @@ private:
 	// rect destino
 	//SDL_Rect destRect;
 
-	bool isFalling;
+	bool isFalling = false;
+	bool spacePressed = false;
 
 public:
 	Player(Game* g, std::istream& i); // no se si pasarle la textura
