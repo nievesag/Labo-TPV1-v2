@@ -116,9 +116,10 @@ void Player::updateOffset()
 	// COOR TOTALES => la pos de mario sin convertir
 	// COOR DE LA VISTA => COOR TOTALES - MAPOFFSET
 
-	if ((position.getX())-(game->getMapOffset()) > 18 / 2) // lo de la movida de conversion entre coor de mundo y pantalla
-	{
-		game->addMapOffset(10);
+	int screenX = position.getX() * TILE_SIDE - game->getMapOffset();
+
+	if (screenX > TILE_SIDE * WINDOW_WIDTH / 2) {
+		game->addMapOffset(10);  
 	}
 }
 
@@ -126,68 +127,46 @@ void Player::moveMario()
 {
 	Vector2D<double> dir(0, 0);
 
-	// se queda quieto
-	if(keyA == keyD) // si se pulsan 2 teclas a la vez
-	{
+	// Se queda quieto si A y D están presionadas simultaneamente
+	if (keyA == keyD) {
 		dir = Vector2D<double>(0, 0);
 	}
 
-	// MOVER
-	if ((keyA != keyD) && grounded) // si NO se pulsan 2 teclas a la vez y esta en el suelo
-	{
-		// -- IZQ
-		// direction X = -1
-		if (keyA) {
-			dir = Vector2D<double>(-1, 0);
-			
-		}
-		// -- DER
-		// direction X = +1
-		else if (keyD) {
-			dir = Vector2D<double>(1, 0);
-		}
+	// Movimiento horizontal en el suelo
+	if ((keyA != keyD) && grounded) {
+		if (keyA) dir = Vector2D<double>(-1, 0);  // Izquierda
+		else if (keyD) dir = Vector2D<double>(1, 0); // Derecha
 	}
-	// -- SALTO
-	else if (keySpace)
-	{
-		direction = direction + Vector2D<int>(0, -1);
-		cout << position.getY() << endl;
-		//maxHeight = position.getY() - 1; // por algun motivo si pongo a capon 12 si va????
-		maxHeight = 12;
+
+	// Salto
+	if (keySpace && grounded) {
+		direction = Vector2D<int>(0, -1); // Hacia arriba
+		maxHeight = position.getY() - 3; // Configura la altura máxima
 		grounded = false;
+		isFalling = false; 
 	}
-	else if(keyDer)
-	{
-		if (game->getMapOffset() < 6100)  
-		{
-			game->addMapOffset(10);
+
+	// Movimiento en el eje X
+	position.setX(position.getX() + (dir.getX() * MARIO_SPEED * 0.05));
+
+	// Saltando
+	if (!grounded) {
+		if (!isFalling && position.getY() > maxHeight) { // Aun no llega a la altura máxima
+			position.setY(position.getY() - MARIO_SPEED );
+		}
+		else { // Ha alcanzado la altura maxima y comienza a descender
+			isFalling = true;
+			position.setY(position.getY() + MARIO_SPEED * 0.5);
+		}
+
+		// Chequeo de aterrizaje
+		if (position.getY() >= groundedYPos) {
+			position.setY(groundedYPos); //En el suelo
+			grounded = true;
+			isFalling = false; 
 		}
 	}
 
-	// se mueve a mario
-	position.setX(position.getX() + (dir.getX() * MARIO_SPEED));
-
-	// esta saltando
-	if(!grounded)
-	{
-		// no ha llegado a la altura max
-		if(position.getY() > maxHeight)
-		{
-			position.setY(position.getY() + (direction.getY() * MARIO_SPEED));
-		}
-		// llega a altura max
-		if(position.getY() < maxHeight-1)
-		{
-			position.setY(0); // debug
-			//position.setY(position.getY() - (direction.getY() * MARIO_SPEED));
-		}
-
-		cout << position.getY() << endl;
-	}
-
-	// comprobar si se esta en el suelo
-	if(position.getY() == groundedYPos) grounded = true;
-
-	// para que no se salga por la izq, lo que ya se ha movido
+	// Limita el movimiento a los límites del mapa
 	if (position.getX() < 0) position.setX(0);
 }
