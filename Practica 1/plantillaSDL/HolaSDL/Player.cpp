@@ -29,8 +29,8 @@ void Player::render() const
 	destRect.h = texture->getFrameHeight();
 
 	// posicion
-	destRect.x = position.getX() * TILE_SIDE;
-	destRect.y = position.getY() * TILE_SIDE;
+	destRect.x = (position.getX() * TILE_SIDE) - game->getMapOffset();
+	destRect.y = (position.getY() * TILE_SIDE);
 	
 	texture->renderFrame(destRect, 0, marioFrame);
 }
@@ -40,6 +40,8 @@ void Player::update()
 	moveMario();
 
 	updateOffset();
+
+	cout << (position.getX() * TILE_SIDE) - game->getMapOffset() << endl;
 
 	updateRect();
 }
@@ -119,13 +121,13 @@ void Player::updateOffset()
 	int screenX = position.getX() * TILE_SIDE - game->getMapOffset();
 
 	if (screenX > TILE_SIDE * WINDOW_WIDTH / 2) {
-		game->addMapOffset(10);  
+		game->addMapOffset(1);
 	}
 }
 
 bool Player::checkFall()
 {
-	return false;
+	return (position.getY() * TILE_SIDE - game->getMapOffset()) >= WINDOW_HEIGHT + texture->getFrameHeight();
 }
 
 void Player::moveMario()
