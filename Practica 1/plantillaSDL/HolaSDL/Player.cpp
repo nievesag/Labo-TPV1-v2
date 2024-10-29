@@ -103,8 +103,19 @@ void Player::handleEvents(const SDL_Event& event)
 
 void Player::hit(SDL_Rect* rect)
 {
-	if (lives > 0) lives--;
-	else isAlive = false;
+	if (marioState == 's') 
+	{
+		marioState = 'm';
+	}
+	else
+	{
+		if(lives > 0)
+		{
+			
+		}
+		lives--;
+	}
+	isAlive = false;
 }
 
 void Player::updateAnims()
