@@ -22,6 +22,11 @@ const string textureRoot = "../assets/imgs/";
 const array<TextureSpec, Game::NUM_TEXTURES> textureSpec{
 	TextureSpec{"background.png", 9, 7},
 	{"mario.png", 12, 1},
+	{"supermario.png", 22, 1},
+	{"blocks.png", 6, 1},
+	{"mushroom.png", 1, 1},
+	{"goomba.png", 3, 1},
+	{"koopa.png", 4, 1}
 };
 
 Game::Game() : randomGenerator(time(nullptr)), exit(false)
@@ -138,11 +143,15 @@ void Game::loadObjectMap(std::ifstream& mapa)
 
 		switch (tipo) {
 		case 'M':
-			this->player = new Player(this, lineStream);
+			player = new Player(this, lineStream);
 			break;
 		case 'G':
+			 goomba = new Goomba(this, lineStream);
+			 goombaVec.push_back(goomba);
 			break;
 		case 'B':
+			block = new Block(this, lineStream);
+			blockVec.push_back(block);
 			break;
 		}
 
@@ -178,6 +187,16 @@ void Game::update()
 	tilemap->update();
 
 	player->update();
+
+	for (int i = 0; i < goombaVec.size(); i++) 
+	{
+		goombaVec[i]->update();
+	}
+
+	for (int i = 0; i < blockVec.size(); i++)
+	{
+		blockVec[i]->update();
+	}
 }
 
 // PINTAR
@@ -194,6 +213,18 @@ void Game::render() const
 
 	// render mario
 	player->render();
+
+	// render goombas
+	for (int i = 0; i < goombaVec.size(); i++)
+	{
+		goombaVec[i]->render();
+	}
+
+	// render blocks
+	for (int i = 0; i < blockVec.size(); i++)
+	{
+		blockVec[i]->render();
+	}
 
 	// presenta la escena en pantalla
 	SDL_RenderPresent(renderer);

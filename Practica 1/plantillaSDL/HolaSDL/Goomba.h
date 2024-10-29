@@ -25,8 +25,16 @@ private:
 	Point2D<double> position;	// posicion actual en Point2D
 	Vector2D<int> direction;	// direccion de movimiento
 
+	int goombaFrame;
+
+	bool frozen; // para llevar control de objetos inactivos
+	bool alive;
+
+	int animationFrame = 0;   // Contador para el ciclo de caminar
+	int frameTimer = 0;
+
 public:
-	Goomba();
+	Goomba(Game* g, std::istream& in);
 
 	// -- render --
 	void render() const;
@@ -41,6 +49,9 @@ public:
 	//		-> si supermario: vuelve a mario
 	//		-> si mario: quita vida
 	void hit(SDL_Rect* rect);
+
+private:
+	void moveGoomba();
 };
 
 #endif

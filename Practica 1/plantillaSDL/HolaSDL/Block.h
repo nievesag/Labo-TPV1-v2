@@ -24,18 +24,35 @@ private:
 
 	Point2D<double> position;	// posicion actual en Point2D
 
+	char tipoL;
+	int tipo;
 	enum Tipo // tipo de bloque
 	{
-		LADRILLO, SORPRESA, VACIO, OCULTO
+		LADRILLO, SORPRESA, OCULTO, VACIO
 	};
 
+	char accionL;
+	int accion;
 	enum Accion // accion
 	{
 		POTENCIADOR, MONEDA
 	};
 
+	// Guia de bloques txt
+	// TIPO
+	// ? -> sorpresa
+	// B -> ladrillo
+	// H -> oculto
+	// ACCION
+	// P -> potenciador
+	// C -> moneda
+
+	int blockFrame;
+	int animationFrame = 0;   // Contador para el ciclo de caminar
+	int frameTimer = 0;
+
 public:
-	Block();
+	Block(Game* g, std::istream& in);
 
 	// -- render --
 	void render() const;

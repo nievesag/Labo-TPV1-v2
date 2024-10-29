@@ -37,7 +37,10 @@ private:
 	double groundedYPos;	// posicion en el suelo
 	double maxHeight;
 	
-	char marioState; // m(mario), s(supermario)
+	int marioState;
+	enum State {
+		MARIO, SUPERMARIO
+	};
 
 	// ANIMACION
 	int marioFrame;

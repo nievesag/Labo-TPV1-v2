@@ -14,7 +14,7 @@ Player::Player(Game* g, std::istream& in)
 
 	marioFrame = 0;
 
-	marioState = 'm';
+	marioState = MARIO;
 	grounded = true;
 
 	groundedYPos = position.getY();
@@ -31,10 +31,8 @@ void Player::render() const
 	// posicion
 	destRect.x = (position.getX() * TILE_SIDE) - game->getMapOffset();
 	destRect.y = (position.getY() * TILE_SIDE);
-	
-	//texture->renderFrame(destRect, 0, marioFrame);
 
-	// Usa el flip seg�n la direcci�n
+	// Usa el flip segun la direccion
 	SDL_RendererFlip flip = flipSprite ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE; //esta estructura es un if-else por si no lo conocias
 
 	texture->renderFrame(destRect, 0, marioFrame, 0.0, nullptr, flip);
@@ -47,8 +45,6 @@ void Player::update()
 	updateOffset();
 
 	updateAnims();
-	//cout << (position.getX() * TILE_SIDE) - game->getMapOffset() << endl;
-
 }
 
 void Player::handleEvents(const SDL_Event& event)
@@ -153,15 +149,16 @@ void Player::updateOffset()
 
 	int screenX = position.getX() * TILE_SIDE - game->getMapOffset();
 
-	if (screenX > TILE_SIDE * WINDOW_WIDTH / 2) {
+	if (screenX > TILE_SIDE * WINDOW_WIDTH / 2 && game->getMapOffset() < 6100) {
 		game->addMapOffset(1);
 	}
 }
 
-//bool Player::checkFall()
-//{
-//	return (position.getY() * TILE_SIDE - game->getMapOffset()) >= WINDOW_HEIGHT + texture->getFrameHeight();
-//}
+bool Player::checkFall()
+{
+	// para ver si se ha caido a un agujero
+	return (position.getY() * TILE_SIDE - game->getMapOffset()) >= WINDOW_HEIGHT + texture->getFrameHeight();
+}
 
 void Player::moveMario()
 {
@@ -189,13 +186,10 @@ void Player::moveMario()
 		isFalling = false;
 	}
 
-
 	if ((((position.getX() * TILE_SIDE) - game->getMapOffset()) + (dir.getX())) >= 0) //condicion para que no se salga por la izquierda
 	{
 		position.setX(position.getX() + (dir.getX() * MARIO_SPEED * 0.3));
 	}
-	
-	cout << (((position.getX() * TILE_SIDE) - game->getMapOffset()) + (dir.getX())) << endl;
 	
 	if (!grounded) {
 		if (!isFalling && position.getY() > maxHeight) {
@@ -213,11 +207,5 @@ void Player::moveMario()
 		}
 	}
 
-	//if (game->getMapOffset() > 0 && position.getX() < game->getMapOffset()) {
-	//	/*int screenX = position.getX() * TILE_SIDE - game->getMapOffset();
-	//	position.setX(screenX);*/
-	//	cout << "no pasa" << endl;
-	//}
-	//if (position.getX() < 0) position.setX(0);
 	canJump = keySpace;
 }

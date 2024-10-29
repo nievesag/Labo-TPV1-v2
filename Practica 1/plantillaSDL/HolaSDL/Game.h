@@ -43,7 +43,8 @@ using uint = unsigned int;
 static constexpr double
 					FRAMERATE = 50,						// frames por segundo
 					TIME_BT_FRAMES = 1 / FRAMERATE,		// tiempo entre frames
-					MARIO_SPEED = 0.005;	// velocidad de mario
+					MARIO_SPEED = 0.005,	// velocidad de mario
+					GOOMBA_SPEED = 0.005;	// velocidad de goombas
 
 // constantes estaticas en Game
 // -- para render de tilemap
@@ -60,6 +61,11 @@ public:
 	enum TextureName {
 		BACKGROUND,
 		MARIO,
+		SUPERMARIO,
+		BLOCK,
+		MUSHROOM,
+		GOOMBA,
+		KOOPA,
 		NUM_TEXTURES  // Truco C++: número de texturas definidas
 	};
 
@@ -83,8 +89,13 @@ private:
 	// (inicialmente cero)
 	int mapOffset = 0;
 
-	// declaración de los elementos de juego -> con el tipo vector (?)
+	// declaración de los elementos de juego
 	Player* player = nullptr;
+	Goomba* goomba = nullptr;
+	Block* block = nullptr;
+
+	vector<Goomba*> goombaVec;
+	vector<Block*> blockVec;
 
 	// crea semilla
 	std::mt19937_64 randomGenerator;
