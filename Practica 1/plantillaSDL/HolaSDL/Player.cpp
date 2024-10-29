@@ -47,7 +47,7 @@ void Player::update()
 	updateOffset();
 
 	updateAnims();
-	cout << (position.getX() * TILE_SIDE) - game->getMapOffset() << endl;
+	//cout << (position.getX() * TILE_SIDE) - game->getMapOffset() << endl;
 
 }
 
@@ -126,7 +126,7 @@ void Player::updateAnims()
 	}
 	else if (keyA != keyD) {
 		frameTimer++;
-		if (frameTimer >= 200) {  // Velocidad del ciclo
+		if (frameTimer >= 150) {  // Velocidad del ciclo
 			frameTimer = 0;
 			animationFrame = (animationFrame + 1) % 4;  // Ciclo 0,1,2,3, y luego se reinicie 
 
@@ -158,10 +158,10 @@ void Player::updateOffset()
 	}
 }
 
-bool Player::checkFall()
-{
-	return (position.getY() * TILE_SIDE - game->getMapOffset()) >= WINDOW_HEIGHT + texture->getFrameHeight();
-}
+//bool Player::checkFall()
+//{
+//	return (position.getY() * TILE_SIDE - game->getMapOffset()) >= WINDOW_HEIGHT + texture->getFrameHeight();
+//}
 
 void Player::moveMario()
 {
@@ -184,13 +184,19 @@ void Player::moveMario()
 
 	if (keySpace && grounded && !canJump) {
 		direction = Vector2D<int>(0, -1);
-		maxHeight = position.getY() - 3;
+		maxHeight = position.getY() - 4;
 		grounded = false;
 		isFalling = false;
 	}
 
-	position.setX(position.getX() + (dir.getX() * MARIO_SPEED * 0.3));
 
+	if ((((position.getX() * TILE_SIDE) - game->getMapOffset()) + (dir.getX())) >= 0) //condicion para que no se salga por la izquierda
+	{
+		position.setX(position.getX() + (dir.getX() * MARIO_SPEED * 0.3));
+	}
+	
+	cout << (((position.getX() * TILE_SIDE) - game->getMapOffset()) + (dir.getX())) << endl;
+	
 	if (!grounded) {
 		if (!isFalling && position.getY() > maxHeight) {
 			position.setY(position.getY() - MARIO_SPEED * 0.3);
@@ -207,7 +213,11 @@ void Player::moveMario()
 		}
 	}
 
-	if (position.getX() < 0) position.setX(0);
-
+	//if (game->getMapOffset() > 0 && position.getX() < game->getMapOffset()) {
+	//	/*int screenX = position.getX() * TILE_SIDE - game->getMapOffset();
+	//	position.setX(screenX);*/
+	//	cout << "no pasa" << endl;
+	//}
+	//if (position.getX() < 0) position.setX(0);
 	canJump = keySpace;
 }
