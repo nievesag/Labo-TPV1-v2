@@ -37,7 +37,9 @@ public:
 	// -- hit --
 	// controla las colisiones
 	//	-> Si el goomba es golpeado desde arriba por el player: se muere
-	//	-> Otra colision: muere player
+	//	-> Otra colision: 
+	//		-> si supermario: vuelve a mario
+	//		-> si mario: quita vida
 	void hit(SDL_Rect* rect);
 };
 
