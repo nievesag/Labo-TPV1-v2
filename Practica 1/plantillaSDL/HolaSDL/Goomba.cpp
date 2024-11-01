@@ -62,9 +62,9 @@ void Goomba::moveGoomba()
 		frameTimer++;
 		if (frameTimer >= 800) {  // Velocidad del ciclo
 			frameTimer = 0;
-			animationFrame = (animationFrame + 1) % 2;  // Ciclo 0,1,2,3, y luego se reinicie 
+			animationFrame = (animationFrame + 1) % 2; 
 
-			// Ciclo de caminar 2 -> 3 -> 4 -> 3
+			
 			if (animationFrame == 0) goombaFrame = 1;
 			else if (animationFrame == 1) goombaFrame = 0;
 		}

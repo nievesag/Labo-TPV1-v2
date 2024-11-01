@@ -138,10 +138,10 @@ void Game::loadObjectMap(std::ifstream& mapa)
 		// Usamos un stringstream para leer la linea como si fuera un flujo
 		stringstream lineStream(line);
 
-		char tipo;
-		lineStream >> tipo;
+		char tipoL;
+		lineStream >> tipoL;
 
-		switch (tipo) {
+		switch (tipoL) {
 		case 'M':
 			player = new Player(this, lineStream);
 			break;
@@ -196,6 +196,7 @@ void Game::update()
 	for (int i = 0; i < blockVec.size(); i++)
 	{
 		blockVec[i]->update();
+		//cout << "hola" << endl;
 	}
 }
 
@@ -263,3 +264,4 @@ void Game::playerLives()
 {
 	//cout << "VIDAS RESTANTES: " <<  << endl;
 }
+

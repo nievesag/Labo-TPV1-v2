@@ -28,6 +28,7 @@
 	// classes
 #include "texture.h"
 #include "Vector2D.h"
+#include "Collision.h"
 class TileMap;
 
 // GAME OBJECTS
@@ -136,6 +137,7 @@ public:
 	// Estas cosas requieren que los objetos del juego tengan un puntero a Game para llamar a collides
 	void collides();
 
+
 	// ----- GETTERS -----
 	uint getWinWidth() { return WIN_HEIGHT; }
 	uint getWinHeight() { return WIN_HEIGHT; }
@@ -151,6 +153,8 @@ public:
 	void setExit(bool aux) { exit = aux; }
 	void addMapOffset(int newOffset) { mapOffset += newOffset; }
 
+
+
 private:
 	// ---- loadTexture ----
 	// se cargan las texturas y se guardan en el array
@@ -165,6 +169,9 @@ private:
 	// ---- playerLives ----
 	// muestra en consola las vidas del jugador
 	void playerLives();
+
+	
+
 };
 
 inline Texture*

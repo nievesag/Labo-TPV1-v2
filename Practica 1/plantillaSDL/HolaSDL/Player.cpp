@@ -190,6 +190,7 @@ void Player::moveMario()
 	{
 		position.setX(position.getX() + (dir.getX() * MARIO_SPEED * 0.3));
 	}
+
 	
 	if (!grounded) {
 		if (!isFalling && position.getY() > maxHeight) {

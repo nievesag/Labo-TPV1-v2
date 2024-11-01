@@ -69,6 +69,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Koopa.cpp" />
@@ -81,6 +82,7 @@
   <ItemGroup>
     <ClInclude Include="Block.h" />
     <ClInclude Include="checkML.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="Koopa.h" />
