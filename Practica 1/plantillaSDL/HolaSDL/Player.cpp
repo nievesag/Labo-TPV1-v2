@@ -103,19 +103,26 @@ Collision Player::hit(const SDL_Rect& rect, bool fromPlayer)
 {
 	Collision c;
 
-	if (marioState == 's') 
+	if(SDL_HasIntersection(&rect, &destRect))
 	{
-		marioState = 'm';
+		if (marioState == 's') 
+		{
+			marioState = 'm';
+		}
+		else
+		{
+			if(lives > 0)
+			{
+				
+			}
+			lives--;
+		}
+		isAlive = false;
 	}
 	else
 	{
-		if(lives > 0)
-		{
-			
-		}
-		lives--;
+		
 	}
-	isAlive = false;
 
 	return c;
 }
@@ -176,12 +183,10 @@ bool Player::checkMovIzq()
 	return false;
 }
 
-
 bool Player::checkMovArr()
 {
 	return false;
 }
-
 
 void Player::moveMario()
 {

@@ -52,7 +52,7 @@ private:
 	bool keyA = false, keyD = false, keyS = false, keySpace = false, keyE = false, keyDer = false;
 
 	// rect destino
-	//SDL_Rect destRect;
+	SDL_Rect destRect;
 
 	bool isFalling = false;
 	bool canJump = false;
