@@ -72,7 +72,7 @@ void Block::update()
 	}
 }
 
-//void Block::hit(SDL_Rect* rect)
-//{
-//
-//}
+void Block::hit(const SDL_Rect& rect, bool fromPlayer)
+{
+
+}

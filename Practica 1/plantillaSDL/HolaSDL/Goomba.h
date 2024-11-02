@@ -10,6 +10,8 @@
 #include <fstream>
 #include <string>
 
+#include "Collision.h"
+
 class Game;
 
 using uint = unsigned int;
@@ -48,7 +50,7 @@ public:
 	//	-> Otra colision: 
 	//		-> si supermario: vuelve a mario
 	//		-> si mario: quita vida
-	void hit(SDL_Rect* rect);
+	Collision hit(const SDL_Rect& rect, bool fromPlayer);
 
 private:
 	void moveGoomba();

@@ -10,6 +10,8 @@
 #include <fstream>
 #include <string>
 
+#include "Collision.h"
+
 // para evitar inclusiones cruzadas
 class Game;
 
@@ -76,7 +78,7 @@ public:
 	void handleEvents(const SDL_Event& event);
 
 	// -- hit --
-	void hit(SDL_Rect* rect);
+	Collision hit(const SDL_Rect& rect, bool fromPlayer);
 
 	//
 	void updateAnims();
@@ -87,6 +89,16 @@ private:
 	void moveMario();
 
 	bool checkFall();
+
+	// para comprobar los moviemientos antes de ejecutarlos por si hubiese colision
+	// devuelven true si se pueden hacer los movimientos
+	// DERECHA
+	bool checkMovDer();
+	// IZQUIERDA
+	bool checkMovIzq();
+	// ARRIBA
+	bool checkMovArr();
+
 };
 
 #endif	

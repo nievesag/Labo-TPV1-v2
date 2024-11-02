@@ -40,6 +40,8 @@ void Player::render() const
 
 void Player::update()
 {
+	//game->checkCollisions();
+
 	moveMario();
 
 	updateOffset();
@@ -97,8 +99,10 @@ void Player::handleEvents(const SDL_Event& event)
 	}
 }
 
-void Player::hit(SDL_Rect* rect)
+Collision Player::hit(const SDL_Rect& rect, bool fromPlayer)
 {
+	Collision c;
+
 	if (marioState == 's') 
 	{
 		marioState = 'm';
@@ -112,6 +116,8 @@ void Player::hit(SDL_Rect* rect)
 		lives--;
 	}
 	isAlive = false;
+
+	return c;
 }
 
 void Player::updateAnims()
@@ -159,6 +165,23 @@ bool Player::checkFall()
 	// para ver si se ha caido a un agujero
 	return (position.getY() * TILE_SIDE - game->getMapOffset()) >= WINDOW_HEIGHT + texture->getFrameHeight();
 }
+
+bool Player::checkMovDer()
+{
+	return false;
+}
+
+bool Player::checkMovIzq()
+{
+	return false;
+}
+
+
+bool Player::checkMovArr()
+{
+	return false;
+}
+
 
 void Player::moveMario()
 {

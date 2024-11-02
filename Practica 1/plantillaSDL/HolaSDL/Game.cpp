@@ -250,9 +250,35 @@ void Game::handleEvents()
 }
 
 // MANEJO DE COLISONES
-void Game::collides()
+// Recibe el SDL_Rect del objeto que se va a mover y quiere comprobar las colisiones.
+// Game tiene acceso a todos los objetos del juego,
+// puede preguntarle a cada uno de ellos (con el metodo hit) si colisiona con el rect
+Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 {
-	
+	// itera sobre los objeto del juego llamando a sus hit
+	// si alguno devuelve que ha habido colision, interrumpe la busqueda y devuelve ese resultado.
+
+	Collision c;
+
+	// hit mapa
+	tilemap->hit(rect, true);
+
+	// hit mario
+	player->hit(rect, true);
+
+	// hit goombass
+	for(int i = 0; i < goombaVec.size(); i++)
+	{
+		goombaVec[i]->hit(rect, true);
+	}
+
+	// hit blocks
+	for(int i = 0; i < blockVec.size(); i++)
+	{
+		blockVec[i]->hit(rect, true);
+	}
+
+	return c;
 }
 
 void Game::EndGame()

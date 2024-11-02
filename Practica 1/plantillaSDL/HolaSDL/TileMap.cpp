@@ -42,12 +42,10 @@ void TileMap::load(std::istream& file)
 	}
 
 	archivo.close();
-
 }
 
 void TileMap::render()
 {
-
 	// Primera columna de la matriz del mapa visible en la ventana
 	int x0 = game->getMapOffset() / TILE_SIDE;
 	// Anchura oculta de esa primera columna
@@ -84,7 +82,28 @@ void TileMap::update()
 
 }
 
-void TileMap::hit()
+Collision TileMap::hit(const SDL_Rect& rect, bool fromPlayer)
 {
+	Collision c;
+	c.collides = false;
+	c.damages = false;
 
+	// Celda del nivel que contiene la esquina superior izquierda del rectángulo
+	int row0 = rect.y / TILE_SIDE;
+	int col0 = rect.x / TILE_SIDE;
+
+	// Celda del nivel que contiene la esquina inferior derecha del rectángulo
+	int row1 = (rect.y + rect.h) / TILE_SIDE;
+	int col1 = (rect.x + rect.w) / TILE_SIDE;
+
+	for (int row = row0; row <= row1; ++row)
+	{
+		for (int col = col0; col <= col1; ++col)
+		{
+			if (indices[row][col] % texture->getNumColumns() < OBSTACLE_THRESHOLD)
+				c.collides = true;
+		}
+	}
+
+	return c;
 }

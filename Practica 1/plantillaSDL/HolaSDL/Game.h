@@ -52,6 +52,7 @@ static constexpr double
 static constexpr int TILE_SIDE = 32;  
 static constexpr int WINDOW_WIDTH = 18;
 static constexpr int WINDOW_HEIGHT = 16;
+static constexpr int OBSTACLE_THRESHOLD = 4; // constante
 
 // ------------------------------ GAME ------------------------------
 class Game
@@ -129,31 +130,32 @@ public:
 	// input del jugador
 	void handleEvents();
 
-	// ---- collides ----
+	// ---- checkCollisions ----
 	// Los goombas, koopas y mushrooms:
 	// - se mueven en una dir fija
 	// - caen si dejan de tener un obstaculo a sus pies / desaparecen si caen por un hueco bajo el suelo del mapa
 	// - invierten su dirección si encuentran un obstaculo horizontal
 	// Estas cosas requieren que los objetos del juego tengan un puntero a Game para llamar a collides
-	void collides();
+	Collision checkCollisions(const SDL_Rect& rect, bool fromPlayer);
 
-
-	// ----- GETTERS -----
+	// ----- GETTERS -----s
 	uint getWinWidth() { return WIN_HEIGHT; }
 	uint getWinHeight() { return WIN_HEIGHT; }
+
 	int getMapOffset() { return mapOffset; }
-	
+
 	Texture* getTexture(TextureName name) const;
+
 	SDL_Renderer* getRenderer() { return renderer; }
+
 	bool GetExit() { return exit; }
+
 	int getRandomRange(int min, int max) { return std::uniform_int_distribution<int>(min, max)(randomGenerator); }
 
 	// ----- SETTERS -----
 	void EndGame();
 	void setExit(bool aux) { exit = aux; }
 	void addMapOffset(int newOffset) { mapOffset += newOffset; }
-
-
 
 private:
 	// ---- loadTexture ----
@@ -163,15 +165,9 @@ private:
 	// ---- loadMap ----
 	void loadObjectMap(std::ifstream& mapa);
 
-	// ---- renderBackground ----
-	void renderBackground();
-
 	// ---- playerLives ----
 	// muestra en consola las vidas del jugador
 	void playerLives();
-
-	
-
 };
 
 inline Texture*

@@ -41,9 +41,11 @@ void Goomba::update()
 	moveGoomba();
 }
 
-void Goomba::hit(SDL_Rect* rect)
+Collision Goomba::hit(const SDL_Rect& rect, bool fromPlayer)
 {
+	Collision c;
 
+	return c;
 }
 
 void Goomba::moveGoomba()

@@ -15,6 +15,7 @@ class Game;
 class TileMap
 {
 private:
+
 	Texture* texture = nullptr; // puntero a textura del array de textures
 	Game* game = nullptr;
 	Texture* background = nullptr; 
@@ -32,6 +33,5 @@ public:
 	void load(std::istream& file);
 
 	// detecta colisiones
-	void hit();
-
+	Collision hit(const SDL_Rect& rect, bool fromPlayer);
 };
