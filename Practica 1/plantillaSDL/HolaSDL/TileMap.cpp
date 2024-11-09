@@ -100,8 +100,18 @@ Collision TileMap::hit(const SDL_Rect& rect, bool fromPlayer)
 	{
 		for (int col = col0; col <= col1; ++col)
 		{
-			if (indices[row][col] % texture->getNumColumns() < OBSTACLE_THRESHOLD)
-				c.collides = true;
+			if (indices[row][col] % texture->getNumColumns() < OBSTACLE_THRESHOLD) {
+				SDL_Rect rectTile;
+				rectTile.w = texture->getFrameWidth();
+				rectTile.h = texture->getFrameHeight();
+				rectTile.x = row * TILE_SIDE;
+				rectTile.y = col * TILE_SIDE;
+
+				c.collides = SDL_IntersectRect(&rectTile, &rect, &c.intersection);
+				return c;
+				
+			}
+				
 		}
 	}
 

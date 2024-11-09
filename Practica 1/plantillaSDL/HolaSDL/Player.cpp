@@ -18,6 +18,8 @@ Player::Player(Game* g, std::istream& in)
 	grounded = true;
 
 	groundedYPos = position.getY();
+
+
 }
 
 void Player::render() const
@@ -41,6 +43,12 @@ void Player::render() const
 void Player::update()
 {
 	//game->checkCollisions();
+	//collider.h = texture->getFrameHeight() * 2;
+	//collider.w = texture->getFrameWidth() * 2;
+	//collider.x = position.getX();
+	//collider.y = position.getY();
+
+	//cout << collider.h << " " << collider.w << " " << collider.x << " " << collider.y << endl;
 
 	moveMario();
 
@@ -57,6 +65,7 @@ void Player::handleEvents(const SDL_Event& event)
 	// pulsar
 	if (event.type == SDL_KEYDOWN) 
 	{
+		moving = true;
 		// IZQ
 		if (key == SDL_SCANCODE_A) keyA = true;
 
@@ -74,11 +83,14 @@ void Player::handleEvents(const SDL_Event& event)
 
 		// OFFSET
 		else if (key == SDL_SCANCODE_RIGHT) keyDer = true;
+
+
 	}
 
 	// despulsar
 	else if (event.type == SDL_KEYUP) 
 	{
+		moving = false;
 		// IZQ
 		if (key == SDL_SCANCODE_A) keyA = false;
 
@@ -214,6 +226,8 @@ void Player::moveMario()
 		isFalling = false;
 	}
 
+
+
 	if ((((position.getX() * TILE_SIDE) - game->getMapOffset()) + (dir.getX())) >= 0) //condicion para que no se salga por la izquierda
 	{
 		position.setX(position.getX() + (dir.getX() * MARIO_SPEED * 0.3));
@@ -229,10 +243,30 @@ void Player::moveMario()
 			position.setY(position.getY() + MARIO_SPEED * 0.3);
 		}
 
-		if (position.getY() >= groundedYPos) {
-			position.setY(groundedYPos);
-			grounded = true;
-			isFalling = false;
+		// Colisión en el eje Y.
+		collider.y = position.getY();
+		auto colY = game->checkCollisions(collider, false);
+
+		if (colY.collides) {
+			if (position.getY() >= groundedYPos) {
+				position.setY(groundedYPos);
+				grounded = true;
+				isFalling = false;
+				dir.setY(0);
+			}
+		}
+		else
+			grounded = false;
+	}
+
+	// Colisión y movimiento en el eje X.
+	if (moving) {
+
+		// Comprueba si colisiona.
+		auto colX = game->checkCollisions(collider, true);
+		cout << colX << endl;
+		if (colX.collides) {
+			dir.setX(0);
 		}
 	}
 

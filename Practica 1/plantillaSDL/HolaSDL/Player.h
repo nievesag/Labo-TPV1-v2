@@ -59,6 +59,11 @@ private:
 	int animationFrame = 0;   // Contador para el ciclo de caminar
 	int frameTimer = 0;
 	bool flipSprite = false;
+	bool moving = false;
+
+	//Colisiones
+	SDL_Rect collider;
+	Collision c;
 
 public:
 	Player(Game* g, std::istream& i); // no se si pasarle la textura
@@ -85,6 +90,8 @@ public:
 
 	void updateOffset();
 
+	void handleMovement();
+
 private:
 	void moveMario();
 
@@ -98,6 +105,8 @@ private:
 	bool checkMovIzq();
 	// ARRIBA
 	bool checkMovArr();
+
+
 
 };
 
