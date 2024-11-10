@@ -255,31 +255,52 @@ void Game::handleEvents()
 // puede preguntarle a cada uno de ellos (con el metodo hit) si colisiona con el rect
 Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 {
+
+	Collision result;
+
+	// Iterar sobre los objetos del juego y el tilemap
+	/*for (auto& object : gameObjects) {
+		Collision collision = object->hit(rect, fromPlayer);
+		if (collision.collides) {
+			result = collision;
+			break;
+		}
+	}*/
+
+	// Verificar colisiones con el tilemap
+	Collision tileCollision = tilemap->hit(rect, fromPlayer);
+	if (tileCollision.collides) {
+		result = tileCollision;
+	}
+
+	return result;
+
+
 	// itera sobre los objeto del juego llamando a sus hit
 	// si alguno devuelve que ha habido colision, interrumpe la busqueda y devuelve ese resultado.
 
-	if (tilemap->hit(rect, fromPlayer).collides) {
-		
-		return (tilemap->hit(rect, fromPlayer));
-	}
+	//if (tilemap->hit(rect, fromPlayer).collides) {
+	//	
+	//	return (tilemap->hit(rect, fromPlayer));
+	//}
 
 	// hit mario
-	player->hit(rect, fromPlayer);
+	//player->hit(rect, fromPlayer);
 
 	// hit goombas
-	for(int i = 0; i < goombaVec.size(); i++)
-	{
-		if(goombaVec[i]->hit(rect, fromPlayer).damages)
-		{
-			
-		}
-	}
+	//for(int i = 0; i < goombaVec.size(); i++)
+	//{
+	//	if(goombaVec[i]->hit(rect, fromPlayer).damages)
+	//	{
+	//		
+	//	}
+	//}
 
 	// hit blocks
-	for(int i = 0; i < blockVec.size(); i++)
-	{
-		return (blockVec[i]->hit(rect, fromPlayer));
-	}
+	//for(int i = 0; i < blockVec.size(); i++)
+	//{
+	//	return (blockVec[i]->hit(rect, fromPlayer));
+	//}
 }
 
 void Game::EndGame()

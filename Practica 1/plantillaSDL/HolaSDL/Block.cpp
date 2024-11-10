@@ -71,8 +71,8 @@ void Block::update()
 		}
 	}
 }
-
-Collision Block::hit(const SDL_Rect& rect, bool fromPlayer)
-{
-
-}
+//
+//Collision Block::hit(const SDL_Rect& rect, bool fromPlayer)
+//{
+//
+//}

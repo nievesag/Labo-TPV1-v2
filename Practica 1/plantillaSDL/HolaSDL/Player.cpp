@@ -40,7 +40,7 @@ void Player::render() const
 
 void Player::update()
 {
-	game->checkCollisions(destRect, true);
+	//game->checkCollisions(destRect, true);
 
 	//collider.h = texture->getFrameHeight() * 2;
 	//collider.w = texture->getFrameWidth() * 2;
@@ -48,8 +48,47 @@ void Player::update()
 	//collider.y = position.getY();
 
 	//cout << collider.h << " " << collider.w << " " << collider.x << " " << collider.y << endl;
+	  // Caja de colisión actual
+	SDL_Rect destRect = {
+	   (int)(position.getX() * TILE_SIDE) - game->getMapOffset(),
+	   (int)(position.getY() * TILE_SIDE),
+	   texture->getFrameWidth(),
+	   texture->getFrameHeight()
+	};
 
-	moveMario();
+	// Movimiento vertical (eje Y)
+	if (direction.getY() != 0) {
+		SDL_Rect futureRectY = destRect;
+		futureRectY.y += direction.getY();
+
+		Collision collisionY = game->checkCollisions(futureRectY, true);
+		if (!collisionY.collides) {
+			moveMario();
+		}
+		else {
+			// Ajustar posición para quedar justo sobre el obstáculo
+			position.setY(position.getY() + direction.getY() - collisionY.intersection.h);
+			direction.setY(0); // Detener movimiento vertical
+		}
+	}
+
+	// Movimiento horizontal (eje X)
+	if (direction.getX() != 0) {
+		SDL_Rect futureRectX = destRect;
+		futureRectX.x += direction.getX();
+
+		Collision collisionX = game->checkCollisions(futureRectX, true);
+		if (!collisionX.collides) {
+			moveMario();
+		}
+		else {
+			// Ajustar posición horizontal
+			position.setX(position.getX() + direction.getX() - collisionX.intersection.w);
+			direction.setX(0); // Detener movimiento horizontal
+		}
+	}
+
+	
 
 	updateOffset();
 
@@ -229,23 +268,23 @@ void Player::moveMario()
 		// 
 		new_position.setX(position.getX() + (dir.getX() * MARIO_SPEED * 0.3));
 
-		/*
-		new_rect.h = texture->getFrameHeight() * 2;
-		new_rect.w = texture->getFrameWidth() * 2;
-		new_rect.x = new_position.getX();
-		new_rect.y = new_position.getY();*/
+		
+		new_rect.h = new_position.getY() * TILE_SIDE;
+		new_rect.w = new_position.getX() * TILE_SIDE;
+		new_rect.x = position.getX();
+		new_rect.y = position.getY();
 
 		// si no hay colision -> actualiza la posicion
-		if(!(game->checkCollisions(new_rect, true).collides))
-		{
-			position.setX(new_position.getX());
+		//if(!(game->checkCollisions(new_rect, true).collides))
+		//{
+		//	position.setX(new_position.getX());
 
-			/*
-			destRect.h = texture->getFrameHeight() * 2;
-			destRect.w = texture->getFrameWidth() * 2;
-			destRect.x = position.getX();
-			destRect.y = position.getY();*/
-		}
+		//	/*
+		//	destRect.h = texture->getFrameHeight() * 2;
+		//	destRect.w = texture->getFrameWidth() * 2;
+		//	destRect.x = position.getX();
+		//	destRect.y = position.getY();*/
+		//}
 		// en caso de haberla mantiene la posicion inicial
 	}
 
@@ -259,31 +298,31 @@ void Player::moveMario()
 		}
 
 		// Colisión en el eje Y
-		collider.y = position.getY();
-		auto colY = game->checkCollisions(collider, false);
+		//collider.y = position.getY();
+		//auto colY = game->checkCollisions(collider, false);
 
-		if (colY.collides) {
+		//if (colY.collides) {
 			if (position.getY() >= groundedYPos) {
 				position.setY(groundedYPos);
 				grounded = true;
 				isFalling = false;
 				dir.setY(0);
 			}
-		}
-		else grounded = false;
+		/*}
+		else grounded = false;*/
 	}
 
 	// Colisión y movimiento en el eje X.
-	if (moving) {
+	//if (moving) {
 
-		// Comprueba si colisiona.
-		auto colX = game->checkCollisions(collider, true);
-		cout << colX << endl;
+	//	// Comprueba si colisiona.
+	//	auto colX = game->checkCollisions(collider, true);
+	//	cout << colX << endl;
 
-		if (colX.collides) {
-			dir.setX(0);
-		}
-	}
+	//	if (colX.collides) {
+	//		dir.setX(0);
+	//	}
+	//}
 
 	canJump = keySpace;
 }

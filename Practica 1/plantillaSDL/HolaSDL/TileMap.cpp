@@ -82,45 +82,35 @@ void TileMap::update()
 
 }
 
-Collision TileMap::hit(const SDL_Rect& rect, bool fromPlayer)
-{
-	Collision c;
-	c.collides = false;
-	c.damages = false;
+Collision TileMap::hit(const SDL_Rect& rect, bool fromPlayer) {
+	Collision collision; // Inicializa una instancia de Collision
 
-	// Celda del nivel que contiene la esquina superior izquierda del rectángulo
+	// Calcula las celdas del nivel que contienen las esquinas del rectángulo
 	int row0 = rect.y / TILE_SIDE;
 	int col0 = rect.x / TILE_SIDE;
+	int row1 = (rect.y + rect.h - 1) / TILE_SIDE;
+	int col1 = (rect.x + rect.w - 1) / TILE_SIDE;
 
-	// Celda del nivel que contiene la esquina inferior derecha del rectángulo
-	int row1 = (rect.y + rect.h) / TILE_SIDE;
-	int col1 = (rect.x + rect.w) / TILE_SIDE;
+	for (int row = row0; row <= row1; ++row) {
+		for (int col = col0; col <= col1; ++col) {
+			int index = indices[row][col];
 
-	for (int row = row0; row <= row1; ++row)
-	{
-		for (int col = col0; col <= col1; ++col)
-		{
-			if (indices[row][col] % texture->getNumColumns() < OBSTACLE_THRESHOLD) {
+			// Verifica si hay colisión con un obstáculo
+			if (index != -1 && index % texture->getNumColumns() < OBSTACLE_THRESHOLD) {
+				collision.collides = true;
 
-				SDL_Rect rectTile;
+				// Calcula la intersección entre rect y el tile en cuestión
+				SDL_Rect tileRect = { col * TILE_SIDE, row * TILE_SIDE, TILE_SIDE, TILE_SIDE };
+				SDL_IntersectRect(&rect, &tileRect, &collision.intersection);
 
-				rectTile.w = texture->getFrameWidth();
-				rectTile.h = texture->getFrameHeight();
-				rectTile.x = row * TILE_SIDE;
-				rectTile.y = col * TILE_SIDE;
+				// Aquí puedes asignar el puntero `collider` y establecer `damages` si aplica
+				collision.collider = nullptr; // Ajusta esto según tu implementación
+				collision.damages = fromPlayer; // Ejemplo: tal vez solo daña si es el jugador
 
-				c.collides = SDL_IntersectRect(&rectTile, &rect, &c.intersection);
-
-				// para devolver el rect 
-				c.intersection.w = (rectTile.x) - (rect.x + rect.w); // -> w
-				//c.intersection.h = (rect.h) - ((rectTile.y) - (rect.y + rect.h)); // -> h
-
-				return c;
-				
+				return collision;
 			}
-				
 		}
 	}
 
-	return c;
+	return collision; // Retorna la instancia sin colisión si no encontró obstáculos
 }
