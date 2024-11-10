@@ -260,10 +260,9 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 
 	Collision c;
 
-	Collision colTilemap = tilemap->hit(rect, fromPlayer); 
+	if (tilemap->hit(rect, fromPlayer).collides) {
 
-	if (colTilemap.collides) {
-		return colTilemap;
+		return c;
 	}
 
 	// hit mario

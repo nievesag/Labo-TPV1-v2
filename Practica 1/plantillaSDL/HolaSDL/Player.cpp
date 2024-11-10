@@ -229,20 +229,22 @@ void Player::moveMario()
 		// 
 		new_position.setX(position.getX() + (dir.getX() * MARIO_SPEED * 0.3));
 
+		/*
 		new_rect.h = texture->getFrameHeight() * 2;
 		new_rect.w = texture->getFrameWidth() * 2;
 		new_rect.x = new_position.getX();
-		new_rect.y = new_position.getY();
+		new_rect.y = new_position.getY();*/
 
 		// si no hay colision -> actualiza la posicion
 		if(!(game->checkCollisions(new_rect, true).collides))
 		{
 			position.setX(new_position.getX());
 
+			/*
 			destRect.h = texture->getFrameHeight() * 2;
 			destRect.w = texture->getFrameWidth() * 2;
 			destRect.x = position.getX();
-			destRect.y = position.getY();
+			destRect.y = position.getY();*/
 		}
 		// en caso de haberla mantiene la posicion inicial
 	}
