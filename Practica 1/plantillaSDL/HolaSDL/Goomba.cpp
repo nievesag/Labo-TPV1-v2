@@ -48,6 +48,7 @@ Collision Goomba::hit(const SDL_Rect& rect, bool fromPlayer)
 	// si hay colision
 	if(SDL_HasIntersection(&rect, &destRect))
 	{
+		/*
 		c.collides = true;
 
 		// si se origina en mario...
@@ -69,6 +70,7 @@ Collision Goomba::hit(const SDL_Rect& rect, bool fromPlayer)
 		{
 			
 		}
+		*/
 	}
 
 	return c;
