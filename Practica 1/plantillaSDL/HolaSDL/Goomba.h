@@ -35,6 +35,8 @@ private:
 	int animationFrame = 0;   // Contador para el ciclo de caminar
 	int frameTimer = 0;
 
+	SDL_Rect destRect;
+
 public:
 	Goomba(Game* g, std::istream& in);
 

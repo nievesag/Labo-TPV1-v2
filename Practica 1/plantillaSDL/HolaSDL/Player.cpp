@@ -18,8 +18,6 @@ Player::Player(Game* g, std::istream& in)
 	grounded = true;
 
 	groundedYPos = position.getY();
-
-
 }
 
 void Player::render() const
@@ -42,7 +40,8 @@ void Player::render() const
 
 void Player::update()
 {
-	//game->checkCollisions();
+	game->checkCollisions(destRect, true);
+
 	//collider.h = texture->getFrameHeight() * 2;
 	//collider.w = texture->getFrameWidth() * 2;
 	//collider.x = position.getX();
@@ -83,8 +82,6 @@ void Player::handleEvents(const SDL_Event& event)
 
 		// OFFSET
 		else if (key == SDL_SCANCODE_RIGHT) keyDer = true;
-
-
 	}
 
 	// despulsar
@@ -226,14 +223,30 @@ void Player::moveMario()
 		isFalling = false;
 	}
 
-
-
+	// MOV IZQ
 	if ((((position.getX() * TILE_SIDE) - game->getMapOffset()) + (dir.getX())) >= 0) //condicion para que no se salga por la izquierda
 	{
-		position.setX(position.getX() + (dir.getX() * MARIO_SPEED * 0.3));
+		// 
+		new_position.setX(position.getX() + (dir.getX() * MARIO_SPEED * 0.3));
+
+		new_rect.h = texture->getFrameHeight() * 2;
+		new_rect.w = texture->getFrameWidth() * 2;
+		new_rect.x = new_position.getX();
+		new_rect.y = new_position.getY();
+
+		// si no hay colision -> actualiza la posicion
+		if(!(game->checkCollisions(new_rect, true).collides))
+		{
+			position.setX(new_position.getX());
+
+			destRect.h = texture->getFrameHeight() * 2;
+			destRect.w = texture->getFrameWidth() * 2;
+			destRect.x = position.getX();
+			destRect.y = position.getY();
+		}
+		// en caso de haberla mantiene la posicion inicial
 	}
 
-	
 	if (!grounded) {
 		if (!isFalling && position.getY() > maxHeight) {
 			position.setY(position.getY() - MARIO_SPEED * 0.3);
@@ -243,7 +256,7 @@ void Player::moveMario()
 			position.setY(position.getY() + MARIO_SPEED * 0.3);
 		}
 
-		// Colisión en el eje Y.
+		// Colisión en el eje Y
 		collider.y = position.getY();
 		auto colY = game->checkCollisions(collider, false);
 
@@ -255,8 +268,7 @@ void Player::moveMario()
 				dir.setY(0);
 			}
 		}
-		else
-			grounded = false;
+		else grounded = false;
 	}
 
 	// Colisión y movimiento en el eje X.
@@ -265,6 +277,7 @@ void Player::moveMario()
 		// Comprueba si colisiona.
 		auto colX = game->checkCollisions(collider, true);
 		cout << colX << endl;
+
 		if (colX.collides) {
 			dir.setX(0);
 		}

@@ -45,6 +45,32 @@ Collision Goomba::hit(const SDL_Rect& rect, bool fromPlayer)
 {
 	Collision c;
 
+	// si hay colision
+	if(SDL_HasIntersection(&rect, &destRect))
+	{
+		c.collides = true;
+
+		// si se origina en mario...
+		if(fromPlayer)
+		{
+			// si la colision es por: der / izq / abj -> hiere a mario
+			if()
+			{
+				c.damages = true; // danio a mario
+			}
+			// si la colision es por: arr -> muere el goomba
+			else
+			{
+				c.damages = false; // o sea, si collides = true && damages = false -> mata al goomba
+			}
+		}
+		// si no... con el tilemap?
+		else
+		{
+			
+		}
+	}
+
 	return c;
 }
 

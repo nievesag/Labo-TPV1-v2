@@ -266,20 +266,22 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 		return colTilemap;
 	}
 
-
 	// hit mario
-	player->hit(rect, true);
+	player->hit(rect, fromPlayer);
 
-	// hit goombass
+	// hit goombas
 	for(int i = 0; i < goombaVec.size(); i++)
 	{
-		goombaVec[i]->hit(rect, true);
+		if(goombaVec[i]->hit(rect, fromPlayer).damages)
+		{
+			
+		}
 	}
 
 	// hit blocks
 	for(int i = 0; i < blockVec.size(); i++)
 	{
-		blockVec[i]->hit(rect, true);
+		blockVec[i]->hit(rect, fromPlayer);
 	}
 
 	return c;

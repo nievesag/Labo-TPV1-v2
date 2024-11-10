@@ -62,6 +62,8 @@ private:
 	bool moving = false;
 
 	//Colisiones
+	Point2D<double> new_position;	// posicion que tendria si avanza en Point2D
+	SDL_Rect new_rect;				// rect que tendria si avanza en Point2D
 	SDL_Rect collider;
 	Collision c;
 
