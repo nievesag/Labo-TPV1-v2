@@ -10,6 +10,8 @@
 #include <fstream>
 #include <string>
 
+#include "Collision.h"
+
 class Game;
 
 using uint = unsigned int;
@@ -67,7 +69,7 @@ public:
 	//	-> si el bloque es de ladrillo y el player es SuperMario: bloque se rompe
 	//	-> si el bloque es sorpresa/oculto y accion es potenciador: saca mushroom sobre el bloque y lo hace vacio
 	//	-> nada en el resto de casos
-	void hit(const SDL_Rect& rect, bool fromPlayer);
+	Collision hit(const SDL_Rect& rect, bool fromPlayer);
 };
 
 #endif

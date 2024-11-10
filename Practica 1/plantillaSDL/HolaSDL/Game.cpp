@@ -258,11 +258,9 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 	// itera sobre los objeto del juego llamando a sus hit
 	// si alguno devuelve que ha habido colision, interrumpe la busqueda y devuelve ese resultado.
 
-	Collision c;
-
 	if (tilemap->hit(rect, fromPlayer).collides) {
-
-		return c;
+		
+		return (tilemap->hit(rect, fromPlayer));
 	}
 
 	// hit mario
@@ -280,10 +278,8 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 	// hit blocks
 	for(int i = 0; i < blockVec.size(); i++)
 	{
-		blockVec[i]->hit(rect, fromPlayer);
+		return (blockVec[i]->hit(rect, fromPlayer));
 	}
-
-	return c;
 }
 
 void Game::EndGame()
