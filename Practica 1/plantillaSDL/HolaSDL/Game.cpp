@@ -311,12 +311,10 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 {
 	Collision result;
 
-	// TILEMAP
-	
-	if (tilemap->hit(rect, fromPlayer).collides) {
-		
+	// hit tilemap
+	if (tilemap->hit(rect, fromPlayer).collides) 
+	{
 		result = (tilemap->hit(rect, fromPlayer));
-
 		return result;
 	}
 
@@ -400,7 +398,7 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 		}
 	}
 
-	player->hit(rect, fromPlayer);
+	//player->hit(rect, fromPlayer);
 
 	return result;
 }

@@ -40,15 +40,6 @@ void Player::render() const
 
 void Player::update()
 {
-	//game->checkCollisions(destRect, true);
-
-	//collider.h = texture->getFrameHeight() * 2;
-	//collider.w = texture->getFrameWidth() * 2;
-	//collider.x = position.getX();
-	//collider.y = position.getY();
-
-	//cout << collider.h << " " << collider.w << " " << collider.x << " " << collider.y << endl;
-	  // Caja de colisión actual
 	moveMario();
 
 	updateOffset();
@@ -270,8 +261,6 @@ void Player::moveMario()
 			}
 			// en caso de haberla mantiene la posicion inicial
 		}
-
-
 
 		if (position.getY() >= groundedYPos) 
 		{
