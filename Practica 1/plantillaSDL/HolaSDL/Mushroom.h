@@ -31,7 +31,7 @@ private:
 	bool alive;
 
 public:
-	Mushroom(Game* g);
+	Mushroom(Game* g, Point2D<double> p);
 
 	// -- render --
 	void render() const;
@@ -53,11 +53,6 @@ public:
 
 	bool getAlive() {
 		return alive;
-	}
-
-	void setPos(Point2D<double> pos) {
-		position = pos;
-		position.setY(position.getY() * 32);
 	}
 };
 
