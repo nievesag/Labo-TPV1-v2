@@ -31,7 +31,7 @@ void Mushroom::render() const
 void Mushroom::update()
 {
 	moveSeta();
-	cout << position << endl;
+
 }
 
 void Mushroom::updateRect()

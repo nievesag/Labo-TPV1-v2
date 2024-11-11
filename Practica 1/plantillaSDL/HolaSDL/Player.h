@@ -60,6 +60,7 @@ private:
 	int frameTimer = 0;
 	bool flipSprite = false;
 	bool moving = false;
+	double velocityY;
 
 	//Colisiones
 	Point2D<double> new_position;	// posicion que tendria si avanza en Point2D
