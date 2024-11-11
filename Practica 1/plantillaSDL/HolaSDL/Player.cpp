@@ -10,6 +10,8 @@ Player::Player(Game* g, std::istream& in)
 	in >> lives;	// num de vidas
 	direction = Vector2D<int>(0,0);
 
+	lives = maxLives;
+
 	texture = game->getTexture(Game::MARIO); // textura inicial de mario
 
 	marioFrame = 0;
@@ -290,7 +292,7 @@ void Player::moveMario()
 		if (dir.getX() != 0)
 		{
 			new_position.setX(position.getX() + (dir.getX() * MARIO_SPEED));
-			//new_position.setY(position.getY());
+			new_position.setY(position.getY());
 
 			new_rect.h = new_position.getY() * 2;
 			new_rect.w = new_position.getX() * 2;
@@ -301,6 +303,7 @@ void Player::moveMario()
 			if(!(game->checkCollisions(new_rect, true).collides))
 			{
 				position.setX(new_position.getX());
+				position.setY(new_position.getY());
 
 				destRect.h = texture->getFrameHeight() * 2;
 				destRect.w = texture->getFrameWidth() * 2;

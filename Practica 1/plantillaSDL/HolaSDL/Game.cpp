@@ -206,7 +206,7 @@ void Game::update()
 	updateEntities();
 
 	// si muere el player acaba el juego
-	if (!player->getAlive()) EndGame();
+	//if (!player->getAlive()) EndGame();
 }
 
 void Game::updateEntities()
