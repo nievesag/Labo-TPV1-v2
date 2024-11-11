@@ -272,6 +272,7 @@ void Game::render() const
 		blockVec[i]->render();
 	}
 
+	// render setas
 	for (int i = 0; i < setaVec.size(); i++)
 	{
 		setaVec[i]->render();
@@ -346,10 +347,8 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 			}
 			else if (result.collides && result.spawnSeta) 
 			{
-				mushroom = new Mushroom(this);
+				mushroom = new Mushroom(this, blockVec[i]->getPos());
 				setaVec.push_back(mushroom);
-				mushroom->setPos(blockVec[i]->getPos());
-
 			}
 
 			return result;
@@ -372,6 +371,8 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 			return result;
 		}
 	}
+
+	player->hit(rect, fromPlayer);
 
 	return result;
 }

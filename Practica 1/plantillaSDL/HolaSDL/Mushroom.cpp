@@ -1,9 +1,14 @@
 #include "Mushroom.h"
 #include "Game.h"
 
-Mushroom::Mushroom(Game* g)
+Mushroom::Mushroom(Game* g, Point2D<double> p)
+	: game(g), position(p)
 {
-	game = g;
+	position.setY(position.getY() * 32);
+	position.setX(position.getX() * 32);
+	position = position - Point2D<double>(0, 1); // coloca bien al goomba
+	direction = Vector2D<int>(0, 0);
+
 	alive = true;
 	texture = game->getTexture(Game::MUSHROOM);
 }
@@ -17,10 +22,10 @@ void Mushroom::render() const
 	destRect.h = texture->getFrameHeight() * 2;
 
 	// posicion
-	destRect.x = (position.getX() * TILE_SIDE) - game->getMapOffset();
-	destRect.y = (position.getY() * TILE_SIDE);
+	destRect.x = (position.getX() ) - game->getMapOffset();
+	destRect.y = (position.getY() - destRect.h);
 
-	texture->renderRect(destRect);
+	texture->renderFrame(destRect, 0, 0);
 }
 
 void Mushroom::update()
