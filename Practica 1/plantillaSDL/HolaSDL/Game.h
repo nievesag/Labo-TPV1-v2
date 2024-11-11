@@ -94,13 +94,14 @@ private:
 	// declaración de los elementos de juego
 	Player* player = nullptr;
 	Goomba* goomba = nullptr;
+	Koopa* koopa = nullptr;
 	Block* block = nullptr;
 	Mushroom* mushroom = nullptr;
 
 	vector<Goomba*> goombaVec;
+	vector<Koopa*> koopaVec;
 	vector<Block*> blockVec;
-	vector<Mushroom*>setaVec;
-
+	vector<Mushroom*> setaVec;
 
 	// crea semilla
 	std::mt19937_64 randomGenerator;

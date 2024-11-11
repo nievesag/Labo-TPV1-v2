@@ -85,6 +85,13 @@ public:
 		return tipo;
 	}
 
+	void setTipo(int t)
+	{
+		tipo = t;
+	}
+
+	void manageSorpresa();
+
 	void killBlock() { alive = false; }
 
 	Point2D<double> getPos() const { return position; }

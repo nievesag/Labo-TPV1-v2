@@ -112,27 +112,6 @@ Collision Player::hit(const SDL_Rect& rect, bool fromPlayer)
 {
 	Collision c;
 
-	if(SDL_HasIntersection(&rect, &destRect))
-	{
-		if (marioState == 's') 
-		{
-			marioState = 'm';
-		}
-		else
-		{
-			if(lives > 0)
-			{
-				
-			}
-			lives--;
-		}
-		isAlive = false;
-	}
-	else
-	{
-		
-	}
-
 	return c;
 }
 
@@ -182,19 +161,18 @@ bool Player::checkFall()
 	return (position.getY() * TILE_SIDE - game->getMapOffset()) >= WINDOW_HEIGHT + texture->getFrameHeight();
 }
 
-bool Player::checkMovDer()
+void Player::manageDamage()
 {
-	return false;
-}
+	if (marioState == 's')
+	{
+		marioState = 'm';
+	}
+	else
+	{
+		if(lives > 0) lives--;
 
-bool Player::checkMovIzq()
-{
-	return false;
-}
-
-bool Player::checkMovArr()
-{
-	return false;
+		if (lives <= 0) alive = false;
+	}
 }
 
 void Player::moveMario()

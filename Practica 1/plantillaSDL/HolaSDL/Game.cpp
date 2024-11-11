@@ -204,6 +204,9 @@ void Game::update()
 	}
 
 	updateEntities();
+
+	// si muere el player acaba el juego
+	if (!player->getAlive()) EndGame();
 }
 
 void Game::updateEntities()
@@ -318,7 +321,6 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 	}
 
 	// hit goombas
-	
 	for(int i = 0; i < goombaVec.size(); i++)
 	{
 		if(goombaVec[i]->hit(rect, fromPlayer).collides)
@@ -328,6 +330,30 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 			if (result.collides && !result.damages)
 			{
 				goombaVec[i]->killGoomba();
+			}
+			else
+			{
+				player->manageDamage();
+			}
+
+			return result;
+		}
+	}
+
+	// hit koopas
+	for (int i = 0; i < koopaVec.size(); i++)
+	{
+		if (koopaVec[i]->hit(rect, fromPlayer).collides)
+		{
+			result = (koopaVec[i]->hit(rect, fromPlayer));
+
+			if (result.collides && !result.damages)
+			{
+				koopaVec[i]->killKoopa();
+			}
+			else
+			{
+				player->manageDamage();
 			}
 
 			return result;
@@ -347,6 +373,8 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 			}
 			else if (result.collides && result.spawnSeta) 
 			{
+				blockVec[i]->manageSorpresa();
+
 				mushroom = new Mushroom(this, blockVec[i]->getPos());
 				setaVec.push_back(mushroom);
 			}
@@ -386,4 +414,3 @@ void Game::playerLives()
 {
 	//cout << "VIDAS RESTANTES: " <<  << endl;
 }
-

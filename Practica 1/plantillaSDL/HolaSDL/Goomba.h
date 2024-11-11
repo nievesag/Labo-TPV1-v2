@@ -38,8 +38,6 @@ private:
 	int frameTimer = 0;
 
 	SDL_Rect destRect;
-	SDL_Rect newRect;
-
 
 public:
 	Goomba(Game* g, std::istream& in);
