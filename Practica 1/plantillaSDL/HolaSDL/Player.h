@@ -28,7 +28,7 @@ private:
 	int maxLives = 3;
 	int lives;					// numero de vidas restantes, 3 al inicio
 
-	bool isAlive = true;
+	bool alive = true;
 
 	// MOVIMIENTO
 	Point2D<double> position;	// posicion actual en Point2D
@@ -87,7 +87,8 @@ public:
 	// -- hit --
 	Collision hit(const SDL_Rect& rect, bool fromPlayer);
 
-	//
+	void manageDamage();
+
 	void updateAnims();
 
 	void updateOffset();
@@ -102,19 +103,14 @@ public:
 		marioState = s;
 	}
 
+	bool getAlive() {
+		return alive;
+	}
+
 private:
 	void moveMario();
 
 	bool checkFall();
-
-	// para comprobar los moviemientos antes de ejecutarlos por si hubiese colision
-	// devuelven true si se pueden hacer los movimientos
-	// DERECHA
-	bool checkMovDer();
-	// IZQUIERDA
-	bool checkMovIzq();
-	// ARRIBA
-	bool checkMovArr();
 };
 
 #endif	

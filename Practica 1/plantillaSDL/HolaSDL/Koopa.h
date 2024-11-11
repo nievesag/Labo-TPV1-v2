@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "Collision.h"
 
 class Game;
 
@@ -25,8 +26,20 @@ private:
 	Point2D<double> position;	// posicion actual en Point2D
 	Vector2D<int> direction;	// direccion de movimiento
 
+	int koopaFrame;
+
+	bool frozen; // para llevar control de objetos inactivos
+	bool alive;
+
+	bool grounded;
+
+	int animationFrame = 0;   // Contador para el ciclo de caminar
+	int frameTimer = 0;
+
+	SDL_Rect destRect;
+
 public:
-	Koopa();
+	Koopa(Game* g, std::istream& in);
 
 	// -- render --
 	void render() const;
@@ -34,12 +47,23 @@ public:
 	// -- update --
 	void update();
 
+	void updateRect();
+
 	// -- hit --
 	// controla las colisiones
 	//	-> Si el koopa es golpeado desde arriba por el player: se muere
 	//	-> Otra colision: muere player
 	// (en futuras versiones al ser golpeado se hara caparazon y podra lanzar)
-	void hit(SDL_Rect* rect);
+	Collision hit(const SDL_Rect& rect, bool fromPlayer);
+
+	void killKoopa() { alive = false; }
+
+	bool getAlive() {
+		return alive;
+	}
+
+private:
+	void moveKoopa();
 };
 
 #endif
