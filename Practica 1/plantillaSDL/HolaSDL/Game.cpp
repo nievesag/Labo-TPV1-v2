@@ -347,6 +347,8 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 			}
 			else if (result.collides && result.spawnSeta) 
 			{
+				blockVec[i]->manageSorpresa();
+
 				mushroom = new Mushroom(this, blockVec[i]->getPos());
 				setaVec.push_back(mushroom);
 			}

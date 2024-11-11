@@ -44,11 +44,8 @@ void Mushroom::updateRect()
 
 void Mushroom::moveSeta()
 {
-	
 	direction = Vector2D<int>(-1, 0);
-
 	position.setX(position.getX() + (direction.getX() * GOOMBA_SPEED * 0.3));
-	
 }
 
 Collision Mushroom::hit(const SDL_Rect& rect, bool fromPlayer)
@@ -65,10 +62,19 @@ Collision Mushroom::hit(const SDL_Rect& rect, bool fromPlayer)
 		{
 			c.evolMario = true;
 		}
-		// si no... con el tilemap?
+		// si no... con el tilemap
 		else
 		{
-
+			// choca por la izq -> va a der
+			if(destRect.x <= (rect.x + rect.w))
+			{
+				direction.setX(1);
+			}
+			// choca por la der -> va a izq
+			else if((destRect.x + destRect.w) >= rect.x)
+			{
+				direction.setX(-1);
+			}
 		}
 	}
 

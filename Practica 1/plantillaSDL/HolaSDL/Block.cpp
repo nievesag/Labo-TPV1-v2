@@ -82,7 +82,6 @@ void Block::updateRect()
 	destRect.y = position.getY() * TILE_SIDE;
 }
 
-
 Collision Block::hit(const SDL_Rect& rect, bool fromPlayer)
 {
 	Collision c;
@@ -96,28 +95,20 @@ Collision Block::hit(const SDL_Rect& rect, bool fromPlayer)
 		// si se origina en mario...
 		if (fromPlayer)
 		{
-			// si la colision es por: abj -> hiere a mario
+			// si la colision es por: abj 
 			if (rect.y <= (destRect.y + destRect.h))
 			{
-				// 
 				if (tipo == LADRILLO && (game->getMarioState() == 1)) 
 				{
 					c.killBrick = true;
 				}
-
-				// 
 				else if (tipo == SORPRESA || tipo == OCULTO)
 				{
 					c.spawnSeta = true;
 				}
 			}
-			// si la colision es por: arr -> muere el goomba
-			else
-			{
-
-			}
 		}
-		// si no... con el tilemap?
+		// si con otras entidades...
 		else
 		{
 
@@ -125,4 +116,10 @@ Collision Block::hit(const SDL_Rect& rect, bool fromPlayer)
 	}
 
 	return c;
+}
+
+void Block::manageSorpresa()
+{
+	setTipo(3);
+	blockFrame = 4;
 }

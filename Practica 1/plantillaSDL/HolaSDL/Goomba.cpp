@@ -74,10 +74,19 @@ Collision Goomba::hit(const SDL_Rect& rect, bool fromPlayer)
 				c.damages = true; // danio a mario
 			}
 		}
-		// si no... con el tilemap?
+		// si no... con el tilemap
 		else
 		{
-			
+			// choca por la izq -> va a der
+			if (destRect.x <= (rect.x + rect.w))
+			{
+				direction.setX(1);
+			}
+			// choca por la der -> va a izq
+			else if ((destRect.x + destRect.w) >= rect.x)
+			{
+				direction.setX(-1);
+			}
 		}
 	}
 
