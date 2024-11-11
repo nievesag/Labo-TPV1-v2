@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "Collision.h"
 
 class Game;
 
@@ -25,8 +26,12 @@ private:
 	Point2D<double> position;	// posicion actual en Point2D
 	Vector2D<int> direction;	// direccion de movimiento
 
+	SDL_Rect destRect;
+
+	bool alive;
+
 public:
-	Mushroom();
+	Mushroom(Game* g);
 
 	// -- render --
 	void render() const;
@@ -34,11 +39,26 @@ public:
 	// -- update --
 	void update();
 
+	void updateRect();
+
+	void moveSeta();
+
 	// -- hit --
 	// controla las colisiones
 	//	-> Se mueve hacia la derecha en el mapa, cambiando de dir cuando choca con un obstaculo
 	//	-> Si Mario colisiona con Mushroom se convierte en SuperMario
-	void hit(SDL_Rect* rect);
+	Collision hit(const SDL_Rect& rect, bool fromPlayer);
+
+	void killSeta() { alive = false; }
+
+	bool getAlive() {
+		return alive;
+	}
+
+	void setPos(Point2D<double> pos) {
+		position = pos;
+		position.setY(position.getY() * 32);
+	}
 };
 
 #endif

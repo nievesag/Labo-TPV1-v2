@@ -38,7 +38,7 @@ Block::Block(Game* g, std::istream& in)
 
 	texture = game->getTexture(Game::BLOCK); // textura inicial del bloque
 
-	//blockFrame = 0;
+	alive = true;
 }
 
 void Block::render() const
@@ -70,9 +70,59 @@ void Block::update()
 			else if (animationFrame == 2) blockFrame = 0;
 		}
 	}
+
+	updateRect();
 }
-//
-//Collision Block::hit(const SDL_Rect& rect, bool fromPlayer)
-//{
-//
-//}
+
+void Block::updateRect()
+{
+	destRect.h = texture->getFrameHeight() * 2;
+	destRect.w = texture->getFrameWidth() * 2;
+	destRect.x = position.getX() * TILE_SIDE;
+	destRect.y = position.getY() * TILE_SIDE;
+}
+
+
+Collision Block::hit(const SDL_Rect& rect, bool fromPlayer)
+{
+	Collision c;
+
+	// si hay colision
+	if (SDL_HasIntersection(&rect, &destRect))
+	{
+		c.collides = true;
+		c.damages = false;
+
+		// si se origina en mario...
+		if (fromPlayer)
+		{
+			// si la colision es por: abj -> hiere a mario
+			if (rect.y <= (destRect.y + destRect.h))
+			{
+				// 
+				if (tipo == LADRILLO && (game->getMarioState() == 1)) 
+				{
+					c.killBrick = true;
+				}
+
+				// 
+				else if (tipo == SORPRESA || tipo == OCULTO)
+				{
+					c.spawnSeta = true;
+				}
+			}
+			// si la colision es por: arr -> muere el goomba
+			else
+			{
+
+			}
+		}
+		// si no... con el tilemap?
+		else
+		{
+
+		}
+	}
+
+	return c;
+}

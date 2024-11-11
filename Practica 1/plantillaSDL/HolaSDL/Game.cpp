@@ -198,6 +198,11 @@ void Game::update()
 		blockVec[i]->update();
 	}
 
+	for (int i = 0; i < setaVec.size(); i++)
+	{
+		setaVec[i]->update();
+	}
+
 	updateEntities();
 }
 
@@ -212,6 +217,30 @@ void Game::updateEntities()
 
 			// lo quita del vector
 			goombaVec.erase(goombaVec.begin() + i);
+		}
+	}
+
+	// BLOQUES
+	for (int i = 0; i < blockVec.size(); i++)
+	{
+		if (!blockVec[i]->getAlive() && (blockVec[i]->getTipo() == 0))
+		{
+			delete blockVec[i];
+
+			// lo quita del vector
+			blockVec.erase(blockVec.begin() + i);
+		}
+	}
+
+	// SETAS
+	for (int i = 0; i < setaVec.size(); i++)
+	{
+		if (!setaVec[i]->getAlive())
+		{
+			delete setaVec[i];
+
+			// lo quita del vector
+			setaVec.erase(setaVec.begin() + i);
 		}
 	}
 }
@@ -241,6 +270,11 @@ void Game::render() const
 	for (int i = 0; i < blockVec.size(); i++)
 	{
 		blockVec[i]->render();
+	}
+
+	for (int i = 0; i < setaVec.size(); i++)
+	{
+		setaVec[i]->render();
 	}
 
 	// presenta la escena en pantalla
@@ -273,15 +307,6 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 {
 	Collision result;
 
-	// Iterar sobre los objetos del juego y el tilemap
-	/*for (auto& object : gameObjects) {
-		Collision collision = object->hit(rect, fromPlayer);
-		if (collision.collides) {
-			result = collision;
-			break;
-		}
-	}*/
-
 	// TILEMAP
 	
 	if (tilemap->hit(rect, fromPlayer).collides) {
@@ -290,17 +315,6 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 
 		return result;
 	}
-
-	// itera sobre los objeto del juego llamando a sus hit
-	// si alguno devuelve que ha habido colision, interrumpe la busqueda y devuelve ese resultado.
-
-	//if (tilemap->hit(rect, fromPlayer).collides) {
-	//	
-	//	return (tilemap->hit(rect, fromPlayer));
-	//}
-
-	// hit mario
-	//player->hit(rect, fromPlayer);
 
 	// hit goombas
 	
@@ -320,10 +334,44 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 	}
 	
 	// hit blocks
-	//for(int i = 0; i < blockVec.size(); i++)
-	//{
-	//	return (blockVec[i]->hit(rect, fromPlayer));
-	//}
+	for(int i = 0; i < blockVec.size(); i++)
+	{
+		if (blockVec[i]->hit(rect, fromPlayer).collides)
+		{
+			result = (blockVec[i]->hit(rect, fromPlayer));
+
+			if (result.collides && !result.damages && result.killBrick)
+			{
+				blockVec[i]->killBlock();
+			}
+			else if (result.collides && result.spawnSeta) 
+			{
+				mushroom = new Mushroom(this);
+				setaVec.push_back(mushroom);
+				mushroom->setPos(blockVec[i]->getPos());
+
+			}
+
+			return result;
+		}
+	}
+
+	// hit setas
+	for (int i = 0; i < setaVec.size(); i++)
+	{
+		if (setaVec[i]->hit(rect, fromPlayer).collides)
+		{
+			result = (setaVec[i]->hit(rect, fromPlayer));
+
+			if (result.collides && !result.damages && result.evolMario)
+			{
+				if (getMarioState() == 0) player->setState(1);
+				setaVec[i]->killSeta();
+			}
+
+			return result;
+		}
+	}
 
 	return result;
 }

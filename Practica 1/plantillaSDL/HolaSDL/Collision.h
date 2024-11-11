@@ -9,6 +9,13 @@ struct Collision {
     void* collider = nullptr;    // puntero al objeto con el que se colisiono
 
     operator bool() const { return collides; }
+
+    // BLOQUES
+    bool killBrick = false;
+
+    // SETAS
+    bool evolMario = false;
+    bool spawnSeta = false;
 };
 
 #endif // COLLISION_H

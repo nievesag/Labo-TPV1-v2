@@ -94,6 +94,14 @@ public:
 
 	void handleMovement();
 
+	int getState() {
+		return marioState;
+	}
+
+	void setState(int s) {
+		marioState = s;
+	}
+
 private:
 	void moveMario();
 
@@ -107,9 +115,6 @@ private:
 	bool checkMovIzq();
 	// ARRIBA
 	bool checkMovArr();
-
-
-
 };
 
 #endif	

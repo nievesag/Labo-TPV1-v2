@@ -49,9 +49,13 @@ private:
 	// P -> potenciador
 	// C -> moneda
 
+	bool alive;
+
 	int blockFrame;
 	int animationFrame = 0;   // Contador para el ciclo de caminar
 	int frameTimer = 0;
+
+	SDL_Rect destRect;
 
 public:
 	Block(Game* g, std::istream& in);
@@ -62,6 +66,8 @@ public:
 	// -- update --
 	void update();
 
+	void updateRect();
+
 	// -- hit --
 	// controla las colisiones
 	// Los bloques son obstaculos para todos los personajes cuando lo golpeen desde arriba o desde un lateral
@@ -69,7 +75,19 @@ public:
 	//	-> si el bloque es de ladrillo y el player es SuperMario: bloque se rompe
 	//	-> si el bloque es sorpresa/oculto y accion es potenciador: saca mushroom sobre el bloque y lo hace vacio
 	//	-> nada en el resto de casos
-	//Collision hit(const SDL_Rect& rect, bool fromPlayer);
+	Collision hit(const SDL_Rect& rect, bool fromPlayer);
+
+	bool getAlive() {
+		return alive;
+	}
+
+	int getTipo() {
+		return tipo;
+	}
+
+	void killBlock() { alive = false; }
+
+	Point2D<double> getPos() const { return position; }
 };
 
 #endif

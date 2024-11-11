@@ -95,9 +95,12 @@ private:
 	Player* player = nullptr;
 	Goomba* goomba = nullptr;
 	Block* block = nullptr;
+	Mushroom* mushroom = nullptr;
 
 	vector<Goomba*> goombaVec;
 	vector<Block*> blockVec;
+	vector<Mushroom*>setaVec;
+
 
 	// crea semilla
 	std::mt19937_64 randomGenerator;
@@ -153,6 +156,8 @@ public:
 	bool GetExit() { return exit; }
 
 	int getRandomRange(int min, int max) { return std::uniform_int_distribution<int>(min, max)(randomGenerator); }
+
+	int getMarioState() { return player->getState(); }
 
 	// ----- SETTERS -----
 	void EndGame();
