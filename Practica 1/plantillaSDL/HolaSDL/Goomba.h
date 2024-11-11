@@ -32,10 +32,14 @@ private:
 	bool frozen; // para llevar control de objetos inactivos
 	bool alive;
 
+	bool grounded;
+
 	int animationFrame = 0;   // Contador para el ciclo de caminar
 	int frameTimer = 0;
 
 	SDL_Rect destRect;
+	SDL_Rect newRect;
+
 
 public:
 	Goomba(Game* g, std::istream& in);
@@ -46,6 +50,8 @@ public:
 	// -- update --
 	void update();
 
+	void updateRect();
+
 	// -- hit --
 	// controla las colisiones
 	//	-> Si el goomba es golpeado desde arriba por el player: se muere
@@ -53,6 +59,12 @@ public:
 	//		-> si supermario: vuelve a mario
 	//		-> si mario: quita vida
 	Collision hit(const SDL_Rect& rect, bool fromPlayer);
+
+	void killGoomba() { alive = false; }
+
+	bool getAlive() {
+		return alive;
+	}
 
 private:
 	void moveGoomba();

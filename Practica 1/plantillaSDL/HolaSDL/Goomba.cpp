@@ -38,7 +38,16 @@ void Goomba::update()
 		frozen = false;
 	}
 
+	updateRect();
 	moveGoomba();
+}
+
+void Goomba::updateRect()
+{
+	destRect.h = texture->getFrameHeight() * 2;
+	destRect.w = texture->getFrameWidth() * 2;
+	destRect.x = position.getX() * TILE_SIDE;
+	destRect.y = position.getY() * TILE_SIDE;
 }
 
 Collision Goomba::hit(const SDL_Rect& rect, bool fromPlayer)
@@ -48,21 +57,21 @@ Collision Goomba::hit(const SDL_Rect& rect, bool fromPlayer)
 	// si hay colision
 	if(SDL_HasIntersection(&rect, &destRect))
 	{
-		/*
 		c.collides = true;
 
 		// si se origina en mario...
 		if(fromPlayer)
 		{
-			// si la colision es por: der / izq / abj -> hiere a mario
-			if()
+			// si la colision es por: arr -> hiere a mario
+			if((rect.y + rect.h) >= destRect.y)
 			{
-				c.damages = true; // danio a mario
+				// o sea, si collides = true && damages = false -> mata al goomba
+  				c.damages = false; // danio a mario
 			}
 			// si la colision es por: arr -> muere el goomba
 			else
 			{
-				c.damages = false; // o sea, si collides = true && damages = false -> mata al goomba
+				c.damages = true; // danio a mario
 			}
 		}
 		// si no... con el tilemap?
@@ -70,7 +79,6 @@ Collision Goomba::hit(const SDL_Rect& rect, bool fromPlayer)
 		{
 			
 		}
-		*/
 	}
 
 	return c;

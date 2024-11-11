@@ -196,7 +196,23 @@ void Game::update()
 	for (int i = 0; i < blockVec.size(); i++)
 	{
 		blockVec[i]->update();
-		//cout << "hola" << endl;
+	}
+
+	updateEntities();
+}
+
+void Game::updateEntities()
+{
+	// GOOMBAS
+	for (int i = 0; i < goombaVec.size(); i++) 
+	{
+		if (!goombaVec[i]->getAlive())
+		{
+			delete goombaVec[i];
+
+			// lo quita del vector
+			goombaVec.erase(goombaVec.begin() + i);
+		}
 	}
 }
 
@@ -255,7 +271,6 @@ void Game::handleEvents()
 // puede preguntarle a cada uno de ellos (con el metodo hit) si colisiona con el rect
 Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 {
-
 	Collision result;
 
 	// Iterar sobre los objetos del juego y el tilemap
@@ -267,14 +282,14 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 		}
 	}*/
 
-	// Verificar colisiones con el tilemap
-	Collision tileCollision = tilemap->hit(rect, fromPlayer);
-	if (tileCollision.collides) {
-		result = tileCollision;
+	// TILEMAP
+	
+	if (tilemap->hit(rect, fromPlayer).collides) {
+		
+		result = (tilemap->hit(rect, fromPlayer));
+
+		return result;
 	}
-
-	return result;
-
 
 	// itera sobre los objeto del juego llamando a sus hit
 	// si alguno devuelve que ha habido colision, interrumpe la busqueda y devuelve ese resultado.
@@ -288,19 +303,29 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 	//player->hit(rect, fromPlayer);
 
 	// hit goombas
-	//for(int i = 0; i < goombaVec.size(); i++)
-	//{
-	//	if(goombaVec[i]->hit(rect, fromPlayer).damages)
-	//	{
-	//		
-	//	}
-	//}
+	
+	for(int i = 0; i < goombaVec.size(); i++)
+	{
+		if(goombaVec[i]->hit(rect, fromPlayer).collides)
+		{
+			result = (goombaVec[i]->hit(rect, fromPlayer));
 
+			if (result.collides && !result.damages)
+			{
+				goombaVec[i]->killGoomba();
+			}
+
+			return result;
+		}
+	}
+	
 	// hit blocks
 	//for(int i = 0; i < blockVec.size(); i++)
 	//{
 	//	return (blockVec[i]->hit(rect, fromPlayer));
 	//}
+
+	return result;
 }
 
 void Game::EndGame()
