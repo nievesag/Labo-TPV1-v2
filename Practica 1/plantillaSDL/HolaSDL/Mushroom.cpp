@@ -6,8 +6,8 @@ Mushroom::Mushroom(Game* g, Point2D<double> p)
 {
 	position.setY(position.getY() * 32);
 	position.setX(position.getX() * 32);
-	position = position - Point2D<double>(0, 1); // coloca bien al goomba
-	direction = Vector2D<int>(-1, 0);
+	position = position - Point2D<double>(0, 1); 
+	direction = Vector2D<int>(0, 0);
 
 	alive = true;
 	texture = game->getTexture(Game::MUSHROOM);
@@ -38,13 +38,15 @@ void Mushroom::updateRect()
 {
 	destRect.h = texture->getFrameHeight() * 2;
 	destRect.w = texture->getFrameWidth() * 2;
-	destRect.x = position.getX() * TILE_SIDE;
-	destRect.y = position.getY() * TILE_SIDE;
+	destRect.x = position.getX();
+	destRect.y = position.getY();
 }
 
 void Mushroom::moveSeta()
 {
-	new_position.setX(position.getX() + (direction.getX() * GOOMBA_SPEED));
+
+	direction = Vector2D<int>(-1, 0);
+	new_position.setX(position.getX() + (direction.getX() * GOOMBA_SPEED * 20));
 	new_position.setY(position.getY());
 
 	new_rect.h = destRect.h;
@@ -60,8 +62,8 @@ void Mushroom::moveSeta()
 
 		destRect.h = texture->getFrameHeight() * 2;
 		destRect.w = texture->getFrameWidth() * 2;
-		destRect.x = position.getX() * TILE_SIDE;
-		destRect.y = position.getY() * TILE_SIDE;
+		destRect.x = position.getX();
+		destRect.y = position.getY();
 	}
 	else
 	{

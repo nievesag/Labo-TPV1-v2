@@ -115,6 +115,10 @@ public:
 		return alive;
 	}
 
+	void setGrounded(bool g) {
+		grounded = g;
+	}
+
 private:
 	void moveMario();
 

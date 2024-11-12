@@ -12,10 +12,13 @@ struct Collision {
 
     // BLOQUES
     bool killBrick = false;
+    bool setGrounded = false;
+
 
     // SETAS
     bool evolMario = false;
     bool spawnSeta = false;
+
 };
 
 #endif // COLLISION_H

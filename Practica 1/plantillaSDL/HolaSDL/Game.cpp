@@ -359,27 +359,35 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 	}
 	
 	// hit blocks
-	for(int i = 0; i < blockVec.size(); i++)
+	if (fromPlayer) 
 	{
-		if (blockVec[i]->hit(rect, fromPlayer).collides)
+		for (int i = 0; i < blockVec.size(); i++)
 		{
-			result = (blockVec[i]->hit(rect, fromPlayer));
-
-			if (result.collides && !result.damages && result.killBrick)
+			if (blockVec[i]->hit(rect, fromPlayer).collides)
 			{
-				blockVec[i]->killBlock();
-			}
-			else if (result.collides && result.spawnSeta) 
-			{
-				blockVec[i]->manageSorpresa();
+				result = (blockVec[i]->hit(rect, fromPlayer));
 
-				mushroom = new Mushroom(this, blockVec[i]->getPos());
-				setaVec.push_back(mushroom);
-			}
+				if (result.collides && !result.damages && result.killBrick)
+				{
+					blockVec[i]->killBlock();
+				}
+				else if (result.collides && result.spawnSeta)
+				{
+					blockVec[i]->manageSorpresa();
 
-			return result;
+					mushroom = new Mushroom(this, blockVec[i]->getPos());
+					setaVec.push_back(mushroom);
+				}
+				else if (result.collides && result.setGrounded)
+				{
+					player->setGrounded(true);
+				}
+
+				return result;
+			}
 		}
 	}
+	
 
 	// hit setas
 	for (int i = 0; i < setaVec.size(); i++)

@@ -221,7 +221,7 @@ void Player::moveMario()
 	if (!grounded) {
 		if (!isFalling && position.getY() > maxHeight) 
 		{
-			new_position.setY(position.getY() - 0.0025 + 0.001);  //GRAVEDAD
+			new_position.setY(position.getY() - 0.005 + 0.001);  //GRAVEDAD
 
 			new_rect.h = new_position.getY() * 2;
 			new_rect.w = new_position.getX() * 2;
@@ -243,7 +243,7 @@ void Player::moveMario()
 			{
 				isFalling = true;
 
-				new_position.setY(position.getY() + 0.001);
+				new_position.setY(position.getY() + 0.0005);
 
 				new_rect.h = new_position.getY() * 2;
 				new_rect.w = new_position.getX() * 2;
@@ -267,7 +267,7 @@ void Player::moveMario()
 		{
 			isFalling = true;
 
-			new_position.setY(position.getY() + 0.001);
+			new_position.setY(position.getY() + 0.0005);
 
 			new_rect.h = new_position.getY() * 2;
 			new_rect.w = new_position.getX() * 2;
@@ -287,6 +287,8 @@ void Player::moveMario()
 			// en caso de haberla mantiene la posicion inicial
 		}
 
+		
+
 		if (position.getY() >= groundedYPos) 
 		{
 			position.setY(groundedYPos);
@@ -294,6 +296,8 @@ void Player::moveMario()
 			isFalling = false;
 
 		}
+
+
 	}
 
 	// MOV HOR
@@ -327,11 +331,14 @@ void Player::moveMario()
 				if (dir.getX() == 1) {
 					dir.setX(-1);
 					position.setX(new_position.getX());
+				
+
 					
 				}	
 				else if (dir.getX() == -1) {
 					dir.setX(1);
 					position.setX(new_position.getX());
+					
 					
 				}
 					
@@ -339,7 +346,9 @@ void Player::moveMario()
 			}
 		}
 
-		position.setY(position.getY() + 0.001);
+		if (!grounded)
+			position.setY(position.getY() + 0.001);
+
 		if (position.getY() >= groundedYPos)
 		{
 			position.setY(groundedYPos);
@@ -347,6 +356,8 @@ void Player::moveMario()
 			isFalling = false;
 
 		}
+	
+		
 	}
 
 	canJump = keySpace;
