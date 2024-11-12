@@ -29,19 +29,30 @@ void Player::render() const
 {
 	SDL_Rect destRect;
 
-	// tamanio
-	destRect.w = textureM->getFrameWidth();
-	destRect.h = textureM->getFrameHeight();
+	if (marioState == SUPERMARIO) {
+		destRect.w = textureS->getFrameWidth() * 1.5;
+		destRect.h = textureS->getFrameHeight() * 1.5;
+		destRect.y = (position.getY() * TILE_SIDE) - (destRect.h - textureM->getFrameHeight());
+	}
+	else {
+		destRect.w = textureM->getFrameWidth();
+		destRect.h = textureM->getFrameHeight();
+		destRect.y = position.getY() * TILE_SIDE;
+
+	}
 
 	// posicion
 	destRect.x = (position.getX() * TILE_SIDE) - game->getMapOffset();
-	destRect.y = (position.getY() * TILE_SIDE);
+	
+
 
 	// Usa el flip segun la direccion
 	SDL_RendererFlip flip = flipSprite ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE; //esta estructura es un if-else por si no lo conocias
 
-	if (marioState != SUPERMARIO) textureM->renderFrame(destRect, 0, marioFrame, 0.0, nullptr, flip);
-	else textureS->renderFrame(destRect, 0, marioFrame, 0.0, nullptr, flip);
+	if (marioState != SUPERMARIO) 
+		textureM->renderFrame(destRect, 0, marioFrame, 0.0, nullptr, flip);
+	else
+		textureS->renderFrame(destRect, 0, marioFrame, 0.0, nullptr, flip);
 }
 
 void Player::update()
@@ -182,6 +193,7 @@ void Player::manageDamage()
 	if (marioState == SUPERMARIO)
 	{
 		marioState = MARIO;
+		position.setY(position.getY() + 0.5);
 	}
 	else
 	{

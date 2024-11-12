@@ -114,7 +114,7 @@ Collision TileMap::hit(const SDL_Rect& rect, bool fromPlayer) {
 				collision.collider = nullptr; // Ajusta esto según tu implementación
 				collision.damages = fromPlayer; // Ejemplo: tal vez solo daña si es el jugador
 
-				std::cout << collision.collides << endl;
+				//std::cout << collision.collides << endl;
 				return collision;
 			}
 		}
