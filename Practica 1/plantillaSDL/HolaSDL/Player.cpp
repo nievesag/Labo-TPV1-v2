@@ -180,7 +180,7 @@ void Player::moveMario()
 
 	// Velocidad inicial de salto y gravedad
 	const double JUMP_VELOCITY = -10.0;
-	const double GRAVITY = 0.5;
+	const double GRAVITY = 0.003;
 	const double MAX_JUMP_HEIGHT = 4.0;
 
 	Vector2D<double> dir(0, 0);
@@ -206,39 +206,102 @@ void Player::moveMario()
 		velocityY = JUMP_VELOCITY;
 		grounded = false;
 		maxHeight = position.getY() - MAX_JUMP_HEIGHT; // Calcula la altura máxima en Y
+		isFalling = false;
 	}
 
 	// Aplicar gravedad si no está en el suelo
 	if (!grounded) {
 		// Incrementar la velocidad en Y por la gravedad
-		velocityY += GRAVITY;
+		//velocityY += GRAVITY;
+		if (!isFalling && position.getY() > maxHeight)
+		{
+			// Calcular la nueva posición tentativa de Mario en Y
+			double newY = position.getY() + velocityY + GRAVITY;
 
-		// Calcular la nueva posición tentativa de Mario en Y
-		double newY = position.getY() + velocityY;
+			// Comprobar si Mario ha alcanzado o superado la altura máxima
+			if (newY <= maxHeight) {
+				newY = maxHeight; // Fija la posición en la altura máxima
+				velocityY = 0;    // Anula la velocidad hacia arriba
+			}
 
-		// Comprobar si Mario ha alcanzado o superado la altura máxima
-		if (newY <= maxHeight) {
-			newY = maxHeight; // Fija la posición en la altura máxima
-			velocityY = 0;    // Anula la velocidad hacia arriba
+			// Crear un rectángulo de colisión para la nueva posición vertical
+			SDL_Rect new_rect;
+			new_rect.h = texture->getFrameHeight();
+			new_rect.w = texture->getFrameWidth();
+			new_rect.x = position.getX() * TILE_SIDE;
+			new_rect.y = newY * TILE_SIDE;
+
+			// Comprobación de colisión en la nueva posición vertical
+			if (!(game->checkCollisions(new_rect, true).collides)) {
+				position.setY(newY); // Actualiza la posición si no hay colisión
+
+				destRect.h = texture->getFrameHeight() * 2;
+				destRect.w = texture->getFrameWidth() * 2;
+				destRect.x = position.getX() * TILE_SIDE;
+				destRect.y = position.getY() * TILE_SIDE;
+
+			}
+			else {
+				isFalling = true;
+
+				new_position.setY(position.getY() + GRAVITY);
+				new_rect.h = new_position.getY() * 2;
+				new_rect.w = new_position.getX() * 2;
+				new_rect.x = position.getX() * TILE_SIDE;
+				new_rect.y = position.getY() * TILE_SIDE;
+
+				// si no hay colision -> actualiza la posicion
+				if (!(game->checkCollisions(new_rect, true).collides))
+				{
+					position.setY(new_position.getY());
+
+					destRect.h = texture->getFrameHeight() * 2;
+					destRect.w = texture->getFrameWidth() * 2;
+					destRect.x = position.getX() * TILE_SIDE;
+					destRect.y = position.getY() * TILE_SIDE;
+				}
+			}	
+
+			// Comprobar si Mario ha alcanzado o superado la altura máxima
+			if (newY <= maxHeight) {
+				newY = maxHeight; // Fija la posición en la altura máxima
+				velocityY = 0;    // Anula la velocidad hacia arriba
+			}
+		}
+		else
+		{
+			isFalling = true;
+
+			new_position.setY(position.getY() + GRAVITY);
+
+			new_rect.h = new_position.getY() * 2;
+			new_rect.w = new_position.getX() * 2;
+			new_rect.x = position.getX() * TILE_SIDE;
+			new_rect.y = position.getY() * TILE_SIDE;
+
+			// si no hay colision -> actualiza la posicion
+			if (!(game->checkCollisions(new_rect, true).collides))
+			{
+				position.setY(new_position.getY());
+
+				destRect.h = texture->getFrameHeight() * 2;
+				destRect.w = texture->getFrameWidth() * 2;
+				destRect.x = position.getX() * TILE_SIDE;
+				destRect.y = position.getY() * TILE_SIDE;
+			}
+			// en caso de haberla mantiene la posicion inicial
 		}
 
-		// Crear un rectángulo de colisión para la nueva posición vertical
-		SDL_Rect new_rect;
-		new_rect.h = texture->getFrameHeight();
-		new_rect.w = texture->getFrameWidth();
-		new_rect.x = position.getX() * TILE_SIDE;
-		new_rect.y = newY * TILE_SIDE;
+		if (position.getY() >= groundedYPos)
+		{
 
-		// Comprobación de colisión en la nueva posición vertical
-		if (!(game->checkCollisions(new_rect, true).collides)) {
-			position.setY(newY); // Actualiza la posición si no hay colisión
-		}
-		else {
-			// Si hay colisión, Mario toca el suelo
 			position.setY(groundedYPos);
-			velocityY = 0;
+
 			grounded = true;
+			isFalling = false;
+			dir.setY(0);
 		}
+
 	}
 
 	//if (keySpace && grounded && !canJump) {
@@ -320,26 +383,8 @@ void Player::moveMario()
 
 
 
-	//	if (position.getY() >= groundedYPos) 
-	//	{
-	//		new_position.setY(groundedYPos);
-
-	//		new_rect.h = new_position.getY() * 2;
-	//		new_rect.w = new_position.getX() * 2;
-	//		new_rect.x = position.getX() * TILE_SIDE;
-	//		new_rect.y = position.getY() * TILE_SIDE;
-
-	//		// si no hay colision -> actualiza la posicion
-	//		if (!(game->checkCollisions(new_rect, true).collides))
-	//		{
-	//			position.setY(groundedYPos);
-
-	//			grounded = true;
-	//			isFalling = false;
-	//			dir.setY(0);
-	//		}
-	//	}
-	//}
+		
+	
 
 	// MOV HOR
 	// condicion para que no se salga por la izquierda

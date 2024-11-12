@@ -46,6 +46,7 @@ static constexpr double
 					TIME_BT_FRAMES = 1 / FRAMERATE,		// tiempo entre frames
 					MARIO_SPEED = 0.0005,	// velocidad de mario
 					GOOMBA_SPEED = 0.0003;	// velocidad de goombas
+				
 
 // constantes estaticas en Game
 // -- para render de tilemap

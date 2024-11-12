@@ -45,7 +45,7 @@ void Mushroom::updateRect()
 void Mushroom::moveSeta()
 {
 	direction = Vector2D<int>(-1, 0);
-	position.setX(position.getX() + (direction.getX() * GOOMBA_SPEED * 0.3));
+	position.setX(position.getX() + (direction.getX() * 0.005));
 }
 
 Collision Mushroom::hit(const SDL_Rect& rect, bool fromPlayer)
