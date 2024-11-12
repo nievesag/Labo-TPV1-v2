@@ -225,7 +225,7 @@ void Player::moveMario()
 
 			new_rect.h = new_position.getY() * 2;
 			new_rect.w = new_position.getX() * 2;
-			new_rect.x = position.getX() * TILE_SIDE - game->getMapOffset();
+			new_rect.x = position.getX() * TILE_SIDE;
 			new_rect.y = position.getY() * TILE_SIDE;
 
 			// si no hay colision -> actualiza la posicion
@@ -235,7 +235,7 @@ void Player::moveMario()
 
 				destRect.h = texture->getFrameHeight() * 2;
 				destRect.w = texture->getFrameWidth() * 2;
-				destRect.x = position.getX() * TILE_SIDE - game->getMapOffset();
+				destRect.x = position.getX() * TILE_SIDE;
 				destRect.y = position.getY() * TILE_SIDE;
 			}
 			// en caso de haberla cae
@@ -327,14 +327,25 @@ void Player::moveMario()
 				if (dir.getX() == 1) {
 					dir.setX(-1);
 					position.setX(new_position.getX());
+					
 				}	
 				else if (dir.getX() == -1) {
 					dir.setX(1);
 					position.setX(new_position.getX());
+					
 				}
 					
 				
 			}
+		}
+
+		position.setY(position.getY() + 0.001);
+		if (position.getY() >= groundedYPos)
+		{
+			position.setY(groundedYPos);
+			grounded = true;
+			isFalling = false;
+
 		}
 	}
 
