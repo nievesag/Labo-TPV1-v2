@@ -26,6 +26,9 @@ private:
 	Point2D<double> position;	// posicion actual en Point2D
 	Vector2D<int> direction;	// direccion de movimiento
 
+	Point2D<double> new_position;	// posicion que tendria si avanza en Point2D
+	SDL_Rect new_rect;				// rect que tendria si avanza en Point2D
+
 	SDL_Rect destRect;
 
 	bool alive;
