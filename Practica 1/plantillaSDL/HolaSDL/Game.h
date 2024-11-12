@@ -26,7 +26,7 @@
 #include <string>
 #include <sstream>
 	// classes
-#include "texture.h"
+#include "Texture.h"
 #include "Vector2D.h"
 #include "Collision.h"
 class TileMap;

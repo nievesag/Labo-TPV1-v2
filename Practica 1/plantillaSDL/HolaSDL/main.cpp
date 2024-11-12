@@ -7,7 +7,6 @@
 
 // AUX
 #include <iostream>
-#include <Windows.h>
 #include <vector>
 
 // GAME
@@ -19,7 +18,6 @@ using uint = unsigned int;
 
 int main(int argc, char* argv[])
 {
-	cout << "hola";
 	Game game;
 
 	game.run();
