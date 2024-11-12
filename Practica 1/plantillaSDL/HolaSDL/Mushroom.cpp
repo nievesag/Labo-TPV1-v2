@@ -7,7 +7,7 @@ Mushroom::Mushroom(Game* g, Point2D<double> p)
 	position.setY(position.getY() * 32);
 	position.setX(position.getX() * 32);
 	position = position - Point2D<double>(0, 1); // coloca bien al goomba
-	direction = Vector2D<int>(0, 0);
+	direction = Vector2D<int>(-1, 0);
 
 	alive = true;
 	texture = game->getTexture(Game::MUSHROOM);
@@ -30,6 +30,7 @@ void Mushroom::render() const
 
 void Mushroom::update()
 {
+	updateRect();
 	moveSeta();
 }
 
@@ -43,8 +44,29 @@ void Mushroom::updateRect()
 
 void Mushroom::moveSeta()
 {
-	direction = Vector2D<int>(-1, 0);
-	position.setX(position.getX() + (direction.getX() * 0.01));
+	new_position.setX(position.getX() + (direction.getX() * GOOMBA_SPEED));
+	new_position.setY(position.getY());
+
+	new_rect.h = destRect.h;
+	new_rect.w = destRect.w;
+	new_rect.x = new_position.getX();
+	new_rect.y = new_position.getY();
+
+	// si no hay colision -> actualiza la posicion
+	if (!(game->checkCollisions(new_rect, false).collides))
+	{
+		position.setX(new_position.getX());
+		position.setY(new_position.getY());
+
+		destRect.h = texture->getFrameHeight() * 2;
+		destRect.w = texture->getFrameWidth() * 2;
+		destRect.x = position.getX() * TILE_SIDE;
+		destRect.y = position.getY() * TILE_SIDE;
+	}
+	else
+	{
+		direction.setX(direction.getX() * -1);
+	}
 }
 
 Collision Mushroom::hit(const SDL_Rect& rect, bool fromPlayer)
