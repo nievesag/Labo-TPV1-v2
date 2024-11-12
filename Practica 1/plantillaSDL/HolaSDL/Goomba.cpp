@@ -63,7 +63,7 @@ Collision Goomba::hit(const SDL_Rect& rect, bool fromPlayer)
 		if(fromPlayer)
 		{
 			// si la colision es por: arr -> muere el goomba
-			if (((rect.y - rect.h) <= destRect.y) && (rect.x >= destRect.x && rect.x <= (destRect.x+destRect.w)))
+			if (((rect.y + rect.h) <= destRect.y) && ((rect.x >= destRect.x) && (rect.x <= (destRect.x+destRect.w))))
 			{
 				c.damages = false;
 			}
