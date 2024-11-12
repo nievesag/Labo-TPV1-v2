@@ -361,10 +361,12 @@ void Player::moveMario()
 			{
 				if (dir.getX() == 1) {
 					dir.setX(-1);
+					position.setY(position.getY());
 					position.setX(new_position.getX());
 				}	
 				else if (dir.getX() == -1) {
 					dir.setX(1);
+					position.setY(position.getY());
 					position.setX(new_position.getX());
 				}
 			}
