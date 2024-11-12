@@ -23,6 +23,8 @@ class Player
 	// atributos privados
 private:
 	Texture* texture = nullptr;	// puntero a su textura
+	Texture* textureM = nullptr;
+	Texture* textureS = nullptr;
 	Game* game = nullptr;		// puntero al juego
 
 	int maxLives = 3;
@@ -80,6 +82,10 @@ public:
 	// Si se pulsa la barra espaciadora y esta apoyado sobre un obstaculo, Mario saltara hasta
 	// alcanzar una determinada altura o colisionar con un objeto, momento en el que empezara a caer
 	void update();
+
+	void updateTexture();
+
+	SDL_Rect createRect();
 
 	// -- handleEvent --     
 	void handleEvents(const SDL_Event& event);

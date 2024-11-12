@@ -12,7 +12,10 @@ Player::Player(Game* g, std::istream& in)
 
 	lives = maxLives;
 
-	texture = game->getTexture(Game::MARIO); // textura inicial de mario
+	textureM = game->getTexture(Game::MARIO);		// textura inicial de mario
+	textureS = game->getTexture(Game::SUPERMARIO); // textura supermario
+
+	texture = textureM; // empieza con la de mario
 
 	marioFrame = 0;
 
@@ -27,8 +30,8 @@ void Player::render() const
 	SDL_Rect destRect;
 
 	// tamanio
-	destRect.w = texture->getFrameWidth();
-	destRect.h = texture->getFrameHeight();
+	destRect.w = textureM->getFrameWidth();
+	destRect.h = textureM->getFrameHeight();
 
 	// posicion
 	destRect.x = (position.getX() * TILE_SIDE) - game->getMapOffset();
@@ -37,17 +40,27 @@ void Player::render() const
 	// Usa el flip segun la direccion
 	SDL_RendererFlip flip = flipSprite ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE; //esta estructura es un if-else por si no lo conocias
 
-	texture->renderFrame(destRect, 0, marioFrame, 0.0, nullptr, flip);
+	if (marioState != SUPERMARIO) textureM->renderFrame(destRect, 0, marioFrame, 0.0, nullptr, flip);
+	else textureS->renderFrame(destRect, 0, marioFrame, 0.0, nullptr, flip);
 }
 
 void Player::update()
 {
 	moveMario();
 
+	updateTexture();
+
 	updateOffset();
 
 	updateAnims();
 }
+
+void Player::updateTexture()
+{
+	if (marioState != SUPERMARIO) texture = textureM;
+	else texture = textureS;
+}
+
 
 void Player::handleEvents(const SDL_Event& event)
 {
@@ -156,9 +169,9 @@ bool Player::checkFall()
 
 void Player::manageDamage()
 {
-	if (marioState == 's')
+	if (marioState == SUPERMARIO)
 	{
-		marioState = 'm';
+		marioState = MARIO;
 	}
 	else
 	{
