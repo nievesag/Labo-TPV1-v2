@@ -101,6 +101,8 @@ public:
 
 	void handleMovement();
 
+	void updateRect();
+
 	int getState() {
 		return marioState;
 	}
