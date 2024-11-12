@@ -153,10 +153,16 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			block = new Block(this, lineStream);
 			blockVec.push_back(block);
 			break;
+		case 'K':
+			koopa = new Koopa(this, lineStream);
+			koopaVec.push_back(koopa);
+			break;
 		}
+
 
 		getline(mapa, line);
 	}
+
 }
 
 // RUN
@@ -203,6 +209,11 @@ void Game::update()
 		setaVec[i]->update();
 	}
 
+	for (int i = 0; i < koopaVec.size(); i++)
+	{
+		koopaVec[i]->update();
+	}
+
 	updateEntities();
 
 	// si muere el player acaba el juego
@@ -246,6 +257,18 @@ void Game::updateEntities()
 			setaVec.erase(setaVec.begin() + i);
 		}
 	}
+
+	// KOOPAS
+	for (int i = 0; i < koopaVec.size(); i++)
+	{
+		if (!koopaVec[i]->getAlive())
+		{
+			delete koopaVec[i];
+
+			// lo quita del vector
+			koopaVec.erase(koopaVec.begin() + i);
+		}
+	}
 }
 
 // PINTAR
@@ -279,6 +302,12 @@ void Game::render() const
 	for (int i = 0; i < setaVec.size(); i++)
 	{
 		setaVec[i]->render();
+	}
+
+	// render koopas
+	for (int i = 0; i < koopaVec.size(); i++)
+	{
+		koopaVec[i]->render();
 	}
 
 	// presenta la escena en pantalla

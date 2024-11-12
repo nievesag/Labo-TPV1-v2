@@ -57,6 +57,8 @@ void Player::render() const
 
 void Player::update()
 {
+	//cout << lives << endl;
+
 	//updateRect();
 
 	moveMario();

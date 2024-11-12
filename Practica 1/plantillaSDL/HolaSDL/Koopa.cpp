@@ -7,7 +7,7 @@ Koopa::Koopa(Game* g, std::istream& in)
 	in >> position;
 	position = position - Point2D<double>(0, 1); // lo coloca bien
 	direction = Vector2D<int>(0, 0);
-	texture = game->getTexture(Game::KOOPA); // textura inicial de mario
+	texture = game->getTexture(Game::KOOPA); // textura inicial
 
 	koopaFrame = 0;
 
@@ -25,7 +25,7 @@ void Koopa::render() const
 
 	// posicion
 	destRect.x = (position.getX() * TILE_SIDE) - game->getMapOffset();
-	destRect.y = (position.getY() * TILE_SIDE);
+	destRect.y = (position.getY() * TILE_SIDE - 1 * TILE_SIDE);
 
 	texture->renderFrame(destRect, 0, koopaFrame);
 }
@@ -62,8 +62,8 @@ Collision Koopa::hit(const SDL_Rect& rect, bool fromPlayer)
 		// si se origina en mario...
 		if (fromPlayer)
 		{
-			// si la colision es por: arr -> muere el goomba
-			if ((rect.y + rect.h) >= destRect.y) c.damages = false;
+			// si la colision es por: arr -> muere el koopa
+			if ((rect.y + rect.h) <= destRect.y+1) c.damages = false;
 
 			// otra colision -> hiere a mario
 			else c.damages = true;
@@ -72,12 +72,12 @@ Collision Koopa::hit(const SDL_Rect& rect, bool fromPlayer)
 		else
 		{
 			// choca por la izq -> va a der
-			if (destRect.x <= (rect.x + rect.w))
+			if (destRect.x >= (rect.x + rect.w))
 			{
 				direction.setX(1);
 			}
 			// choca por la der -> va a izq
-			else if ((destRect.x + destRect.w) >= rect.x)
+			else if ((destRect.x + destRect.w) <= rect.x)
 			{
 				direction.setX(-1);
 			}
