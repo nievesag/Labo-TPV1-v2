@@ -60,7 +60,7 @@ void Block::update()
 {
 	if (tipo == SORPRESA) {
 		frameTimer++;
-		if (frameTimer >= 1050) {  // Velocidad del ciclo
+		if (frameTimer >= 3050) {  // Velocidad del ciclo
 			frameTimer = 0;
 			animationFrame = (animationFrame + 1) % 3;  // Ciclo 0,1,2,3, y luego se reinicie 
 

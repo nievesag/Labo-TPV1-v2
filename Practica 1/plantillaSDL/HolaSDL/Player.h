@@ -69,6 +69,11 @@ private:
 	SDL_Rect collider;
 	Collision c;
 
+	// invencibilidad
+	int invCounter = 0;
+	int maxInvCounter = 5;
+	bool invencible = false;
+
 public:
 	Player(Game* g, std::istream& i); // no se si pasarle la textura
 
@@ -95,11 +100,11 @@ public:
 
 	void manageDamage();
 
+	void manageInvencible();
+
 	void updateAnims();
 
 	void updateOffset();
-
-	void handleMovement();
 
 	void updateRect();
 

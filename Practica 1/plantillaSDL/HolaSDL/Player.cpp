@@ -30,22 +30,19 @@ void Player::render() const
 	SDL_Rect destRect;
 
 	if (marioState == SUPERMARIO) {
-		destRect.w = textureS->getFrameWidth() * 1.5;
-		destRect.h = textureS->getFrameHeight() * 1.5;
+		destRect.w = textureS->getFrameWidth() * 1.7;
+		destRect.h = textureS->getFrameHeight() * 1.7;
 		destRect.y = (position.getY() * TILE_SIDE) - (destRect.h - textureM->getFrameHeight());
 	}
 	else {
 		destRect.w = textureM->getFrameWidth();
 		destRect.h = textureM->getFrameHeight();
 		destRect.y = position.getY() * TILE_SIDE;
-
 	}
 
 	// posicion
 	destRect.x = (position.getX() * TILE_SIDE) - game->getMapOffset();
 	
-
-
 	// Usa el flip segun la direccion
 	SDL_RendererFlip flip = flipSprite ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE; //esta estructura es un if-else por si no lo conocias
 
@@ -57,8 +54,8 @@ void Player::render() const
 
 void Player::update()
 {
-	//cout << lives << endl;
 
+	manageInvencible();
 	//updateRect();
 
 	moveMario();
@@ -68,6 +65,7 @@ void Player::update()
 	updateOffset();
 
 	updateAnims();
+
 }
 
 void Player::updateTexture()
@@ -152,7 +150,7 @@ void Player::updateAnims()
 	}
 	else if (keyA != keyD) {
 		frameTimer++;
-		if (frameTimer >= 150) {  // Velocidad del ciclo
+		if (frameTimer >= 45) {  // Velocidad del ciclo
 			frameTimer = 0;
 			animationFrame = (animationFrame + 1) % 4;  // Ciclo 0,1,2,3, y luego se reinicie 
 
@@ -179,7 +177,7 @@ void Player::updateOffset()
 
 	int screenX = position.getX() * TILE_SIDE - game->getMapOffset();
 
-	if (screenX > TILE_SIDE * WINDOW_WIDTH / 2 && game->getMapOffset() < 6100) {
+	if (screenX > TILE_SIDE * WINDOW_WIDTH / 2 && game->getMapOffset() < 6000) {
 		game->addMapOffset(1);
 	}
 }
@@ -192,16 +190,38 @@ bool Player::checkFall()
 
 void Player::manageDamage()
 {
-	if (marioState == SUPERMARIO)
+	if (!invencible) 
 	{
-		marioState = MARIO;
-		position.setY(position.getY() + 0.5);
-	}
-	else
-	{
-		if(lives > 0) lives--;
+		if (marioState == SUPERMARIO)
+		{
+			marioState = MARIO;
+			position.setY(position.getY() + 0.5);
+		}
+		else
+		{
+			if (lives > 0) {
+				invencible = true;
+				lives--;
+			}
 
-		if (lives <= 0) alive = false;
+			if (lives <= 0) alive = false;
+		}
+
+	}
+
+	invencible = true;
+}
+
+void Player::manageInvencible()
+{
+	if ((invCounter < maxInvCounter) && invencible)
+	{
+		invCounter++;
+	}
+	else 
+	{
+		invCounter = 0;
+		invencible = false;
 	}
 }
 
@@ -235,7 +255,7 @@ void Player::moveMario()
 	if (!grounded) {
 		if (!isFalling && position.getY() > maxHeight) 
 		{
-			new_position.setY(position.getY() - 0.005 + 0.001);  //GRAVEDAD
+			new_position.setY(position.getY() - 0.003 + 0.001);  //GRAVEDAD
 
 			new_rect.h = new_position.getY() * 2;
 			new_rect.w = new_position.getX() * 2;
@@ -257,7 +277,7 @@ void Player::moveMario()
 			{
 				isFalling = true;
 
-				new_position.setY(position.getY() + 0.0005);
+				new_position.setY(position.getY() + 0.0002);
 
 				new_rect.h = new_position.getY() * 2;
 				new_rect.w = new_position.getX() * 2;
@@ -281,7 +301,7 @@ void Player::moveMario()
 		{
 			isFalling = true;
 
-			new_position.setY(position.getY() + 0.0005);
+			new_position.setY(position.getY() + 0.0002);
 
 			new_rect.h = new_position.getY() * 2;
 			new_rect.w = new_position.getX() * 2;
@@ -301,22 +321,19 @@ void Player::moveMario()
 			// en caso de haberla mantiene la posicion inicial
 		}
 
-		
-
 		if (position.getY() >= groundedYPos) 
 		{
 			position.setY(groundedYPos);
 			grounded = true;
 			isFalling = false;
-
 		}
-
-
 	}
+
+	//cout << position.getX() << endl;
 
 	// MOV HOR
 	// condicion para que no se salga por la izquierda
-	if ((((position.getX() * TILE_SIDE) - game->getMapOffset()) + (dir.getX())) >= 0) 
+	if ((((position.getX() * TILE_SIDE) - game->getMapOffset()) + (dir.getX())) >= 0)
 	{
 		if (dir.getX() != 0)
 		{
@@ -345,18 +362,11 @@ void Player::moveMario()
 				if (dir.getX() == 1) {
 					dir.setX(-1);
 					position.setX(new_position.getX());
-				
-
-					
 				}	
 				else if (dir.getX() == -1) {
 					dir.setX(1);
 					position.setX(new_position.getX());
-					
-					
 				}
-					
-				
 			}
 		}
 
@@ -368,10 +378,7 @@ void Player::moveMario()
 			position.setY(groundedYPos);
 			grounded = true;
 			isFalling = false;
-
 		}
-	
-		
 	}
 
 	canJump = keySpace;

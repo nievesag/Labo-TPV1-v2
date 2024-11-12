@@ -104,11 +104,10 @@ void Goomba::moveGoomba()
 	if (direction.getX() != 0)
 	{
 		frameTimer++;
-		if (frameTimer >= 800) {  // Velocidad del ciclo
+		if (frameTimer >= 1200) {  // Velocidad del ciclo      
 			frameTimer = 0;
 			animationFrame = (animationFrame + 1) % 2; 
 
-			
 			if (animationFrame == 0) goombaFrame = 1;
 			else if (animationFrame == 1) goombaFrame = 0;
 		}
