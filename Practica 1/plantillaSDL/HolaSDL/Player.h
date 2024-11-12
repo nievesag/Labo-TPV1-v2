@@ -67,6 +67,7 @@ private:
 	SDL_Rect new_rect;				// rect que tendria si avanza en Point2D
 	SDL_Rect collider;
 	Collision c;
+	int margenColi = 9;
 
 public:
 	Player(Game* g, std::istream& i); // no se si pasarle la textura
