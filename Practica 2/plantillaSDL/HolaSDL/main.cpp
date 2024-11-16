@@ -12,15 +12,41 @@
 // GAME
 #include "Game.h"
 
-using namespace std;
-
-using uint = unsigned int;
+// ERRORES
+#include "GameError.h"
+#include "FileNotFoundError.h"
+#include "SDLError.h"
+#include "FileFormatError.h" 
 
 int main(int argc, char* argv[])
 {
-	Game game;
+    try {
+        // no hace falta borrarlo porque es estatico, se borra solo al salir de ambito (si fuese puntero: delete ay;)
+        Game game;
+        game.run();
+    }
 
-	game.run();
+    // ERROR DE SDL
+    catch (SDLError& SDLError) {
 
-	return 0;
+        std::cout << SDLError.what() << std::endl;
+    }
+
+    // ERROR DE ARCHIVO NO ENCONTRADO
+    catch (FileNotFoundError& FileNotFoundError) {
+        std::cout << FileNotFoundError.what() << std::endl;
+    }
+
+    // ERROR DE FORMATO DE ARCHIVO
+    catch (FileFormatError& FileFormatError) {
+        std::cout << FileFormatError.what() << std::endl;
+    }
+
+    // ERROR GENERICO
+    catch (...)
+    {
+        std::cout << "An error occurred, you can't play SuperMario :(" << std::endl;
+    }
+
+    return 0;
 }

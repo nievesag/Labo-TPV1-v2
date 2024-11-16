@@ -7,6 +7,8 @@
 #include "texture.h"
 #include <list>
 
+#include "Collision.h"
+
 class SceneObject : public GameObject
 {
 	// atributos protegidos
@@ -28,7 +30,9 @@ public:
 
 	// ---- hit ----
 	// colisiones
-	virtual bool hit(const SDL_Rect& rect, bool fromPlayer);
+	virtual Collision hit(const SDL_Rect& rect, bool fromPlayer);
+
+	virtual void tryToMove(Vector2D<double> v, bool b);
 
 	void setListAnchor(GameList<SceneObject>::anchor&& anchor)
 	{

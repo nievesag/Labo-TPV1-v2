@@ -11,13 +11,14 @@
 #include <string>
 
 #include "Collision.h"
+#include "SceneObject.h"
 
 class Game;
 
 using uint = unsigned int;
 using namespace std;
 
-class Block
+class Block : public SceneObject
 {
 	// atributos privados
 private:
@@ -75,7 +76,7 @@ public:
 	//	-> si el bloque es de ladrillo y el player es SuperMario: bloque se rompe
 	//	-> si el bloque es sorpresa/oculto y accion es potenciador: saca mushroom sobre el bloque y lo hace vacio
 	//	-> nada en el resto de casos
-	Collision hit(const SDL_Rect& rect, bool fromPlayer);
+	Collision hit(const SDL_Rect& rect, bool fromPlayer) override;
 
 	bool getAlive() {
 		return alive;

@@ -28,7 +28,7 @@ public:
 	virtual ~GameObject();
 
 	// ---- render ----
-	virtual void render(SDL_Rect destRect) const;
+	virtual void render(SDL_Rect destRect) const = 0;
 
 	// ---- update ----
 	virtual void update() = 0;

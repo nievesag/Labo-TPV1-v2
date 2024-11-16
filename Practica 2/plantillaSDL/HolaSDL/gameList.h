@@ -257,7 +257,7 @@ public:
 			return *this;
 		}
 
-		auto operator<=>(const iterator& other) const = default;
+		//auto operator<=>(const iterator& other) const = default;
 	};
 
 	/// Iterador constante al inicio de la lista
