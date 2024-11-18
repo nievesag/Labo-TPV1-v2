@@ -165,6 +165,7 @@ public:
 	void EndGame();
 	void setExit(bool aux) { exit = aux; }
 	void addMapOffset(int newOffset) { mapOffset += newOffset; }
+	void setMapOffset(int newOffset) { mapOffset = newOffset;  }
 
 private:
 	// ---- loadTexture ----

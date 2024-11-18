@@ -71,6 +71,8 @@ void TileMap::render()
 			rect.x = -d0 + i * TILE_SIDE;
 			rect.y = j * TILE_SIDE;
 
+			if (indice == -1) fx = fy = 0;
+
 			// Usa renderFrame para pintar la tesela
 			texture->renderFrame(rect, fy, fx);
 		}
@@ -106,13 +108,13 @@ Collision TileMap::hit(const SDL_Rect& rect, bool fromPlayer) {
 			{
 				collision.collides = true;
 
-				// Calcula la intersección entre rect y el tile en cuestión
-				SDL_Rect tileRect = { col * TILE_SIDE, row * TILE_SIDE, TILE_SIDE, TILE_SIDE };
-				SDL_IntersectRect(&rect, &tileRect, &collision.intersection);
+				//// Calcula la intersección entre rect y el tile en cuestión
+				//SDL_Rect tileRect = { col * TILE_SIDE, row * TILE_SIDE, TILE_SIDE, TILE_SIDE };
+				//SDL_IntersectRect(&rect, &tileRect, &collision.intersection);
 
-				// Aquí puedes asignar el puntero `collider` y establecer `damages` si aplica
-				collision.collider = nullptr; // Ajusta esto según tu implementación
-				collision.damages = fromPlayer; // Ejemplo: tal vez solo daña si es el jugador
+				//// Aquí puedes asignar el puntero `collider` y establecer `damages` si aplica
+				//collision.collider = nullptr; // Ajusta esto según tu implementación
+				//collision.damages = fromPlayer; // Ejemplo: tal vez solo daña si es el jugador
 
 				//std::cout << collision.collides << endl;
 				return collision;

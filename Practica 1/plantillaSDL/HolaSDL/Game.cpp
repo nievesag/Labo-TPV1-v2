@@ -340,12 +340,16 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 {
 	Collision result;
 
-	// hit tilemap
+	 //hit tilemap
 	if (tilemap->hit(rect, fromPlayer).collides) 
 	{
 		result = (tilemap->hit(rect, fromPlayer));
 		return result;
 	}
+
+	// hit mapa
+	//result = tilemap->hit(rect, fromPlayer);
+	//if (result.collides) { return result; }
 
 	// hit goombas
 	for(int i = 0; i < goombaVec.size(); i++)
