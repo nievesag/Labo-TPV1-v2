@@ -68,6 +68,7 @@ private:
 	double gravity = 0.003;
 	double margen = -0.00001;
 	double deadH = 15;
+	int mapTiles = 220; //Numero de tiles de ancho del mapa
 
 	//Colisiones
 	Point2D<double> new_position;	// posicion que tendria si avanza en Point2D

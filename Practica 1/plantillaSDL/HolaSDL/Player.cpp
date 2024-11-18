@@ -77,6 +77,7 @@ void Player::update()
 		new_rect = auxRect;
 	}
 
+
 	new_rect.x = position.getX() * TILE_SIDE + direction.getX() * vel.getX();
 	c = game->checkCollisions(new_rect, true);
 	if (c.collides) {
@@ -101,6 +102,7 @@ void Player::update()
 	limitX = true;
 	limitY = true;
 
+	//cout << lives << endl;
 
 }
 
@@ -267,7 +269,7 @@ void Player::manageInvencible()
 	}
 }
 
-void Player::moveMario(bool canMoveX, bool canMoveY)
+void Player::moveMario(bool moveX, bool moveY)
 {
 	Vector2D<double> dir(0, 0);
 
@@ -286,8 +288,12 @@ void Player::moveMario(bool canMoveX, bool canMoveY)
 		}
 	}
 
-	if (canMoveX) position.setX(position.getX() + (direction.getX() * vel.getX()));
+	if (moveX) 
+	{
+		position.setX(position.getX() + (direction.getX() * vel.getX()));
+	}
 
+	//Control del salto
 	if (keySpace && grounded && !isFalling) 
 	{
 		direction.setY(-1);
@@ -297,12 +303,13 @@ void Player::moveMario(bool canMoveX, bool canMoveY)
 	else
 		direction.setY(0);
 
-	if (position.getY() > maxHeight && keySpace && !isFalling && (canMoveY || direction.getY() == -1)) 
+	//Movimiento vertical
+	if (position.getY() > maxHeight && keySpace && !isFalling && (moveY || direction.getY() == -1)) 
 	{ 
 		position.setY(position.getY() - vel.getY());
 	}
 
-	else if (canMoveY && (position.getY() <= maxHeight || direction.getY() == 0)) 
+	else if (moveY && (position.getY() <= maxHeight || direction.getY() == 0)) 
 	{
 		isFalling = true;
 		position.setY(position.getY() + gravity);
@@ -311,8 +318,8 @@ void Player::moveMario(bool canMoveX, bool canMoveY)
 	if (position.getX() * TILE_SIDE - game->getMapOffset() <= 0 && direction.getX() == -1)
 		position.setX(game->getMapOffset() / TILE_SIDE);
 
-	if (position.getX() * TILE_SIDE + (TILE_SIDE * WINDOW_WIDTH) >= 220 * TILE_SIDE && direction.getX() == 1)
-		position.setX(margen + (220 * TILE_SIDE - (TILE_SIDE * WINDOW_WIDTH)) / TILE_SIDE);
+	if (position.getX() * TILE_SIDE + (TILE_SIDE * WINDOW_WIDTH) >= mapTiles * TILE_SIDE && direction.getX() == 1)
+		position.setX(margen + (mapTiles * TILE_SIDE - (TILE_SIDE * WINDOW_WIDTH)) / TILE_SIDE);
 
 	
 }

@@ -96,7 +96,7 @@ Collision Block::hit(const SDL_Rect& rect, bool fromPlayer)
 		if (fromPlayer)
 		{
 			// si la colision es por: abj 
-			if (rect.y <= (destRect.y + destRect.h))
+			if (rect.y >= (destRect.y + destRect.h))
 			{
 				if (tipo == LADRILLO && (game->getMarioState() == 1)) 
 				{
