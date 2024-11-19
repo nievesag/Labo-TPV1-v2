@@ -82,6 +82,7 @@
     <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="Pickable.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="SDLError.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TileMap.cpp" />

@@ -62,7 +62,7 @@ public:
 	Block(Game* g, std::istream& in);
 
 	// -- render --
-	void render(SDL_Rect destRect) const override;
+	void render() const override;
 
 	// -- update --
 	void update();
@@ -96,6 +96,8 @@ public:
 	void killBlock() { alive = false; }
 
 	Point2D<double> getPos() const { return position; }
+
+	void tryToMove(Vector2D<double> v, bool b) override;
 };
 
 #endif

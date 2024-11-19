@@ -2,7 +2,7 @@
 #include "Game.h"
 
 Block::Block(Game* g, std::istream& in)
-	: game(g)
+	: SceneObject(g, in)
 {
 	in >> position;
 	position = position - Point2D<double>(0, 1); 
@@ -41,7 +41,7 @@ Block::Block(Game* g, std::istream& in)
 	alive = true;
 }
 
-void Block::render(SDL_Rect destRect) const
+void Block::render() const
 {
 	SDL_Rect destRect;
 
@@ -126,4 +126,9 @@ void Block::manageSorpresa()
 {
 	setTipo(3);
 	blockFrame = 4;
+}
+
+void Block::tryToMove(Vector2D<double> v, bool b)
+{
+
 }

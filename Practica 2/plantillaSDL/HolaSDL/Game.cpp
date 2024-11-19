@@ -150,7 +150,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			 goombaVec.push_back(goomba);
 			break;
 		case 'B':
-			block = new Block(this, lineStream);
+			Block block1 = new SceneObject(this, lineStream);
 			blockVec.push_back(block);
 			break;
 		case 'K':
@@ -159,10 +159,8 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			break;
 		}
 
-
 		getline(mapa, line);
 	}
-
 }
 
 // RUN

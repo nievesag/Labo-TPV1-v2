@@ -17,7 +17,7 @@ protected:
 	int width, height;		  // Dimension del objeto
 	double speed;			  // Velocidad del objeto
 
-	Texture* texture;
+	Texture* texture = nullptr;
 
 	// rectangulo del render
 	SDL_Rect destRect;
@@ -27,13 +27,14 @@ protected:
 
 	// metodos publicos
 public:
+	SceneObject(Game* g, std::istream& in);
 
 	// ---- hit ----
 	// colisiones
-	virtual Collision hit(const SDL_Rect& rect, bool fromPlayer);
-	virtual void render(SDL_Rect destRect) const override = 0;
+	virtual Collision hit(const SDL_Rect& rect, bool fromPlayer) = 0;
+	virtual void render() const override = 0;
 
-	virtual void tryToMove(Vector2D<double> v, bool b);
+	virtual void tryToMove(Vector2D<double> v, bool b) = 0;
 
 	void setListAnchor(GameList<SceneObject>::anchor&& anchor)
 	{
