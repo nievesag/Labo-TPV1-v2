@@ -11,6 +11,8 @@ Mushroom::Mushroom(Game* g, Point2D<double> p)
 
 	alive = true;
 	texture = game->getTexture(Game::MUSHROOM);
+
+	grounded = true;
 }
 
 void Mushroom::render() const
@@ -44,8 +46,8 @@ void Mushroom::updateRect()
 
 void Mushroom::moveSeta()
 {
-
 	direction = Vector2D<int>(-1, 0);
+
 	new_position.setX(position.getX() + (direction.getX() * GOOMBA_SPEED * 20));
 	new_position.setY(position.getY());
 
@@ -57,7 +59,6 @@ void Mushroom::moveSeta()
 	// si no hay colision -> actualiza la posicion
 	if (!(game->checkCollisions(new_rect, false).collides))
 	{
-		
 		position.setX(new_position.getX());
 		position.setY(new_position.getY());
 
@@ -68,7 +69,7 @@ void Mushroom::moveSeta()
 	}
 	else
 	{
-		
+
 		//direction.setX(direction.getX() * -1);
 	}
 }
@@ -100,6 +101,10 @@ Collision Mushroom::hit(const SDL_Rect& rect, bool fromPlayer)
 			{
 				direction.setX(-1);
 			}
+
+			// gravedad
+			if ((destRect.y + destRect.h) <= rect.y) grounded = true;
+			else grounded = false;
 		}
 	}
 

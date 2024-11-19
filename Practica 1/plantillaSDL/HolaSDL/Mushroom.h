@@ -33,6 +33,8 @@ private:
 
 	bool alive;
 
+	bool grounded;
+
 public:
 	Mushroom(Game* g, Point2D<double> p);
 
