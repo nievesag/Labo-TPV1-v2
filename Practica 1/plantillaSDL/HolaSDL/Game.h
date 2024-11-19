@@ -41,7 +41,7 @@ class TileMap;
 using uint = unsigned int;
 
 // gestion de frames y framerate 
-static constexpr double
+constexpr double
 					FRAMERATE = 50,						// frames por segundo
 					TIME_BT_FRAMES = 1 / FRAMERATE,		// tiempo entre frames
 					MARIO_SPEED = 0.0005,	// velocidad de mario
@@ -50,10 +50,10 @@ static constexpr double
 
 // constantes estaticas en Game
 // -- para render de tilemap
-static constexpr int TILE_SIDE = 32;  
-static constexpr int WINDOW_WIDTH = 18;
-static constexpr int WINDOW_HEIGHT = 16;
-static constexpr int OBSTACLE_THRESHOLD = 4; // constante
+constexpr int TILE_SIDE = 32;  
+constexpr int WINDOW_WIDTH = 18;
+constexpr int WINDOW_HEIGHT = 16;
+constexpr int OBSTACLE_THRESHOLD = 4; // constante
 
 // ------------------------------ GAME ------------------------------
 class Game

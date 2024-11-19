@@ -41,7 +41,7 @@ Block::Block(Game* g, std::istream& in)
 	alive = true;
 }
 
-void Block::render() const
+void Block::render(SDL_Rect destRect) const
 {
 	SDL_Rect destRect;
 

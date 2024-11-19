@@ -159,10 +159,8 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			break;
 		}
 
-
 		getline(mapa, line);
 	}
-
 }
 
 // RUN

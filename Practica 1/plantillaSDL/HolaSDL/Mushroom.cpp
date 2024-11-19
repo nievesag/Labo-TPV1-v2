@@ -13,6 +13,8 @@ Mushroom::Mushroom(Game* g, Point2D<double> p)
 	texture = game->getTexture(Game::MUSHROOM);
 
 	grounded = true;
+
+	vel = Vector2D<double>(velX, velY);
 }
 
 void Mushroom::render() const
@@ -72,6 +74,17 @@ void Mushroom::moveSeta()
 		direction.setX(direction.getX() * -1);
 		position.setX(new_position.getX());
 	}
+
+	//
+	//if (!grounded) 
+	//{
+	//	direction.setY(1);
+	//	position.setY(position.getY() + gravity);
+	//}
+	//else 
+	//{
+	//	direction.setY(0);
+	//}
 }
 
 Collision Mushroom::hit(const SDL_Rect& rect, bool fromPlayer)
@@ -103,7 +116,7 @@ Collision Mushroom::hit(const SDL_Rect& rect, bool fromPlayer)
 			}
 
 			// gravedad
-			if ((destRect.y + destRect.h) <= rect.y) grounded = true;
+			if ((destRect.y + destRect.h) <= rect.y) grounded = true; // comprueba la colision con el bloque
 			else grounded = false;
 		}
 	}

@@ -308,18 +308,16 @@ void Player::moveMario(bool moveX, bool moveY)
 	{ 
 		position.setY(position.getY() - vel.getY());
 	}
-
 	else if (moveY && (position.getY() <= maxHeight || direction.getY() == 0)) 
 	{
 		isFalling = true;
 		position.setY(position.getY() + gravity);
 	}
 
+
 	if (position.getX() * TILE_SIDE - game->getMapOffset() <= 0 && direction.getX() == -1)
 		position.setX(game->getMapOffset() / TILE_SIDE);
 
 	if (position.getX() * TILE_SIDE + (TILE_SIDE * WINDOW_WIDTH) >= mapTiles * TILE_SIDE && direction.getX() == 1)
 		position.setX(margen + (mapTiles * TILE_SIDE - (TILE_SIDE * WINDOW_WIDTH)) / TILE_SIDE);
-
-	
 }

@@ -62,7 +62,7 @@ public:
 	Block(Game* g, std::istream& in);
 
 	// -- render --
-	void render() const;
+	void render(SDL_Rect destRect) const override;
 
 	// -- update --
 	void update();

@@ -31,6 +31,7 @@ public:
 	// ---- hit ----
 	// colisiones
 	virtual Collision hit(const SDL_Rect& rect, bool fromPlayer);
+	virtual void render(SDL_Rect destRect) const override = 0;
 
 	virtual void tryToMove(Vector2D<double> v, bool b);
 

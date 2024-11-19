@@ -33,7 +33,12 @@ private:
 
 	bool alive;
 
+	// gravedad
 	bool grounded;
+	double gravity = 0.02;
+	Vector2D<double> vel;
+	double velX = 0.0005;
+	double velY = 0.0012;
 
 public:
 	Mushroom(Game* g, Point2D<double> p);
