@@ -21,6 +21,8 @@ struct Collision {
     bool evolMario = false;
     bool spawnSeta = false;
 
+    bool coin = false;
+
 };
 
 #endif // COLLISION_H

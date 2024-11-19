@@ -411,6 +411,10 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 					mushroom = new Mushroom(this, blockVec[i]->getPos());
 					setaVec.push_back(mushroom);
 				}
+				else if (result.collides && result.coin) 
+				{
+					blockVec[i]->manageSorpresa();
+				}
 				else if (result.collides && result.setGrounded)
 				{
 					player->setGrounded(true);

@@ -67,7 +67,7 @@ private:
 	double velX = 0.001;
 	double gravity = 0.003;
 	double margen = -0.00001;
-	double deadH = 15;
+	double deadH = 14;
 	int mapTiles = 220; //Numero de tiles de ancho del mapa
 
 	//Colisiones
