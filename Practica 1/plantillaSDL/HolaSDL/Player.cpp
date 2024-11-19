@@ -189,7 +189,7 @@ void Player::updateAnims()
 	}
 	else if (keyA != keyD) {
 		frameTimer++;
-		if (frameTimer >= 150) {  // Velocidad del ciclo
+		if (frameTimer >= 500) {  // Velocidad del ciclo
 			frameTimer = 0;
 			animationFrame = (animationFrame + 1) % 4;  // Ciclo 0,1,2,3, y luego se reinicie 
 

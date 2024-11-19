@@ -63,9 +63,9 @@ private:
 	bool flipSprite = false;
 	bool moving = false;
 
-	double velY = 0.003;
-	double velX = 0.001;
-	double gravity = 0.003;
+	double velY = 0.0012;
+	double velX = 0.0005;
+	double gravity = 0.0012;
 	double margen = -0.00001;
 	double deadH = 14;
 	int mapTiles = 220; //Numero de tiles de ancho del mapa
