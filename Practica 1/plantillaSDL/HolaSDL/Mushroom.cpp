@@ -47,7 +47,7 @@ void Mushroom::moveSeta()
 
 	direction = Vector2D<int>(-1, 0);
 	new_position.setX(position.getX() + (direction.getX() * GOOMBA_SPEED * 20));
-	new_position.setY(position.getY());
+	new_position.setY(position.getY() - 20);
 
 	new_rect.h = destRect.h;
 	new_rect.w = destRect.w;
@@ -69,7 +69,8 @@ void Mushroom::moveSeta()
 	else
 	{
 		
-		//direction.setX(direction.getX() * -1);
+		direction.setX(direction.getX() * -1);
+		position.setX(new_position.getX());
 	}
 }
 

@@ -96,16 +96,21 @@ Collision Block::hit(const SDL_Rect& rect, bool fromPlayer)
 		if (fromPlayer)
 		{
 			// si la colision es por: abj 
-			if (rect.y >= (destRect.y + destRect.h))
+			if (rect.y >= (destRect.y + destRect.h - 1))
 			{
-				if (tipo == LADRILLO && (game->getMarioState() == 1)) 
+				if (tipo == LADRILLO && (game->getMarioState() == 1))
 				{
 					c.killBrick = true;
 				}
-				else if (tipo == SORPRESA || tipo == OCULTO)
+				else if ((tipo == SORPRESA || tipo == OCULTO) && accion == POTENCIADOR)
 				{
 					c.spawnSeta = true;
 				}
+				else if ((tipo == SORPRESA || tipo == OCULTO) && accion == MONEDA) 
+				{
+					c.coin = true;
+				}
+				
 			}
 			else if ((rect.y + rect.h) <= destRect.y) {
 			
