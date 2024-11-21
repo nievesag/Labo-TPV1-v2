@@ -43,7 +43,7 @@ private:
 	SDL_Rect destRect;
 
 public:
-	Enemy(Game* g, Point2D<int> pos, Texture* texture);
+	Enemy(Game* g, Point2D<int> pos, Texture* t);
 
 	// -- render --
 	virtual void render() const override;

@@ -1,18 +1,20 @@
 #include "SceneObject.h"
 #include "Game.h"
 
-SceneObject::SceneObject(Game* g, Point2D<int> pos, Texture* texture)
-	: GameObject(g), position(pos), texture(texture)
+SceneObject::SceneObject(Game* g, Point2D<int> pos, Texture* t)
+	: GameObject(g), position(pos), texture(t)
 {
 	speed = Vector2D<double>(0, 0);
 	if (texture != nullptr) 
 	{
 		destRect.h = texture->getFrameHeight();
+		height = destRect.h;
 		destRect.w = texture->getFrameWidth();
+		width = destRect.w;
 		destRect.x = position.getX();
 		destRect.y = position.getY();
 	}
-
+	game = g;
 }
 
 

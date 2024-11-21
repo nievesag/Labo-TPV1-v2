@@ -99,7 +99,7 @@ void Game::init()
 	{
 		std::cout << "Error cargando el mapa";
 	}
-	//loadObjectMap(mapa);
+	loadObjectMap(mapa);
 	mapa.close();
 }
 
@@ -154,7 +154,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			pos = pos - Point2D<int>(0, 1);
 
 			lineStream >> lives;
-			Player* player = new Player(this, pos, getTexture(MARIO), lives);
+			SceneObject* player = new Player(this, pos, getTexture(MARIO), lives);
 
 			gameList.push_back(player);
 		}
@@ -163,7 +163,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			lineStream >> pos;
 			pos = pos - Point2D<int>(0, 1);
 
-			SceneObject* goomba = new Goomba(this, pos, getTexture(GOOMBA));
+			SceneObject* goomba = new Enemy(this, pos, getTexture(GOOMBA));
 			gameList.push_back(goomba);
 		}
 		else if (tipoL == 'B')
@@ -186,7 +186,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			lineStream >> pos;
 			pos = pos - Point2D<int>(0, 1);
 
-			SceneObject* koopa = new Koopa(this, pos, getTexture(KOOPA));
+			SceneObject* koopa = new Enemy(this, pos, getTexture(KOOPA));
 			gameList.push_back(koopa);
 		}
 

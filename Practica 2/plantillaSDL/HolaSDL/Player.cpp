@@ -5,21 +5,20 @@
 Player::Player(Game* g, Point2D<int> pos, Texture* texture, int lives)
 	: SceneObject(g, pos, g->getTexture(Game::MARIO))
 {
+	game = g;
 	direction = Vector2D<int>(0,0);
 
 	lives = maxLives;
 
-	textureM = game->getTexture(Game::MARIO);		// textura inicial de mario
-	textureS = game->getTexture(Game::SUPERMARIO); // textura supermario
-
-	texture = textureM; // empieza con la de mario
+	textureM = g->getTexture(Game::MARIO);		// textura inicial de mario
+	textureS = g->getTexture(Game::SUPERMARIO); // textura supermario
 
 	marioFrame = 0;
 
 	marioState = MARIO;
 	grounded = true;
 
-	groundedYPos = position.getY();
+	groundedYPos = pos.getY();
 }
 
 void Player::render() const

@@ -1,9 +1,10 @@
 #include "Block.h"
 #include "Game.h"
 
-Block::Block(Game* g, Point2D<int> pos, Texture* texture, char tipoL, char accionL)
-	: SceneObject(g, pos, g->getTexture(Game::BLOCK))
+Block::Block(Game* g, Point2D<int> pos, Texture* t, char tipoL, char accionL)
+	: SceneObject(g, pos, g->getTexture(Game::BLOCK)), texture(t)
 {
+	game = g;
 	// Asignamos el tipo de bloque basado en el carácter leído
 	switch (tipoL) {
 	case 'B':
@@ -30,7 +31,6 @@ Block::Block(Game* g, Point2D<int> pos, Texture* texture, char tipoL, char accio
 		break;
 	}
 
-	texture = game->getTexture(Game::BLOCK); // textura inicial del bloque
 
 	alive = true;
 }

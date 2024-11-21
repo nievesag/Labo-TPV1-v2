@@ -31,7 +31,7 @@ protected:
 
 	// metodos publicos
 public:
-	SceneObject(Game* g,Point2D<int> pos, Texture* texture);
+	SceneObject(Game* g,Point2D<int> pos, Texture* t);
 
 
 	// ---- hit ----

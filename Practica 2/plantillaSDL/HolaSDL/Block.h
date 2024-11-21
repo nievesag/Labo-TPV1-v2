@@ -59,7 +59,7 @@ private:
 	SDL_Rect destRect;
 
 public:
-	Block(Game* g, Point2D<int> pos, Texture* texture, char tipoL, char accionL);
+	Block(Game* g, Point2D<int> pos, Texture* t, char tipoL, char accionL);
 
 	// -- render --
 	void render() const override;
