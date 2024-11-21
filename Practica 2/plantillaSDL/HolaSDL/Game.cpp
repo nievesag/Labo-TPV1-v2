@@ -153,7 +153,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 		else if (tipoL == 'B')
 		{
 			Block* block = new Block(this, lineStream);
-			blockVec.push_back(block);
+			gameList.push_back(block);
 		}
 		else if(tipoL == 'K')
 		{
@@ -190,10 +190,18 @@ void Game::run()
 // ACTUALIZAR
 void Game::update()
 {
+	GameList<SceneObject>::iterator<GameList<SceneObject>::Node::next, SceneObject> it;
+
+	for(it = gameList.begin(); it != gameList.end(); it++)
+	{
+		(*it)->update();
+	}
+
+	/*
 	tilemap->update();
 
 	player->update();
-
+	
 	for (int i = 0; i < goombaVec.size(); i++) 
 	{
 		goombaVec[i]->update();
@@ -212,7 +220,7 @@ void Game::update()
 	for (int i = 0; i < koopaVec.size(); i++)
 	{
 		koopaVec[i]->update();
-	}
+	}*/
 
 	updateEntities();
 

@@ -21,8 +21,7 @@ public:
 
 	GameObject();
 
-	GameObject(Game* game)
-		: game(game) {}
+	GameObject(Game* game);
 
 	// destructora virtual
 	virtual ~GameObject();

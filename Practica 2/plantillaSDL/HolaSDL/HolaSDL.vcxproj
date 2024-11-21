@@ -75,6 +75,7 @@
     <ClCompile Include="FileNotFoundError.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameError.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="Lift.cpp" />

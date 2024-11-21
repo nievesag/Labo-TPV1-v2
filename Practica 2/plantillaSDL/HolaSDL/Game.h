@@ -104,6 +104,8 @@ private:
 	vector<Block*> blockVec;
 	vector<Mushroom*> setaVec;
 
+	GameList<SceneObject> gameList;
+
 	// crea semilla
 	std::mt19937_64 randomGenerator;
 	uint32_t startTime, frameTime;	// manejo de tiempo en run
