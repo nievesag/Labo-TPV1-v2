@@ -5,7 +5,7 @@ constexpr int SPEED = 10;
 constexpr int FRAME_PERIOD = 20;
 
 TileMap::TileMap(Game* g, std::istream& in) 
-	: SceneObject(g, in)
+	: SceneObject(g, pos, g->getTexture(Game::BACKGROUND))
 {
 	load(in);
 	texture = g->getTexture(Game::BACKGROUND);

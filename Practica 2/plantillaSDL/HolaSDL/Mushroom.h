@@ -35,7 +35,7 @@ private:
 	bool alive;
 
 public:
-	Mushroom(Game* g, Point2D<int> p);
+	Mushroom(Game* g, Point2D<int> pos, Texture* texture);
 
 	// -- update --
 	void update() override;

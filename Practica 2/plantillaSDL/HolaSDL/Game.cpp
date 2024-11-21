@@ -139,28 +139,52 @@ void Game::loadObjectMap(std::ifstream& mapa)
 	{
 		// Usamos un stringstream para leer la linea como si fuera un flujo
 		stringstream lineStream(line);
+		Point2D<int> pos;
 
 		char tipoL;
 		lineStream >> tipoL;
 
 		if(tipoL == 'M')
 		{
-			Player* player = new Player(this, lineStream);
+			int lives;
+
+			lineStream >> pos;
+			pos = pos - Point2D<int>(0, 1);
+
+			lineStream >> lives;
+			Player* player = new Player(this, pos, getTexture(MARIO), lives);
+
 			gameList.push_back(player);
 		}
 		else if(tipoL == 'G')
 		{
-			Goomba* goomba = new Goomba(this, lineStream);
+			lineStream >> pos;
+			pos = pos - Point2D<int>(0, 1);
+
+			SceneObject* goomba = new Goomba(this, pos, getTexture(GOOMBA));
 			gameList.push_back(goomba);
 		}
 		else if (tipoL == 'B')
 		{
-			Block* block = new Block(this, lineStream);
+			char tipoL;
+			char accionL;
+
+			lineStream >> pos;
+			pos = pos - Point2D<int>(0, 1);
+
+			lineStream >> tipoL;
+			lineStream >> accionL;
+
+			SceneObject* block = new Block(this, pos, getTexture(BLOCK), tipoL, accionL);
+
 			gameList.push_back(block);
 		}
 		else if(tipoL == 'K')
 		{
-			Koopa* koopa = new Koopa(this, lineStream);
+			lineStream >> pos;
+			pos = pos - Point2D<int>(0, 1);
+
+			SceneObject* koopa = new Koopa(this, pos, getTexture(KOOPA));
 			gameList.push_back(koopa);
 		}
 

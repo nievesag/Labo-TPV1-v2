@@ -26,7 +26,7 @@ private:
 
 
 public:
-	Koopa(Game* g, std::istream& in);
+	Koopa(Game* g, Point2D<int> pos, Texture* texture);
 
 	// -- update --
 	void update();

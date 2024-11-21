@@ -27,7 +27,7 @@ private:
 	Game* game = nullptr;		// puntero al juego
 
 	// MOVIMIENTO
-	Point2D<double> position;	// posicion actual en Point2D
+	Point2D<int> position;	// posicion actual en Point2D
 	Vector2D<int> direction;	// direccion de movimiento
 
 	int enemyFrame;
@@ -43,7 +43,7 @@ private:
 	SDL_Rect destRect;
 
 public:
-	Enemy(Game* g, std::istream& in);
+	Enemy(Game* g, Point2D<int> pos, Texture* texture);
 
 	// -- render --
 	virtual void render() const override;

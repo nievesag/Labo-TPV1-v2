@@ -2,12 +2,9 @@
 #include "Game.h"
 
 
-Player::Player(Game* g, std::istream& in)
-	: SceneObject(g, in)
+Player::Player(Game* g, Point2D<int> pos, Texture* texture, int lives)
+	: SceneObject(g, pos, g->getTexture(Game::MARIO))
 {
-	in >> position; // pos de mario
-	position = position - Point2D<double>(0, 1); // coloca bien a mario
-	in >> lives;	// num de vidas
 	direction = Vector2D<int>(0,0);
 
 	lives = maxLives;

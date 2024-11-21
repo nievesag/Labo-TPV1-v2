@@ -1,8 +1,8 @@
 #include "Goomba.h"
 #include "Game.h"
 
-Goomba::Goomba(Game* g, std::istream& in) 
-	: Enemy(g, in)
+Goomba::Goomba(Game* g, Point2D<int> pos, Texture* texture)
+	: Enemy(g, pos, texture)
 {
 	//in >> position;
 	//position = position - Point2D<double>(0, 1); // coloca bien al goomba

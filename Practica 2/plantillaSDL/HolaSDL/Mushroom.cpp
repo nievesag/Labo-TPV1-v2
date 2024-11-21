@@ -2,8 +2,8 @@
 #include "Game.h"
 #include "Collision.h"
 
-Mushroom::Mushroom(Game* g, Point2D<int> p)
-	: Pickable(g, p)
+Mushroom::Mushroom(Game* g, Point2D<int> pos, Texture* texture)
+	: Pickable(g, pos, texture)
 {
 	position.setY(position.getY() * 32);
 	position.setX(position.getX() * 32);

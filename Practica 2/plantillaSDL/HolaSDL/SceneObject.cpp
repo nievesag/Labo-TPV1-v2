@@ -1,17 +1,20 @@
 #include "SceneObject.h"
 #include "Game.h"
 
-SceneObject::SceneObject(Game* g, Point2D<int> pos, int width, int heigth, Texture* texture)
-	: GameObject(g), position(pos), _width(width), _height(height), speed(0,0), texture(texture)
+SceneObject::SceneObject(Game* g, Point2D<int> pos, Texture* texture)
+	: GameObject(g), position(pos), texture(texture)
 {
-	if(texture != nullptr)
+	speed = Vector2D<double>(0, 0);
+	if (texture != nullptr) 
 	{
 		destRect.h = texture->getFrameHeight();
 		destRect.w = texture->getFrameWidth();
 		destRect.x = position.getX();
 		destRect.y = position.getY();
 	}
+
 }
+
 
 // concentra la comprobacion de colisiones para todos los objetos del juego
 // tryToMove(vector movimiento que se quiere aplicar al objeto, a quien afecta la colision)

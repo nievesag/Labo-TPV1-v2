@@ -25,7 +25,7 @@ private:
 	Game* game = nullptr;		// puntero al juego
 
 public:
-	Goomba(Game* g, std::istream& in);
+	Goomba(Game* g, Point2D<int> pos, Texture* texture);
 
 	// -- update --
 	void update() override;

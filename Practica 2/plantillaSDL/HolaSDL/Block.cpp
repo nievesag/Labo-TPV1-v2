@@ -1,15 +1,9 @@
 #include "Block.h"
 #include "Game.h"
 
-Block::Block(Game* g, std::istream& in)
-	: SceneObject(g, in)
+Block::Block(Game* g, Point2D<int> pos, Texture* texture, char tipoL, char accionL)
+	: SceneObject(g, pos, g->getTexture(Game::BLOCK))
 {
-	in >> position;
-	position = position - Point2D<double>(0, 1); 
-
-	in >> tipoL;
-	in >> accionL;
-
 	// Asignamos el tipo de bloque basado en el carácter leído
 	switch (tipoL) {
 	case 'B':

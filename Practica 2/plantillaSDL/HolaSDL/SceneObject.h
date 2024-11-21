@@ -17,7 +17,6 @@ protected:
 	int width, height;		  // Dimension del objeto
 	Vector2D<double> speed;	  // Velocidad del objeto
 	//double speed;	
-	int _width, _height;
 
 	Texture* texture = nullptr;
 	Game* game = nullptr;
@@ -32,9 +31,8 @@ protected:
 
 	// metodos publicos
 public:
-	SceneObject(Game* g,Point2D<int> pos, int width, int heigth, Texture* texture);
+	SceneObject(Game* g,Point2D<int> pos, Texture* texture);
 
-	SceneObject(Game* g, Vector2D<int> p);
 
 	// ---- hit ----
 	// colisiones
