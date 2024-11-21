@@ -4,11 +4,6 @@
 constexpr int SPEED = 10;
 constexpr int FRAME_PERIOD = 20;
 
-//TileMap::TileMap()
-//{
-//
-//}
-
 TileMap::TileMap(Game* g, std::istream& in) 
 	: SceneObject(g, in)
 {

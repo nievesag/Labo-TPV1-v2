@@ -97,7 +97,7 @@ void Game::init()
 	{
 		std::cout << "Error cargando el mapa";
 	}
-	loadObjectMap(mapa);
+	//loadObjectMap(mapa);
 	mapa.close();
 }
 
@@ -107,7 +107,7 @@ void Game::loadTextures()
 
 	try {
 		// bucle para rellenar el array de texturas
-		for (int i = 0; i < NUM_TEXTURES; i++) {
+		for (int i = 0; i < NUM_TEXTURES; ++i) {
 
 			// crea la textura con el url, width y height
 			textures[i] = new Texture(renderer,

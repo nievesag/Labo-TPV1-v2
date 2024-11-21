@@ -18,7 +18,7 @@ class TileMap : public SceneObject
 private:
 
 	Texture* texture = nullptr; // puntero a textura del array de textures
-	Game* game = nullptr;
+	//Game* game = nullptr;
 	Texture* background = nullptr; 
 
 	vector<vector<int>> indices;

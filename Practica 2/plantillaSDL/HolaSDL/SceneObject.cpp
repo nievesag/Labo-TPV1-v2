@@ -4,16 +4,13 @@
 SceneObject::SceneObject(Game* g, Point2D<int> pos, int width, int heigth, Texture* texture)
 	: GameObject(g), position(pos), _width(width), _height(height), speed(0,0), texture(texture)
 {
-	destRect.h = texture->getFrameHeight();
-	destRect.w = texture->getFrameWidth();
-	destRect.x = position.getX();
-	destRect.y = position.getY();
-}
-
-SceneObject::SceneObject(Game* g, Vector2D<int> p)
-	: game(g), position(p)
-{
-
+	if(texture != nullptr)
+	{
+		destRect.h = texture->getFrameHeight();
+		destRect.w = texture->getFrameWidth();
+		destRect.x = position.getX();
+		destRect.y = position.getY();
+	}
 }
 
 // concentra la comprobacion de colisiones para todos los objetos del juego
