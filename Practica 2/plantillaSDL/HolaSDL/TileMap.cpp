@@ -4,12 +4,13 @@
 constexpr int SPEED = 10;
 constexpr int FRAME_PERIOD = 20;
 
-TileMap::TileMap()
-{
+//TileMap::TileMap()
+//{
+//
+//}
 
-}
-
-TileMap::TileMap(Game* g, std::istream& in) : game(g)
+TileMap::TileMap(Game* g, std::istream& in) 
+	: SceneObject(g, in)
 {
 	load(in);
 	texture = game->getTexture(Game::BACKGROUND);
@@ -44,7 +45,7 @@ void TileMap::load(std::istream& file)
 	archivo.close();
 }
 
-void TileMap::render()
+void TileMap::render() const
 {
 	// Primera columna de la matriz del mapa visible en la ventana
 	int x0 = game->getMapOffset() / TILE_SIDE;
@@ -82,7 +83,7 @@ void TileMap::update()
 
 }
 
-Collision TileMap::hit(const SDL_Rect& rect, bool fromPlayer) {
+Collision TileMap::hit(const SDL_Rect& rect, Collision::Target t) {
 	
 	Collision collision; // Inicializa una instancia de Collision
 
@@ -111,8 +112,8 @@ Collision TileMap::hit(const SDL_Rect& rect, bool fromPlayer) {
 				SDL_IntersectRect(&rect, &tileRect, &collision.intersection);
 
 				// Aquí puedes asignar el puntero `collider` y establecer `damages` si aplica
-				collision.collider = nullptr; // Ajusta esto según tu implementación
-				collision.damages = fromPlayer; // Ejemplo: tal vez solo daña si es el jugador
+				//collision.collider = nullptr; // Ajusta esto según tu implementación
+				//collision.damages = Collision::PLAYER; // Ejemplo: tal vez solo daña si es el jugador
 
 				//std::cout << collision.collides << endl;
 				return collision;

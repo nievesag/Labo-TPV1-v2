@@ -6,13 +6,14 @@
 #include "Texture.h"
 #include "Game.h"
 #include <iostream>
+#include "SceneObject.h"
 using namespace std;
 using uint = unsigned int;
 
 class Game;
 
 // dibuja el fondo y los obstaculos segun avanza el personaje
-class TileMap
+class TileMap : public SceneObject
 {
 private:
 
@@ -24,14 +25,14 @@ private:
 	int x, y;
 
 public:
-	TileMap();
+	//TileMap();
 	TileMap(Game* g, std::istream& in);
 	~TileMap();
 
-	void render();
+	void render() const override;
 	void update();
 	void load(std::istream& file);
 
 	// detecta colisiones
-	Collision hit(const SDL_Rect& rect, bool fromPlayer);
+	Collision hit(const SDL_Rect& rect, Collision::Target t);
 };

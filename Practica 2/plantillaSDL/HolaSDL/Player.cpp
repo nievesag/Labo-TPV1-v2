@@ -135,7 +135,7 @@ void Player::handleEvents(const SDL_Event& event)
 	}
 }
 
-Collision Player::hit(const SDL_Rect& rect, bool fromPlayer)
+Collision Player::hit(const SDL_Rect& rect, Collision::Target t)
 {
 	Collision c;
 

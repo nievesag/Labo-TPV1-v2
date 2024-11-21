@@ -145,7 +145,6 @@ void Game::loadObjectMap(std::ifstream& mapa)
 		if(tipoL == 'M')
 		{
 			Player* player = new Player(this, lineStream);
-			gameList.push_back(player);
 		}
 		else if(tipoL == 'G')
 		{
@@ -202,6 +201,8 @@ void Game::update()
 	for (SceneObject* obj : gameList) {
 		obj->update();
 	}
+
+
 
 	/*
 	tilemap->update();
@@ -305,7 +306,7 @@ void Game::render() const
 	//Fondo azul
 	SDL_SetRenderDrawColor(renderer, 138, 132, 255, 255);
 
-	for (const SceneObject* obj : gameList) {
+	for ( SceneObject* obj : gameList) {
 		obj->render();
 	}
 

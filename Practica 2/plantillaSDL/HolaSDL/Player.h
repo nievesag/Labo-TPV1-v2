@@ -87,17 +87,17 @@ public:
 	// al pulsar la tecla, sino a traves de la dir, porque si no Mario se desplazara a trompicones
 	// Si se pulsa la barra espaciadora y esta apoyado sobre un obstaculo, Mario saltara hasta
 	// alcanzar una determinada altura o colisionar con un objeto, momento en el que empezara a caer
-	void update();
+	void update() override;
 
 	void updateTexture();
-
-	SDL_Rect createRect();
 
 	// -- handleEvent --     
 	void handleEvents(const SDL_Event& event);
 
 	// -- hit --
-	Collision hit(const SDL_Rect& rect, bool fromPlayer);
+	Collision hit(const SDL_Rect& rect, Collision::Target t) override;
+
+	Collision tryToMove(Vector2D<double> v, Collision::Target t) override;
 
 	void manageDamage();
 
@@ -125,7 +125,6 @@ public:
 		grounded = g;
 	}
 
-	Collision tryToMove(Vector2D<double> v, Collision::Target t) override;
 
 private:
 	void moveMario();
