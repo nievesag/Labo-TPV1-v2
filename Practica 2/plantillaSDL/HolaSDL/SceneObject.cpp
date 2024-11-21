@@ -7,6 +7,12 @@ SceneObject::SceneObject(Game* g, std::istream& in)
 
 }
 
+SceneObject::SceneObject(Game* g, Vector2D<int> p)
+	: game(g), position(p)
+{
+
+}
+
 // concentra la comprobacion de colisiones para todos los objetos del juego
 // tryToMove(vector movimiento que se quiere aplicar al objeto, a quien afecta la colision)
 // -> prueba el movimiento en ambos ejes y devuelve la informacion de tipo Collision

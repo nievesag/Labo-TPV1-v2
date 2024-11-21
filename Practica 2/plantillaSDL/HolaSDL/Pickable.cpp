@@ -1,7 +1,7 @@
 #include "Pickable.h"
 #include "Game.h"
 
-Pickable::Pickable(Game* g, Point2D<double> p)
+Pickable::Pickable(Game* g, Point2D<int> p)
 	: SceneObject(g, p)
 {
 
@@ -37,7 +37,7 @@ void Pickable::updateRct()
 
 Collision Pickable::hit(const SDL_Rect& rect, Collision::Target t)
 {
-	// Comprueba si hay colisión
+	// Comprueba si hay colision
 	SDL_Rect ownRect = getCollisionRect();
 
 	if (t == Collision::ENEMIES && SDL_HasIntersection(&ownRect, &rect)) {

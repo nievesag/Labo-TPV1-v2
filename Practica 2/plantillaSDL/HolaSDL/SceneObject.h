@@ -33,7 +33,7 @@ protected:
 public:
 	SceneObject(Game* g, std::istream& in);
 
-	SceneObject(Game* g, Vector2D<double> p);
+	SceneObject(Game* g, Vector2D<int> p);
 
 	// ---- hit ----
 	// colisiones

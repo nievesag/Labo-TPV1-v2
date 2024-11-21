@@ -63,6 +63,10 @@ void Enemy::update()
     animate();
 }
 
+void Enemy::updateRect()
+{
+}
+
 Collision Enemy::hit(const SDL_Rect& rect, Collision::Target t) {
 	Collision c;
 
@@ -102,7 +106,12 @@ Collision Enemy::hit(const SDL_Rect& rect, Collision::Target t) {
 		return c;
 }
 
-void Enemy::moveEnemy() 
+Collision Enemy::tryToMove(Vector2D<double> v, Collision::Target t)
+{
+	return Collision();
+}
+
+void Enemy::moveEnemy()
 {
     direction = Vector2D<int>(0, 0);
 

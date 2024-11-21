@@ -31,7 +31,7 @@ private:
 
 public:
 
-	Pickable(Game* g, Point2D<double> p);
+	Pickable(Game* g, Point2D<int> p);
 
 	virtual void render() const override;
 	virtual void update();

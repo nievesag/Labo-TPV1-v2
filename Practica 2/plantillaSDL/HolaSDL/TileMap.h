@@ -30,7 +30,7 @@ public:
 	~TileMap();
 
 	void render() const override;
-	void update();
+	void update() override;
 	void load(std::istream& file);
 
 	// detecta colisiones

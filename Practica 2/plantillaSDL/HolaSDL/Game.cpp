@@ -145,6 +145,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 		if(tipoL == 'M')
 		{
 			Player* player = new Player(this, lineStream);
+			gameList.push_back(player);
 		}
 		else if(tipoL == 'G')
 		{
@@ -198,11 +199,9 @@ void Game::update()
 		(*it)->update();
 	}*/
 
-	for (SceneObject* obj : gameList) {
+	for (auto obj : gameList) {
 		obj->update();
 	}
-
-
 
 	/*
 	tilemap->update();
@@ -306,7 +305,7 @@ void Game::render() const
 	//Fondo azul
 	SDL_SetRenderDrawColor(renderer, 138, 132, 255, 255);
 
-	for ( SceneObject* obj : gameList) {
+	for (auto obj : gameList) {
 		obj->render();
 	}
 
@@ -340,7 +339,7 @@ Collision Game::checkCollisions(const SDL_Rect& rect, Collision::Target target)
 {
 	Collision result;
 
-	for (SceneObject* obj : gameList) 
+	for (auto obj : gameList) 
 	{
 		if(obj->hit(rect, target).collides)
 		{

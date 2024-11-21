@@ -54,7 +54,7 @@ constexpr int TILE_SIDE = 32;
 constexpr int WINDOW_WIDTH = 18;
 constexpr int WINDOW_HEIGHT = 16;
 constexpr int OBSTACLE_THRESHOLD = 4; // constante
-//const Collision NO_COLLISION;
+const Collision NO_COLLISION = {false, false};
 
 // ------------------------------ GAME ------------------------------
 class Game
