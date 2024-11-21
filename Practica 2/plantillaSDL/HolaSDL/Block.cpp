@@ -82,7 +82,7 @@ void Block::updateRect()
 	destRect.y = position.getY() * TILE_SIDE;
 }
 
-Collision Block::hit(const SDL_Rect& rect, bool fromPlayer)
+Collision Block::hit(const SDL_Rect& rect, Collision::Target t)
 {
 	Collision c;
 
@@ -93,7 +93,7 @@ Collision Block::hit(const SDL_Rect& rect, bool fromPlayer)
 		c.damages = false;
 
 		// si se origina en mario...
-		if (fromPlayer)
+		if (t == Collision::PLAYER)
 		{
 			// si la colision es por: abj 
 			if (rect.y <= (destRect.y + destRect.h))

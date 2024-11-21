@@ -143,7 +143,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 
 		if(tipoL == 'M')
 		{
-			player = new Player(this, lineStream);
+			PLayer* player = new Player(this, lineStream);
 		}
 		else if(tipoL == 'G')
 		{
@@ -365,7 +365,7 @@ Collision Game::checkCollisions(const SDL_Rect& rect, Collision::Target target)
 
 			if (result.collides && !result.damages)
 			{
-				goombaVec[i]->killGoomba();
+				goombaVec[i]->killEnemy();
 			}
 			else
 			{
@@ -385,7 +385,7 @@ Collision Game::checkCollisions(const SDL_Rect& rect, Collision::Target target)
 
 			if (result.collides && !result.damages)
 			{
-				koopaVec[i]->killKoopa();
+				koopaVec[i]->killEnemy();
 			}
 			else
 			{

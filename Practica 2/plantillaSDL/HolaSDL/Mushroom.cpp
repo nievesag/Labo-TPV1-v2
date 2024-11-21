@@ -1,8 +1,9 @@
 #include "Mushroom.h"
 #include "Game.h"
+#include "Collision.h"
 
 Mushroom::Mushroom(Game* g, Point2D<double> p)
-	: game(g), position(p)
+	: Pickable(g, p)
 {
 	position.setY(position.getY() * 32);
 	position.setX(position.getX() * 32);
@@ -49,9 +50,9 @@ void Mushroom::moveSeta()
 	}
 }
 
-Collision Mushroom::hit(const SDL_Rect& rect, bool fromPlayer)
+Collision Mushroom::hit(const SDL_Rect& rect, Collision::Target t)
 {
-	Collision c = Pickable::hit(rect, fromPlayer);
+	Collision c = Pickable::hit(rect, t);
 
 	// si hay colision
 	if (SDL_HasIntersection(&rect, &destRect))
@@ -59,7 +60,7 @@ Collision Mushroom::hit(const SDL_Rect& rect, bool fromPlayer)
 		c.collides = true;
 
 		// si se origina en mario...
-		if (fromPlayer)
+		if (t == Collision::PLAYER)
 		{
 			c.evolMario = true;
 		}

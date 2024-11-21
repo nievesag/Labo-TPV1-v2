@@ -37,13 +37,8 @@ private:
 public:
 	Mushroom(Game* g, Point2D<double> p);
 
-	// -- render --
-	void render() const;
-
 	// -- update --
-	void update();
-
-	void updateRect();
+	void update() override;
 
 	void moveSeta();
 
@@ -51,7 +46,7 @@ public:
 	// controla las colisiones
 	//	-> Se mueve hacia la derecha en el mapa, cambiando de dir cuando choca con un obstaculo
 	//	-> Si Mario colisiona con Mushroom se convierte en SuperMario
-	Collision hit(const SDL_Rect& rect, bool fromPlayer);
+	Collision hit(const SDL_Rect& rect, Collision::Target t) override;
 
 	void killSeta() { alive = false; }
 
