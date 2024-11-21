@@ -37,5 +37,13 @@ void Pickable::updateRct()
 
 Collision Pickable::hit(const SDL_Rect& rect, Collision::Target t)
 {
-	
+	// Comprueba si hay colisión
+	SDL_Rect ownRect = getCollisionRect();
+
+	if (t == Collision::ENEMIES && SDL_HasIntersection(&ownRect, &rect)) {
+		triggerAction();  // metodo que implementara la subclase
+		delete this;
+	}
+
+	return NO_COLLISION; // constante Collision{}
 }

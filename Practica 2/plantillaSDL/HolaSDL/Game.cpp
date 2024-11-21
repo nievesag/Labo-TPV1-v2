@@ -87,6 +87,7 @@ void Game::init()
 		std::cout << "Error cargando el tilemap";
 	}
 	tilemap = new TileMap(this, tiles);
+	gameList.push_back(tilemap);
 	tiles.close();
 
 	// MAPA
@@ -143,12 +144,13 @@ void Game::loadObjectMap(std::ifstream& mapa)
 
 		if(tipoL == 'M')
 		{
-			PLayer* player = new Player(this, lineStream);
+			Player* player = new Player(this, lineStream);
+			gameList.push_back(player);
 		}
 		else if(tipoL == 'G')
 		{
 			Goomba* goomba = new Goomba(this, lineStream);
-			goombaVec.push_back(goomba);
+			gameList.push_back(goomba);
 		}
 		else if (tipoL == 'B')
 		{
@@ -158,7 +160,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 		else if(tipoL == 'K')
 		{
 			Koopa* koopa = new Koopa(this, lineStream);
-			koopaVec.push_back(koopa);
+			gameList.push_back(koopa);
 		}
 
 		getline(mapa, line);
@@ -190,15 +192,18 @@ void Game::run()
 // ACTUALIZAR
 void Game::update()
 {
-	/*
-	GameList<SceneObject>::iterator<&GameList<SceneObject>::Node::prev, SceneObject> it;
+	/*GameList<SceneObject>::iterator<&GameList<SceneObject>::Node::prev, SceneObject> it;
 
 	for(it = gameList.begin(); it != gameList.end(); it++)
 	{
 		(*it)->update();
+	}*/
+
+	for (SceneObject* obj : gameList) {
+		obj->update();
 	}
-	*/
-	
+
+	/*
 	tilemap->update();
 
 	player->update();
@@ -222,6 +227,7 @@ void Game::update()
 	{
 		koopaVec[i]->update();
 	}
+	*/
 
 	updateEntities();
 
@@ -231,6 +237,15 @@ void Game::update()
 
 void Game::updateEntities()
 {
+	/*
+	for (SceneObject* obj : gameList) {
+		if(!obj->getAlive())
+		{
+			delete obj;
+			gameList.erase();
+		}
+	}
+
 	// GOOMBAS
 	for (int i = 0; i < goombaVec.size(); i++) 
 	{
@@ -278,6 +293,7 @@ void Game::updateEntities()
 			koopaVec.erase(koopaVec.begin() + i);
 		}
 	}
+	*/
 }
 
 // PINTAR
@@ -289,34 +305,8 @@ void Game::render() const
 	//Fondo azul
 	SDL_SetRenderDrawColor(renderer, 138, 132, 255, 255);
 
-	// render mapa
-	tilemap->render();
-
-	// render mario
-	player->render();
-
-	// render goombas
-	for (int i = 0; i < goombaVec.size(); i++)
-	{
-		goombaVec[i]->render();
-	}
-
-	// render blocks
-	for (int i = 0; i < blockVec.size(); i++)
-	{
-		blockVec[i]->render();
-	}
-
-	// render setas
-	for (int i = 0; i < setaVec.size(); i++)
-	{
-		setaVec[i]->render();
-	}
-
-	// render koopas
-	for (int i = 0; i < koopaVec.size(); i++)
-	{
-		koopaVec[i]->render();
+	for (const SceneObject* obj : gameList) {
+		obj->render();
 	}
 
 	// presenta la escena en pantalla
@@ -349,6 +339,16 @@ Collision Game::checkCollisions(const SDL_Rect& rect, Collision::Target target)
 {
 	Collision result;
 
+	for (SceneObject* obj : gameList) 
+	{
+		if(obj->hit(rect, target).collides)
+		{
+			result = obj->hit(rect, target);
+			return result;
+		}
+	}
+
+	/*
 	// hit tilemap
 	if (tilemap->hit(rect, target).collides) 
 	{
@@ -445,6 +445,7 @@ Collision Game::checkCollisions(const SDL_Rect& rect, Collision::Target target)
 	}
 
 	//player->hit(rect, fromPlayer);
+	*/
 
 	return result;
 }

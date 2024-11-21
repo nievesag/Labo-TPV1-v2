@@ -50,10 +50,11 @@ static constexpr double
 
 // constantes estaticas en Game
 // -- para render de tilemap
-static constexpr int TILE_SIDE = 32;  
-static constexpr int WINDOW_WIDTH = 18;
-static constexpr int WINDOW_HEIGHT = 16;
-static constexpr int OBSTACLE_THRESHOLD = 4; // constante
+constexpr int TILE_SIDE = 32;  
+constexpr int WINDOW_WIDTH = 18;
+constexpr int WINDOW_HEIGHT = 16;
+constexpr int OBSTACLE_THRESHOLD = 4; // constante
+//const Collision NO_COLLISION;
 
 // ------------------------------ GAME ------------------------------
 class Game
@@ -98,12 +99,12 @@ private:
 	//Koopa* koopa = nullptr;
 	//Block* block = nullptr;
 	//Mushroom* mushroom = nullptr;
-
+	/*
 	vector<Goomba*> goombaVec;
 	vector<Koopa*> koopaVec;
 	vector<Block*> blockVec;
 	vector<Mushroom*> setaVec;
-
+	*/
 	GameList<SceneObject> gameList;
 
 	// crea semilla

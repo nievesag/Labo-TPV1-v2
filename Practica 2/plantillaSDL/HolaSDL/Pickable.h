@@ -40,4 +40,7 @@ public:
 	virtual Collision hit(const SDL_Rect& rect, Collision::Target t) override;
 
 	bool isPicked() { return picked; }
+
+protected:
+	virtual void triggerAction() = 0;
 };
