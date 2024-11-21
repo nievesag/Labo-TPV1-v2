@@ -166,11 +166,11 @@ void Game::loadObjectMap(std::ifstream& mapa)
 // RUN
 void Game::run()
 {
-	// get ticks al inicio del bucle
-	startTime = SDL_GetTicks();
-
 	while (!exit)
 	{
+		// get ticks al inicio del bucle
+		startTime = SDL_GetTicks();
+
 		update(); // actualiza todos los objetos de juego
 		render(); // renderiza todos los objetos de juego
 		handleEvents();
@@ -178,9 +178,9 @@ void Game::run()
 		// tiempo desde ultima actualizacion
 		frameTime = SDL_GetTicks() - startTime;
 
-		if (frameTime > TIME_BT_FRAMES) 
+		if (frameTime < TIME_BT_FRAMES)
 		{
-			startTime = SDL_GetTicks();
+			SDL_Delay(TIME_BT_FRAMES - frameTime);
 		}
 	}
 }

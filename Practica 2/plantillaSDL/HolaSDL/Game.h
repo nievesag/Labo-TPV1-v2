@@ -94,10 +94,10 @@ private:
 
 	// declaración de los elementos de juego
 	Player* player = nullptr;
-	Goomba* goomba = nullptr;
-	Koopa* koopa = nullptr;
-	Block* block = nullptr;
-	Mushroom* mushroom = nullptr;
+	//Goomba* goomba = nullptr;
+	//Koopa* koopa = nullptr;
+	//Block* block = nullptr;
+	//Mushroom* mushroom = nullptr;
 
 	vector<Goomba*> goombaVec;
 	vector<Koopa*> koopaVec;

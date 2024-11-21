@@ -141,22 +141,24 @@ void Game::loadObjectMap(std::ifstream& mapa)
 		char tipoL;
 		lineStream >> tipoL;
 
-		switch (tipoL) {
-		case 'M':
+		if(tipoL == 'M')
+		{
 			player = new Player(this, lineStream);
-			break;
-		case 'G':
-			 goomba = new Goomba(this, lineStream);
-			 goombaVec.push_back(goomba);
-			break;
-		case 'B':
-			Block block1 = new SceneObject(this, lineStream);
+		}
+		else if(tipoL == 'G')
+		{
+			Goomba* goomba = new Goomba(this, lineStream);
+			goombaVec.push_back(goomba);
+		}
+		else if (tipoL == 'B')
+		{
+			Block* block = new Block(this, lineStream);
 			blockVec.push_back(block);
-			break;
-		case 'K':
-			koopa = new Koopa(this, lineStream);
+		}
+		else if(tipoL == 'K')
+		{
+			Koopa* koopa = new Koopa(this, lineStream);
 			koopaVec.push_back(koopa);
-			break;
 		}
 
 		getline(mapa, line);
@@ -166,11 +168,11 @@ void Game::loadObjectMap(std::ifstream& mapa)
 // RUN
 void Game::run()
 {
-	// get ticks al inicio del bucle
-	startTime = SDL_GetTicks();
-
 	while (!exit)
 	{
+		// get ticks al inicio del bucle
+		startTime = SDL_GetTicks();
+
 		update(); // actualiza todos los objetos de juego
 		render(); // renderiza todos los objetos de juego
 		handleEvents();
@@ -178,9 +180,9 @@ void Game::run()
 		// tiempo desde ultima actualizacion
 		frameTime = SDL_GetTicks() - startTime;
 
-		if (frameTime > TIME_BT_FRAMES) 
+		if (frameTime < TIME_BT_FRAMES) 
 		{
-			startTime = SDL_GetTicks();
+			SDL_Delay(TIME_BT_FRAMES - frameTime);
 		}
 	}
 }
@@ -402,7 +404,7 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 				{
 					blockVec[i]->manageSorpresa();
 
-					mushroom = new Mushroom(this, blockVec[i]->getPos());
+					Mushroom* mushroom = new Mushroom(this, blockVec[i]->getPos());
 					setaVec.push_back(mushroom);
 				}
 				else if (result.collides && result.setGrounded)
