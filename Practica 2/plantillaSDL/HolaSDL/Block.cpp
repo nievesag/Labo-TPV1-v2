@@ -127,8 +127,3 @@ void Block::manageSorpresa()
 	setTipo(3);
 	blockFrame = 4;
 }
-
-void Block::tryToMove(Vector2D<double> v, bool b)
-{
-
-}

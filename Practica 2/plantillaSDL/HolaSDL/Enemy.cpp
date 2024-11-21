@@ -20,6 +20,41 @@ void Enemy::render() const {
 
 void Enemy::update() 
 {
+	// ----- ruben
+	/*
+	// Acelera la velocidad con la gravedad
+	if (speed.getY() < SPEED_LIMIT)
+	{
+		speed += {0, Game::GRAVITY};
+	}
+
+	// Velocidad en este ciclo (no siempre avanza lateralmente)
+	Vector2D<double> realSpeed = speed;
+
+	if (moveDelay-- == 0)
+	{
+		moveDelay = MOVE_PERIOD;
+	}
+	else
+	{
+		realSpeed.setX(0);
+	}
+
+	// Intenta moverse
+	Collision collision = tryToMove(realSpeed, Collision::PLAYER);
+
+	// Si toca un objeto en horizontal cambia de dirección
+	if (collision.horizontal)
+		speed.setX(-speed.getX());
+
+	// Si toca un objeto en vertical anula la velocidad (para que no se acumule la gravedad)
+	if (collision.vertical)
+		speed.setY(0);
+
+	// SceneObject::update(); // si hiciera falta
+	*/
+
+	// ----- nuestro
     if ((position.getX() * TILE_SIDE) - texture->getFrameWidth() * 2.8 <
         (game->getMapOffset() + game->getWinWidth())) {
         frozen = false;
@@ -28,7 +63,7 @@ void Enemy::update()
     animate();
 }
 
-Collision Enemy::hit(const SDL_Rect& rect, bool fromPlayer) {
+Collision Enemy::hit(const SDL_Rect& rect, Collision::Target t) {
 	Collision c;
 
 	// si hay colision
@@ -37,7 +72,7 @@ Collision Enemy::hit(const SDL_Rect& rect, bool fromPlayer) {
 		c.collides = true;
 
 			// si se origina en mario...
-			if (fromPlayer)
+			if (t == 1)
 			{
 				// si la colision es por: arr -> muere el enemigo
 				if (((rect.y + rect.h) <= destRect.y + 1))

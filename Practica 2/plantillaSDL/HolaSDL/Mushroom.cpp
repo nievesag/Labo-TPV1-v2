@@ -33,9 +33,8 @@ void Mushroom::moveSeta()
 	new_rect.y = new_position.getY();
 
 	// si no hay colision -> actualiza la posicion
-	if (!(game->checkCollisions(new_rect, false).collides))
+	if (!(game->checkCollisions(new_rect, Collision::Target::ENEMIES).collides))
 	{
-		
 		position.setX(new_position.getX());
 		position.setY(new_position.getY());
 
@@ -46,7 +45,6 @@ void Mushroom::moveSeta()
 	}
 	else
 	{
-		
 		//direction.setX(direction.getX() * -1);
 	}
 }

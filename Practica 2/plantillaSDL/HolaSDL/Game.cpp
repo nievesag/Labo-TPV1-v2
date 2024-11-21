@@ -345,23 +345,23 @@ void Game::handleEvents()
 // Recibe el SDL_Rect del objeto que se va a mover y quiere comprobar las colisiones.
 // Game tiene acceso a todos los objetos del juego,
 // puede preguntarle a cada uno de ellos (con el metodo hit) si colisiona con el rect
-Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
+Collision Game::checkCollisions(const SDL_Rect& rect, Collision::Target target)
 {
 	Collision result;
 
 	// hit tilemap
-	if (tilemap->hit(rect, fromPlayer).collides) 
+	if (tilemap->hit(rect, target).collides) 
 	{
-		result = (tilemap->hit(rect, fromPlayer));
+		result = (tilemap->hit(rect, target));
 		return result;
 	}
 
 	// hit goombas
 	for(int i = 0; i < goombaVec.size(); i++)
 	{
-		if(goombaVec[i]->hit(rect, fromPlayer).collides)
+		if(goombaVec[i]->hit(rect, target).collides)
 		{
-			result = (goombaVec[i]->hit(rect, fromPlayer));
+			result = (goombaVec[i]->hit(rect, target));
 
 			if (result.collides && !result.damages)
 			{
@@ -379,9 +379,9 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 	// hit koopas
 	for (int i = 0; i < koopaVec.size(); i++)
 	{
-		if (koopaVec[i]->hit(rect, fromPlayer).collides)
+		if (koopaVec[i]->hit(rect, target).collides)
 		{
-			result = (koopaVec[i]->hit(rect, fromPlayer));
+			result = (koopaVec[i]->hit(rect, target));
 
 			if (result.collides && !result.damages)
 			{
@@ -397,13 +397,13 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 	}
 	
 	// hit blocks
-	if (fromPlayer) 
+	if (target == 1) // fromPlayer antes
 	{
 		for (int i = 0; i < blockVec.size(); i++)
 		{
-			if (blockVec[i]->hit(rect, fromPlayer).collides)
+			if (blockVec[i]->hit(rect, target).collides)
 			{
-				result = (blockVec[i]->hit(rect, fromPlayer));
+				result = (blockVec[i]->hit(rect, target));
 
 				if (result.collides && !result.damages && result.killBrick)
 				{
@@ -430,9 +430,9 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 	// hit setas
 	for (int i = 0; i < setaVec.size(); i++)
 	{
-		if (setaVec[i]->hit(rect, fromPlayer).collides)
+		if (setaVec[i]->hit(rect, target).collides)
 		{
-			result = (setaVec[i]->hit(rect, fromPlayer));
+			result = (setaVec[i]->hit(rect, target));
 
 			if (result.collides && !result.damages && result.evolMario)
 			{

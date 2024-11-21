@@ -37,12 +37,7 @@ public:
 	virtual void update();
 	virtual void updateRct();
 
-	virtual Collision hit(const SDL_Rect& rect, bool fromPlayer) override;
+	virtual Collision hit(const SDL_Rect& rect, Collision::Target t) override;
 
 	bool isPicked() { return picked; }
-
-
-
-
 };
-

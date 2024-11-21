@@ -59,15 +59,15 @@ public:
 	//	-> Otra colision: 
 	//		-> si supermario: vuelve a mario
 	//		-> si mario: quita vida
-	virtual Collision hit(const SDL_Rect& rect, bool fromPlayer) override;
+	virtual Collision hit(const SDL_Rect& rect, Collision::Target t) override;
 
 	void killEnemy() { alive = false; }
 
 	bool getAlive() {
 		return alive;
 	}
-
-	virtual void tryToMove(Vector2D<double> v, bool b) override;
+	
+	virtual Collision tryToMove(Vector2D<double> v, Collision::Target t) override;
 
 protected:
 	virtual void moveEnemy(); 

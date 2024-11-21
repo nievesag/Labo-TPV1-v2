@@ -35,7 +35,7 @@ void Pickable::updateRct()
 	destRect.y = position.getY();
 }
 
-Collision Pickable::hit(const SDL_Rect& rect, bool fromPlayer)
+Collision Pickable::hit(const SDL_Rect& rect, Collision::Target t)
 {
 	
 }

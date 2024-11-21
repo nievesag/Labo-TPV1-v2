@@ -125,7 +125,7 @@ public:
 		grounded = g;
 	}
 
-	void tryToMove(Vector2D<double> v, bool b) override;
+	Collision tryToMove(Vector2D<double> v, Collision::Target t) override;
 
 private:
 	void moveMario();

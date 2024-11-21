@@ -96,8 +96,6 @@ public:
 	void killBlock() { alive = false; }
 
 	Point2D<double> getPos() const { return position; }
-
-	void tryToMove(Vector2D<double> v, bool b) override;
 };
 
 #endif

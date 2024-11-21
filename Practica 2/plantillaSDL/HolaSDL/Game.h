@@ -145,7 +145,7 @@ public:
 	// - caen si dejan de tener un obstaculo a sus pies / desaparecen si caen por un hueco bajo el suelo del mapa
 	// - invierten su dirección si encuentran un obstaculo horizontal
 	// Estas cosas requieren que los objetos del juego tengan un puntero a Game para llamar a collides
-	Collision checkCollisions(const SDL_Rect& rect, bool fromPlayer);
+	Collision checkCollisions(const SDL_Rect& rect, Collision::Target target);
 
 	// ----- GETTERS -----s
 	uint getWinWidth() { return WIN_HEIGHT; }

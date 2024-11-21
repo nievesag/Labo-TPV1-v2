@@ -225,9 +225,9 @@ void Player::manageInvencible()
 	}
 }
 
-void Player::tryToMove(Vector2D<double> v, bool b)
+Collision Player::tryToMove(Vector2D<double> v, Collision::Target t)
 {
-
+	return Collision();
 }
 
 void Player::moveMario()
@@ -268,7 +268,7 @@ void Player::moveMario()
 			new_rect.y = position.getY() * TILE_SIDE;
 
 			// si no hay colision -> actualiza la posicion
-			if (!(game->checkCollisions(new_rect, true).collides)) 
+			if (!(game->checkCollisions(new_rect, Collision::Target::PLAYER).collides)) 
 			{
 				position.setY(new_position.getY());
 
@@ -290,7 +290,7 @@ void Player::moveMario()
 				new_rect.y = position.getY() * TILE_SIDE;
 
 				// si no hay colision -> actualiza la posicion
-				if (!(game->checkCollisions(new_rect, true).collides))
+				if (!(game->checkCollisions(new_rect, Collision::Target::PLAYER).collides))
 				{
 					position.setY(new_position.getY());
 
@@ -314,7 +314,7 @@ void Player::moveMario()
 			new_rect.y = position.getY() * TILE_SIDE;
 
 			// si no hay colision -> actualiza la posicion
-			if (!(game->checkCollisions(new_rect, true).collides))
+			if (!(game->checkCollisions(new_rect, Collision::Target::PLAYER).collides))
 			{
 				position.setY(new_position.getY());
 
@@ -351,7 +351,7 @@ void Player::moveMario()
 			new_rect.y = position.getY() * TILE_SIDE;
 
 			// si no hay colision -> actualiza la posicion
-			if(!(game->checkCollisions(new_rect, true).collides))
+			if(!(game->checkCollisions(new_rect, Collision::Target::PLAYER).collides))
 			{
 				position.setX(new_position.getX());
 				position.setY(new_position.getY());
