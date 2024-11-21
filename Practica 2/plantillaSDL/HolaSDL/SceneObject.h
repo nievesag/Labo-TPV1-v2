@@ -29,6 +29,8 @@ protected:
 public:
 	SceneObject(Game* g, std::istream& in);
 
+	SceneObject(Game* g, Vector2D<double> p);
+
 	// ---- hit ----
 	// colisiones
 	virtual Collision hit(const SDL_Rect& rect, bool fromPlayer) = 0;

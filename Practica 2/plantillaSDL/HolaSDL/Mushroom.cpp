@@ -13,40 +13,18 @@ Mushroom::Mushroom(Game* g, Point2D<double> p)
 	texture = game->getTexture(Game::MUSHROOM);
 }
 
-void Mushroom::render() const
-{
-	SDL_Rect destRect;
-
-	// tamanio
-	destRect.w = texture->getFrameWidth() * 2;
-	destRect.h = texture->getFrameHeight() * 2;
-
-	// posicion
-	destRect.x = (position.getX() ) - game->getMapOffset();
-	destRect.y = (position.getY() - destRect.h);
-
-	texture->renderFrame(destRect, 0, 0);
-}
 
 void Mushroom::update()
 {
-	updateRect();
 	moveSeta();
 }
 
-void Mushroom::updateRect()
-{
-	destRect.h = texture->getFrameHeight() * 2;
-	destRect.w = texture->getFrameWidth() * 2;
-	destRect.x = position.getX();
-	destRect.y = position.getY();
-}
 
 void Mushroom::moveSeta()
 {
 
 	direction = Vector2D<int>(-1, 0);
-	new_position.setX(position.getX() + (direction.getX() * GOOMBA_SPEED * 20));
+	new_position.setX(position.getX() + (direction.getX() * ENEMY_SPEED * 20));
 	new_position.setY(position.getY());
 
 	new_rect.h = destRect.h;
@@ -75,7 +53,7 @@ void Mushroom::moveSeta()
 
 Collision Mushroom::hit(const SDL_Rect& rect, bool fromPlayer)
 {
-	Collision c;
+	Collision c = Pickable::hit(rect, fromPlayer);
 
 	// si hay colision
 	if (SDL_HasIntersection(&rect, &destRect))

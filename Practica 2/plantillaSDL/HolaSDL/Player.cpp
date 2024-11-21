@@ -3,7 +3,7 @@
 
 
 Player::Player(Game* g, std::istream& in)
-	: game(g)
+	: SceneObject(g, in)
 {
 	in >> position; // pos de mario
 	position = position - Point2D<double>(0, 1); // coloca bien a mario
@@ -223,6 +223,11 @@ void Player::manageInvencible()
 		invCounter = 0;
 		invencible = false;
 	}
+}
+
+void Player::tryToMove(Vector2D<double> v, bool b)
+{
+
 }
 
 void Player::moveMario()

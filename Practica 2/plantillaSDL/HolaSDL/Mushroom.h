@@ -10,13 +10,14 @@
 #include <fstream>
 #include <string>
 #include "Collision.h"
+#include "Pickable.h"
 
 class Game;
 
 using uint = unsigned int;
 using namespace std;
 
-class Mushroom
+class Mushroom : public Pickable
 {
 private:
 	Texture* texture = nullptr;	// puntero a su textura

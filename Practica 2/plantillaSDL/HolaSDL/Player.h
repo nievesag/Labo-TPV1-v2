@@ -11,6 +11,7 @@
 #include <string>
 
 #include "Collision.h"
+#include "SceneObject.h"
 
 // para evitar inclusiones cruzadas
 class Game;
@@ -18,7 +19,7 @@ class Game;
 using uint = unsigned int;
 using namespace std;
 
-class Player
+class Player : public SceneObject
 {
 	// atributos privados
 private:
@@ -78,7 +79,7 @@ public:
 	Player(Game* g, std::istream& i); // no se si pasarle la textura
 
 	// -- render --
-	void render() const;
+	void render() const override;
 
 	// -- update --
 	// movimiento:
@@ -123,6 +124,8 @@ public:
 	void setGrounded(bool g) {
 		grounded = g;
 	}
+
+	void tryToMove(Vector2D<double> v, bool b) override;
 
 private:
 	void moveMario();
