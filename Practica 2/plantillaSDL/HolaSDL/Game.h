@@ -87,8 +87,6 @@ private:
 
 	bool exit; // salida de juego
 
-	TileMap* tilemap = nullptr;
-
 	// desplazamiento actual de mapa, llevará la coordenada x del extremo izquierdo de la vista 
 	// (inicialmente cero)
 	int mapOffset = 0;

@@ -86,7 +86,9 @@ void Game::init()
 	{
 		std::cout << "Error cargando el tilemap";
 	}
-	tilemap = new TileMap(this, tiles);
+
+	Point2D<int> pos = Point2D<int>(0, 0);
+	SceneObject* tilemap = new TileMap(this, tiles, pos);
 	gameList.push_back(tilemap);
 	tiles.close();
 
