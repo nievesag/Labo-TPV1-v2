@@ -13,7 +13,7 @@ class SceneObject : public GameObject
 {
 	// atributos protegidos
 protected:
-	Point2D<int> position; // Posicion del objeto
+	Point2D<double> position; // Posicion del objeto
 	int width, height;		  // Dimension del objeto
 	Vector2D<double> speed;	  // Velocidad del objeto
 	//double speed;	
@@ -31,7 +31,7 @@ protected:
 
 	// metodos publicos
 public:
-	SceneObject(Game* g,Point2D<int> pos, Texture* t);
+	SceneObject(Game* g,Point2D<double> pos, Texture* t);
 
 
 	// ---- hit ----

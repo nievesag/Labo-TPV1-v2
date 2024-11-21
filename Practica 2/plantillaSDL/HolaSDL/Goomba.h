@@ -25,7 +25,7 @@ private:
 	Game* game = nullptr;		// puntero al juego
 
 public:
-	Goomba(Game* g, Point2D<int> pos, Texture* t);
+	Goomba(Game* g, Point2D<double> pos, Texture* t);
 
 	// -- update --
 	void update() override;

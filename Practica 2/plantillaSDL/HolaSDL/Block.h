@@ -25,7 +25,7 @@ private:
 	Texture* texture = nullptr;	// puntero a su textura
 	Game* game = nullptr;		// puntero al juego
 
-	Point2D<int> position;	// posicion actual en Point2D
+	Point2D<double> position;	// posicion actual en Point2D
 
 	char tipoL;
 	int tipo;
@@ -59,7 +59,7 @@ private:
 	SDL_Rect destRect;
 
 public:
-	Block(Game* g, Point2D<int> pos, Texture* t, char tipoL, char accionL);
+	Block(Game* g, Point2D<double> pos, Texture* t, char tipoL, char accionL);
 
 	// -- render --
 	void render() const override;
@@ -95,7 +95,7 @@ public:
 
 	void killBlock() { alive = false; }
 
-	Point2D<int> getPos() const { return position; }
+	Point2D<double> getPos() const { return position; }
 };
 
 #endif

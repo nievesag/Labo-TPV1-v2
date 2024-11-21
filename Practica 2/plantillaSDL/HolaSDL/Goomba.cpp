@@ -1,7 +1,7 @@
 #include "Goomba.h"
 #include "Game.h"
 
-Goomba::Goomba(Game* g, Point2D<int> pos, Texture* t)
+Goomba::Goomba(Game* g, Point2D<double> pos, Texture* t)
 	: Enemy(g, pos, texture), texture(t)
 {
 	//in >> position;

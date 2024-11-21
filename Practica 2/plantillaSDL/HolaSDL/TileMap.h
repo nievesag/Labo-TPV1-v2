@@ -20,13 +20,13 @@ private:
 	Texture* texture = nullptr; // puntero a textura del array de textures
 	Game* game = nullptr;
 	Texture* background = nullptr; 
-	Point2D<int> pos = Point2D<int>(0, 0);
+	Point2D<double> pos = Point2D<double>(0, 0);
 	vector<vector<int>> indices;
 	int x, y;
 
 public:
 	//TileMap();
-	TileMap(Game* g, std::istream& in, Point2D<int> position);
+	TileMap(Game* g, std::istream& in, Point2D<double> position);
 	~TileMap();
 
 	void render() const override;

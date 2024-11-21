@@ -76,7 +76,7 @@ private:
 	bool invencible = false;
 
 public:
-	Player(Game* g, Point2D<int> pos, Texture* texture, int lives); // no se si pasarle la textura
+	Player(Game* g, Point2D<double> pos, Texture* texture, int lives); // no se si pasarle la textura
 
 	// -- render --
 	void render() const override;

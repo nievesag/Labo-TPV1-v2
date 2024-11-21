@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-Player::Player(Game* g, Point2D<int> pos, Texture* texture, int lives)
+Player::Player(Game* g, Point2D<double> pos, Texture* texture, int lives)
 	: SceneObject(g, pos, g->getTexture(Game::MARIO))
 {
 	game = g;
@@ -17,7 +17,7 @@ Player::Player(Game* g, Point2D<int> pos, Texture* texture, int lives)
 
 	marioState = MARIO;
 	grounded = true;
-
+	position = pos;
 	groundedYPos = pos.getY();
 }
 

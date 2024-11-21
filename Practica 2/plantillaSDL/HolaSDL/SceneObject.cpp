@@ -1,7 +1,7 @@
 #include "SceneObject.h"
 #include "Game.h"
 
-SceneObject::SceneObject(Game* g, Point2D<int> pos, Texture* t)
+SceneObject::SceneObject(Game* g, Point2D<double> pos, Texture* t)
 	: GameObject(g), position(pos), texture(t)
 {
 	speed = Vector2D<double>(0, 0);
@@ -69,8 +69,8 @@ Collision SceneObject::tryToMove(Vector2D<double> v, Collision::Target target)
 SDL_Rect SceneObject::getCollisionRect() const
 {
 	return SDL_Rect{
-		position.getX(),
-		position.getY() - height,  // la referencia es la esquina inferior izquierda
+		(int)position.getX(),
+		(int)position.getY() - height,  // la referencia es la esquina inferior izquierda
 		width,
 		height
 	};
@@ -79,8 +79,8 @@ SDL_Rect SceneObject::getCollisionRect() const
 SDL_Rect SceneObject::getRenderRect() const
 {
 	return SDL_Rect{
-		position.getX() - game->getMapOffset(),  // coordenadas de la ventana
-		position.getY() - height,
+		(int)position.getX() - game->getMapOffset(),  // coordenadas de la ventana
+		(int)position.getY() - height,
 		width,
 		height
 	};
