@@ -5,6 +5,7 @@ Block::Block(Game* g, Point2D<double> pos, Texture* t, char tipoL, char accionL)
 	: SceneObject(g, pos, g->getTexture(Game::BLOCK)), texture(t)
 {
 	game = g;
+	blockFrame = 0;
 	// Asignamos el tipo de bloque basado en el carácter leído
 	switch (tipoL) {
 	case 'B':
@@ -31,7 +32,7 @@ Block::Block(Game* g, Point2D<double> pos, Texture* t, char tipoL, char accionL)
 		break;
 	}
 
-
+	position = pos;
 	alive = true;
 }
 

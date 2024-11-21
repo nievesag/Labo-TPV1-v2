@@ -31,8 +31,8 @@ void Player::render() const
 		destRect.y = (position.getY() * TILE_SIDE) - (destRect.h - textureM->getFrameHeight());
 	}
 	else {
-		destRect.w = textureM->getFrameWidth();
-		destRect.h = textureM->getFrameHeight();
+		destRect.w = textureM->getFrameWidth() * 2;
+		destRect.h = textureM->getFrameHeight() * 2;
 		destRect.y = position.getY() * TILE_SIDE;
 	}
 
