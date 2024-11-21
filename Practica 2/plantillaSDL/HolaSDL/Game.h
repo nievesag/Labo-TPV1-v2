@@ -44,7 +44,7 @@ using uint = unsigned int;
 static constexpr double
 					FRAMERATE = 50,						// frames por segundo
 					TIME_BT_FRAMES = 1 / FRAMERATE,		// tiempo entre frames
-					MARIO_SPEED = 0.0005,	// velocidad de mario
+					MARIO_SPEED = 0.0009,	// velocidad de mario
 					ENEMY_SPEED = 0.0003;	// velocidad de goombas
 					
 
@@ -166,6 +166,7 @@ public:
 	void EndGame();
 	void setExit(bool aux) { exit = aux; }
 	void addMapOffset(int newOffset) { mapOffset += newOffset; }
+	void setMapOffset(int newOffset) { mapOffset = newOffset; }
 
 private:
 	// ---- loadTexture ----

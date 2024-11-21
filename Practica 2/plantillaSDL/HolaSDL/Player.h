@@ -36,7 +36,14 @@ private:
 	// MOVIMIENTO
 	Point2D<double> position;	// posicion actual en Point2D
 	Vector2D<int> direction;	// direccion de movimiento
-	float speed = 0.05;			// velocidad de movimiento
+	Vector2D<double> vel;			// velocidad de movimiento
+
+	double velY = 0.0015;
+	double velX = 0.001;
+	double gravity = 0.0015;
+	double margen = -0.00001;
+	double deadH = 14;
+	int mapTiles = 220; //Numero de tiles de ancho del mapa
 
 	bool grounded;		// si esta en el suelo, solo puede saltar cuando lo este
 	double groundedYPos;	// posicion en el suelo
@@ -66,9 +73,11 @@ private:
 
 	//Colisiones
 	Point2D<double> new_position;	// posicion que tendria si avanza en Point2D
-	SDL_Rect new_rect;				// rect que tendria si avanza en Point2D
+	SDL_Rect new_rect = SDL_Rect();				// rect que tendria si avanza en Point2D
 	SDL_Rect collider;
 	Collision c;
+	bool limitX = true;
+	bool limitY = true;
 
 	// invencibilidad
 	int invCounter = 0;
@@ -127,9 +136,9 @@ public:
 
 
 private:
-	void moveMario();
+	void moveMario(bool moveX, bool moveY);
 
-	bool checkFall();
+	void checkFall();
 };
 
 #endif	
