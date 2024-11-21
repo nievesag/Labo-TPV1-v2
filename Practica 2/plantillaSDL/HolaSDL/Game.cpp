@@ -190,14 +190,15 @@ void Game::run()
 // ACTUALIZAR
 void Game::update()
 {
-	GameList<SceneObject>::iterator<GameList<SceneObject>::Node::next, SceneObject> it;
+	/*
+	GameList<SceneObject>::iterator<&GameList<SceneObject>::Node::prev, SceneObject> it;
 
 	for(it = gameList.begin(); it != gameList.end(); it++)
 	{
 		(*it)->update();
 	}
-
-	/*
+	*/
+	
 	tilemap->update();
 
 	player->update();
@@ -220,7 +221,7 @@ void Game::update()
 	for (int i = 0; i < koopaVec.size(); i++)
 	{
 		koopaVec[i]->update();
-	}*/
+	}
 
 	updateEntities();
 
