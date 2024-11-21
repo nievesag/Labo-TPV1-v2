@@ -25,7 +25,7 @@ protected:
 	SDL_Rect destRect;
 
 	// iterador de la lista
-	GameList<SceneObject*>::anchor anchor; // no se si hacer que sea una lista de punteros o no
+	GameList<SceneObject>::anchor _anchor;
 
 	virtual Collision tryToMove(Vector2D<double> v, Collision::Target target);
 
@@ -42,7 +42,7 @@ public:
 	void setListAnchor(GameList<SceneObject>::anchor&& anchor)
 	{
 		// se esta moviendo el argumento al atributo anchor de sceneobject
-		anchor = std::move(anchor);
+		_anchor = std::move(anchor);
 	}
 
 	SDL_Rect getCollisionRect() const;
