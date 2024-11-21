@@ -16,8 +16,7 @@ protected:
 	Point2D<int> position; // Posicion del objeto
 	int width, height;		  // Dimension del objeto
 	Vector2D<double> speed;	  // Velocidad del objeto
-	//double speed;	
-	int _width, _height;
+	//double speed;			  
 
 	Texture* texture = nullptr;
 	Game* game = nullptr;
@@ -32,7 +31,7 @@ protected:
 
 	// metodos publicos
 public:
-	SceneObject(Game* g,Point2D<int> pos, int width, int heigth, Texture* texture);
+	SceneObject(Game* g, std::istream& in);
 
 	SceneObject(Game* g, Vector2D<int> p);
 

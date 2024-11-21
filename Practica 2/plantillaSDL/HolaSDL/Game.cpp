@@ -104,6 +104,7 @@ void Game::init()
 // CARGA
 void Game::loadTextures()
 {
+
 	try {
 		// bucle para rellenar el array de texturas
 		for (int i = 0; i < NUM_TEXTURES; i++) {

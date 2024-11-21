@@ -13,7 +13,7 @@ TileMap::TileMap(Game* g, std::istream& in)
 	: SceneObject(g, in)
 {
 	load(in);
-	texture = game->getTexture(Game::BACKGROUND);
+	texture = g->getTexture(Game::BACKGROUND);
 }
 
 TileMap::~TileMap()

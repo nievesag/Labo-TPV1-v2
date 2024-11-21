@@ -1,13 +1,10 @@
 #include "SceneObject.h"
 #include "Game.h"
 
-SceneObject::SceneObject(Game* g, Point2D<int> pos, int width, int heigth, Texture* texture)
-	: GameObject(g), position(pos), _width(width), _height(height), speed(0,0), texture(texture)
+SceneObject::SceneObject(Game* g, std::istream& in)
+	: game(g)
 {
-	destRect.h = texture->getFrameHeight();
-	destRect.w = texture->getFrameWidth();
-	destRect.x = position.getX();
-	destRect.y = position.getY();
+
 }
 
 SceneObject::SceneObject(Game* g, Vector2D<int> p)
