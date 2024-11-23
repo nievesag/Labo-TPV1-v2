@@ -14,4 +14,8 @@ void Koopa::update()
 		//Hacer la logica del caparazon
 }
 
+void Koopa::collisionResult()
+{
+}
+
 

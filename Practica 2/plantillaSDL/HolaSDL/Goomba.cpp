@@ -18,3 +18,7 @@ Goomba::Goomba(Game* g, Point2D<double> pos, Texture* t)
 void Goomba::update() {
 
 }
+
+void Goomba::collisionResult()
+{
+}

@@ -40,6 +40,8 @@ private:
 	int animationFrame = 0;   // Contador para el ciclo de caminar
 	int frameTimer = 0;
 
+	int moveDelay = 5;
+
 	SDL_Rect destRect;
 
 public:
@@ -69,7 +71,9 @@ public:
 	
 	virtual Collision tryToMove(Vector2D<double> v, Collision::Target t) override;
 	
-	virtual void collisionResult() = 0;
+	virtual void collisionResult();
+
+	virtual void manageCollisions(Collision collision) override;
 
 protected:
 	virtual void moveEnemy(); 

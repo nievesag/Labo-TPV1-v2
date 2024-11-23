@@ -30,6 +30,8 @@ public:
 	// -- update --
 	void update() override;
 
+	virtual void collisionResult() override;
+
 
 };
 

@@ -96,6 +96,8 @@ public:
 	void killBlock() { alive = false; }
 
 	Point2D<double> getPos() const { return position; }
+
+	virtual void manageCollisions(Collision collision) override;
 };
 
 #endif

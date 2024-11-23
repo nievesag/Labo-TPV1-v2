@@ -101,15 +101,7 @@ Collision TileMap::hit(const SDL_Rect& rect, Collision::Target t) {
 			// Verifica si hay colisión con un obstáculo 
 			if (index != -1 && index % texture->getNumColumns() < OBSTACLE_THRESHOLD) // ESTO CONFIRMA COLISION
 			{
-				collision.collides = true;
-
-				// Calcula la intersección entre rect y el tile en cuestión
-				SDL_Rect tileRect = { col * TILE_SIDE, row * TILE_SIDE, TILE_SIDE, TILE_SIDE };
-				SDL_IntersectRect(&rect, &tileRect, &collision.intersection);
-
-				// Aquí puedes asignar el puntero `collider` y establecer `damages` si aplica
-				//collision.collider = nullptr; // Ajusta esto según tu implementación
-				//collision.damages = Collision::PLAYER; // Ejemplo: tal vez solo daña si es el jugador
+				collision.result = Collision::OBSTACLE;
 
 				//std::cout << collision.collides << endl;
 				return collision;
@@ -119,4 +111,8 @@ Collision TileMap::hit(const SDL_Rect& rect, Collision::Target t) {
 
 	return collision; // Retorna la instancia sin colisión si no encontró obstáculos
 	
+}
+
+void TileMap::manageCollisions(Collision collision)
+{
 }

@@ -49,3 +49,7 @@ Collision Pickable::hit(const SDL_Rect& rect, Collision::Target t)
 
 	return NO_COLLISION; // constante Collision{}
 }
+
+void Pickable::manageCollisions(Collision collision)
+{
+}

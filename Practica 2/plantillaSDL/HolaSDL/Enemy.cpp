@@ -27,7 +27,8 @@ void Enemy::update()
 	// Acelera la velocidad con la gravedad
 	if (speed.getY() < SPEED_LIMIT)
 	{
-		speed += {0, Game::GRAVITY};
+		speed.setX(speed.getX());
+		speed.setY(speed.getY() + GRAVITY);
 	}
 
 	// Velocidad en este ciclo (no siempre avanza lateralmente)
@@ -121,6 +122,16 @@ Collision Enemy::hit(const SDL_Rect& rect, Collision::Target t)
 Collision Enemy::tryToMove(Vector2D<double> v, Collision::Target t)
 {
 	return Collision();
+}
+
+void Enemy::collisionResult()
+{
+
+}
+
+void Enemy::manageCollisions(Collision collision)
+{
+
 }
 
 void Enemy::moveEnemy()

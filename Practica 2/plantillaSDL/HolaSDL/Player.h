@@ -38,13 +38,6 @@ private:
 	Vector2D<int> direction;	// direccion de movimiento
 	Vector2D<double> vel;			// velocidad de movimiento
 
-	double velY = 0.0015;
-	double velX = 0.001;
-	double gravity = 0.0015;
-	double margen = -0.00001;
-	double deadH = 14;
-	int mapTiles = 220; //Numero de tiles de ancho del mapa
-
 	bool grounded;		// si esta en el suelo, solo puede saltar cuando lo este
 	double groundedYPos;	// posicion en el suelo
 	double maxHeight;
@@ -76,13 +69,15 @@ private:
 	SDL_Rect new_rect = SDL_Rect();				// rect que tendria si avanza en Point2D
 	SDL_Rect collider;
 	Collision c;
-	bool limitX = true;
-	bool limitY = true;
 
 	// invencibilidad
 	int invCounter = 0;
 	int maxInvCounter = 5;
 	bool invencible = false;
+
+	int deadH = 14;
+	double velY = 0.0015;
+	double velX = 0.001;
 
 public:
 	Player(Game* g, Point2D<double> pos, Texture* texture, int lives); // no se si pasarle la textura
@@ -108,7 +103,6 @@ public:
 
 	void manageCollisions(Collision collision) override;
 
-	Collision tryToMove(Vector2D<double> v, Collision::Target t) override;
 
 	void manageDamage();
 
@@ -136,9 +130,11 @@ public:
 		grounded = g;
 	}
 
+	Vector2D<double> getNextMoveVector();
+
 
 private:
-	void moveMario(bool moveX, bool moveY);
+	void moveMario();
 
 	void checkFall();
 };

@@ -125,7 +125,7 @@ Collision Block::hit(const SDL_Rect& rect, Collision::Target t)
 
 	if (hasIntersection) 
 	{
-		Collision collision{ Collision::OBSTACLE, intersection.w, intersection.h };
+		Collision collision{ Collision::EMPTY, Collision::OBSTACLE, intersection.w, intersection.h };
 
 		// [...] Manejo del efecto del bloque
 		//c.collides = true;
@@ -167,4 +167,9 @@ void Block::manageSorpresa()
 {
 	setTipo(3);
 	blockFrame = 4;
+}
+
+void Block::manageCollisions(Collision collision)
+{
+
 }

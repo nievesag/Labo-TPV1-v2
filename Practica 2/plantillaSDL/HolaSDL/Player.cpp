@@ -56,42 +56,13 @@ void Player::update()
 	else if (marioState == 1)
 		texture = textureS;
 
+	moveMario();
 
-	Vector2D<double> aux = vel;
-	limitX = true;
-	limitY = true;
-
-	new_rect.h = texture->getFrameHeight() * 2;
-	new_rect.w = texture->getFrameWidth() * 2;
-	SDL_Rect auxRect = new_rect;
-
-	new_rect.y = position.getY() * TILE_SIDE - direction.getY() * vel.getY();
-	c = game->checkCollisions(new_rect, Collision::PLAYER);
-
-	if (c.collides) {
-
-		grounded = true;
-		isFalling = false;
-
-		limitY = false;
-		new_rect = auxRect;
-	}
-
-
-	new_rect.x = position.getX() * TILE_SIDE + direction.getX() * vel.getX();
-	c = game->checkCollisions(new_rect, Collision::PLAYER);
-	if (c.collides) {
-
-		limitX = false;
-		new_rect = auxRect;
-	}
-
-	manageCollisions(tryToMove());
+	manageCollisions(tryToMove(getNextMoveVector(), Collision::ENEMIES));
 
 	manageInvencible();
 	//updateRect();
 
-	moveMario(limitX, limitY);
 
 	updateTexture();
 
@@ -100,10 +71,6 @@ void Player::update()
 	updateAnims();
 
 	checkFall();
-
-	vel = aux;
-	limitX = true;
-	limitY = true;
 
 }
 
@@ -282,15 +249,15 @@ void Player::manageInvencible()
 	}
 }
 
-Collision Player::tryToMove(Vector2D<double> v, Collision::Target t)
+
+
+Vector2D<double> Player::getNextMoveVector()
 {
-	return Collision();
+	return Vector2D<double>(direction.getX() * vel.getX(), direction.getY() - vel.getY());
 }
 
-void Player::moveMario(bool moveX, bool moveY)
+void Player::moveMario()
 {
-	Vector2D<double> dir(0, 0);
-
 	if (keyA == keyD) {
 		direction = Vector2D<int>(0, 0);
 	}
@@ -306,36 +273,10 @@ void Player::moveMario(bool moveX, bool moveY)
 		}
 	}
 
-	if (moveX)
-	{
-		position.setX(position.getX() + (direction.getX() * vel.getX()));
-	}
-
-	//Control del salto
-	if (keySpace && grounded && !isFalling)
+	if (keySpace)
 	{
 		direction.setY(-1);
-		maxHeight = position.getY() - 5;
-		grounded = false;
 	}
 	else
 		direction.setY(0);
-
-	//Movimiento vertical
-	if (position.getY() > maxHeight && keySpace && !isFalling && (moveY || direction.getY() == -1))
-	{
-		position.setY(position.getY() - vel.getY());
-	}
-	else if (moveY && (position.getY() <= maxHeight || direction.getY() == 0))
-	{
-		isFalling = true;
-		position.setY(position.getY() + gravity);
-	}
-
-
-	if (position.getX() * TILE_SIDE - game->getMapOffset() <= 0 && direction.getX() == -1)
-		position.setX(game->getMapOffset() / TILE_SIDE);
-
-	if (position.getX() * TILE_SIDE + (TILE_SIDE * WINDOW_WIDTH) >= mapTiles * TILE_SIDE && direction.getX() == 1)
-		position.setX(margen + (mapTiles * TILE_SIDE - (TILE_SIDE * WINDOW_WIDTH)) / TILE_SIDE);
 }
