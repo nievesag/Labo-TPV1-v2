@@ -75,6 +75,7 @@ public:
 		GOOMBA,
 		KOOPA,
 		COIN,
+		LIFT,
 		NUM_TEXTURES  // Truco C++: número de texturas definidas
 	};
 

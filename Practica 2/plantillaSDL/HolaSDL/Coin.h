@@ -41,6 +41,8 @@ public:
 	}
 
 	void triggerAction() override;
+
+	SceneObject* clone() const override;
 };
 
 #endif

@@ -24,3 +24,8 @@ void Coin::triggerAction()
 {
 	game->givePoints(200);
 }
+
+SceneObject* Coin::clone() const
+{
+	return nullptr;
+}

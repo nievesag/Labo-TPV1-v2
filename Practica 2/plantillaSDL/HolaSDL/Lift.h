@@ -37,6 +37,14 @@ public:
 	Point2D<double> getPos() const { return position; }
 
 	SceneObject* clone() const override;
+
+	Collision hit(const SDL_Rect& rect, Collision::Target t) override;
+
+	void manageCollisions(Collision collision) override;
+
+private:
+	void moveLift();
+
 };
 
 #endif

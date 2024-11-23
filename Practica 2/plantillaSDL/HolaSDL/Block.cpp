@@ -1,8 +1,8 @@
 #include "Block.h"
 #include "Game.h"
 
-Block::Block(Game* g, Point2D<double> pos, Texture* t, char tipoL, char accionL)
-	: SceneObject(g, pos, g->getTexture(Game::BLOCK)), texture(t)
+Block::Block(Game* g, Point2D<double> position, Texture* t, char tipoL, char accionL)
+	: SceneObject(g, position, g->getTexture(Game::BLOCK)), texture(t)
 {
 	game = g;
 	blockFrame = 0;
@@ -32,7 +32,6 @@ Block::Block(Game* g, Point2D<double> pos, Texture* t, char tipoL, char accionL)
 		break;
 	}
 
-	position = pos;
 	alive = true;
 }
 
@@ -40,7 +39,7 @@ void Block::render() const
 {
 	SDL_Rect destRect;
 
-	// tamanio
+	// tamanios
 	destRect.w = texture->getFrameWidth() * 2;
 	destRect.h = texture->getFrameHeight() * 2;
 

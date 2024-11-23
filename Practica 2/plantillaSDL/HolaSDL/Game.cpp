@@ -3,6 +3,9 @@
 #include <string>
 #include <iostream>
 #include <istream>
+
+#include "Coin.h"
+#include "Lift.h"
 #include "TileMap.h"
 
 using namespace std;
@@ -27,7 +30,8 @@ const array<TextureSpec, Game::NUM_TEXTURES> textureSpec{
 	{"mushroom.png", 1, 1},
 	{"goomba.png", 3, 1},
 	{"koopa.png", 4, 1},
-	{"coin.png", 4, 1}
+	{"coin.png", 4, 1},
+	{"lift.png", 1, 1}
 };
 
 Game::Game() : randomGenerator(time(nullptr)), exit(false)
@@ -117,7 +121,6 @@ void Game::loadTextures()
 									textureSpec[i].numRows, 
 									textureSpec[i].numColumns);
 
-
 			if (textures[i] == nullptr) 
 			{
 				std::cout << "Textura null";
@@ -198,11 +201,25 @@ void Game::loadObjectMap(std::ifstream& mapa)
 		}
 		else if (tipoL == 'L')
 		{
+			lineStream >> pos;
+			pos = pos - Point2D<double>(0, 1);
 
+			Vector2D<double> speed;
+			double x = 0;
+			double y = 0;
+			lineStream >> y;
+			speed.setY(y);
+
+			SceneObject* lift = new Lift(this, pos, getTexture(LIFT), speed);
+			gameList.push_back(lift);
 		}
 		else if (tipoL == 'C')
 		{
+			lineStream >> pos;
+			pos = pos - Point2D<double>(0, 1);
 
+			Pickable* coin = new Coin(this, pos, getTexture(COIN));
+			gameList.push_back(coin);
 		}
 		else if (tipoL == 'P')
 		{
@@ -212,7 +229,6 @@ void Game::loadObjectMap(std::ifstream& mapa)
 		{
 			
 		}
-		
 
 		getline(mapa, line);
 		
