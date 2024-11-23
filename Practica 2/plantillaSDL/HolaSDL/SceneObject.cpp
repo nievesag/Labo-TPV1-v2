@@ -67,20 +67,24 @@ Collision SceneObject::tryToMove(Vector2D<double> v, Collision::Target target)
 
 SDL_Rect SceneObject::getCollisionRect() const
 {
-	return SDL_Rect{
-		(int)position.getX(),
-		(int)position.getY() - height,  // la referencia es la esquina inferior izquierda
-		width,
-		height
-	};
+	SDL_Rect collRect;
+
+	collRect.x = position.getX();
+	collRect.y = position.getY() - height; // la referencia es la esquina inferior izquierda
+	collRect.w = width;
+	collRect.h = height;
+
+	return collRect;
 }
 
 SDL_Rect SceneObject::getRenderRect() const
 {
-	return SDL_Rect{
-		(int)position.getX() - game->getMapOffset(),  // coordenadas de la ventana
-		(int)position.getY() - height,
-		width,
-		height
-	};
+	SDL_Rect renderRect;
+
+	renderRect.x = position.getX() - game->getMapOffset(); // coordenadas de la ventana
+	renderRect.y = position.getY() - height;
+	renderRect.w = width;
+	renderRect.h = height;
+
+	return renderRect;
 }

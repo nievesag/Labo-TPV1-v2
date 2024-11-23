@@ -33,7 +33,6 @@ private:
 
 	bool alive = true;
 
-
 	bool grounded;		// si esta en el suelo, solo puede saltar cuando lo este
 	double groundedYPos;	// posicion en el suelo
 	double maxHeight;
@@ -51,7 +50,7 @@ private:
 	bool keyA = false, keyD = false, keyS = false, keySpace = false, keyE = false, keyDer = false;
 
 	// rect destino
-	SDL_Rect destRect;
+	//SDL_Rect destRect;
 
 	bool isFalling = false;
 	bool canJump = false;

@@ -1,12 +1,11 @@
 #include "Player.h"
 #include "Game.h"
 
-
-Player::Player(Game* g, Point2D<double> pos, Texture* texture, int lives)
-	: SceneObject(g, pos, g->getTexture(Game::MARIO))
+Player::Player(Game* g, Point2D<double> position, Texture* texture, int lives)
+	: SceneObject(g, position, g->getTexture(Game::MARIO))
 {
 	game = g;
-	position = pos;
+
 	lives = maxLives;
 
 	textureM = g->getTexture(Game::MARIO);		// textura inicial de mario
@@ -19,69 +18,54 @@ Player::Player(Game* g, Point2D<double> pos, Texture* texture, int lives)
 	speed = Vector2D<double>(velX, velY);
 
 	groundedYPos = position.getY();
-
-	
 }
 
 void Player::render() const
 {
-	SDL_Rect destRect;
-
-	if (marioState == SUPERMARIO) {
-		destRect.w = textureS->getFrameWidth() * 4.7;
-		destRect.h = textureS->getFrameHeight() * 4.7;
-		destRect.y = (position.getY() * TILE_SIDE) - (destRect.h - textureM->getFrameHeight());
-	}
-	else {
-		destRect.w = textureM->getFrameWidth() * 2;
-		destRect.h = textureM->getFrameHeight() * 2;
-		destRect.y = position.getY() * TILE_SIDE;
-	}
-
-	// posicion
-	destRect.x = (position.getX() * TILE_SIDE) - game->getMapOffset();
-	
 	// Usa el flip segun la direccion
-	SDL_RendererFlip flip = flipSprite ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE; //esta estructura es un if-else por si no lo conocias
+	SDL_RendererFlip flip = flipSprite ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
 
-	if (marioState != SUPERMARIO) 
+	if (marioState != SUPERMARIO)
+	{
 		textureM->renderFrame(destRect, 0, marioFrame, 0.0, nullptr, flip);
-	else
-		textureS->renderFrame(destRect, 0, marioFrame, 0.0, nullptr, flip);
+	}
+	else  textureS->renderFrame(destRect, 0, marioFrame, 0.0, nullptr, flip);
 }
 
 void Player::update()
 {
-	if (marioState == 0)
-		texture = textureM;
-	else if (marioState == 1)
-		texture = textureS;
+	if (marioState == 0) texture = textureM;
+	else if (marioState == 1) texture = textureS;
 
 	Vector2D<double> aux = speed;
 	limitX = true;
 	limitY = true;
 
-	 //Crear el rectángulo base para las colisiones
+	// Crear el rectángulo base para las colisiones
 	new_rect.h = texture->getFrameHeight() * 2;
 	new_rect.w = texture->getFrameWidth() * 2;
+	new_rect.x = position.getX();
+	new_rect.y = position.getY();
 	SDL_Rect auxRect = new_rect;
 
 	// Movimiento vertical (eje Y)
 	Vector2D<double> verticalMove(0, position.getY() * TILE_SIDE - direction.getY() * speed.getY());
 	Collision verticalCollision = tryToMove(verticalMove, Collision::ENEMIES);
 
-	if (verticalCollision.result == Collision::OBSTACLE) {
+	if (verticalCollision.result == Collision::OBSTACLE) 
+	{
 		grounded = true;
 		isFalling = false;
 		limitY = false;
 		new_rect = auxRect;
 	}
-
+	
 	// Movimiento horizontal (eje X)
 	Vector2D<double> horizontalMove(position.getX() * TILE_SIDE + direction.getX() * speed.getX(), 0);
 	Collision horizontalCollision = tryToMove(horizontalMove, Collision::ENEMIES);
 
-	if (horizontalCollision.result == Collision::OBSTACLE) {
+	if (horizontalCollision.result == Collision::OBSTACLE) 
+	{
 		limitX = false;
 		new_rect = auxRect;
 	}
@@ -90,24 +74,16 @@ void Player::update()
 
 	manageCollisions(tryToMove(getNextMoveVector(), Collision::ENEMIES));
 
-	cout << position.getX() << endl;
-
-
 	manageInvencible();
-	//updateRect();
 
-
+	updateRect();
 	updateTexture();
-
 	updateOffset();
-
 	updateAnims();
 
 	checkFall();
 
 	speed = aux;
-	
-
 }
 
 void Player::updateTexture()
@@ -116,14 +92,24 @@ void Player::updateTexture()
 	else texture = textureS;
 }
 
+void Player::updateRect()
+{
+	if (marioState == SUPERMARIO)
+	{
+		destRect.w = textureS->getFrameWidth() * 4.7;
+		destRect.h = textureS->getFrameHeight() * 4.7;
+		destRect.y = (position.getY() * TILE_SIDE) - (destRect.h - textureM->getFrameHeight());
+	}
+	else
+	{
+		destRect.w = textureM->getFrameWidth() * 2;
+		destRect.h = textureM->getFrameHeight() * 2;
+		destRect.y = position.getY() * TILE_SIDE;
+	}
 
-void Player::updateRect() {
-	destRect.h = texture->getFrameHeight() * 2;
-	destRect.w = texture->getFrameWidth() * 2;
-	destRect.x = position.getX() * TILE_SIDE;
-	destRect.y = position.getY() * TILE_SIDE;
+	// posicion
+	destRect.x = (position.getX() * TILE_SIDE) - game->getMapOffset();
 }
-
 
 void Player::handleEvents(const SDL_Event& event)
 {
@@ -198,13 +184,16 @@ void Player::manageCollisions(Collision collision)
 
 void Player::updateAnims()
 {
-	if (!grounded) {
-		//Frame del salto
+	if (!grounded) 
+	{
+		// Frame del salto
 		marioFrame = 6;
 	}
-	else if (keyA != keyD) {
+	else if (keyA != keyD) 
+	{
 		frameTimer++;
-		if (frameTimer >= 120) {  // Velocidad del ciclo
+		if (frameTimer >= 120) // Velocidad del ciclo
+		{  
 			frameTimer = 0;
 			animationFrame = (animationFrame + 1) % 4;  // Ciclo 0,1,2,3, y luego se reinicie 
 
@@ -214,8 +203,9 @@ void Player::updateAnims()
 			else if (animationFrame == 2) marioFrame = 4;
 		}
 	}
-	else {
-		//Cuando esta quieto
+	else 
+	{
+		// Cuando esta quieto
 		marioFrame = 0;
 	}
 }
@@ -231,7 +221,8 @@ void Player::updateOffset()
 
 	int screenX = position.getX() * TILE_SIDE - game->getMapOffset();
 
-	if (screenX > TILE_SIDE * WINDOW_WIDTH / 2 && game->getMapOffset() < 6000) {
+	if (screenX > TILE_SIDE * WINDOW_WIDTH / 2 && game->getMapOffset() < 6000) 
+	{
 		game->addMapOffset(1);
 	}
 }
@@ -239,7 +230,8 @@ void Player::updateOffset()
 void Player::checkFall()
 {
 	// para ver si se ha caido a un agujero
-	if (position.getY() > deadH) {
+	if (position.getY() > deadH) 
+	{
 		position.setY(10);
 		game->setMapOffset(0);
 		position.setX(1);
@@ -259,14 +251,14 @@ void Player::manageDamage()
 		}
 		else
 		{
-			if (lives > 0) {
+			if (lives > 0) 
+			{
 				invencible = true;
 				lives--;
 			}
 
 			if (lives <= 0) alive = false;
 		}
-
 	}
 
 	invencible = true;
@@ -285,8 +277,6 @@ void Player::manageInvencible()
 	}
 }
 
-
-
 Vector2D<double> Player::getNextMoveVector()
 {
 	return Vector2D<double>(position.getX() + (direction.getX() * speed.getX()), position.getY() - speed.getY());
@@ -294,16 +284,21 @@ Vector2D<double> Player::getNextMoveVector()
 
 void Player::moveMario(bool moveX, bool moveY)
 {
-	if (keyA == keyD) {
+	#pragma region DIRECCIONES
+	if (keyA == keyD) 
+	{
 		direction = Vector2D<int>(0, 0);
 	}
 
-	else if (keyA != keyD) {
-		if (keyA) {
+	else if (keyA != keyD) 
+	{
+		if (keyA) 
+		{
 			direction = Vector2D<int>(-1, 0);
 			flipSprite = true;
 		}
-		else if (keyD) {
+		else if (keyD) 
+		{
 			direction = Vector2D<int>(1, 0);
 			flipSprite = false;
 		}
@@ -315,16 +310,24 @@ void Player::moveMario(bool moveX, bool moveY)
 		maxHeight = position.getY() - 5;
 		grounded = false;
 	}
-	else
-		direction.setY(0);
+	else  direction.setY(0);
+	#pragma endregion
 
-	if (moveX)
+	// Movimiento horizontal
+	if (moveX && direction.getX() != 0)
 	{
-		cout << "siisi" << endl;
+		cout << position.getX() << endl;
+		//cout << "siisi" << endl;
 		position.setX(position.getX() + (direction.getX() * speed.getX()));
 	}
 
-	//Movimiento vertical
+	if (position.getX() * TILE_SIDE - game->getMapOffset() <= 0 && direction.getX() == -1)
+		position.setX(game->getMapOffset() / TILE_SIDE);
+
+	if (position.getX() * TILE_SIDE + (TILE_SIDE * WINDOW_WIDTH) >= mapTiles * TILE_SIDE && direction.getX() == 1)
+		position.setX(margen + (mapTiles * TILE_SIDE - (TILE_SIDE * WINDOW_WIDTH)) / TILE_SIDE);
+
+	// Movimiento vertical
 	if (position.getY() > maxHeight && keySpace && !isFalling && (moveY || direction.getY() == -1))
 	{
 		position.setY(position.getY() - speed.getY());
@@ -334,11 +337,4 @@ void Player::moveMario(bool moveX, bool moveY)
 		isFalling = true;
 		position.setY(position.getY() + gravity);
 	}
-
-
-	if (position.getX() * TILE_SIDE - game->getMapOffset() <= 0 && direction.getX() == -1)
-		position.setX(game->getMapOffset() / TILE_SIDE);
-
-	if (position.getX() * TILE_SIDE + (TILE_SIDE * WINDOW_WIDTH) >= mapTiles * TILE_SIDE && direction.getX() == 1)
-		position.setX(margen + (mapTiles * TILE_SIDE - (TILE_SIDE * WINDOW_WIDTH)) / TILE_SIDE);
 }

@@ -1,12 +1,12 @@
 #include "Enemy.h"
 #include "Game.h"
 
-Enemy::Enemy(Game* g, Point2D<double> pos, Texture* t)
-	: SceneObject(g, pos, t), texture(t)
+Enemy::Enemy(Game* g, Point2D<double> position, Texture* t)
+	: SceneObject(g, position, t), texture(t)
 {
     direction = Vector2D<int>(0, 0);
 	game = g;
-	position = pos;
+	//position = pos;
 }
 
 void Enemy::render() const {
