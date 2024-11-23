@@ -33,10 +33,6 @@ private:
 
 	bool alive = true;
 
-	// MOVIMIENTO
-	Point2D<double> position;	// posicion actual en Point2D
-	Vector2D<int> direction;	// direccion de movimiento
-	Vector2D<double> vel;			// velocidad de movimiento
 
 	bool grounded;		// si esta en el suelo, solo puede saltar cuando lo este
 	double groundedYPos;	// posicion en el suelo
@@ -75,12 +71,18 @@ private:
 	int maxInvCounter = 5;
 	bool invencible = false;
 
-	int deadH = 14;
-	double velY = 0.0015;
+	double velY = 2;
 	double velX = 0.001;
+	double gravity = 0.0015;
+	double margen = -0.00001;
+	double deadH = 14;
+	int mapTiles = 220; //Numero de tiles de ancho del mapa
+
+	bool limitX = true;
+	bool limitY = true;
 
 public:
-	Player(Game* g, Point2D<double> pos, Texture* texture, int lives); // no se si pasarle la textura
+	Player(Game* g, Point2D<double> position, Texture* texture, int lives); // no se si pasarle la textura
 
 	// -- render --
 	void render() const override;
@@ -134,7 +136,7 @@ public:
 
 
 private:
-	void moveMario();
+	void moveMario(bool moveX, bool moveY);
 
 	void checkFall();
 };

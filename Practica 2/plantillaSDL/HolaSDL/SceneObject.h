@@ -16,6 +16,7 @@ protected:
 	Point2D<double> position; // Posicion del objeto
 	int width, height;		  // Dimension del objeto
 	Vector2D<double> speed;	  // Velocidad del objeto
+	Vector2D<int> direction;
 	//double speed;	
 
 	Texture* texture = nullptr;

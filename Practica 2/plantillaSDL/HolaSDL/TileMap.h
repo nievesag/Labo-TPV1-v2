@@ -20,7 +20,7 @@ private:
 	Texture* texture = nullptr; // puntero a textura del array de textures
 	Game* game = nullptr;
 	Texture* background = nullptr; 
-	Point2D<double> pos = Point2D<double>(0, 0);
+	//Point2D<double> pos = Point2D<double>(0, 0);
 	vector<vector<int>> indices;
 	int x, y;
 

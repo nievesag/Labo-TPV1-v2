@@ -27,8 +27,7 @@ private:
 	Game* game = nullptr;		// puntero al juego
 
 	// MOVIMIENTO
-	Point2D<double> position;	// posicion actual en Point2D
-	Vector2D<int> direction;	// direccion de movimiento
+
 
 	int enemyFrame;
 

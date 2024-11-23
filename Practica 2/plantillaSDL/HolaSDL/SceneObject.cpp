@@ -15,6 +15,7 @@ SceneObject::SceneObject(Game* g, Point2D<double> pos, Texture* t)
 		destRect.y = position.getY();
 	}
 	game = g;
+	direction = Vector2D<int>(0, 0);
 }
 
 // concentra la comprobacion de colisiones para todos los objetos del juego

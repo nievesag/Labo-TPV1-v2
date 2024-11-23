@@ -10,6 +10,7 @@ TileMap::TileMap(Game* g, std::istream& in, Point2D<double> position)
 	game = g;
 	load(in);
 	texture = g->getTexture(Game::BACKGROUND);
+	position = Point2D<double>(0, 0);
 }
 
 TileMap::~TileMap()

@@ -6,8 +6,7 @@ Player::Player(Game* g, Point2D<double> pos, Texture* texture, int lives)
 	: SceneObject(g, pos, g->getTexture(Game::MARIO))
 {
 	game = g;
-	direction = Vector2D<int>(0,0);
-
+	position = pos;
 	lives = maxLives;
 
 	textureM = g->getTexture(Game::MARIO);		// textura inicial de mario
@@ -17,9 +16,11 @@ Player::Player(Game* g, Point2D<double> pos, Texture* texture, int lives)
 
 	marioState = MARIO;
 	grounded = true;
-	position = pos;
-	vel = Vector2D<double>(velX, velY);
-	groundedYPos = pos.getY();
+	speed = Vector2D<double>(velX, velY);
+
+	groundedYPos = position.getY();
+
+	
 }
 
 void Player::render() const
@@ -56,9 +57,41 @@ void Player::update()
 	else if (marioState == 1)
 		texture = textureS;
 
-	moveMario();
+	Vector2D<double> aux = speed;
+	limitX = true;
+	limitY = true;
+
+	 //Crear el rectángulo base para las colisiones
+	new_rect.h = texture->getFrameHeight() * 2;
+	new_rect.w = texture->getFrameWidth() * 2;
+	SDL_Rect auxRect = new_rect;
+
+	// Movimiento vertical (eje Y)
+	Vector2D<double> verticalMove(0, position.getY() * TILE_SIDE - direction.getY() * speed.getY());
+	Collision verticalCollision = tryToMove(verticalMove, Collision::ENEMIES);
+
+	if (verticalCollision.result == Collision::OBSTACLE) {
+		grounded = true;
+		isFalling = false;
+		limitY = false;
+		new_rect = auxRect;
+	}
+
+	// Movimiento horizontal (eje X)
+	Vector2D<double> horizontalMove(position.getX() * TILE_SIDE + direction.getX() * speed.getX(), 0);
+	Collision horizontalCollision = tryToMove(horizontalMove, Collision::ENEMIES);
+
+	if (horizontalCollision.result == Collision::OBSTACLE) {
+		limitX = false;
+		new_rect = auxRect;
+	}
+
+	moveMario(limitX, limitY);
 
 	manageCollisions(tryToMove(getNextMoveVector(), Collision::ENEMIES));
+
+	cout << position.getX() << endl;
+
 
 	manageInvencible();
 	//updateRect();
@@ -71,6 +104,9 @@ void Player::update()
 	updateAnims();
 
 	checkFall();
+
+	speed = aux;
+	
 
 }
 
@@ -253,10 +289,10 @@ void Player::manageInvencible()
 
 Vector2D<double> Player::getNextMoveVector()
 {
-	return Vector2D<double>(direction.getX() * vel.getX(), direction.getY() - vel.getY());
+	return Vector2D<double>(position.getX() + (direction.getX() * speed.getX()), position.getY() - speed.getY());
 }
 
-void Player::moveMario()
+void Player::moveMario(bool moveX, bool moveY)
 {
 	if (keyA == keyD) {
 		direction = Vector2D<int>(0, 0);
@@ -273,10 +309,36 @@ void Player::moveMario()
 		}
 	}
 
-	if (keySpace)
+	if (keySpace && grounded && !isFalling)
 	{
 		direction.setY(-1);
+		maxHeight = position.getY() - 5;
+		grounded = false;
 	}
 	else
 		direction.setY(0);
+
+	if (moveX)
+	{
+		cout << "siisi" << endl;
+		position.setX(position.getX() + (direction.getX() * speed.getX()));
+	}
+
+	//Movimiento vertical
+	if (position.getY() > maxHeight && keySpace && !isFalling && (moveY || direction.getY() == -1))
+	{
+		position.setY(position.getY() - speed.getY());
+	}
+	else if (moveY && (position.getY() <= maxHeight || direction.getY() == 0))
+	{
+		isFalling = true;
+		position.setY(position.getY() + gravity);
+	}
+
+
+	if (position.getX() * TILE_SIDE - game->getMapOffset() <= 0 && direction.getX() == -1)
+		position.setX(game->getMapOffset() / TILE_SIDE);
+
+	if (position.getX() * TILE_SIDE + (TILE_SIDE * WINDOW_WIDTH) >= mapTiles * TILE_SIDE && direction.getX() == 1)
+		position.setX(margen + (mapTiles * TILE_SIDE - (TILE_SIDE * WINDOW_WIDTH)) / TILE_SIDE);
 }
