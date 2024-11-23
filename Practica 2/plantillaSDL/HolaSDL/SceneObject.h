@@ -30,6 +30,7 @@ protected:
 
 	virtual Collision tryToMove(Vector2D<double> v, Collision::Target target);
 
+
 	// metodos publicos
 public:
 	SceneObject(Game* g,Point2D<double> pos, Texture* t);
@@ -48,6 +49,14 @@ public:
 
 	SDL_Rect getCollisionRect() const;
 	SDL_Rect getRenderRect() const;
+
+	// Para gestion de cola de objetos ->
+	//	Se usa para poder clonar los objetos polimorficamente e insertar copias en la lista de objetos del juego
+	//	Para evitar tener que recargar el mapa desde el archivo al reiniciar el nivel (muere mario)
+	//	Hay que tener en cuenta que cuando se reinicia el nivel todos los objetos del juego (salvo el jugador y
+	//	el tilemap) han de ser destruidos y reemplazados por objetos nuevos
+	//	Lo mismo ha de ocurrir si el reinicio se produce en un punto de control y no al principio del mapa
+	virtual SceneObject* clone() const = 0;
 };
 
 #endif

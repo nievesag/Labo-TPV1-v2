@@ -117,3 +117,8 @@ Collision TileMap::hit(const SDL_Rect& rect, Collision::Target t) {
 void TileMap::manageCollisions(Collision collision)
 {
 }
+
+SceneObject* TileMap::clone() const
+{
+	return nullptr;
+}

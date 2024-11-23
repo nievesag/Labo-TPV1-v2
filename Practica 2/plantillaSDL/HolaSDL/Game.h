@@ -74,6 +74,7 @@ public:
 		MUSHROOM,
 		GOOMBA,
 		KOOPA,
+		COIN,
 		NUM_TEXTURES  // Truco C++: número de texturas definidas
 	};
 
@@ -101,17 +102,24 @@ private:
 	//Koopa* koopa = nullptr;
 	//Block* block = nullptr;
 	//Mushroom* mushroom = nullptr;
-	/*
-	vector<Goomba*> goombaVec;
-	vector<Koopa*> koopaVec;
-	vector<Block*> blockVec;
-	vector<Mushroom*> setaVec;
-	*/
+
 	GameList<SceneObject> gameList;
+
+	// vector sobre el que leer los objetos al cargar el mapa
+	// utilizando un contador se podran extraer los objetos de esa cola conforme vayan haciendose visibles y
+	// para evitar tener que recargar el mapa desde el archivo al reiniciar el nivel
+	// (porque Mario haya sido herido) se recomienda utilizar un metodo virtual puro
+	vector<SceneObject*> objectQueue; 
 
 	// crea semilla
 	std::mt19937_64 randomGenerator;
 	uint32_t startTime, frameTime;	// manejo de tiempo en run
+
+	// color de fondo
+	int r, g, b;
+
+	// puntuacion del jugador
+	int points;
 
 public:
 	// ---- constructora ----
@@ -171,6 +179,11 @@ public:
 	void setExit(bool aux) { exit = aux; }
 	void addMapOffset(int newOffset) { mapOffset += newOffset; }
 	void setMapOffset(int newOffset) { mapOffset = newOffset; }
+
+	void givePoints(int p)
+	{
+		points += p;
+	}
 
 private:
 	// ---- loadTexture ----

@@ -2,11 +2,10 @@
 #include "Game.h"
 #include "Collision.h"
 
-Mushroom::Mushroom(Game* g, Point2D<double> pos, Texture* texture)
-	: Pickable(g, pos, texture)
+Mushroom::Mushroom(Game* g, Point2D<double> position, Texture* texture)
+	: Pickable(g, position, texture)
 {
 	game = g;
-	position = pos;
 
 	position.setY(position.getY() * 32);
 	position.setX(position.getX() * 32);
@@ -22,7 +21,6 @@ void Mushroom::update()
 {
 	moveSeta();
 }
-
 
 void Mushroom::moveSeta()
 {
@@ -51,37 +49,4 @@ void Mushroom::moveSeta()
 	//{
 	//	//direction.setX(direction.getX() * -1);
 	//}
-}
-
-Collision Mushroom::hit(const SDL_Rect& rect, Collision::Target t)
-{
-	Collision c = Pickable::hit(rect, t);
-
-	//// si hay colision
-	//if (SDL_HasIntersection(&rect, &destRect))
-	//{
-	//	c.collides = true;
-
-	//	// si se origina en mario...
-	//	if (t == Collision::PLAYER)
-	//	{
-	//		c.evolMario = true;
-	//	}
-	//	// si no... con el tilemap
-	//	else
-	//	{
-	//		// choca por la izq -> va a der
-	//		if(destRect.x <= (rect.x + rect.w))
-	//		{
-	//			direction.setX(1);
-	//		}
-	//		// choca por la der -> va a izq
-	//		else if((destRect.x + destRect.w) >= rect.x)
-	//		{
-	//			direction.setX(-1);
-	//		}
-	//	}
-	//}
-
-	return c;
 }

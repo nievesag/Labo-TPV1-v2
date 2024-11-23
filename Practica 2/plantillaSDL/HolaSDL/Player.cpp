@@ -182,6 +182,11 @@ void Player::manageCollisions(Collision collision)
 	}
 }
 
+SceneObject* Player::clone() const
+{
+	return nullptr;
+}
+
 void Player::updateAnims()
 {
 	if (!grounded) 

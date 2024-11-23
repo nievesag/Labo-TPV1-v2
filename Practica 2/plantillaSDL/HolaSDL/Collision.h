@@ -19,6 +19,7 @@ struct Collision {
 		NONE,		// no ha habido colision
 		DAMAGE,		// la colision hiere (a mario)
 		OBSTACLE,	// la colision impide el movimiento
+		ACTION
 	};
 
 	Target target = EMPTY;

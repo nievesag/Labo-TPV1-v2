@@ -25,6 +25,7 @@ void Pickable::render() const
 void Pickable::update()
 {
 	updateRct();
+	game->checkCollisions(destRect, Collision::PLAYER);
 }
 
 void Pickable::updateRct()
@@ -52,4 +53,5 @@ Collision Pickable::hit(const SDL_Rect& rect, Collision::Target t)
 
 void Pickable::manageCollisions(Collision collision)
 {
+
 }

@@ -37,4 +37,5 @@ public:
 	Collision hit(const SDL_Rect& rect, Collision::Target t);
 
 	void manageCollisions(Collision collision) override;
+	SceneObject* clone() const override;
 };

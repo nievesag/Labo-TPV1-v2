@@ -134,6 +134,11 @@ void Enemy::manageCollisions(Collision collision)
 
 }
 
+SceneObject* Enemy::clone() const
+{
+	return nullptr;
+}
+
 void Enemy::moveEnemy()
 {
     direction = Vector2D<int>(0, 0);

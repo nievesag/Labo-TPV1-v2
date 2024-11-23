@@ -24,13 +24,13 @@ private:
 	Game* game = nullptr;		// puntero al juego
 
 	// MOVIMIENTO
-	Point2D<double> position;	// posicion actual en Point2D
-	Vector2D<int> direction;	// direccion de movimiento
+	//Point2D<double> position;	// posicion actual en Point2D
+	//Vector2D<int> direction;	// direccion de movimiento
 
 	Point2D<int> new_position;	// posicion que tendria si avanza en Point2D
 	SDL_Rect new_rect;				// rect que tendria si avanza en Point2D
 
-	SDL_Rect destRect;
+	//SDL_Rect destRect;
 
 	bool alive;
 
@@ -41,12 +41,6 @@ public:
 	void update() override;
 
 	void moveSeta();
-
-	// -- hit --
-	// controla las colisiones
-	//	-> Se mueve hacia la derecha en el mapa, cambiando de dir cuando choca con un obstaculo
-	//	-> Si Mario colisiona con Mushroom se convierte en SuperMario
-	Collision hit(const SDL_Rect& rect, Collision::Target t) override;
 
 	void killSeta() { alive = false; }
 

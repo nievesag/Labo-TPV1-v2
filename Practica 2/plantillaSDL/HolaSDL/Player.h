@@ -104,6 +104,7 @@ public:
 
 	void manageCollisions(Collision collision) override;
 
+	SceneObject* clone() const override;
 
 	void manageDamage();
 

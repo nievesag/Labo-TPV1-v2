@@ -173,3 +173,8 @@ void Block::manageCollisions(Collision collision)
 {
 
 }
+
+SceneObject* Block::clone() const
+{
+	return nullptr;
+}

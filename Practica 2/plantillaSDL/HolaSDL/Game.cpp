@@ -26,7 +26,8 @@ const array<TextureSpec, Game::NUM_TEXTURES> textureSpec{
 	{"blocks.png", 6, 1},
 	{"mushroom.png", 1, 1},
 	{"goomba.png", 3, 1},
-	{"koopa.png", 4, 1}
+	{"koopa.png", 4, 1},
+	{"coin.png", 4, 1}
 };
 
 Game::Game() : randomGenerator(time(nullptr)), exit(false)
@@ -106,7 +107,6 @@ void Game::init()
 // CARGA
 void Game::loadTextures()
 {
-
 	try {
 		// bucle para rellenar el array de texturas
 		for (int i = 0; i < NUM_TEXTURES; ++i) {
@@ -137,10 +137,17 @@ void Game::loadObjectMap(std::ifstream& mapa)
 	string line;
 	getline(mapa, line);
 
+	int i = 0;
 	while (mapa) 
 	{
 		// Usamos un stringstream para leer la linea como si fuera un flujo
 		stringstream lineStream(line);
+
+		if(i == 0)
+		{
+			lineStream >> r >> g >> b;
+		}
+
 		Point2D<double> pos;
 
 		char tipoL;
@@ -154,7 +161,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			pos = pos - Point2D<double>(0, 1);
 
 			lineStream >> lives;
-			 player = new Player(this, pos, getTexture(MARIO), lives);
+			player = new Player(this, pos, getTexture(MARIO), lives);
 
 			gameList.push_back(player);
 		}
@@ -189,8 +196,27 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			SceneObject* koopa = new Enemy(this, pos, getTexture(KOOPA));
 			gameList.push_back(koopa);
 		}
+		else if (tipoL == 'L')
+		{
+
+		}
+		else if (tipoL == 'C')
+		{
+
+		}
+		else if (tipoL == 'P')
+		{
+
+		}
+		else if(tipoL == 'X')
+		{
+			
+		}
+		
 
 		getline(mapa, line);
+		
+		i++;
 	}
 }
 
@@ -296,8 +322,8 @@ void Game::render() const
 	// limpia pantalla
 	SDL_RenderClear(renderer);
 
-	//Fondo azul
-	SDL_SetRenderDrawColor(renderer, 138, 132, 255, 255);
+	// Fondo azul
+	SDL_SetRenderDrawColor(renderer, r, g, b, 255);
 
 	for (auto obj : gameList) {
 		obj->render();
