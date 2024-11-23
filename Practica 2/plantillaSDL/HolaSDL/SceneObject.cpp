@@ -17,7 +17,6 @@ SceneObject::SceneObject(Game* g, Point2D<double> pos, Texture* t)
 	game = g;
 }
 
-
 // concentra la comprobacion de colisiones para todos los objetos del juego
 // tryToMove(vector movimiento que se quiere aplicar al objeto, a quien afecta la colision)
 // -> prueba el movimiento en ambos ejes y devuelve la informacion de tipo Collision
@@ -33,14 +32,14 @@ Collision SceneObject::tryToMove(Vector2D<double> v, Collision::Target target)
 
 		collision = game->checkCollisions(rect, target);
 
-		// Cantidad que se ha entrado en el obstáculo (lo que hay que deshacer)
+		// Cantidad que se ha entrado en el obstaculo (lo que hay que deshacer)
 		int fix = collision.vertical * (speed.getY() > 0 ? 1 : -1);
 		position.setX(position.getX() + 0);
 		position.setY(speed.getY() - fix);
 
 		// Obs: a ? b : c es el operador ternario: vale b si a es cierto y c en caso contrario
 
-		rect.y -= fix; // recoloca la caja para la siguiente colisión
+		rect.y -= fix; // recoloca la caja para la siguiente colision
 	}
 
 	collision.horizontal = 0; // la horizontal del choque vertical da igual
@@ -56,8 +55,7 @@ Collision SceneObject::tryToMove(Vector2D<double> v, Collision::Target target)
 		// Copia la información de esta colisión a la que se devolverá
 		collision.horizontal = partial.horizontal;
 
-		if (partial.result == Collision::DAMAGE)
-			collision.result = Collision::DAMAGE;
+		if (partial.result == Collision::DAMAGE) collision.result = Collision::DAMAGE;
 		
 		position.setX(speed.getX() - collision.horizontal * (speed.getX() > 0 ? 1 : -1));
 		position.setY(position.getY() + 0);

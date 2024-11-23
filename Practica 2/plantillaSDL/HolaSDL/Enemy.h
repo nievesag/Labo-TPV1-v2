@@ -68,6 +68,8 @@ public:
 	}
 	
 	virtual Collision tryToMove(Vector2D<double> v, Collision::Target t) override;
+	
+	virtual void collisionResult() = 0;
 
 protected:
 	virtual void moveEnemy(); 

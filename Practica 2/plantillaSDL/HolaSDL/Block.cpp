@@ -79,6 +79,7 @@ void Block::updateRect()
 
 Collision Block::hit(const SDL_Rect& rect, Collision::Target t)
 {
+	/*
 	Collision c;
 
 	// si hay colision
@@ -115,6 +116,51 @@ Collision Block::hit(const SDL_Rect& rect, Collision::Target t)
 	}
 
 	return c;
+	*/
+
+	// Calcula la intersección
+	SDL_Rect intersection;
+	SDL_Rect ownRect = getCollisionRect();
+	bool hasIntersection = SDL_IntersectRect(&ownRect, &rect, &intersection);
+
+	if (hasIntersection) 
+	{
+		Collision collision{ Collision::OBSTACLE, intersection.w, intersection.h };
+
+		// [...] Manejo del efecto del bloque
+		//c.collides = true;
+		//c.damages = false;
+		
+		// si se origina en mario...
+		if (t == Collision::ENEMIES)
+		{
+			// si la colision es por: abj 
+			if (rect.y <= (destRect.y + destRect.h))
+			{
+				if (tipo == LADRILLO && (game->getMarioState() == 1))
+				{
+					//c.killBrick = true;
+				}
+				else if (tipo == SORPRESA || tipo == OCULTO)
+				{
+					//c.spawnSeta = true;
+				}
+			}
+			else if ((rect.y + rect.h) <= destRect.y) {
+
+				//c.setGrounded = true;
+			}
+		}
+		// si con otras entidades...
+		else
+		{
+
+		}
+
+		return collision;
+	}
+
+	return NO_COLLISION;
 }
 
 void Block::manageSorpresa()

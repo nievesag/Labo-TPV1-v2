@@ -106,6 +106,8 @@ public:
 	// -- hit --
 	Collision hit(const SDL_Rect& rect, Collision::Target t) override;
 
+	void manageCollisions(Collision collision) override;
+
 	Collision tryToMove(Vector2D<double> v, Collision::Target t) override;
 
 	void manageDamage();

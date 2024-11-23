@@ -33,10 +33,10 @@ protected:
 public:
 	SceneObject(Game* g,Point2D<double> pos, Texture* t);
 
-
 	// ---- hit ----
 	// colisiones
 	virtual Collision hit(const SDL_Rect& rect, Collision::Target t) = 0;
+	virtual void manageCollisions(Collision collision) = 0;
 	virtual void render() const override = 0;
 
 	void setListAnchor(GameList<SceneObject>::anchor&& anchor)

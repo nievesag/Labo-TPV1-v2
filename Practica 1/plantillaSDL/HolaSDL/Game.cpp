@@ -215,7 +215,7 @@ void Game::update()
 	updateEntities();
 
 	// si muere el player acaba el juego
-	//if (!player->getAlive()) EndGame();
+	if (!player->getAlive()) EndGame();
 }
 
 void Game::updateEntities()
@@ -344,10 +344,6 @@ Collision Game::checkCollisions(const SDL_Rect& rect, bool fromPlayer)
 		result = (tilemap->hit(rect, fromPlayer));
 		return result;
 	}
-
-	// hit mapa
-	//result = tilemap->hit(rect, fromPlayer);
-	//if (result.collides) { return result; }
 
 	// hit goombas
 	for(int i = 0; i < goombaVec.size(); i++)

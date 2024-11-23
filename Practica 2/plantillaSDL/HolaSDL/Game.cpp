@@ -219,42 +219,9 @@ void Game::run()
 // ACTUALIZAR
 void Game::update()
 {
-	/*GameList<SceneObject>::iterator<&GameList<SceneObject>::Node::prev, SceneObject> it;
-
-	for(it = gameList.begin(); it != gameList.end(); it++)
-	{
-		(*it)->update();
-	}*/
-
 	for (auto obj : gameList) {
 		obj->update();
 	}
-
-	/*
-	tilemap->update();
-
-	player->update();
-	
-	for (int i = 0; i < goombaVec.size(); i++) 
-	{
-		goombaVec[i]->update();
-	}
-
-	for (int i = 0; i < blockVec.size(); i++)
-	{
-		blockVec[i]->update();
-	}
-
-	for (int i = 0; i < setaVec.size(); i++)
-	{
-		setaVec[i]->update();
-	}
-
-	for (int i = 0; i < koopaVec.size(); i++)
-	{
-		koopaVec[i]->update();
-	}
-	*/
 
 	updateEntities();
 
@@ -366,113 +333,14 @@ Collision Game::checkCollisions(const SDL_Rect& rect, Collision::Target target)
 {
 	Collision result;
 
-	for (auto obj : gameList) 
+	for (auto obj : gameList)
 	{
-		if(obj->hit(rect, target).collides)
+		if(obj->hit(rect, target).result != Collision::NONE)
 		{
 			result = obj->hit(rect, target);
 			return result;
 		}
 	}
-
-	/*
-	// hit tilemap
-	if (tilemap->hit(rect, target).collides) 
-	{
-		result = (tilemap->hit(rect, target));
-		return result;
-	}
-
-	// hit goombas
-	for(int i = 0; i < goombaVec.size(); i++)
-	{
-		if(goombaVec[i]->hit(rect, target).collides)
-		{
-			result = (goombaVec[i]->hit(rect, target));
-
-			if (result.collides && !result.damages)
-			{
-				goombaVec[i]->killEnemy();
-			}
-			else
-			{
-				player->manageDamage();
-			}
-
-			return result;
-		}
-	}
-
-	// hit koopas
-	for (int i = 0; i < koopaVec.size(); i++)
-	{
-		if (koopaVec[i]->hit(rect, target).collides)
-		{
-			result = (koopaVec[i]->hit(rect, target));
-
-			if (result.collides && !result.damages)
-			{
-				koopaVec[i]->killEnemy();
-			}
-			else
-			{
-				player->manageDamage();
-			}
-
-			return result;
-		}
-	}
-	
-	// hit blocks
-	if (target == 1) // fromPlayer antes
-	{
-		for (int i = 0; i < blockVec.size(); i++)
-		{
-			if (blockVec[i]->hit(rect, target).collides)
-			{
-				result = (blockVec[i]->hit(rect, target));
-
-				if (result.collides && !result.damages && result.killBrick)
-				{
-					blockVec[i]->killBlock();
-				}
-				else if (result.collides && result.spawnSeta)
-				{
-					blockVec[i]->manageSorpresa();
-
-					Mushroom* mushroom = new Mushroom(this, blockVec[i]->getPos());
-					setaVec.push_back(mushroom);
-				}
-				else if (result.collides && result.setGrounded)
-				{
-					player->setGrounded(true);
-				}
-
-				return result;
-			}
-		}
-	}
-	
-
-	// hit setas
-	for (int i = 0; i < setaVec.size(); i++)
-	{
-		if (setaVec[i]->hit(rect, target).collides)
-		{
-			result = (setaVec[i]->hit(rect, target));
-
-			if (result.collides && !result.damages && result.evolMario)
-			{
-				if (getMarioState() == 0) player->setState(1);
-				setaVec[i]->killSeta();
-			}
-
-			return result;
-		}
-	}
-
-	//player->hit(rect, fromPlayer);
-	*/
 
 	return result;
 }

@@ -86,6 +86,8 @@ void Player::update()
 		new_rect = auxRect;
 	}
 
+	manageCollisions(tryToMove());
+
 	manageInvencible();
 	//updateRect();
 
@@ -177,6 +179,18 @@ Collision Player::hit(const SDL_Rect& rect, Collision::Target t)
 	Collision c;
 
 	return c;
+}
+
+void Player::manageCollisions(Collision collision)
+{
+	// si el target soy yo...
+	if(collision.target == Collision::PLAYER)
+	{
+		if(collision.result == Collision::DAMAGE)
+		{
+			manageDamage();
+		}
+	}
 }
 
 void Player::updateAnims()

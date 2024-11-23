@@ -23,7 +23,7 @@ void Enemy::render() const {
 void Enemy::update() 
 {
 	// ----- ruben
-	/*
+	
 	// Acelera la velocidad con la gravedad
 	if (speed.getY() < SPEED_LIMIT)
 	{
@@ -54,7 +54,7 @@ void Enemy::update()
 		speed.setY(0);
 
 	// SceneObject::update(); // si hiciera falta
-	*/
+	
 
 	// ----- nuestro
     if ((position.getX() * TILE_SIDE) - texture->getFrameWidth() * 2.8 <
@@ -69,43 +69,53 @@ void Enemy::updateRect()
 {
 }
 
-Collision Enemy::hit(const SDL_Rect& rect, Collision::Target t) {
-	Collision c;
+Collision Enemy::hit(const SDL_Rect& rect, Collision::Target t)
+{
+	// Calcula la intersección
+	SDL_Rect intersection;
+	SDL_Rect ownRect = getCollisionRect();
+	bool hasIntersection = SDL_IntersectRect(&ownRect, &rect, &intersection);
 
-	// si hay colision
-	if (SDL_HasIntersection(&rect, &destRect))
+	if (hasIntersection) 
 	{
-		c.collides = true;
+		Collision collision{Collision::EMPTY, Collision::OBSTACLE, intersection.w, intersection.h };
 
-			// si se origina en mario...
-			if (t == 1)
+		// si se origina en mario...
+		if (t == Collision::ENEMIES)
+		{
+			collision.result = Collision::DAMAGE;
+
+			// si la colision es por: arr -> muere el enemigo
+			if (((rect.y + rect.h) <= destRect.y + 1))
 			{
-				// si la colision es por: arr -> muere el enemigo
-				if (((rect.y + rect.h) <= destRect.y + 1))
-				{
-					c.damages = false;
-				}
-
-				// otra colision -> hiere a mario
-				else c.damages = true;
+				collision.target = Collision::ENEMIES;
 			}
-			// si no... con el tilemap
-			else
+
+			// otra colision -> hiere a mario
+			else 
 			{
-				// choca por la izq -> va a der
-				if (destRect.x >= (rect.x + rect.w))
-				{
-					direction.setX(1);
-				}
-				// choca por la der -> va a izq
-				else if ((destRect.x + destRect.w) <= rect.x)
-				{
-					direction.setX(-1);
-				}
+				collision.target = Collision::PLAYER;
+			}
+		}
+		// si no... con el tilemap
+		else
+		{
+			// choca por la izq -> va a der
+			if (destRect.x >= (rect.x + rect.w))
+			{
+				direction.setX(1);
+			}
+			// choca por la der -> va a izq
+			else if ((destRect.x + destRect.w) <= rect.x)
+			{
+				direction.setX(-1);
 			}
 		}
 
-		return c;
+		return collision;
+	}
+
+	return NO_COLLISION;
 }
 
 Collision Enemy::tryToMove(Vector2D<double> v, Collision::Target t)
