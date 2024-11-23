@@ -25,7 +25,7 @@ private:
 	Texture* texture = nullptr;	// puntero a su textura
 	Game* game = nullptr;		// puntero al juego
 
-	Point2D<double> position;	// posicion actual en Point2D
+	//Point2D<double> position;	// posicion actual en Point2D
 
 	char tipoL;
 	int tipo;
@@ -56,26 +56,20 @@ private:
 	int animationFrame = 0;   // Contador para el ciclo de caminar
 	int frameTimer = 0;
 
-	SDL_Rect destRect;
+	//SDL_Rect destRect;
 
 public:
-	Block(Game* g, Point2D<double> pos, Texture* t, char tipoL, char accionL);
+	Block(Game* g, Point2D<double> position, Texture* t, char tipoL, char accionL);
 
 	// -- render --
 	void render() const override;
 
 	// -- update --
-	void update();
+	void update() override;
 
 	void updateRect();
 
 	// -- hit --
-	// controla las colisiones
-	// Los bloques son obstaculos para todos los personajes cuando lo golpeen desde arriba o desde un lateral
-	// Si Mario lo golpa desde abajo:
-	//	-> si el bloque es de ladrillo y el player es SuperMario: bloque se rompe
-	//	-> si el bloque es sorpresa/oculto y accion es potenciador: saca mushroom sobre el bloque y lo hace vacio
-	//	-> nada en el resto de casos
 	Collision hit(const SDL_Rect& rect, Collision::Target t) override;
 
 	bool getAlive() {

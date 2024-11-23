@@ -18,6 +18,12 @@ SceneObject::SceneObject(Game* g, Point2D<double> pos, Texture* t)
 	direction = Vector2D<int>(0, 0);
 }
 
+SceneObject::SceneObject(Game* g, Point2D<double> pos, Texture* t, Vector2D<double> s)
+	: GameObject(g), position(pos), texture(t), speed(s)
+{
+
+}
+
 // concentra la comprobacion de colisiones para todos los objetos del juego
 // tryToMove(vector movimiento que se quiere aplicar al objeto, a quien afecta la colision)
 // -> prueba el movimiento en ambos ejes y devuelve la informacion de tipo Collision

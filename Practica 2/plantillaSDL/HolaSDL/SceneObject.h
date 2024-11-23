@@ -35,6 +35,8 @@ protected:
 public:
 	SceneObject(Game* g,Point2D<double> pos, Texture* t);
 
+	SceneObject(Game* g, Point2D<double> pos, Texture* t, Vector2D<double> s);
+
 	// ---- hit ----
 	// colisiones
 	virtual Collision hit(const SDL_Rect& rect, Collision::Target t) = 0;

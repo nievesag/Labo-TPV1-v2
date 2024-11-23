@@ -16,7 +16,6 @@ Mushroom::Mushroom(Game* g, Point2D<double> position, Texture* texture)
 	texture = game->getTexture(Game::MUSHROOM);
 }
 
-
 void Mushroom::update()
 {
 	moveSeta();
