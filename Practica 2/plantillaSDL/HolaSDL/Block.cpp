@@ -95,7 +95,7 @@ Collision Block::hit(const SDL_Rect& rect, Collision::Target t)
 
 	if (hasIntersection) 
 	{
-		Collision collision{ Collision::EMPTY, Collision::OBSTACLE, intersection.w, intersection.h };
+		Collision c{ Collision::EMPTY, Collision::OBSTACLE, intersection.w, intersection.h };
 
 		// [...] Manejo del efecto del bloque
 		//c.collides = true;
@@ -107,7 +107,7 @@ Collision Block::hit(const SDL_Rect& rect, Collision::Target t)
 			// si la colision es por: abj 
 			if (rect.y <= (destRect.y + destRect.h))
 			{
-				if (tipo == LADRILLO && (game->getMarioState() == 1))
+				if (tipo == LADRILLO) //falta esto en el if(game->getMarioState() == 1)
 				{
 					//c.killBrick = true;
 				}
@@ -127,7 +127,7 @@ Collision Block::hit(const SDL_Rect& rect, Collision::Target t)
 
 		}
 
-		return collision;
+		return c;
 	}
 
 	return NO_COLLISION;
@@ -139,7 +139,7 @@ void Block::manageSorpresa()
 	frame = 4;
 }
 
-void Block::manageCollisions(Collision collision)
+void Block::manageCollisions(Collision c)
 {
 
 }

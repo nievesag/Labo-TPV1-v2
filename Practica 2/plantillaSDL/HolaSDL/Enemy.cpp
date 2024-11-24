@@ -33,23 +33,23 @@ Collision Enemy::hit(const SDL_Rect& rect, Collision::Target t)
 
 	if (hasIntersection) 
 	{
-		Collision collision{Collision::EMPTY, Collision::OBSTACLE, intersection.w, intersection.h };
+		Collision c{Collision::EMPTY, Collision::OBSTACLE, intersection.w, intersection.h };
 
 		// si se origina en mario...
 		if (t == Collision::ENEMIES)
 		{
-			collision.result = Collision::DAMAGE;
+			c.result = Collision::DAMAGE;
 
 			// si la colision es por: arr -> muere el enemigo
 			if (((rect.y + rect.h) <= destRect.y + 1))
 			{
-				collision.target = Collision::ENEMIES;
+				c.target = Collision::ENEMIES;
 			}
 
 			// otra colision -> hiere a mario
 			else 
 			{
-				collision.target = Collision::PLAYER;
+				c.target = Collision::PLAYER;
 			}
 		}
 		// si no... con el tilemap
@@ -67,23 +67,20 @@ Collision Enemy::hit(const SDL_Rect& rect, Collision::Target t)
 			}
 		}
 
-		return collision;
+		return c;
 	}
 
 	return NO_COLLISION;
 }
 
-Collision Enemy::tryToMove(Vector2D<int>& v, Collision::Target t)
-{
-	return Collision();
-}
+
 
 void Enemy::collisionResult()
 {
 
 }
 
-void Enemy::manageCollisions(Collision collision)
+void Enemy::manageCollisions(Collision c)
 {
 
 }

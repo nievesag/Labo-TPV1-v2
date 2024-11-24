@@ -47,7 +47,6 @@ static constexpr double
 					MARIO_SPEED = 0.0009,	// velocidad de mario
 					ENEMY_SPEED = 0.0003,	// velocidad de goombas
 					SPEED_LIMIT = 0.0009,
-					GRAVITY = 0.0003,
 					MOVE_PERIOD = 5;
 					
 					
@@ -59,6 +58,7 @@ constexpr int WINDOW_WIDTH = 18;
 constexpr int WINDOW_HEIGHT = 16;
 constexpr int OBSTACLE_THRESHOLD = 4; // constante
 constexpr int MAP_MAX_OFFSET = 6100;
+constexpr int GRAVITY = 3;
 const Collision NO_COLLISION = { Collision::EMPTY, Collision::NONE, 0, 0 };
 
 // ------------------------------ GAME ------------------------------
@@ -174,7 +174,8 @@ public:
 
 	int getRandomRange(int min, int max) { return std::uniform_int_distribution<int>(min, max)(randomGenerator); }
 
-	int getMarioState() const { return player->getState(); }
+	int getMarioState() const { return marioState; }
+	void setMarioState(int s) { marioState = s; }
 
 	// ----- SETTERS -----
 	void EndGame();
@@ -198,6 +199,8 @@ private:
 	// ---- playerLives ----
 	// muestra en consola las vidas del jugador
 	void playerLives();
+
+	int marioState;
 };
 
 inline Texture*

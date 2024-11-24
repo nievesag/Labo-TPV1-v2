@@ -39,7 +39,7 @@ public:
 
 	Collision hit(const SDL_Rect& rect, Collision::Target t) override;
 
-	void manageCollisions(Collision collision) override;
+	void manageCollisions(Collision c) override;
 
 private:
 	void moveLift();

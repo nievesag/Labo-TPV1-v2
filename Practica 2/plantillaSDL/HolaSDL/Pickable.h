@@ -34,7 +34,7 @@ public:
 
 	bool isPicked() { return picked; }
 
-	void manageCollisions(Collision collision) override;
+	void manageCollisions(Collision c) override;
 
 protected:
 	virtual void triggerAction() = 0;

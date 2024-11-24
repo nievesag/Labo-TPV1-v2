@@ -1,4 +1,4 @@
-#include "Game.h"
+ï»¿#include "Game.h"
 
 #include <string>
 #include <iostream>
@@ -36,10 +36,10 @@ const array<TextureSpec, Game::NUM_TEXTURES> textureSpec{
 
 Game::Game() : randomGenerator(time(nullptr)), exit(false)
 {
-	int winX, winY; // Posición de la ventana
+	int winX, winY; // PosiciÃ³n de la ventana
 	winX = winY = SDL_WINDOWPOS_CENTERED;
 
-	// Inicialización del sistema, ventana y renderer
+	// InicializaciÃ³n del sistema, ventana y renderer
 	SDL_Init(SDL_INIT_EVERYTHING);
 
 	// ERRORES DE SDL
@@ -168,7 +168,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			pos = pos - Point2D<int>(0, 1);
 
 			lineStream >> lives;
-			player = new Player(this, pos, getTexture(MARIO), lives);
+			player = new Player(this, pos);
 
 			gameList.push_back(player);
 		}
@@ -251,14 +251,12 @@ void Game::run()
 		update(); // actualiza todos los objetos de juego
 		render(); // renderiza todos los objetos de juego
 		handleEvents();
+		// Tiempo que se ha tardado en ejecutar lo anterior
+		uint32_t elapsed = SDL_GetTicks() - startTime;
 
-		// tiempo desde ultima actualizacion
-		frameTime = SDL_GetTicks() - startTime;
-
-		if (frameTime < TIME_BT_FRAMES) 
-		{
-			SDL_Delay(TIME_BT_FRAMES - frameTime);
-		}
+		// Duerme el resto de la duraciï¿½n del frame
+		if (elapsed < FRAMERATE)
+			SDL_Delay(FRAMERATE - elapsed);
 	}
 }
 
@@ -367,7 +365,7 @@ void Game::handleEvents()
 		if (event.type == SDL_QUIT) EndGame();
 
 		// MANEJO DE EVENTOS DE OBJETOS DE JUEGO
-		else { player->handleEvents(event); }
+		else { player->handleEvent(event); }
 	}
 }
 
