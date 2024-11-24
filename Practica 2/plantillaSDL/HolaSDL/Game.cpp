@@ -161,6 +161,10 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			int lives;
 
 			lineStream >> pos;
+			
+			pos.setX(pos.getX() * TILE_SIDE);
+			pos.setY(pos.getY() * TILE_SIDE);
+
 			pos = pos - Point2D<int>(0, 1);
 
 			lineStream >> lives;

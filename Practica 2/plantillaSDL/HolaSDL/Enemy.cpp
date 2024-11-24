@@ -32,7 +32,7 @@ void Enemy::update()
 	}
 
 	// Velocidad en este ciclo (no siempre avanza lateralmente)
-	Vector2D<double> realSpeed = speed;
+	Vector2D<int> realSpeed = speed;
 
 	if (moveDelay-- == 0)
 	{
@@ -119,7 +119,7 @@ Collision Enemy::hit(const SDL_Rect& rect, Collision::Target t)
 	return NO_COLLISION;
 }
 
-Collision Enemy::tryToMove(Vector2D<double> v, Collision::Target t)
+Collision Enemy::tryToMove(Vector2D<int>& v, Collision::Target t)
 {
 	return Collision();
 }

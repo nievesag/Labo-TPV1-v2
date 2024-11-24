@@ -15,9 +15,11 @@ Player::Player(Game* g, Point2D<int> position, Texture* texture, int lives)
 
 	marioState = MARIO;
 	grounded = true;
-	speed = Vector2D<double>(velX, velY);
+	//speed = Vector2D<double>(velX, velY);
 
 	groundedYPos = position.getY();
+
+	canMove = true;
 }
 
 void Player::render() const
@@ -34,56 +36,69 @@ void Player::render() const
 
 void Player::update()
 {
+
 	if (marioState == 0) texture = textureM;
 	else if (marioState == 1) texture = textureS;
 
-	Vector2D<double> aux = speed;
+	if (speed.getY() < SPEED_LIMIT) 
+		speed = speed + Vector2D<int>(0, GRAVITY);
+
+	if (canMove)
+		c = tryToMove(speed, Collision::ENEMIES);
+	else if (!canMove && speed.getY() != 0)
+	{
+		Vector2D<int> vec = Vector2D<int>(0, speed.getY());
+		c = tryToMove(vec, Collision::ENEMIES);
+	}
+		
+
+	if (c.vertical)
+	{
+		if (speed.getY() > 0)
+		{
+			grounded = true;
+			jumping = false;
+		}
+
+		speed.setY(0); 
+	}
+
+	if (speed.getX() > 0)
+	{
+		flipSprite = false;
+
+		// Limites
+		if (position.getX() - game->getMapOffset() >= game->getWinWidth() / 2)
+		{
+			if (game->getMapOffset() <= MAP_MAX_OFFSET)
+			{
+				game->setMapOffset(game->getMapOffset() + speed.getX() * bgSpeed);
+			}
+		}
+		canMove = true;
+	}
+	else if (speed.getX() < 0)
+	{
+		flipSprite = true;
+
+		if (position.getX() - game->getMapOffset() < TILE_SIDE) canMove = false;
+	}
+
+
 	limitX = true;
 	limitY = true;
+	//moveMario(limitX, limitY);
 
-	// Crear el rectángulo base para las colisiones
-	new_rect.h = texture->getFrameHeight() * 2;
-	new_rect.w = texture->getFrameWidth() * 2;
-	new_rect.x = position.getX();
-	new_rect.y = position.getY();
-	SDL_Rect auxRect = new_rect;
-
-	// Movimiento vertical (eje Y)
-	Vector2D<double> verticalMove(0, position.getY() * TILE_SIDE - direction.getY() * speed.getY());
-	Collision verticalCollision = tryToMove(verticalMove, Collision::ENEMIES);
-
-	if (verticalCollision.result == Collision::OBSTACLE) 
-	{
-		grounded = true;
-		isFalling = false;
-		limitY = false;
-		new_rect = auxRect;
-	}
-	
-	// Movimiento horizontal (eje X)
-	Vector2D<double> horizontalMove(position.getX() * TILE_SIDE + direction.getX() * speed.getX(), 0);
-	Collision horizontalCollision = tryToMove(horizontalMove, Collision::ENEMIES);
-
-	if (horizontalCollision.result == Collision::OBSTACLE) 
-	{
-		limitX = false;
-		new_rect = auxRect;
-	}
-
-	moveMario(limitX, limitY);
-
-	manageCollisions(tryToMove(getNextMoveVector(), Collision::ENEMIES));
+	//manageCollisions(tryToMove(getNextMoveVector(), Collision::ENEMIES));
 
 	manageInvencible();
 
 	updateRect();
 	updateTexture();
-	updateOffset();
+	//updateOffset();
 	updateAnims();
 
 	checkFall();
-
-	speed = aux;
 }
 
 void Player::updateTexture()
@@ -104,11 +119,11 @@ void Player::updateRect()
 	{
 		destRect.w = textureM->getFrameWidth() * 2;
 		destRect.h = textureM->getFrameHeight() * 2;
-		destRect.y = position.getY() * TILE_SIDE;
+		destRect.y = position.getY();
 	}
 
 	// posicion
-	destRect.x = (position.getX() * TILE_SIDE) - game->getMapOffset();
+	destRect.x = position.getX() - game->getMapOffset();
 }
 
 void Player::handleEvents(const SDL_Event& event)
@@ -121,17 +136,30 @@ void Player::handleEvents(const SDL_Event& event)
 	{
 		moving = true;
 		// IZQ
-		if (key == SDL_SCANCODE_A) keyA = true;
-
+		if (key == SDL_SCANCODE_A) 
+		{
+			speed.setX(-velX);
+			keyA = true;
+		}
 		// DER
-		else if (key == SDL_SCANCODE_D) keyD = true;
-
+		else if (key == SDL_SCANCODE_D) 
+		{
+			speed.setX(velX);
+			keyD = true;
+		}
 		// ABJ
 		else if (key == SDL_SCANCODE_S) keyS = true;
 
 		// SALTAR
-		else if (key == SDL_SCANCODE_SPACE) keySpace = true;
+		else if (key == SDL_SCANCODE_SPACE)
+		{
 
+			keySpace = true;
+			grounded = false;
+			jumping = true;
+
+			speed.setY(-30);
+		}
 		// SALIR
 		else if (key == SDL_SCANCODE_E) keyE = true;
 
@@ -144,11 +172,17 @@ void Player::handleEvents(const SDL_Event& event)
 	{
 		moving = false;
 		// IZQ
-		if (key == SDL_SCANCODE_A) keyA = false;
-
+		if (key == SDL_SCANCODE_A)
+		{
+			speed.setX(0);
+			keyA = false;
+		}
 		// DER
-		else if (key == SDL_SCANCODE_D) keyD = false;
-
+		else if (key == SDL_SCANCODE_D)
+		{
+			speed.setX(0);
+			keyD = false;
+		}
 		// ABJ
 		else if (key == SDL_SCANCODE_S) keyS = false;
 
@@ -226,7 +260,7 @@ void Player::updateOffset()
 
 	int screenX = position.getX() * TILE_SIDE - game->getMapOffset();
 
-	if (screenX > TILE_SIDE * WINDOW_WIDTH / 2 && game->getMapOffset() < 6000) 
+	if (screenX > TILE_SIDE * WINDOW_WIDTH / 2 && game->getMapOffset() < MAP_MAX_OFFSET) 
 	{
 		game->addMapOffset(1);
 	}
@@ -319,11 +353,14 @@ void Player::moveMario(bool moveX, bool moveY)
 	#pragma endregion
 
 	// Movimiento horizontal
-	if (moveX && direction.getX() != 0)
+	if (moveX && direction.getX() != 0 && (keyA || keyD))
 	{
-		cout << position.getX() << endl;
+		
 		//cout << "siisi" << endl;
-		position.setX(position.getX() + (direction.getX() * speed.getX()));
+		speed.setX(velX);
+		double auxVelX = speed.getX();
+		position.setX(position.getX() + (direction.getX() * auxVelX));
+		
 	}
 
 	if (position.getX() * TILE_SIDE - game->getMapOffset() <= 0 && direction.getX() == -1)
@@ -335,11 +372,14 @@ void Player::moveMario(bool moveX, bool moveY)
 	// Movimiento vertical
 	if (position.getY() > maxHeight && keySpace && !isFalling && (moveY || direction.getY() == -1))
 	{
-		position.setY(position.getY() - speed.getY());
+		speed.setY(velY);
+		double auxVelY = speed.getY();
+		position.setY(position.getY() - auxVelY);
 	}
 	else if (moveY && (position.getY() <= maxHeight || direction.getY() == 0))
 	{
 		isFalling = true;
 		position.setY(position.getY() + gravity);
 	}
+
 }

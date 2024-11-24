@@ -68,7 +68,7 @@ public:
 		return alive;
 	}
 	
-	virtual Collision tryToMove(Vector2D<double> v, Collision::Target t) override;
+	virtual Collision tryToMove(Vector2D<int>& v, Collision::Target t) override;
 	
 	virtual void collisionResult();
 

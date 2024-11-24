@@ -58,6 +58,7 @@ constexpr int TILE_SIDE = 32;
 constexpr int WINDOW_WIDTH = 18;
 constexpr int WINDOW_HEIGHT = 16;
 constexpr int OBSTACLE_THRESHOLD = 4; // constante
+constexpr int MAP_MAX_OFFSET = 6100;
 const Collision NO_COLLISION = { Collision::EMPTY, Collision::NONE, 0, 0 };
 
 // ------------------------------ GAME ------------------------------
@@ -160,7 +161,7 @@ public:
 	Collision checkCollisions(const SDL_Rect& rect, Collision::Target target);
 
 	// ----- GETTERS -----s
-	uint getWinWidth() { return WIN_HEIGHT; }
+	uint getWinWidth() { return WIN_WIDTH; }
 	uint getWinHeight() { return WIN_HEIGHT; }
 
 	int getMapOffset() { return mapOffset; }

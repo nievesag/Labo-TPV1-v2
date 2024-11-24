@@ -15,8 +15,9 @@ class SceneObject : public GameObject
 protected:
 	Point2D<int> position; // Posicion del objeto
 	int width, height;		  // Dimension del objeto
-	Vector2D<double> speed;	  // Velocidad del objeto
+	Vector2D<int> speed;	  // Velocidad del objeto
 	Vector2D<int> direction;
+	bool canMove;
 	//double speed;	
 
 	Texture* texture = nullptr;
@@ -28,13 +29,13 @@ protected:
 	// iterador de la lista
 	GameList<SceneObject>::anchor _anchor;
 
-	virtual Collision tryToMove(Vector2D<double> v, Collision::Target target);
+	virtual Collision tryToMove(Vector2D<int>& v, Collision::Target target);
 
 	// metodos publicos
 public:
 	SceneObject(Game* g,Point2D<int> pos, Texture* t);
 
-	SceneObject(Game* g, Point2D<int> pos, Texture* t, Vector2D<double> s);
+	SceneObject(Game* g, Point2D<int> pos, Texture* t, Vector2D<int> s);
 
 	// ---- hit ----
 	// colisiones
