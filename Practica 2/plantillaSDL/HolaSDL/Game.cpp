@@ -163,7 +163,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			lineStream >> pos;
 			
 			pos.setX(pos.getX() * TILE_SIDE);
-			pos.setY(pos.getY() * TILE_SIDE);
+			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
 
 			pos = pos - Point2D<int>(0, 1);
 

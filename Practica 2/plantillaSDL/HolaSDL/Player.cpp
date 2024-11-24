@@ -264,7 +264,7 @@ void Player::checkFall()
 	// para ver si se ha caido a un agujero
 	if (position.getY() > deadH) 
 	{
-		position.setY(10);
+		position.setY(10 * TILE_SIDE);
 		game->setMapOffset(0);
 		position.setX(1);
 		marioState = MARIO;
