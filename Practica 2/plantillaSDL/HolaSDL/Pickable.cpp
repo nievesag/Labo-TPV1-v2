@@ -14,20 +14,11 @@ void Pickable::render()
 
 void Pickable::update()
 {
-	updateRect();
+
 	game->checkCollisions(destRect, Collision::PLAYER);
 }
 
-void Pickable::updateRect()
-{
-	// tamanio
-	destRect.w = texture->getFrameWidth() * 2;
-	destRect.h = texture->getFrameHeight() * 2;
 
-	// posicion
-	destRect.x = (position.getX()) - game->getMapOffset();
-	destRect.y = (position.getY() - destRect.h);
-}
 
 Collision Pickable::hit(const SDL_Rect& rect, Collision::Target t)
 {

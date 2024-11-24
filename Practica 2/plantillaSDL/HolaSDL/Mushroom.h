@@ -41,7 +41,6 @@ public:
 		return alive;
 	}
 
-	void updateRect() override;
 };
 
 #endif

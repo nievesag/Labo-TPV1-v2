@@ -85,7 +85,7 @@ public:
 
 	void manageInvencible();
 
-	void updateAnims();
+	void updateAnim() override;
 
 	void updateOffset();
 

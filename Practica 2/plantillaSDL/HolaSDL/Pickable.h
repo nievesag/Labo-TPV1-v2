@@ -29,7 +29,6 @@ public:
 
 	virtual void render() override;
 	virtual void update();
-	void updateRect() override;
 
 	virtual Collision hit(const SDL_Rect& rect, Collision::Target t) override;
 

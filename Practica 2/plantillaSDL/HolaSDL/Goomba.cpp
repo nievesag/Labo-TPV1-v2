@@ -17,10 +17,7 @@ void Goomba::update() {
 
 }
 
-void Goomba::updateRect()
-{
 
-}
 
 void Goomba::render()
 {

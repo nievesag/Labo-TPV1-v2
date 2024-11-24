@@ -31,7 +31,7 @@ public:
 	// -- update --
 	void update() override;
 
-	void updateRect() override;
+	void updateAnim() override;
 
 	Point2D<int> getPos() const { return position; }
 

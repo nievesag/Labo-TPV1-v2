@@ -28,7 +28,6 @@ public:
 
 	// -- update --
 	void update() override;
-	void updateRect() override;
 
 	void render() override;
 

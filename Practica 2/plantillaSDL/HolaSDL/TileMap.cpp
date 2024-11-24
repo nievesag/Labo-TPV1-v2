@@ -120,7 +120,3 @@ SceneObject* TileMap::clone() const
 	return nullptr;
 }
 
-void TileMap::updateRect()
-{
-
-}

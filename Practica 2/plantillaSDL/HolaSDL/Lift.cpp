@@ -16,16 +16,13 @@ void Lift::render()
 void Lift::update()
 {
 	moveLift();
-	updateRect();
 }
 
-void Lift::updateRect()
+void Lift::updateAnim()
 {
-	destRect.w = texture->getFrameWidth() * 2;
-	destRect.h = texture->getFrameHeight() * 2;
-	destRect.x = (position.getX() * TILE_SIDE) - game->getMapOffset();
-	destRect.y = (position.getY() * TILE_SIDE);
+
 }
+
 
 SceneObject* Lift::clone() const
 {

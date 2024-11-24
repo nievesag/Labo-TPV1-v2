@@ -35,5 +35,5 @@ public:
 	void manageCollisions(Collision collision) override;
 	SceneObject* clone() const override;
 
-	void updateRect() override;
+	void updateAnim() override {};
 };

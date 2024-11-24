@@ -10,47 +10,16 @@ Enemy::Enemy(Game* g, Point2D<int> p, Texture* t)
 
 void Enemy::update() 
 {
-	// ----- ruben
-	
-	// Acelera la velocidad con la gravedad
+	c = tryToMove(speed, Collision::PLAYER);
+
 	if (speed.getY() < SPEED_LIMIT)
-	{
-		speed.setX(speed.getX());
-		speed.setY(speed.getY() + GRAVITY);
-	}
+		speed = speed + Vector2D<int>(0, GRAVITY);
 
-	// Velocidad en este ciclo (no siempre avanza lateralmente)
-	Vector2D<int> realSpeed = speed;
+	if (c.vertical) speed.setY(0);
+	if (c.horizontal) speed.setX(-speed.getX()); // cambio de direccion
 
-	if (moveDelay-- == 0)
-	{
-		moveDelay = MOVE_PERIOD;
-	}
-	else
-	{
-		realSpeed.setX(0);
-	}
-
-	// Intenta moverse
-	Collision collision = tryToMove(realSpeed, Collision::PLAYER);
-
-	// Si toca un objeto en horizontal cambia de direcci�n
-	if (collision.horizontal)
-		speed.setX(-speed.getX());
-
-	// Si toca un objeto en vertical anula la velocidad (para que no se acumule la gravedad)
-	if (collision.vertical)
-		speed.setY(0);
-
-	// SceneObject::update(); // si hiciera falta
-
-	// ----- nuestro
-    if ((position.getX() * TILE_SIDE) - texture->getFrameWidth() * 2.8 <
-        (game->getMapOffset() + game->getWinWidth())) {
-        frozen = false;
-    }
-    moveEnemy();
-    animate();
+	if (speed.getX() > 0) flip = SDL_FLIP_NONE;
+	else if (speed.getX() < 0) flip = SDL_FLIP_HORIZONTAL;
 }
 
 

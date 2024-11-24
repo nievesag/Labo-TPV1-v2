@@ -16,6 +16,7 @@ Player::Player(Game* g, Point2D<int> p, Texture* t, int l)
 	flip = SDL_FLIP_NONE;
 	velX = 6;
 	flipSprite = true;
+	setScale(2);
 }
 
 void Player::render()
@@ -40,6 +41,8 @@ void Player::update()
 
 	if (canMove)
 		c = tryToMove(speed, Collision::ENEMIES);
+
+
 	else if (!canMove && speed.getY() != 0)
 	{
 		Vector2D<int> vec = Vector2D<int>(0, speed.getY());
@@ -62,12 +65,10 @@ void Player::update()
 		flip = SDL_FLIP_NONE;
 
 		// Limites
-		if (position.getX() - game->getMapOffset() >= game->getWinWidth() / 2)
+		if (position.getX() - game->getMapOffset() >= game->getWinWidth() / 2
+			&& game->getMapOffset() <= MAP_MAX_OFFSET)
 		{
-			if (game->getMapOffset() <= MAP_MAX_OFFSET)
-			{
-				game->setMapOffset(game->getMapOffset() + speed.getX() * bgSpeed);
-			}
+			game->setMapOffset(game->getMapOffset() + speed.getX());
 		}
 		canMove = true;
 	}
@@ -87,7 +88,7 @@ void Player::update()
 	
 	//updateRect();
 	//updateOffset();
-	updateAnims();
+	updateAnim();
 
 	checkFall();
 }
@@ -213,7 +214,7 @@ SceneObject* Player::clone() const
 	return nullptr;
 }
 
-void Player::updateAnims()
+void Player::updateAnim()
 {
 	if (!grounded) 
 	{

@@ -48,7 +48,3 @@ void Mushroom::moveSeta()
 	//}
 }
 
-void Mushroom::updateRect()
-{
-
-}

@@ -24,6 +24,7 @@ protected:
 	SDL_RendererFlip flip;
 	int frameTimer;
 	bool flipSprite;
+	int scale;
 	//Game* game = nullptr;
 
 	Collision c;
@@ -35,6 +36,8 @@ protected:
 	GameList<SceneObject>::anchor _anchor;
 
 	virtual Collision tryToMove(Vector2D<int>& v, Collision::Target target);
+
+	void setScale(int n) { scale = n; }
 
 	// metodos publicos
 public:
@@ -59,7 +62,6 @@ public:
 	SDL_Rect getCollisionRect() const;
 	SDL_Rect getRenderRect() const;
 	
-	virtual void updateRect() = 0;
 
 	// Para gestion de cola de objetos ->
 	//	Se usa para poder clonar los objetos polimorficamente e insertar copias en la lista de objetos del juego

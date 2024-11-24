@@ -42,18 +42,7 @@ void Block::render()
 
 void Block::update()
 {
-	if (tipo == SORPRESA) {
-		frameTimer++;
-		if (frameTimer >= 3050) {  // Velocidad del ciclo
-			frameTimer = 0;
-			frame = (frame + 1) % 3;  // Ciclo 0,1,2,3, y luego se reinicie 
-
-			// Ciclo de caminar 2 -> 3 -> 4 -> 3
-			if (frame == 0 ) frame = 1;
-			else if (frame == 1) frame = 2;
-			else if (frame == 2) frame = 0;
-		}
-	}
+	updateAnim();
 }
 
 
@@ -158,4 +147,20 @@ void Block::manageCollisions(Collision collision)
 SceneObject* Block::clone() const
 {
 	return nullptr;
+}
+
+void Block::updateAnim()
+{
+	if (tipo == SORPRESA) {
+		frameTimer++;
+		if (frameTimer >= 3050) {  // Velocidad del ciclo
+			frameTimer = 0;
+			frame = (frame + 1) % 3;  // Ciclo 0,1,2,3, y luego se reinicie 
+
+			// Ciclo de caminar 2 -> 3 -> 4 -> 3
+			if (frame == 0) frame = 1;
+			else if (frame == 1) frame = 2;
+			else if (frame == 2) frame = 0;
+		}
+	}
 }

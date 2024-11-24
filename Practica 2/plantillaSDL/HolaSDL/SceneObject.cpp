@@ -2,39 +2,20 @@
 #include "Game.h"
 
 SceneObject::SceneObject(Game* g, Point2D<int> pos, Texture* t)
-	: GameObject(g), position(pos), texture(t)
+	: GameObject(g), position(pos), texture(t), frame(0), frameTimer(0), 
+	destRect(), speed(0, 0)
 {
-	speed.setX(0);
-	speed.setY(0);
-	if (texture != nullptr) 
-	{
-		destRect.h = texture->getFrameHeight();
-		height = destRect.h;
-		destRect.w = texture->getFrameWidth();
-		width = destRect.w;
-		destRect.x = position.getX();
-		destRect.y = position.getY();
-	}
-	direction = Vector2D<int>(0, 0);
-	canMove = true;
+
+
+	width = TILE_SIDE;
+	height = TILE_SIDE;
 }
 
 SceneObject::SceneObject(Game* g, Point2D<int> pos, Texture* t, Vector2D<int> s)
-	: GameObject(g), position(pos), speed(s), texture(t)
+	: GameObject(g), position(pos), speed(s), texture(t), frame(0), frameTimer(0), destRect()
 {
 	speed.setX(0);
 	speed.setY(0);
-	if (texture != nullptr)
-	{
-		destRect.h = texture->getFrameHeight();
-		height = destRect.h;
-		destRect.w = texture->getFrameWidth();
-		width = destRect.w;
-		destRect.x = position.getX();
-		destRect.y = position.getY();
-	}
-	direction = Vector2D<int>(0, 0);
-	canMove = true;
 }
 
 // concentra la comprobacion de colisiones para todos los objetos del juego
@@ -95,8 +76,8 @@ void SceneObject::render()
 {
 	destRect.x = position.getX() - game->getMapOffset();
 	destRect.y = position.getY();
-	destRect.w = texture->getFrameWidth();
-	destRect.h = texture->getFrameHeight();
+	destRect.w = texture->getFrameWidth() * scale;
+	destRect.h = texture->getFrameHeight() * scale;
 
 	texture->renderFrame(destRect, 0, frame, 0, nullptr, flip);
 

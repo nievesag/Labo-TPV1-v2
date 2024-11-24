@@ -44,16 +44,16 @@ void Coin::updateAnim()
 		coinFrame = (coinFrame + 1) % 4;
 
 		if (coinFrame == 0) {
-			_frame = 0;
+			frame = 0;
 		}
 		else if (coinFrame == 1) {
-			_frame = 1;
+			frame = 1;
 		}
 		else if (coinFrame == 2) {
-			_frame = 2;
+			frame = 2;
 		}
 		else if (coinFrame == 3) {
-			_frame = 3;
+			frame = 3;
 		}
 	}
 }
