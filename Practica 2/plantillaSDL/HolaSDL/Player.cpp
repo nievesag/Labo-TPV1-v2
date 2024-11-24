@@ -31,7 +31,7 @@ void Player::render()
 	else  textureS->renderFrame(destRect, 0, marioFrame, 0.0, nullptr, flip);*/
 
 	SceneObject::render();
-	updateAnim();
+	updateTexture();
 }
 
 void Player::update()
@@ -83,16 +83,14 @@ void Player::update()
 
 	//manageCollisions(tryToMove(getNextMoveVector(), Collision::ENEMIES));
 
-	//manageInvencible();
+	manageInvencible();
 
 	
 	//updateRect();
 	//updateOffset();
+	updateAnim();
 
-
-	//checkFall();
-
-	cout << position.getX() << endl;
+	checkFall();
 }
 
 void Player::updateTexture()
