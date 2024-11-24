@@ -29,7 +29,6 @@ private:
 
 public:
 	Mushroom(Game* g, Point2D<int> p, Texture* t);
-	Mushroom(const Mushroom&);
 
 	// -- update --
 	void update() override;
@@ -42,11 +41,6 @@ public:
 		return alive;
 	}
 
-	//void updateRect() override;
-	void triggerAction() override;
-	void updateAnim() override;
-
-	SceneObject* clone() const override;
 };
 
 #endif

@@ -117,5 +117,6 @@ void TileMap::manageCollisions(Collision collision)
 
 SceneObject* TileMap::clone() const
 {
-	return new TileMap(*this);
+	return nullptr;
 }
+

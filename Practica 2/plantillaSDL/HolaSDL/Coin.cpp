@@ -32,7 +32,7 @@ void Coin::triggerAction()
 
 SceneObject* Coin::clone() const
 {
-	return new Coin(*this);
+	return nullptr;
 }
 
 void Coin::updateAnim()

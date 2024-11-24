@@ -31,7 +31,7 @@ private:
 
 public:
 	Enemy(Game* g, Point2D<int> p, Texture* t);
-	Enemy(const Enemy&);
+
 
 	// -- update --
 	virtual void update() override;
@@ -58,8 +58,6 @@ public:
 
 	SceneObject* clone() const override;
 	virtual void updateAnim() override;
-
-	//void updateRect() override;
 
 protected:
 	virtual void moveEnemy(); 

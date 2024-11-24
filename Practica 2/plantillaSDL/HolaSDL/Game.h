@@ -100,21 +100,18 @@ private:
 
 	// declaración de los elementos de juego
 	Player* player;
+	//Goomba* goomba = nullptr;
+	//Koopa* koopa = nullptr;
+	//Block* block = nullptr;
+	//Mushroom* mushroom = nullptr;
 
 	GameList<SceneObject> gameList;
-
-	// --- mecanismo para insertar los objetos del juego solo cuando se vuelven visibles en el mapa ---
-	// (en el caso de los objetos animados, esto es imprescindible para que aparezcan en la posicion esperada)
 
 	// vector sobre el que leer los objetos al cargar el mapa
 	// utilizando un contador se podran extraer los objetos de esa cola conforme vayan haciendose visibles y
 	// para evitar tener que recargar el mapa desde el archivo al reiniciar el nivel
 	// (porque Mario haya sido herido) se recomienda utilizar un metodo virtual puro
-	vector<SceneObject*> objectQueue;
-
-	// indice de la secuencia, siguiente objeto a ser metido si esta dentro de la vista
-	// (siempre se añaden en orden porque la lista esta ordenada por abscisas)
-	int nextObject; 
+	vector<SceneObject*> objectQueue; 
 
 	// crea semilla
 	std::mt19937_64 randomGenerator;
@@ -150,10 +147,6 @@ public:
 	void update();
 
 	void updateEntities();
-
-	void addVisibleEntities();
-
-	void addObject(SceneObject* o);
 
 	// ---- handleEvents ----
 	// input del jugador

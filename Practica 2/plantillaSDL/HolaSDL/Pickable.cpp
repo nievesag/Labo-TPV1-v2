@@ -39,7 +39,3 @@ void Pickable::manageCollisions(Collision collision)
 {
 
 }
-
-void Pickable::updateAnim()
-{
-}

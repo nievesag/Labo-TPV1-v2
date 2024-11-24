@@ -56,8 +56,7 @@ private:
 	int velX;
 
 public:
-	Player(Game* g, Point2D<int> p, Texture* t, int l);
-	Player(const Player&);
+	Player(Game* g, Point2D<int> p, Texture* t, int l); // no se si pasarle la textura
 
 	// -- render --
 	void render() override;
