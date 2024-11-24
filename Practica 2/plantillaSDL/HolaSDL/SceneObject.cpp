@@ -34,6 +34,50 @@ SceneObject::SceneObject(Game* g, Point2D<int> pos, Texture* t, Vector2D<int> s)
 	speed.setY(0);
 }
 
+SceneObject::SceneObject(const SceneObject& s)
+{
+	position = s.position;
+	width = s.width;
+	height = s.height;
+	speed = s.speed;
+	direction = s.direction;
+	canMove = s.canMove;
+	texture = s.texture;
+	frame = s.frame;
+	flip = s.flip;
+	frameTimer = s.frameTimer;
+	flipSprite = s.flipSprite;
+	scale = s.scale;
+	c = s.c;
+	destRect = s.destRect;
+
+	//setListAnchor(_anchor);
+}
+
+SceneObject& SceneObject::operator=(const SceneObject& s)
+{
+	if(this != &s)
+	{
+		position = s.position;
+		width = s.width;
+		height = s.height;
+		speed = s.speed;
+		direction = s.direction;
+		canMove = s.canMove;
+		texture = s.texture;
+		frame = s.frame;
+		flip = s.flip;
+		frameTimer = s.frameTimer;
+		flipSprite = s.flipSprite;
+		scale = s.scale;
+		c = s.c;
+		destRect = s.destRect;
+
+		//setListAnchor(_anchor);
+	}
+	return *this;
+}
+
 // concentra la comprobacion de colisiones para todos los objetos del juego
 // tryToMove(vector movimiento que se quiere aplicar al objeto, a quien afecta la colision)
 // -> prueba el movimiento en ambos ejes y devuelve la informacion de tipo Collision

@@ -57,7 +57,6 @@ private:
 
 public:
 	Player(Game* g, Point2D<int> p, Texture* t, int l);
-	Player(const Player&);
 
 	// -- render --
 	void render() override;

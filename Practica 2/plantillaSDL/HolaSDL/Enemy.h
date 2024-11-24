@@ -31,7 +31,6 @@ private:
 
 public:
 	Enemy(Game* g, Point2D<int> p, Texture* t);
-	Enemy(const Enemy&);
 
 	// -- update --
 	virtual void update() override;

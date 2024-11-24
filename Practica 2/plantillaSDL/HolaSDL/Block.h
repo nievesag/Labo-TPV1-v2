@@ -49,7 +49,6 @@ private:
 
 public:
 	Block(Game* g, Point2D<int> p, Texture* t, char tipoL, char accionL);
-	Block(const Block&);
 
 	// -- render --
 	void render() override;

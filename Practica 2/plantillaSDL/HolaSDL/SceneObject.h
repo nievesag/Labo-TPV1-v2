@@ -25,7 +25,6 @@ protected:
 	int frameTimer;
 	bool flipSprite;
 	int scale;
-	//Game* game = nullptr;
 
 	Collision c;
 
@@ -45,9 +44,8 @@ public:
 
 	SceneObject(Game* g, Point2D<int> pos, Texture* t, Vector2D<int> s);
 
-	
-	SceneObject(const SceneObject&); // constructor copia
-	SceneObject& operator=(const SceneObject& x); // asignacion por copia
+	SceneObject(const SceneObject& s); // constructor copia
+	SceneObject& operator=(const SceneObject& s); // asignacion por copia
 
 	// ---- hit ----
 	// colisiones

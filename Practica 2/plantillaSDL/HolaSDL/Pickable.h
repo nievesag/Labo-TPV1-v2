@@ -26,7 +26,6 @@ private:
 
 public:
 	Pickable(Game* g, Point2D<int> p, Texture* t);
-	Pickable(const Pickable&);
 
 	virtual void render() override;
 	virtual void update();

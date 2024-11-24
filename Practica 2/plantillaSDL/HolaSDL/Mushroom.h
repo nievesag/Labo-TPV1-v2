@@ -29,7 +29,6 @@ private:
 
 public:
 	Mushroom(Game* g, Point2D<int> p, Texture* t);
-	Mushroom(const Mushroom&);
 
 	// -- update --
 	void update() override;

@@ -23,7 +23,6 @@ private:
 public:
 	//TileMap();
 	TileMap(Game* g, std::istream& in, Point2D<int> p, Texture* t);
-	TileMap(const TileMap&);
 	~TileMap();
 
 	void render() override;
