@@ -4,7 +4,8 @@
 SceneObject::SceneObject(Game* g, Point2D<int> pos, Texture* t)
 	: GameObject(g), position(pos), texture(t)
 {
-	speed = Vector2D<int>(0, 0);
+	speed.setX(0);
+	speed.setY(0);
 	if (texture != nullptr) 
 	{
 		destRect.h = texture->getFrameHeight();
@@ -14,14 +15,26 @@ SceneObject::SceneObject(Game* g, Point2D<int> pos, Texture* t)
 		destRect.x = position.getX();
 		destRect.y = position.getY();
 	}
-	game = g;
 	direction = Vector2D<int>(0, 0);
+	canMove = true;
 }
 
 SceneObject::SceneObject(Game* g, Point2D<int> pos, Texture* t, Vector2D<int> s)
-	: GameObject(g), position(pos), texture(t), speed(s)
+	: GameObject(g), position(pos), speed(s), texture(t)
 {
-
+	speed.setX(0);
+	speed.setY(0);
+	if (texture != nullptr)
+	{
+		destRect.h = texture->getFrameHeight();
+		height = destRect.h;
+		destRect.w = texture->getFrameWidth();
+		width = destRect.w;
+		destRect.x = position.getX();
+		destRect.y = position.getY();
+	}
+	direction = Vector2D<int>(0, 0);
+	canMove = true;
 }
 
 // concentra la comprobacion de colisiones para todos los objetos del juego
@@ -57,8 +70,6 @@ Collision SceneObject::tryToMove(Vector2D<int>& v, Collision::Target target)
 	// (podría ser conveniente comprobar colisiones incluso aunque el objeto estuviera parado)
 	if (speed.getX() != 0) 
 	{
-		
-
 		rect.x += speed.getX();
 
 		Collision partial = game->checkCollisions(rect, target);
