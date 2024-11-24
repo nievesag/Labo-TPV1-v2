@@ -20,8 +20,8 @@ protected:
 	bool canMove;
 	//double speed;	
 
-	Texture* texture = nullptr;
-	Game* game = nullptr;
+	Texture* texture;
+	//Game* game = nullptr;
 
 	// rectangulo del render
 	SDL_Rect destRect;

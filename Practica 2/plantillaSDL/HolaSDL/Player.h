@@ -9,7 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-
+//#include "Game.h"
 #include "Collision.h"
 #include "SceneObject.h"
 
@@ -23,10 +23,9 @@ class Player : public SceneObject
 {
 	// atributos privados
 private:
-	Texture* texture = nullptr;	// puntero a su textura
+	//Texture* texture = nullptr;	// puntero a su textura
 	Texture* textureM = nullptr;
 	Texture* textureS = nullptr;
-	Game* game = nullptr;		// puntero al juego
 
 	int maxLives = 3;
 	int lives;					// numero de vidas restantes, 3 al inicio
@@ -80,10 +79,10 @@ private:
 	bool limitX = true;
 	bool limitY = true;
 
-	double bgSpeed = 0.001;
+	int bgSpeed = 1;
 
 public:
-	Player(Game* g, Point2D<int> position, Texture* texture, int lives); // no se si pasarle la textura
+	Player(Game* g, Point2D<int> p, Texture* t, int l); // no se si pasarle la textura
 
 	// -- render --
 	void render() const override;

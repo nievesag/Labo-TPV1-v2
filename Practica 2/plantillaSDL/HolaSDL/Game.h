@@ -99,7 +99,7 @@ private:
 	int mapOffset = 0;
 
 	// declaración de los elementos de juego
-	Player* player = nullptr;
+	Player* player;
 	//Goomba* goomba = nullptr;
 	//Koopa* koopa = nullptr;
 	//Block* block = nullptr;

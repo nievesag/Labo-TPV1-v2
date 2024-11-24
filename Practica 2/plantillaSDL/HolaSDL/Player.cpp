@@ -1,15 +1,13 @@
 #include "Player.h"
 #include "Game.h"
 
-Player::Player(Game* g, Point2D<int> position, Texture* texture, int lives)
-	: SceneObject(g, position, g->getTexture(Game::MARIO))
+Player::Player(Game* g, Point2D<int> p, Texture* t, int l)
+	: SceneObject(g, p, t), lives(l)
 {
-	game = g;
+	maxLives = lives;
 
-	lives = maxLives;
-
-	textureM = g->getTexture(Game::MARIO);		// textura inicial de mario
-	textureS = g->getTexture(Game::SUPERMARIO); // textura supermario
+	textureM = game->getTexture(Game::MARIO);		// textura inicial de mario
+	textureS = game->getTexture(Game::SUPERMARIO); // textura supermario
 
 	marioFrame = 0;
 
@@ -36,10 +34,6 @@ void Player::render() const
 
 void Player::update()
 {
-
-	if (marioState == 0) texture = textureM;
-	else if (marioState == 1) texture = textureS;
-
 	if (speed.getY() < SPEED_LIMIT) 
 		speed = speed + Vector2D<int>(0, GRAVITY);
 
@@ -50,7 +44,6 @@ void Player::update()
 		Vector2D<int> vec = Vector2D<int>(0, speed.getY());
 		c = tryToMove(vec, Collision::ENEMIES);
 	}
-		
 
 	if (c.vertical)
 	{
@@ -269,7 +262,7 @@ void Player::updateOffset()
 void Player::checkFall()
 {
 	// para ver si se ha caido a un agujero
-	if (position.getY() < deadH) 
+	if (position.getY() > deadH) 
 	{
 		position.setY(10);
 		game->setMapOffset(0);
