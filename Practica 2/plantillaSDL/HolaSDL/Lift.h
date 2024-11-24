@@ -24,7 +24,7 @@ private:
 	Game* game = nullptr;		// puntero al juego
 
 public:
-	Lift(Game* g, Point2D<double> position, Texture* t, Vector2D<double> speed);
+	Lift(Game* g, Point2D<int> position, Texture* t, Vector2D<double> speed);
 
 	// -- render --
 	void render() const override;
@@ -34,7 +34,7 @@ public:
 
 	void updateRect();
 
-	Point2D<double> getPos() const { return position; }
+	Point2D<int> getPos() const { return position; }
 
 	SceneObject* clone() const override;
 

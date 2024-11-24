@@ -59,7 +59,7 @@ private:
 	//SDL_Rect destRect;
 
 public:
-	Block(Game* g, Point2D<double> position, Texture* t, char tipoL, char accionL);
+	Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accionL);
 
 	// -- render --
 	void render() const override;
@@ -89,7 +89,7 @@ public:
 
 	void killBlock() { alive = false; }
 
-	Point2D<double> getPos() const { return position; }
+	Point2D<int> getPos() const { return position; }
 
 	virtual void manageCollisions(Collision collision) override;
 

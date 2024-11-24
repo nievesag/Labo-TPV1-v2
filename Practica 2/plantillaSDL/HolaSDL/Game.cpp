@@ -92,7 +92,7 @@ void Game::init()
 		std::cout << "Error cargando el tilemap";
 	}
 
-	Point2D<double> pos = Point2D<double>(0, 0);
+	Point2D<int> pos = Point2D<int>(0, 0);
 	SceneObject* tilemap = new TileMap(this, tiles, pos);
 	gameList.push_back(tilemap);
 	tiles.close();
@@ -151,7 +151,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			lineStream >> r >> g >> b;
 		}
 
-		Point2D<double> pos;
+		Point2D<int> pos;
 
 		char tipoL;
 		lineStream >> tipoL;
@@ -161,7 +161,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			int lives;
 
 			lineStream >> pos;
-			pos = pos - Point2D<double>(0, 1);
+			pos = pos - Point2D<int>(0, 1);
 
 			lineStream >> lives;
 			player = new Player(this, pos, getTexture(MARIO), lives);
@@ -171,7 +171,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 		else if(tipoL == 'G')
 		{
 			lineStream >> pos;
-			pos = pos - Point2D<double>(0, 1);
+			pos = pos - Point2D<int>(0, 1);
 
 			SceneObject* goomba = new Enemy(this, pos, getTexture(GOOMBA));
 			gameList.push_back(goomba);
@@ -182,7 +182,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			char accionL;
 
 			lineStream >> pos;
-			pos = pos - Point2D<double>(0, 1);
+			pos = pos - Point2D<int>(0, 1);
 
 			lineStream >> tipoL;
 			lineStream >> accionL;
@@ -194,7 +194,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 		else if(tipoL == 'K')
 		{
 			lineStream >> pos;
-			pos = pos - Point2D<double>(0, 1);
+			pos = pos - Point2D<int>(0, 1);
 
 			SceneObject* koopa = new Enemy(this, pos, getTexture(KOOPA));
 			gameList.push_back(koopa);
@@ -202,7 +202,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 		else if (tipoL == 'L')
 		{
 			lineStream >> pos;
-			pos = pos - Point2D<double>(0, 1);
+			pos = pos - Point2D<int>(0, 1);
 
 			Vector2D<double> speed;
 			double x = 0;
@@ -216,7 +216,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 		else if (tipoL == 'C')
 		{
 			lineStream >> pos;
-			pos = pos - Point2D<double>(0, 1);
+			pos = pos - Point2D<int>(0, 1);
 
 			Pickable* coin = new Coin(this, pos, getTexture(COIN));
 			gameList.push_back(coin);

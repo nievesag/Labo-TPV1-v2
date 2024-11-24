@@ -26,7 +26,7 @@ private:
 
 
 public:
-	Koopa(Game* g, Point2D<double> pos, Texture* texture);
+	Koopa(Game* g, Point2D<int> position, Texture* texture);
 
 	// -- update --
 	void update();

@@ -29,7 +29,7 @@ private:
 	bool alive;
 
 public:
-	Coin(Game* g, Point2D<double> position, Texture* texture);
+	Coin(Game* g, Point2D<int> position, Texture* texture);
 
 	// -- update --
 	void update() override;

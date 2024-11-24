@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "Game.h"
 
-Player::Player(Game* g, Point2D<double> position, Texture* texture, int lives)
+Player::Player(Game* g, Point2D<int> position, Texture* texture, int lives)
 	: SceneObject(g, position, g->getTexture(Game::MARIO))
 {
 	game = g;

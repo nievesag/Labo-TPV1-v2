@@ -16,7 +16,6 @@ class Game;
 class TileMap : public SceneObject
 {
 private:
-
 	Texture* texture = nullptr; // puntero a textura del array de textures
 	Game* game = nullptr;
 	Texture* background = nullptr; 
@@ -26,7 +25,7 @@ private:
 
 public:
 	//TileMap();
-	TileMap(Game* g, std::istream& in, Point2D<double> position);
+	TileMap(Game* g, std::istream& in, Point2D<int> position);
 	~TileMap();
 
 	void render() const override;

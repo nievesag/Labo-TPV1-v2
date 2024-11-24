@@ -1,8 +1,8 @@
 #include "Game.h"
 #include "Koopa.h"
 
-Koopa::Koopa(Game* g, Point2D<double> pos, Texture* texture)
-	: Enemy(g, pos, texture)
+Koopa::Koopa(Game* g, Point2D<int> position, Texture* texture)
+	: Enemy(g, position, texture)
 {
 	texture = game->getTexture(Game::KOOPA); // textura inicial
 

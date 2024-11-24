@@ -1,7 +1,7 @@
 #include "Block.h"
 #include "Game.h"
 
-Block::Block(Game* g, Point2D<double> position, Texture* t, char tipoL, char accionL)
+Block::Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accionL)
 	: SceneObject(g, position, g->getTexture(Game::BLOCK)), texture(t)
 {
 	game = g;

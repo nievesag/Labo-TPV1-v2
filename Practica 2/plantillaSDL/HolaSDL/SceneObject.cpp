@@ -1,7 +1,7 @@
 #include "SceneObject.h"
 #include "Game.h"
 
-SceneObject::SceneObject(Game* g, Point2D<double> pos, Texture* t)
+SceneObject::SceneObject(Game* g, Point2D<int> pos, Texture* t)
 	: GameObject(g), position(pos), texture(t)
 {
 	speed = Vector2D<double>(0, 0);
@@ -18,7 +18,7 @@ SceneObject::SceneObject(Game* g, Point2D<double> pos, Texture* t)
 	direction = Vector2D<int>(0, 0);
 }
 
-SceneObject::SceneObject(Game* g, Point2D<double> pos, Texture* t, Vector2D<double> s)
+SceneObject::SceneObject(Game* g, Point2D<int> pos, Texture* t, Vector2D<double> s)
 	: GameObject(g), position(pos), texture(t), speed(s)
 {
 

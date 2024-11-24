@@ -13,7 +13,7 @@ class SceneObject : public GameObject
 {
 	// atributos protegidos
 protected:
-	Point2D<double> position; // Posicion del objeto
+	Point2D<int> position; // Posicion del objeto
 	int width, height;		  // Dimension del objeto
 	Vector2D<double> speed;	  // Velocidad del objeto
 	Vector2D<int> direction;
@@ -30,12 +30,11 @@ protected:
 
 	virtual Collision tryToMove(Vector2D<double> v, Collision::Target target);
 
-
 	// metodos publicos
 public:
-	SceneObject(Game* g,Point2D<double> pos, Texture* t);
+	SceneObject(Game* g,Point2D<int> pos, Texture* t);
 
-	SceneObject(Game* g, Point2D<double> pos, Texture* t, Vector2D<double> s);
+	SceneObject(Game* g, Point2D<int> pos, Texture* t, Vector2D<double> s);
 
 	// ---- hit ----
 	// colisiones

@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "Collision.h"
 
-Lift::Lift(Game* g, Point2D<double> position, Texture* t, Vector2D<double> speed)
+Lift::Lift(Game* g, Point2D<int> position, Texture* t, Vector2D<double> speed)
 	: SceneObject(g, position, t)
 {
 	direction = Vector2D<int>(0, 1);
@@ -32,6 +32,11 @@ void Lift::updateRect()
 	destRect.w = texture->getFrameWidth() * 2;
 	destRect.x = position.getX() * TILE_SIDE;
 	destRect.y = position.getY() * TILE_SIDE;
+}
+
+SceneObject* Lift::clone() const
+{
+	return nullptr;
 }
 
 Collision Lift::hit(const SDL_Rect& rect, Collision::Target t)

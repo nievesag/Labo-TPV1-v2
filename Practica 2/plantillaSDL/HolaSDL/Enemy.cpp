@@ -1,7 +1,7 @@
 #include "Enemy.h"
 #include "Game.h"
 
-Enemy::Enemy(Game* g, Point2D<double> position, Texture* t)
+Enemy::Enemy(Game* g, Point2D<int> position, Texture* t)
 	: SceneObject(g, position, t), texture(t)
 {
     direction = Vector2D<int>(0, 0);

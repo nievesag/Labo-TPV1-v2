@@ -1,7 +1,7 @@
 #include "Pickable.h"
 #include "Game.h"
 
-Pickable::Pickable(Game* g, Point2D<double> position, Texture* texture)
+Pickable::Pickable(Game* g, Point2D<int> position, Texture* texture)
 	: SceneObject(g, position, texture)
 {
 	//position = pos;

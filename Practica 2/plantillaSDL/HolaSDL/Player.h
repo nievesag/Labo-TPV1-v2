@@ -81,7 +81,7 @@ private:
 	bool limitY = true;
 
 public:
-	Player(Game* g, Point2D<double> position, Texture* texture, int lives); // no se si pasarle la textura
+	Player(Game* g, Point2D<int> position, Texture* texture, int lives); // no se si pasarle la textura
 
 	// -- render --
 	void render() const override;
