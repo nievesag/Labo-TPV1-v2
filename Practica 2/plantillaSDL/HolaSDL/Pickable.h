@@ -21,22 +21,15 @@ using namespace std;
 class Pickable : public SceneObject
 {
 private:
-	Texture* texture = nullptr;	// puntero a su textura
-	Game* game = nullptr;		// puntero al juego
-
-	SDL_Rect destRect;
-
 	bool alive;
-
 	bool picked = false;
 
 public:
-
-	Pickable(Game* g, Point2D<int> position, Texture* texture);
+	Pickable(Game* g, Point2D<int> p, Texture* t);
 
 	virtual void render() const override;
 	virtual void update();
-	virtual void updateRct();
+	void updateRect() override;
 
 	virtual Collision hit(const SDL_Rect& rect, Collision::Target t) override;
 

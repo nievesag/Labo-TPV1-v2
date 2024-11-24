@@ -1,16 +1,25 @@
 #include "Pickable.h"
 #include "Game.h"
 
-Pickable::Pickable(Game* g, Point2D<int> position, Texture* texture)
-	: SceneObject(g, position, texture)
+Pickable::Pickable(Game* g, Point2D<int> p, Texture* t)
+	: SceneObject(g, p, t)
 {
-	//position = pos;
+	
 }
 
 void Pickable::render() const
 {
-	SDL_Rect destRect;
+	texture->renderFrame(destRect, 0, 0);
+}
 
+void Pickable::update()
+{
+	updateRect();
+	game->checkCollisions(destRect, Collision::PLAYER);
+}
+
+void Pickable::updateRect()
+{
 	// tamanio
 	destRect.w = texture->getFrameWidth() * 2;
 	destRect.h = texture->getFrameHeight() * 2;
@@ -18,22 +27,6 @@ void Pickable::render() const
 	// posicion
 	destRect.x = (position.getX()) - game->getMapOffset();
 	destRect.y = (position.getY() - destRect.h);
-
-	texture->renderFrame(destRect, 0, 0);
-}
-
-void Pickable::update()
-{
-	updateRct();
-	game->checkCollisions(destRect, Collision::PLAYER);
-}
-
-void Pickable::updateRct()
-{
-	destRect.h = texture->getFrameHeight() * 2;
-	destRect.w = texture->getFrameWidth() * 2;
-	destRect.x = position.getX();
-	destRect.y = position.getY();
 }
 
 Collision Pickable::hit(const SDL_Rect& rect, Collision::Target t)

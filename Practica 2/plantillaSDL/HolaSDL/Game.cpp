@@ -93,7 +93,7 @@ void Game::init()
 	}
 
 	Point2D<int> pos = Point2D<int>(0, 0);
-	SceneObject* tilemap = new TileMap(this, tiles, pos);
+	SceneObject* tilemap = new TileMap(this, tiles, pos, getTexture(BACKGROUND));
 	gameList.push_back(tilemap);
 	tiles.close();
 
@@ -208,7 +208,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			lineStream >> pos;
 			pos = pos - Point2D<int>(0, 1);
 
-			Vector2D<double> speed;
+			Vector2D<int> speed;
 			double x = 0;
 			double y = 0;
 			lineStream >> y;

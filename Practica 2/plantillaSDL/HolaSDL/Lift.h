@@ -21,10 +21,9 @@ using namespace std;
 class Lift : public SceneObject
 {
 private:
-	Game* game = nullptr;		// puntero al juego
 
 public:
-	Lift(Game* g, Point2D<int> position, Texture* t, Vector2D<double> speed);
+	Lift(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s);
 
 	// -- render --
 	void render() const override;
@@ -32,7 +31,7 @@ public:
 	// -- update --
 	void update() override;
 
-	void updateRect();
+	void updateRect() override;
 
 	Point2D<int> getPos() const { return position; }
 

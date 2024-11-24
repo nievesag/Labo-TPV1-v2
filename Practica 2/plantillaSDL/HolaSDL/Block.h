@@ -22,19 +22,12 @@ class Block : public SceneObject
 {
 	// atributos privados
 private:
-	Texture* texture = nullptr;	// puntero a su textura
-	Game* game = nullptr;		// puntero al juego
-
-	//Point2D<double> position;	// posicion actual en Point2D
-
-	char tipoL;
 	int tipo;
 	enum Tipo // tipo de bloque
 	{
 		LADRILLO, SORPRESA, OCULTO, VACIO
 	};
 
-	char accionL;
 	int accion;
 	enum Accion // accion
 	{
@@ -59,7 +52,7 @@ private:
 	//SDL_Rect destRect;
 
 public:
-	Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accionL);
+	Block(Game* g, Point2D<int> p, Texture* t, char tipoL, char accionL);
 
 	// -- render --
 	void render() const override;
@@ -67,7 +60,7 @@ public:
 	// -- update --
 	void update() override;
 
-	void updateRect();
+	void updateRect() override;
 
 	// -- hit --
 	Collision hit(const SDL_Rect& rect, Collision::Target t) override;

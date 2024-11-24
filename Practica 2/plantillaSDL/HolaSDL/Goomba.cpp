@@ -1,11 +1,9 @@
 #include "Goomba.h"
 #include "Game.h"
 
-Goomba::Goomba(Game* g, Point2D<int> position, Texture* t)
-	: Enemy(g, position, texture), texture(t)
+Goomba::Goomba(Game* g, Point2D<int> p, Texture* t)
+	: Enemy(g, p, t)
 {
-	//in >> position;
-	//position = position - Point2D<double>(0, 1); // coloca bien al goomba
 	//direction = Vector2D<int>(0, 0);
 
 	//goombaFrame = 0;
@@ -16,6 +14,11 @@ Goomba::Goomba(Game* g, Point2D<int> position, Texture* t)
 
 
 void Goomba::update() {
+
+}
+
+void Goomba::updateRect()
+{
 
 }
 

@@ -21,16 +21,17 @@ using namespace std;
 class Goomba : public Enemy
 {
 private:
-	Texture* texture = nullptr;	// puntero a su textura
-	Game* game = nullptr;		// puntero al juego
+	
 
 public:
-	Goomba(Game* g, Point2D<int> position, Texture* t);
+	Goomba(Game* g, Point2D<int> p, Texture* t);
 
 	// -- update --
 	void update() override;
+	void updateRect() override;
 
 	virtual void collisionResult() override;
+
 };
 
 #endif

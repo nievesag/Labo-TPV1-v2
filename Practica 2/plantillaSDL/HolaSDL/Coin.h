@@ -19,20 +19,17 @@ using namespace std;
 
 class Coin : public Pickable
 {
-private:
-	Texture* texture = nullptr;	// puntero a su textura
-	Game* game = nullptr;		// puntero al juego
-
 	Point2D<int> new_position;	// posicion que tendria si avanza en Point2D
 	SDL_Rect new_rect;				// rect que tendria si avanza en Point2D
 
 	bool alive;
 
 public:
-	Coin(Game* g, Point2D<int> position, Texture* texture);
+	Coin(Game* g, Point2D<int> p, Texture* t);
 
 	// -- update --
 	void update() override;
+	void updateRect() override;
 
 	void killCoin() { alive = false; }
 

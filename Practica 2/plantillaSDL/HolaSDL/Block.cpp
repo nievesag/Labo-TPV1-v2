@@ -2,10 +2,10 @@
 #include "Game.h"
 
 Block::Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accionL)
-	: SceneObject(g, position, g->getTexture(Game::BLOCK)), texture(t)
+	: SceneObject(g, position, t)
 {
-	game = g;
 	blockFrame = 0;
+
 	// Asignamos el tipo de bloque basado en el carácter leído
 	switch (tipoL) {
 	case 'B':
@@ -37,16 +37,6 @@ Block::Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accion
 
 void Block::render() const
 {
-	SDL_Rect destRect;
-
-	// tamanios
-	destRect.w = texture->getFrameWidth() * 2;
-	destRect.h = texture->getFrameHeight() * 2;
-
-	// posicion
-	destRect.x = (position.getX() * TILE_SIDE) - game->getMapOffset();
-	destRect.y = (position.getY() * TILE_SIDE);
-
 	texture->renderFrame(destRect, 0, blockFrame);
 }
 
@@ -70,10 +60,13 @@ void Block::update()
 
 void Block::updateRect()
 {
-	destRect.h = texture->getFrameHeight() * 2;
+	// tamanios
 	destRect.w = texture->getFrameWidth() * 2;
-	destRect.x = position.getX() * TILE_SIDE;
-	destRect.y = position.getY() * TILE_SIDE;
+	destRect.h = texture->getFrameHeight() * 2;
+
+	// posicion
+	destRect.x = (position.getX() * TILE_SIDE) - game->getMapOffset();
+	destRect.y = (position.getY() * TILE_SIDE);
 }
 
 Collision Block::hit(const SDL_Rect& rect, Collision::Target t)
