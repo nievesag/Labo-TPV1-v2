@@ -26,6 +26,7 @@ class Coin : public Pickable
 
 public:
 	Coin(Game* g, Point2D<int> p, Texture* t);
+	Coin(const Coin&);
 
 	void render() override;
 

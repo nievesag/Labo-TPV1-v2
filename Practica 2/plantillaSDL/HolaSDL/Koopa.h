@@ -24,12 +24,16 @@ private:
 
 public:
 	Koopa(Game* g, Point2D<int> p, Texture* t);
+	Koopa(const Koopa&);
 
 	// -- update --
 	void update();
 
 	virtual void collisionResult() override;
 
+	SceneObject* clone() const override;
+
+	//void updateRect() override;
 };
 
 #endif

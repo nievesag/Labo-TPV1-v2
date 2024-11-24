@@ -24,6 +24,7 @@ private:
 
 public:
 	Lift(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s);
+	Lift(const Lift&);
 
 	// -- render --
 	void render() override;

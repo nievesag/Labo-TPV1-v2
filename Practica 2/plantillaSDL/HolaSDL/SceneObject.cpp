@@ -5,10 +5,26 @@ SceneObject::SceneObject(Game* g, Point2D<int> pos, Texture* t)
 	: GameObject(g), position(pos), texture(t), frame(0), frameTimer(0), 
 	destRect(), speed(0, 0)
 {
-
-
 	width = TILE_SIDE;
 	height = TILE_SIDE;
+
+	speed.setX(0);
+	speed.setY(0);
+	if (texture != nullptr) 
+	{
+		destRect.h = texture->getFrameHeight();
+		height = destRect.h;
+		destRect.w = texture->getFrameWidth();
+		width = destRect.w;
+		destRect.x = position.getX();
+		destRect.y = position.getY();
+	}
+	direction = Vector2D<int>(0, 0);
+	canMove = true;
+
+	// construir el anchor de la copia
+	// (indica que el objeto no esta incluido todavia en la lista de objetos del juego) :
+
 }
 
 SceneObject::SceneObject(Game* g, Point2D<int> pos, Texture* t, Vector2D<int> s)

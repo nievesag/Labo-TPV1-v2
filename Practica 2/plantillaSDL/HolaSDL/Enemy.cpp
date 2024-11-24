@@ -90,7 +90,7 @@ void Enemy::manageCollisions(Collision collision)
 
 SceneObject* Enemy::clone() const
 {
-	return nullptr;
+	return new Enemy(*this);
 }
 
 void Enemy::updateAnim()

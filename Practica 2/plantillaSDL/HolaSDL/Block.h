@@ -49,6 +49,7 @@ private:
 
 public:
 	Block(Game* g, Point2D<int> p, Texture* t, char tipoL, char accionL);
+	Block(const Block&);
 
 	// -- render --
 	void render() override;
@@ -83,6 +84,8 @@ public:
 	SceneObject* clone() const override;
 
 	void updateAnim() override;
+
+	//void updateRect() override;
 };
 
 #endif

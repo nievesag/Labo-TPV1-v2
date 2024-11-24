@@ -19,6 +19,11 @@ void Goomba::update() {
 
 
 
+SceneObject* Goomba::clone() const
+{
+	return new Goomba(*this);
+}
+
 void Goomba::render()
 {
 

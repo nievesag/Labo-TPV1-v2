@@ -26,6 +26,7 @@ private:
 
 public:
 	Pickable(Game* g, Point2D<int> p, Texture* t);
+	Pickable(const Pickable&);
 
 	virtual void render() override;
 	virtual void update();
@@ -35,6 +36,10 @@ public:
 	bool isPicked() { return picked; }
 
 	void manageCollisions(Collision collision) override;
+
+	//SceneObject* clone() const override;
+
+	void updateAnim() override;
 
 protected:
 	virtual void triggerAction() = 0;

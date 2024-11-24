@@ -25,11 +25,14 @@ private:
 
 public:
 	Goomba(Game* g, Point2D<int> p, Texture* t);
+	Goomba(const Goomba&);
 
 	// -- update --
 	void update() override;
 
 	void render() override;
+
+	SceneObject* clone() const override;
 
 	virtual void collisionResult() override;
 

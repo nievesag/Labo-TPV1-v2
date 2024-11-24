@@ -23,6 +23,7 @@ private:
 public:
 	//TileMap();
 	TileMap(Game* g, std::istream& in, Point2D<int> p, Texture* t);
+	TileMap(const TileMap&);
 	~TileMap();
 
 	void render() override;
@@ -36,4 +37,6 @@ public:
 	SceneObject* clone() const override;
 
 	void updateAnim() override {};
+
+	//void updateRect() override;
 };

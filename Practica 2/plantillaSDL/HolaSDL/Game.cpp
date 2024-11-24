@@ -170,7 +170,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			lineStream >> lives;
 			player = new Player(this, pos, getTexture(MARIO), lives);
 
-			gameList.push_back(player);
+			objectQueue.push_back(player);
 		}
 		else if(tipoL == 'G')
 		{
@@ -178,7 +178,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			pos = pos - Point2D<int>(0, 1);
 
 			SceneObject* goomba = new Enemy(this, pos, getTexture(GOOMBA));
-			gameList.push_back(goomba);
+			objectQueue.push_back(goomba);
 		}
 		else if (tipoL == 'B')
 		{
@@ -193,7 +193,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 
 			SceneObject* block = new Block(this, pos, getTexture(BLOCK), tipoL, accionL);
 
-			gameList.push_back(block);
+			objectQueue.push_back(block);
 		}
 		else if(tipoL == 'K')
 		{
@@ -201,7 +201,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			pos = pos - Point2D<int>(0, 1);
 
 			SceneObject* koopa = new Enemy(this, pos, getTexture(KOOPA));
-			gameList.push_back(koopa);
+			objectQueue.push_back(koopa);
 		}
 		else if (tipoL == 'L')
 		{
@@ -215,7 +215,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			speed.setY(y);
 
 			SceneObject* lift = new Lift(this, pos, getTexture(LIFT), speed);
-			gameList.push_back(lift);
+			objectQueue.push_back(lift);
 		}
 		else if (tipoL == 'C')
 		{
@@ -223,7 +223,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			pos = pos - Point2D<int>(0, 1);
 
 			Pickable* coin = new Coin(this, pos, getTexture(COIN));
-			gameList.push_back(coin);
+			objectQueue.push_back(coin);
 		}
 		else if (tipoL == 'P')
 		{
@@ -285,54 +285,6 @@ void Game::updateEntities()
 			gameList.erase();
 		}
 	}
-
-	// GOOMBAS
-	for (int i = 0; i < goombaVec.size(); i++) 
-	{
-		if (!goombaVec[i]->getAlive())
-		{
-			delete goombaVec[i];
-
-			// lo quita del vector
-			goombaVec.erase(goombaVec.begin() + i);
-		}
-	}
-
-	// BLOQUES
-	for (int i = 0; i < blockVec.size(); i++)
-	{
-		if (!blockVec[i]->getAlive() && (blockVec[i]->getTipo() == 0))
-		{
-			delete blockVec[i];
-
-			// lo quita del vector
-			blockVec.erase(blockVec.begin() + i);
-		}
-	}
-
-	// SETAS
-	for (int i = 0; i < setaVec.size(); i++)
-	{
-		if (!setaVec[i]->getAlive())
-		{
-			delete setaVec[i];
-
-			// lo quita del vector
-			setaVec.erase(setaVec.begin() + i);
-		}
-	}
-
-	// KOOPAS
-	for (int i = 0; i < koopaVec.size(); i++)
-	{
-		if (!koopaVec[i]->getAlive())
-		{
-			delete koopaVec[i];
-
-			// lo quita del vector
-			koopaVec.erase(koopaVec.begin() + i);
-		}
-	}
 	*/
 }
 
@@ -353,6 +305,15 @@ void Game::render()
 	SDL_RenderPresent(renderer);
 }
 
+void Game::addVisibleEntities()
+{
+	// Borde derecho del mapa (+ una casilla)
+	const int rightThreshold = mapOffset + WINDOW_WIDTH + TILE_SIDE;
+
+	while (nextObject < objectQueue.size() && objectQueue[nextObject]->getPosition().getX() < rightThreshold)
+		addObject(objectQueue[nextObject++]->clone());
+}
+
 // MANEJAR EVENTOS
 void Game::handleEvents()
 {
@@ -369,6 +330,11 @@ void Game::handleEvents()
 		// MANEJO DE EVENTOS DE OBJETOS DE JUEGO
 		else { player->handleEvents(event); }
 	}
+}
+
+void Game::addObject(SceneObject* o)
+{
+	gameList.push_back(o);
 }
 
 // MANEJO DE COLISONES

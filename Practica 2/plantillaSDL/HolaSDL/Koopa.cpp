@@ -15,3 +15,8 @@ void Koopa::update()
 void Koopa::collisionResult()
 {
 }
+
+SceneObject* Koopa::clone() const
+{
+	return new Koopa(*this);
+}

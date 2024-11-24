@@ -211,7 +211,7 @@ void Player::manageCollisions(Collision collision)
 
 SceneObject* Player::clone() const
 {
-	return nullptr;
+	return new Player(*this);
 }
 
 void Player::updateAnim()

@@ -48,3 +48,15 @@ void Mushroom::moveSeta()
 	//}
 }
 
+void Mushroom::triggerAction()
+{
+}
+
+void Mushroom::updateAnim()
+{
+}
+
+SceneObject* Mushroom::clone() const
+{
+	return new Mushroom(*this);
+}
