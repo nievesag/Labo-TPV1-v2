@@ -59,8 +59,6 @@ public:
 	SceneObject* clone() const override;
 	virtual void updateAnim() override;
 
-protected:
-	virtual void moveEnemy(); 
 };
 
 #endif

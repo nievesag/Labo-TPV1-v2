@@ -10,8 +10,8 @@ Player::Player(Game* game, Vector2D<int> pos)
 
 	lives = 3;
 	canMove = true;
-	marioSpeed = 6;
-	onGround = false;
+	velX = 6;
+	grounded = false;
 	jumping = false;
 
 	walkFrame = 0;
@@ -33,18 +33,20 @@ void Player::update()
 		speed = speed + Vector2D<int>(0, GRAVITY);
 		//speed += {0, GRAVITY};
 
-	if (canMove)	c = tryToMove(speed, Collision::ENEMIES);
-	else if (!canMove && speed.getY() != 0) c = tryToMove({ 0, speed.getY() }, Collision::ENEMIES);
+	if (canMove)
+		c = tryToMove(speed, Collision::ENEMIES);
+	else if(!canMove && speed.getY() != 0) 
+		c = tryToMove({ 0, speed.getY() }, Collision::ENEMIES);
 
 	if (c.vertical)
 	{
 		if (speed.getY() > 0)
 		{
-			onGround = true;
+			grounded = true;
 			jumping = false;
 		}
 
-		speed.setY(0); // importante !!! @ marcos 
+		speed.setY(0); 
 	}
 
 	if (speed.getX() > 0)
@@ -86,7 +88,7 @@ void Player::resetPlayer()
 
 void Player::updateAnim()
 {
-	if (speed.getX() != 0 && onGround)
+	if (speed.getX() != 0 && grounded)
 	{
 		frameTimer++;
 		if (frameTimer >= 1)
@@ -111,7 +113,7 @@ void Player::updateAnim()
 			}
 		}
 	}
-	else if (!onGround) {
+	else if (!grounded) {
 		frame = 6; // Frame cuando está en el aire
 	}
 	else {
@@ -121,9 +123,9 @@ void Player::updateAnim()
 
 void Player::jump()
 {
-	if (!jumping && onGround)
+	if (!jumping && grounded)
 	{
-		onGround = false;
+		grounded = false;
 		jumping = true;
 
 		speed.setY(-30);
@@ -134,39 +136,75 @@ void Player::isSupermario()
 {
 }
 
-void Player::handleEvent(SDL_Event e)
+void Player::handleEvent(SDL_Event event)
 {
-	if (e.type == SDL_KEYDOWN)
+	// escanea y evalua que tecla has tocado
+	SDL_Scancode key = event.key.keysym.scancode;
+
+	// pulsar
+	if (event.type == SDL_KEYDOWN)
 	{
-		switch (e.key.keysym.sym) {
-		case SDLK_RIGHT:
-			speed.setX(marioSpeed);
-			break;
-
-		case SDLK_LEFT:
-			speed.setX(-marioSpeed);
-			break;
-
-		case SDLK_SPACE:
-			jump();
-			break;
-		case SDLK_r:
-			resetPlayer();
-			break;
+		// IZQ
+		if (key == SDL_SCANCODE_A)
+		{
+			speed.setX(-velX);
+			keyA = true;
 		}
+		// DER
+		else if (key == SDL_SCANCODE_D)
+		{
+			speed.setX(velX);
+			keyD = true;
+		}
+		// ABJ
+		else if (key == SDL_SCANCODE_S) keyS = true;
+
+		// SALTAR
+		else if (key == SDL_SCANCODE_SPACE)
+		{
+
+			keySpace = true;
+			if (!jumping && grounded)
+			{
+				grounded = false;
+				jumping = true;
+
+				speed.setY(-30);
+			}
+		}
+		// SALIR
+		else if (key == SDL_SCANCODE_E) keyE = true;
+
+		// OFFSET
+		else if (key == SDL_SCANCODE_RIGHT) keyDer = true;
 	}
-	else if (e.type == SDL_KEYUP) // soltar teclas
+
+	// despulsar
+	else if (event.type == SDL_KEYUP)
 	{
-		switch (e.key.keysym.sym) {
-		case SDLK_RIGHT:
+		// IZQ
+		if (key == SDL_SCANCODE_A)
+		{
 			speed.setX(0);
-			break;
-
-		case SDLK_LEFT:
-			speed.setX(0);
-			break;
-
+			keyA = false;
 		}
+		// DER
+		else if (key == SDL_SCANCODE_D)
+		{
+			speed.setX(0);
+			keyD = false;
+		}
+		// ABJ
+		else if (key == SDL_SCANCODE_S) keyS = false;
+
+		// SALTAR
+		else if (key == SDL_SCANCODE_SPACE) keySpace = false;
+
+		// SALIR
+		else if (key == SDL_SCANCODE_E) keyE = false;
+
+		// OFFSET
+		else if (key == SDL_SCANCODE_RIGHT) keyDer = false;
 	}
 }
 

@@ -46,7 +46,7 @@ static constexpr double
 					TIME_BT_FRAMES = 1 / FRAMERATE,		// tiempo entre frames
 					MARIO_SPEED = 0.0009,	// velocidad de mario
 					ENEMY_SPEED = 0.0003,	// velocidad de goombas
-					SPEED_LIMIT = 0.0009,
+					SPEED_LIMIT = 10,
 					MOVE_PERIOD = 5;
 					
 					

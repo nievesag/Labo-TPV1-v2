@@ -22,7 +22,7 @@ public:
 	void setLives(int n) { lives = n; }
 
 	void isSupermario();
-	void handleEvent(SDL_Event e);
+	void handleEvent(SDL_Event event);
 
 	virtual void manageCollisions(Collision c) override;
 
@@ -31,10 +31,15 @@ private:
 	int lives;
 	bool immune;
 
-	int marioSpeed;
-	bool onGround, jumping;
+	int velX;
+	bool grounded, jumping;
 
 	int walkFrame;
+
+	// INPUT
+	// flags para control de input
+	bool keyA = false, keyD = false, keyS = false, keySpace = false, keyE = false, keyDer = false;
+
 
 };
 

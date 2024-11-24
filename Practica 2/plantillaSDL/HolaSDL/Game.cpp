@@ -175,6 +175,9 @@ void Game::loadObjectMap(std::ifstream& mapa)
 		else if(tipoL == 'G')
 		{
 			lineStream >> pos;
+
+			pos.setX(pos.getX() * TILE_SIDE);
+			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
 			pos = pos - Point2D<int>(0, 1);
 
 			SceneObject* goomba = new Enemy(this, pos, getTexture(GOOMBA));
@@ -186,6 +189,8 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			char accionL;
 
 			lineStream >> pos;
+			pos.setX(pos.getX() * TILE_SIDE);
+			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
 			pos = pos - Point2D<int>(0, 1);
 
 			lineStream >> tipoL;
@@ -198,6 +203,8 @@ void Game::loadObjectMap(std::ifstream& mapa)
 		else if(tipoL == 'K')
 		{
 			lineStream >> pos;
+			pos.setX(pos.getX() * TILE_SIDE);
+			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
 			pos = pos - Point2D<int>(0, 1);
 
 			SceneObject* koopa = new Enemy(this, pos, getTexture(KOOPA));
@@ -206,6 +213,8 @@ void Game::loadObjectMap(std::ifstream& mapa)
 		else if (tipoL == 'L')
 		{
 			lineStream >> pos;
+			pos.setX(pos.getX() * TILE_SIDE);
+			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
 			pos = pos - Point2D<int>(0, 1);
 
 			Vector2D<int> speed;
@@ -220,6 +229,8 @@ void Game::loadObjectMap(std::ifstream& mapa)
 		else if (tipoL == 'C')
 		{
 			lineStream >> pos;
+			pos.setX(pos.getX() * TILE_SIDE);
+			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
 			pos = pos - Point2D<int>(0, 1);
 
 			Pickable* coin = new Coin(this, pos, getTexture(COIN));
