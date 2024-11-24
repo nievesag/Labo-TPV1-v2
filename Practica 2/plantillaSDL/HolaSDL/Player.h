@@ -74,7 +74,7 @@ private:
 	double velX = 6;
 	double gravity = 0.0015;
 	double margen = -0.00001;
-	double deadH = 14*32;
+	double deadH = 14;
 	int mapTiles = 220; //Numero de tiles de ancho del mapa
 
 	bool limitX = true;
