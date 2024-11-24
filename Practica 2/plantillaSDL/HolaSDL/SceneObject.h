@@ -21,6 +21,8 @@ protected:
 	//double speed;	
 
 	Texture* texture;
+	int frame;
+	SDL_RendererFlip flip;
 	//Game* game = nullptr;
 
 	// rectangulo del render
@@ -41,7 +43,7 @@ public:
 	// colisiones
 	virtual Collision hit(const SDL_Rect& rect, Collision::Target t) = 0;
 	virtual void manageCollisions(Collision collision) = 0;
-	virtual void render() const override = 0;
+	virtual void render() override;
 
 	void setListAnchor(GameList<SceneObject>::anchor&& anchor)
 	{

@@ -52,8 +52,8 @@ private:
 
 	bool alive;
 
-	int blockFrame;
-	int animationFrame = 0;   // Contador para el ciclo de caminar
+	int frame;
+	
 	int frameTimer = 0;
 
 	//SDL_Rect destRect;
@@ -62,7 +62,7 @@ public:
 	Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accionL);
 
 	// -- render --
-	void render() const override;
+	void render() override;
 
 	// -- update --
 	void update() override;

@@ -90,6 +90,19 @@ Collision SceneObject::tryToMove(Vector2D<int>& v, Collision::Target target)
 	return collision;
 }
 
+
+void SceneObject::render()
+{
+	destRect.x = position.getX() - game->getMapOffset();
+	destRect.y = position.getY();
+	destRect.w = texture->getFrameWidth();
+	destRect.h = texture->getFrameHeight();
+
+	texture->renderFrame(destRect, 0, frame, 0, nullptr, flip);
+
+	
+}
+
 SDL_Rect SceneObject::getCollisionRect() const
 {
 	

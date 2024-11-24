@@ -7,7 +7,7 @@ Pickable::Pickable(Game* g, Point2D<int> position, Texture* texture)
 	//position = pos;
 }
 
-void Pickable::render() const
+void Pickable::render()
 {
 	SDL_Rect destRect;
 

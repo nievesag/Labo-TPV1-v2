@@ -8,7 +8,7 @@ Lift::Lift(Game* g, Point2D<int> position, Texture* t, Vector2D<double> speed)
 	direction = Vector2D<int>(0, 1);
 }
 
-void Lift::render() const
+void Lift::render()
 {
 	SDL_Rect destRect;
 

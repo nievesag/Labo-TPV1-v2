@@ -36,7 +36,7 @@ private:
 
 	bool grounded;
 
-	int animationFrame = 0;   // Contador para el ciclo de caminar
+	int frame = 0;   // Contador para el ciclo de caminar
 	int frameTimer = 0;
 
 	int moveDelay = 5;
@@ -47,7 +47,7 @@ public:
 	Enemy(Game* g, Point2D<int> position, Texture* t);
 
 	// -- render --
-	virtual void render() const override;
+	virtual void render() override;
 
 	// -- update --
 	virtual void update();

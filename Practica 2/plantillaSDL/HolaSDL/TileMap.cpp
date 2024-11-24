@@ -42,7 +42,7 @@ void TileMap::load(std::istream& file)
 	archivo.close();
 }
 
-void TileMap::render() const
+void TileMap::render()
 {
 	// Primera columna de la matriz del mapa visible en la ventana
 	int x0 = game->getMapOffset() / TILE_SIDE;

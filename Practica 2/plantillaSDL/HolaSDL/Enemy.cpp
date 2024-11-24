@@ -9,7 +9,7 @@ Enemy::Enemy(Game* g, Point2D<int> position, Texture* t)
 	//position = pos;
 }
 
-void Enemy::render() const {
+void Enemy::render()  {
 
     SDL_Rect destRect;
     destRect.w = texture->getFrameWidth() * 2;
@@ -17,7 +17,7 @@ void Enemy::render() const {
     destRect.x = (position.getX() * TILE_SIDE) - game->getMapOffset();
     destRect.y = position.getY() * TILE_SIDE;
 
-    texture->renderFrame(destRect, 0, animationFrame);
+    texture->renderFrame(destRect, 0, frame);
 }
 
 void Enemy::update() 
@@ -156,6 +156,6 @@ void Enemy::animate()
     frameTimer++;
     if (frameTimer >= 1200) {
         frameTimer = 0;
-        animationFrame = (animationFrame + 1) % 2;
+        frame = (frame + 1) % 2;
     }
 }

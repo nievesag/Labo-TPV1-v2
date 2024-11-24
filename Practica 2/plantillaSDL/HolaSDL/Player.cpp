@@ -20,16 +20,19 @@ Player::Player(Game* g, Point2D<int> p, Texture* t, int l)
 	canMove = true;
 }
 
-void Player::render() const
+void Player::render()
 {
 	// Usa el flip segun la direccion
-	SDL_RendererFlip flip = flipSprite ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+	/*SDL_RendererFlip flip = flipSprite ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
 
 	if (marioState != SUPERMARIO)
 	{
 		textureM->renderFrame(destRect, 0, marioFrame, 0.0, nullptr, flip);
 	}
-	else  textureS->renderFrame(destRect, 0, marioFrame, 0.0, nullptr, flip);
+	else  textureS->renderFrame(destRect, 0, marioFrame, 0.0, nullptr, flip);*/
+
+	SceneObject::render();
+	updateTexture();
 }
 
 void Player::update()
@@ -86,7 +89,7 @@ void Player::update()
 
 	manageInvencible();
 
-	updateTexture();
+	
 	updateRect();
 	//updateOffset();
 	updateAnims();
@@ -148,10 +151,13 @@ void Player::handleEvents(const SDL_Event& event)
 		{
 
 			keySpace = true;
-			grounded = false;
-			jumping = true;
+			if (!jumping && grounded)
+			{
+				grounded = false;
+				jumping = true;
 
-			speed.setY(-30);
+				speed.setY(-30);
+			}
 		}
 		// SALIR
 		else if (key == SDL_SCANCODE_E) keyE = true;
@@ -227,12 +233,12 @@ void Player::updateAnims()
 		if (frameTimer >= 120) // Velocidad del ciclo
 		{  
 			frameTimer = 0;
-			animationFrame = (animationFrame + 1) % 4;  // Ciclo 0,1,2,3, y luego se reinicie 
+			frame = (frame + 1) % 4;  // Ciclo 0,1,2,3, y luego se reinicie 
 
 			// Ciclo de caminar 2 -> 3 -> 4 -> 3
-			if (animationFrame == 0 || animationFrame == 3) marioFrame = 2;
-			else if (animationFrame == 1) marioFrame = 3;
-			else if (animationFrame == 2) marioFrame = 4;
+			if (frame == 0 || frame == 3) marioFrame = 2;
+			else if (frame == 1) marioFrame = 3;
+			else if (frame == 2) marioFrame = 4;
 		}
 	}
 	else 

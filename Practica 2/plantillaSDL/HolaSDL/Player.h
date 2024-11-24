@@ -54,15 +54,15 @@ private:
 	bool isFalling = false;
 	bool canJump = false;
 	bool jumping;
-	int animationFrame = 0;   // Contador para el ciclo de caminar
+	int frame = 0;   // Contador para el ciclo de caminar
 	int frameTimer = 0;
 	bool flipSprite = false;
 	bool moving = false;
 
 	//Colisiones
-	SDL_Rect new_rect = SDL_Rect();				// rect que tendria si avanza en Point2D
-	SDL_Rect collider;
-	Collision c;
+	//SDL_Rect new_rect = SDL_Rect();				// rect que tendria si avanza en Point2D
+	//SDL_Rect collider;
+	//Collision c;
 
 	// invencibilidad
 	int invCounter = 0;
@@ -85,7 +85,7 @@ public:
 	Player(Game* g, Point2D<int> p, Texture* t, int l); // no se si pasarle la textura
 
 	// -- render --
-	void render() const override;
+	void render() override;
 
 	// -- update --
 	// movimiento:

@@ -140,7 +140,7 @@ public:
 
 	// ---- render ----
 	// renderiza la pantalla
-	void render() const;
+	void render();
 
 	// ---- update ----
 	// actualiza el estado de juego

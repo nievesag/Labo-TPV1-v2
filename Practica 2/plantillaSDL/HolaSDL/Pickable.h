@@ -34,7 +34,7 @@ public:
 
 	Pickable(Game* g, Point2D<int> position, Texture* texture);
 
-	virtual void render() const override;
+	virtual void render() override;
 	virtual void update();
 	virtual void updateRct();
 

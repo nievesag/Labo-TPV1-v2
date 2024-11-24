@@ -5,20 +5,20 @@ Block::Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accion
 	: SceneObject(g, position, g->getTexture(Game::BLOCK)), texture(t)
 {
 	game = g;
-	blockFrame = 0;
+	frame = 0;
 	// Asignamos el tipo de bloque basado en el carácter leído
 	switch (tipoL) {
 	case 'B':
 		tipo = LADRILLO;
-		blockFrame = 5;
+		frame = 5;
 		break;
 	case '?':
 		tipo = SORPRESA;
-		blockFrame = 0;  // Comienza la animación del bloque sorpresa desde el primer frame
+		frame = 0;  // Comienza la animación del bloque sorpresa desde el primer frame
 		break;
 	case 'H':
 		tipo = OCULTO;
-		blockFrame = 4;
+		frame = 4;
 		break;
 	}
 
@@ -35,7 +35,7 @@ Block::Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accion
 	alive = true;
 }
 
-void Block::render() const
+void Block::render() 
 {
 	SDL_Rect destRect;
 
@@ -47,7 +47,7 @@ void Block::render() const
 	destRect.x = (position.getX() * TILE_SIDE) - game->getMapOffset();
 	destRect.y = (position.getY() * TILE_SIDE);
 
-	texture->renderFrame(destRect, 0, blockFrame);
+	texture->renderFrame(destRect, 0, frame);
 }
 
 void Block::update()
@@ -56,12 +56,12 @@ void Block::update()
 		frameTimer++;
 		if (frameTimer >= 3050) {  // Velocidad del ciclo
 			frameTimer = 0;
-			animationFrame = (animationFrame + 1) % 3;  // Ciclo 0,1,2,3, y luego se reinicie 
+			frame = (frame + 1) % 3;  // Ciclo 0,1,2,3, y luego se reinicie 
 
 			// Ciclo de caminar 2 -> 3 -> 4 -> 3
-			if (animationFrame == 0 ) blockFrame = 1;
-			else if (animationFrame == 1) blockFrame = 2;
-			else if (animationFrame == 2) blockFrame = 0;
+			if (frame == 0 ) frame = 1;
+			else if (frame == 1) frame = 2;
+			else if (frame == 2) frame = 0;
 		}
 	}
 
@@ -165,7 +165,7 @@ Collision Block::hit(const SDL_Rect& rect, Collision::Target t)
 void Block::manageSorpresa()
 {
 	setTipo(3);
-	blockFrame = 4;
+	frame = 4;
 }
 
 void Block::manageCollisions(Collision collision)

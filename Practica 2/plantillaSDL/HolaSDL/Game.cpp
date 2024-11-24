@@ -337,7 +337,7 @@ void Game::updateEntities()
 }
 
 // PINTAR
-void Game::render() const
+void Game::render() 
 {
 	// limpia pantalla
 	SDL_RenderClear(renderer);
