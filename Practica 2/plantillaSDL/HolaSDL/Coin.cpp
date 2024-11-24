@@ -13,14 +13,17 @@ Coin::Coin(Game* g, Point2D<int> p, Texture* t)
 	alive = true;
 }
 
+void Coin::render()
+{
+	Pickable::render();
+	updateAnim();
+}
+
 void Coin::update()
 {
 }
 
-void Coin::updateRect()
-{
 
-}
 
 void Coin::triggerAction()
 {
@@ -30,4 +33,27 @@ void Coin::triggerAction()
 SceneObject* Coin::clone() const
 {
 	return nullptr;
+}
+
+void Coin::updateAnim()
+{
+	frameTimer++;
+	if (frameTimer >= 5)
+	{
+		frameTimer = 0;
+		coinFrame = (coinFrame + 1) % 4;
+
+		if (coinFrame == 0) {
+			_frame = 0;
+		}
+		else if (coinFrame == 1) {
+			_frame = 1;
+		}
+		else if (coinFrame == 2) {
+			_frame = 2;
+		}
+		else if (coinFrame == 3) {
+			_frame = 3;
+		}
+	}
 }

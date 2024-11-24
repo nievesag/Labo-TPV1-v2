@@ -22,29 +22,19 @@ using namespace std;
 class Enemy : public SceneObject
 {
 private:
-	// MOVIMIENTO
-	int enemyFrame;
 
 	bool frozen; // para llevar control de objetos inactivos
 	bool alive;
 
 	bool grounded;
-
-	int frame = 0;   // Contador para el ciclo de caminar
-	int frameTimer = 0;
-
 	int moveDelay = 5;
 
 public:
 	Enemy(Game* g, Point2D<int> p, Texture* t);
 
-	// -- render --
-	virtual void render() override;
 
 	// -- update --
-	virtual void update();
-
-	void updateRect() override;
+	virtual void update() override;
 
 	// -- hit --
 	// controla las colisiones
@@ -67,10 +57,10 @@ public:
 	virtual void manageCollisions(Collision collision) override;
 
 	SceneObject* clone() const override;
+	virtual void updateAnim() override;
 
 protected:
 	virtual void moveEnemy(); 
-	virtual void animate();
 };
 
 #endif

@@ -35,10 +35,10 @@ Block::Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accion
 	alive = true;
 }
 
-void Block::render() 
+void Block::render()
 {
-	texture->renderFrame(destRect, 0, blockFrame);
 }
+
 
 void Block::update()
 {
@@ -54,20 +54,9 @@ void Block::update()
 			else if (frame == 2) frame = 0;
 		}
 	}
-
-	updateRect();
 }
 
-void Block::updateRect()
-{
-	// tamanios
-	destRect.w = texture->getFrameWidth() * 2;
-	destRect.h = texture->getFrameHeight() * 2;
 
-	// posicion
-	destRect.x = (position.getX() * TILE_SIDE) - game->getMapOffset();
-	destRect.y = (position.getY() * TILE_SIDE);
-}
 
 Collision Block::hit(const SDL_Rect& rect, Collision::Target t)
 {

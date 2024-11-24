@@ -28,54 +28,32 @@ private:
 
 	int maxLives = 3;
 	int lives;					// numero de vidas restantes, 3 al inicio
-
 	bool alive = true;
-
-	bool grounded;		// si esta en el suelo, solo puede saltar cuando lo este
-	double groundedYPos;	// posicion en el suelo
-	double maxHeight;
+	
 	
 	int marioState;
 	enum State {
 		MARIO, SUPERMARIO
 	};
 
-	// ANIMACION
-	int marioFrame;
-
 	// INPUT
 	// flags para control de input
 	bool keyA = false, keyD = false, keyS = false, keySpace = false, keyE = false, keyDer = false;
 
-	bool isFalling = false;
-	bool canJump = false;
+	bool grounded;		// si esta en el suelo, solo puede saltar cuando lo este
 	bool jumping;
-	int frame = 0;   // Contador para el ciclo de caminar
-	int frameTimer = 0;
-	bool flipSprite = false;
-	bool moving = false;
 
-	//Colisiones
-	//SDL_Rect new_rect = SDL_Rect();				// rect que tendria si avanza en Point2D
-	//SDL_Rect collider;
-	//Collision c;
+	bool flipSprite = false;
 
 	// invencibilidad
 	int invCounter = 0;
 	int maxInvCounter = 5;
 	bool invencible = false;
 
-	double velY = 1;
-	double velX = 6;
-	double gravity = 0.0015;
-	double margen = -0.00001;
 	double deadH = 14*32;
-	int mapTiles = 220; //Numero de tiles de ancho del mapa
-
-	bool limitX = true;
-	bool limitY = true;
-
 	int bgSpeed = 1;
+	int marioFrame;
+	int velX;
 
 public:
 	Player(Game* g, Point2D<int> p, Texture* t, int l); // no se si pasarle la textura

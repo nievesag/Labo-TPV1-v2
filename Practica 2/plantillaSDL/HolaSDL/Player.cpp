@@ -13,11 +13,9 @@ Player::Player(Game* g, Point2D<int> p, Texture* t, int l)
 
 	marioState = MARIO;
 	grounded = true;
-	//speed = Vector2D<double>(velX, velY);
-
-	groundedYPos = position.getY();
-
-	canMove = true;
+	flip = SDL_FLIP_NONE;
+	velX = 6;
+	flipSprite = true;
 }
 
 void Player::render()
@@ -61,7 +59,7 @@ void Player::update()
 
 	if (speed.getX() > 0)
 	{
-		flipSprite = false;
+		flip = SDL_FLIP_NONE;
 
 		// Limites
 		if (position.getX() - game->getMapOffset() >= game->getWinWidth() / 2)
@@ -75,14 +73,11 @@ void Player::update()
 	}
 	else if (speed.getX() < 0)
 	{
-		flipSprite = true;
+		flip = SDL_FLIP_HORIZONTAL;
 
 		if (position.getX() - game->getMapOffset() < TILE_SIDE) canMove = false;
 	}
 
-
-	limitX = true;
-	limitY = true;
 	//moveMario(limitX, limitY);
 
 	//manageCollisions(tryToMove(getNextMoveVector(), Collision::ENEMIES));
@@ -90,7 +85,7 @@ void Player::update()
 	manageInvencible();
 
 	
-	updateRect();
+	//updateRect();
 	//updateOffset();
 	updateAnims();
 
@@ -130,7 +125,6 @@ void Player::handleEvents(const SDL_Event& event)
 	// pulsar
 	if (event.type == SDL_KEYDOWN) 
 	{
-		moving = true;
 		// IZQ
 		if (key == SDL_SCANCODE_A) 
 		{
@@ -169,7 +163,6 @@ void Player::handleEvents(const SDL_Event& event)
 	// despulsar
 	else if (event.type == SDL_KEYUP) 
 	{
-		moving = false;
 		// IZQ
 		if (key == SDL_SCANCODE_A)
 		{
@@ -225,7 +218,7 @@ void Player::updateAnims()
 	if (!grounded) 
 	{
 		// Frame del salto
-		marioFrame = 6;
+		frame = 6;
 	}
 	else if (keyA != keyD) 
 	{
@@ -233,18 +226,18 @@ void Player::updateAnims()
 		if (frameTimer >= 120) // Velocidad del ciclo
 		{  
 			frameTimer = 0;
-			frame = (frame + 1) % 4;  // Ciclo 0,1,2,3, y luego se reinicie 
+			marioFrame = (marioFrame + 1) % 4;  // Ciclo 0,1,2,3, y luego se reinicie 
 
 			// Ciclo de caminar 2 -> 3 -> 4 -> 3
-			if (frame == 0 || frame == 3) marioFrame = 2;
-			else if (frame == 1) marioFrame = 3;
-			else if (frame == 2) marioFrame = 4;
+			if (marioFrame == 0 || frame == 3) frame = 2;
+			else if (marioFrame == 1) frame = 3;
+			else if (marioFrame == 2) frame = 4;
 		}
 	}
 	else 
 	{
 		// Cuando esta quieto
-		marioFrame = 0;
+		frame = 0;
 	}
 }
 
@@ -322,7 +315,7 @@ Vector2D<double> Player::getNextMoveVector()
 
 void Player::moveMario(bool moveX, bool moveY)
 {
-	#pragma region DIRECCIONES
+	/*#pragma region DIRECCIONES
 	if (keyA == keyD) 
 	{
 		direction = Vector2D<int>(0, 0);
@@ -351,11 +344,11 @@ void Player::moveMario(bool moveX, bool moveY)
 	else  direction.setY(0);
 	#pragma endregion
 
-	// Movimiento horizontal
+	 Movimiento horizontal
 	if (moveX && direction.getX() != 0 && (keyA || keyD))
 	{
 		
-		//cout << "siisi" << endl;
+		cout << "siisi" << endl;
 		speed.setX(velX);
 		double auxVelX = speed.getX();
 		position.setX(position.getX() + (direction.getX() * auxVelX));
@@ -368,7 +361,7 @@ void Player::moveMario(bool moveX, bool moveY)
 	if (position.getX() * TILE_SIDE + (TILE_SIDE * WINDOW_WIDTH) >= mapTiles * TILE_SIDE && direction.getX() == 1)
 		position.setX(margen + (mapTiles * TILE_SIDE - (TILE_SIDE * WINDOW_WIDTH)) / TILE_SIDE);
 
-	// Movimiento vertical
+	 Movimiento vertical
 	if (position.getY() > maxHeight && keySpace && !isFalling && (moveY || direction.getY() == -1))
 	{
 		speed.setY(velY);
@@ -379,6 +372,6 @@ void Player::moveMario(bool moveX, bool moveY)
 	{
 		isFalling = true;
 		position.setY(position.getY() + gravity);
-	}
+	}*/
 
 }

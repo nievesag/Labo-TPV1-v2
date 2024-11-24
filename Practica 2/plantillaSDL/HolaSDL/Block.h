@@ -45,10 +45,6 @@ private:
 
 	bool alive;
 
-	int frame;
-	
-	int frameTimer = 0;
-
 	//SDL_Rect destRect;
 
 public:
@@ -59,8 +55,6 @@ public:
 
 	// -- update --
 	void update() override;
-
-	void updateRect() override;
 
 	// -- hit --
 	Collision hit(const SDL_Rect& rect, Collision::Target t) override;

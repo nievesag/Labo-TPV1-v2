@@ -22,7 +22,11 @@ protected:
 	Texture* texture;
 	int frame;
 	SDL_RendererFlip flip;
+	int frameTimer;
+	bool flipSprite;
 	//Game* game = nullptr;
+
+	Collision c;
 
 	// rectangulo del render
 	SDL_Rect destRect;
@@ -43,6 +47,8 @@ public:
 	virtual Collision hit(const SDL_Rect& rect, Collision::Target t) = 0;
 	virtual void manageCollisions(Collision collision) = 0;
 	virtual void render() override;
+
+	virtual void updateAnim() = 0;
 
 	void setListAnchor(GameList<SceneObject>::anchor&& anchor)
 	{

@@ -30,8 +30,11 @@ public:
 	void update() override;
 	void updateRect() override;
 
+	void render() override;
+
 	virtual void collisionResult() override;
 
+	virtual void updateAnim() override;
 };
 
 #endif

@@ -27,9 +27,10 @@ class Coin : public Pickable
 public:
 	Coin(Game* g, Point2D<int> p, Texture* t);
 
+	void render() override;
+
 	// -- update --
 	void update() override;
-	void updateRect() override;
 
 	void killCoin() { alive = false; }
 
@@ -40,6 +41,10 @@ public:
 	void triggerAction() override;
 
 	SceneObject* clone() const override;
+
+	void updateAnim() override;
+private:
+	int coinFrame;
 };
 
 #endif

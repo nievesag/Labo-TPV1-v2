@@ -7,10 +7,6 @@ Enemy::Enemy(Game* g, Point2D<int> p, Texture* t)
     direction = Vector2D<int>(0, 0);
 }
 
-void Enemy::render() const
-{
-    texture->renderFrame(destRect, 0, animationFrame);
-}
 
 void Enemy::update() 
 {
@@ -57,13 +53,7 @@ void Enemy::update()
     animate();
 }
 
-void Enemy::updateRect()
-{
-	destRect.w = texture->getFrameWidth() * 2;
-	destRect.h = texture->getFrameHeight() * 2;
-	destRect.x = (position.getX() * TILE_SIDE) - game->getMapOffset();
-	destRect.y = position.getY() * TILE_SIDE;
-}
+
 
 Collision Enemy::hit(const SDL_Rect& rect, Collision::Target t)
 {
@@ -134,6 +124,11 @@ SceneObject* Enemy::clone() const
 	return nullptr;
 }
 
+void Enemy::updateAnim()
+{
+
+}
+
 void Enemy::moveEnemy()
 {
     direction = Vector2D<int>(0, 0);
@@ -146,11 +141,3 @@ void Enemy::moveEnemy()
     }
 }
 
-void Enemy::animate() 
-{
-    frameTimer++;
-    if (frameTimer >= 1200) {
-        frameTimer = 0;
-        frame = (frame + 1) % 2;
-    }
-}
