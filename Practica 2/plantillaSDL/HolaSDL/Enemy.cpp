@@ -17,7 +17,6 @@ void Enemy::update()
 	if (speed.getY() < SPEED_LIMIT)
 		speed = speed + Vector2D<int>(0, GRAVITY);
 
-
 	// Velocidad en este ciclo (no siempre avanza lateralmente)
 	Vector2D<int> realSpeed = speed;
 
@@ -37,6 +36,7 @@ void Enemy::update()
 	if (collision.vertical)
 		speed.setY(0);
 
+	
 	// SceneObject::update(); // si hiciera falta
 	
 }
