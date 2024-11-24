@@ -2,11 +2,11 @@
 #include "Game.h"
 
 Block::Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accionL)
-	: SceneObject(g, position, g->getTexture(Game::BLOCK)), texture(t)
+	: SceneObject(g, position, t)
 {
 	game = g;
 	frame = 0;
-	// Asignamos el tipo de bloque basado en el carácter leído
+	// Asignamos el tipo de bloque basado en el carï¿½cter leï¿½do
 	switch (tipoL) {
 	case 'B':
 		tipo = LADRILLO;
@@ -14,7 +14,7 @@ Block::Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accion
 		break;
 	case '?':
 		tipo = SORPRESA;
-		frame = 0;  // Comienza la animación del bloque sorpresa desde el primer frame
+		frame = 0;  // Comienza la animaciï¿½n del bloque sorpresa desde el primer frame
 		break;
 	case 'H':
 		tipo = OCULTO;
@@ -22,7 +22,7 @@ Block::Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accion
 		break;
 	}
 
-	// Asignamos la acción del bloque basado en el carácter leído
+	// Asignamos la acciï¿½n del bloque basado en el carï¿½cter leï¿½do
 	switch (accionL) {
 	case 'P':
 		accion = POTENCIADOR;
@@ -37,17 +37,7 @@ Block::Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accion
 
 void Block::render() 
 {
-	SDL_Rect destRect;
-
-	// tamanios
-	destRect.w = texture->getFrameWidth() * 2;
-	destRect.h = texture->getFrameHeight() * 2;
-
-	// posicion
-	destRect.x = (position.getX() * TILE_SIDE) - game->getMapOffset();
-	destRect.y = (position.getY() * TILE_SIDE);
-
-	texture->renderFrame(destRect, 0, frame);
+	texture->renderFrame(destRect, 0, blockFrame);
 }
 
 void Block::update()
@@ -70,10 +60,13 @@ void Block::update()
 
 void Block::updateRect()
 {
-	destRect.h = texture->getFrameHeight() * 2;
+	// tamanios
 	destRect.w = texture->getFrameWidth() * 2;
-	destRect.x = position.getX() * TILE_SIDE;
-	destRect.y = position.getY() * TILE_SIDE;
+	destRect.h = texture->getFrameHeight() * 2;
+
+	// posicion
+	destRect.x = (position.getX() * TILE_SIDE) - game->getMapOffset();
+	destRect.y = (position.getY() * TILE_SIDE);
 }
 
 Collision Block::hit(const SDL_Rect& rect, Collision::Target t)
@@ -117,7 +110,7 @@ Collision Block::hit(const SDL_Rect& rect, Collision::Target t)
 	return c;
 	*/
 
-	// Calcula la intersección
+	// Calcula la intersecciï¿½n
 	SDL_Rect intersection;
 	SDL_Rect ownRect = getCollisionRect();
 	bool hasIntersection = SDL_IntersectRect(&ownRect, &rect, &intersection);

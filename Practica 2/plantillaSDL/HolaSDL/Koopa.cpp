@@ -1,13 +1,11 @@
 #include "Game.h"
 #include "Koopa.h"
 
-Koopa::Koopa(Game* g, Point2D<int> position, Texture* texture)
-	: Enemy(g, position, texture)
+Koopa::Koopa(Game* g, Point2D<int> p, Texture* t)
+	: Enemy(g, p, t)
 {
-	texture = game->getTexture(Game::KOOPA); // textura inicial
 
 }
-
 
 void Koopa::update()
 {
@@ -17,5 +15,3 @@ void Koopa::update()
 void Koopa::collisionResult()
 {
 }
-
-

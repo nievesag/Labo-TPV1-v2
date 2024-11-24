@@ -23,7 +23,6 @@ class Player : public SceneObject
 {
 	// atributos privados
 private:
-	//Texture* texture = nullptr;	// puntero a su textura
 	Texture* textureM = nullptr;
 	Texture* textureS = nullptr;
 
@@ -47,9 +46,6 @@ private:
 	// INPUT
 	// flags para control de input
 	bool keyA = false, keyD = false, keyS = false, keySpace = false, keyE = false, keyDer = false;
-
-	// rect destino
-	//SDL_Rect destRect;
 
 	bool isFalling = false;
 	bool canJump = false;
@@ -134,7 +130,6 @@ public:
 	}
 
 	Vector2D<double> getNextMoveVector();
-
 
 private:
 	void moveMario(bool moveX, bool moveY);

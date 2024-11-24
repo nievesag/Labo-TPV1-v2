@@ -21,12 +21,9 @@ using namespace std;
 class Koopa : public Enemy
 {
 private:
-	Texture* texture = nullptr;	// puntero a su textura
-	Game* game = nullptr;		// puntero al juego
-
 
 public:
-	Koopa(Game* g, Point2D<int> position, Texture* texture);
+	Koopa(Game* g, Point2D<int> p, Texture* t);
 
 	// -- update --
 	void update();

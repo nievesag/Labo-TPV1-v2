@@ -2,18 +2,17 @@
 #include "Game.h"
 #include "Collision.h"
 
-Mushroom::Mushroom(Game* g, Point2D<int> position, Texture* texture)
-	: Pickable(g, position, texture)
+Mushroom::Mushroom(Game* g, Point2D<int> p, Texture* t)
+	: Pickable(g, p, t)
 {
-	game = g;
-
 	position.setY(position.getY() * 32);
 	position.setX(position.getX() * 32);
-	position = position - Point2D<int>(0, 1); 
+
+	position = position - Point2D<int>(0, 1);
+
 	direction = Vector2D<int>(0, 0);
 
 	alive = true;
-	texture = game->getTexture(Game::MUSHROOM);
 }
 
 void Mushroom::update()
@@ -23,7 +22,6 @@ void Mushroom::update()
 
 void Mushroom::moveSeta()
 {
-
 	//direction = Vector2D<int>(-1, 0);
 	//new_position.setX(position.getX() + (direction.getX() * ENEMY_SPEED * 20));
 	//new_position.setY(position.getY());
@@ -48,4 +46,9 @@ void Mushroom::moveSeta()
 	//{
 	//	//direction.setX(direction.getX() * -1);
 	//}
+}
+
+void Mushroom::updateRect()
+{
+
 }

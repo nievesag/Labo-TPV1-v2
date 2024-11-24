@@ -1,23 +1,15 @@
 #include "Enemy.h"
 #include "Game.h"
 
-Enemy::Enemy(Game* g, Point2D<int> position, Texture* t)
-	: SceneObject(g, position, t), texture(t)
+Enemy::Enemy(Game* g, Point2D<int> p, Texture* t)
+	: SceneObject(g, p, t)
 {
     direction = Vector2D<int>(0, 0);
-	game = g;
-	//position = pos;
 }
 
-void Enemy::render()  {
-
-    SDL_Rect destRect;
-    destRect.w = texture->getFrameWidth() * 2;
-    destRect.h = texture->getFrameHeight() * 2;
-    destRect.x = (position.getX() * TILE_SIDE) - game->getMapOffset();
-    destRect.y = position.getY() * TILE_SIDE;
-
-    texture->renderFrame(destRect, 0, frame);
+void Enemy::render() const
+{
+    texture->renderFrame(destRect, 0, animationFrame);
 }
 
 void Enemy::update() 
@@ -46,7 +38,7 @@ void Enemy::update()
 	// Intenta moverse
 	Collision collision = tryToMove(realSpeed, Collision::PLAYER);
 
-	// Si toca un objeto en horizontal cambia de dirección
+	// Si toca un objeto en horizontal cambia de direcciï¿½n
 	if (collision.horizontal)
 		speed.setX(-speed.getX());
 
@@ -55,7 +47,6 @@ void Enemy::update()
 		speed.setY(0);
 
 	// SceneObject::update(); // si hiciera falta
-	
 
 	// ----- nuestro
     if ((position.getX() * TILE_SIDE) - texture->getFrameWidth() * 2.8 <
@@ -68,11 +59,15 @@ void Enemy::update()
 
 void Enemy::updateRect()
 {
+	destRect.w = texture->getFrameWidth() * 2;
+	destRect.h = texture->getFrameHeight() * 2;
+	destRect.x = (position.getX() * TILE_SIDE) - game->getMapOffset();
+	destRect.y = position.getY() * TILE_SIDE;
 }
 
 Collision Enemy::hit(const SDL_Rect& rect, Collision::Target t)
 {
-	// Calcula la intersección
+	// Calcula la intersecciï¿½n
 	SDL_Rect intersection;
 	SDL_Rect ownRect = getCollisionRect();
 	bool hasIntersection = SDL_IntersectRect(&ownRect, &rect, &intersection);

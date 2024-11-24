@@ -20,22 +20,15 @@ using namespace std;
 class Mushroom : public Pickable
 {
 private:
-	Texture* texture = nullptr;	// puntero a su textura
-	Game* game = nullptr;		// puntero al juego
-
-	// MOVIMIENTO
-	//Point2D<double> position;	// posicion actual en Point2D
 	//Vector2D<int> direction;	// direccion de movimiento
 
 	Point2D<int> new_position;	// posicion que tendria si avanza en Point2D
 	SDL_Rect new_rect;				// rect que tendria si avanza en Point2D
 
-	//SDL_Rect destRect;
-
 	bool alive;
 
 public:
-	Mushroom(Game* g, Point2D<int> position, Texture* texture);
+	Mushroom(Game* g, Point2D<int> p, Texture* t);
 
 	// -- update --
 	void update() override;
@@ -47,6 +40,8 @@ public:
 	bool getAlive() {
 		return alive;
 	}
+
+	void updateRect() override;
 };
 
 #endif

@@ -22,13 +22,7 @@ using namespace std;
 class Enemy : public SceneObject
 {
 private:
-
-	Texture* texture = nullptr;	// puntero a su textura
-	Game* game = nullptr;		// puntero al juego
-
 	// MOVIMIENTO
-
-
 	int enemyFrame;
 
 	bool frozen; // para llevar control de objetos inactivos
@@ -41,10 +35,8 @@ private:
 
 	int moveDelay = 5;
 
-	SDL_Rect destRect;
-
 public:
-	Enemy(Game* g, Point2D<int> position, Texture* t);
+	Enemy(Game* g, Point2D<int> p, Texture* t);
 
 	// -- render --
 	virtual void render() override;
@@ -52,7 +44,7 @@ public:
 	// -- update --
 	virtual void update();
 
-	virtual void updateRect();
+	void updateRect() override;
 
 	// -- hit --
 	// controla las colisiones

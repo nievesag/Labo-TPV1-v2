@@ -4,12 +4,10 @@
 constexpr int SPEED = 10;
 constexpr int FRAME_PERIOD = 20;
 
-TileMap::TileMap(Game* g, std::istream& in, Point2D<int> position) 
-	: SceneObject(g, position, g->getTexture(Game::BACKGROUND))
+TileMap::TileMap(Game* g, std::istream& in, Point2D<int> p, Texture* t)
+	: SceneObject(g, p, t)
 {
-	game = g;
 	load(in);
-	texture = g->getTexture(Game::BACKGROUND);
 	position = Point2D<int>(0, 0);
 }
 
@@ -111,7 +109,6 @@ Collision TileMap::hit(const SDL_Rect& rect, Collision::Target t) {
 	}
 
 	return collision; // Retorna la instancia sin colisión si no encontró obstáculos
-	
 }
 
 void TileMap::manageCollisions(Collision collision)
@@ -121,4 +118,9 @@ void TileMap::manageCollisions(Collision collision)
 SceneObject* TileMap::clone() const
 {
 	return nullptr;
+}
+
+void TileMap::updateRect()
+{
+
 }
