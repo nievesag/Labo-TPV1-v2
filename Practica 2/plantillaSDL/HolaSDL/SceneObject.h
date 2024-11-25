@@ -8,29 +8,28 @@
 class SceneObject : public GameObject
 {
 protected:
+    // movimiento
     Vector2D<int> position;    // Coordenadas (x, y)
     Vector2D<int> speed;       // Velocidad (vx, vy)
     Vector2D<int> direction;
-    int width, height;        // Tama�o del objeto
 
+    // representacion
+    int width, height;        // Tamaño del objeto
 	Texture* texture;
 	SDL_RendererFlip flip;
-	int frame;
-	int frameTimer;
 	bool flipSprite;
 	int scale;
-
     SDL_Rect destRect;
 
-    bool _isAlive;
+    // animacion
+	int frame;
+	int frameTimer;
 
+    // logica
+    bool isAlive;
     Collision c;
-
-    // para que no se salga de la pantalla por la izquierda
-    bool canMove;
-
-    // Ancla a la lista de objetos del juego
-    GameList<SceneObject>::anchor _anchor;
+    bool canMove; // para que no se salga de la pantalla por la izquierda
+    GameList<SceneObject>::anchor _anchor; // Ancla a la lista de objetos del juego
 
 public:
     SceneObject(Game* game, Vector2D<int> pos, Texture* texture);

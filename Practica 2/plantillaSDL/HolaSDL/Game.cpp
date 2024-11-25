@@ -82,6 +82,8 @@ Game::~Game()
 
 void Game::init()
 {
+	nextObject = 0;
+
 	loadTextures();
 
 	// TILEMAP
@@ -94,7 +96,7 @@ void Game::init()
 
 	Point2D<int> pos = Point2D<int>(0, 0);
 	SceneObject* tilemap = new TileMap(this, tiles, pos, getTexture(BACKGROUND));
-	gameList.push_back(tilemap);
+	objectQueue.push_back(tilemap);
 	tiles.close();
 
 	// MAPA
@@ -272,6 +274,8 @@ void Game::run()
 // ACTUALIZAR
 void Game::update()
 {
+	addVisibleEntities();
+
 	for (auto obj : gameList) {
 		obj->update();
 	}
@@ -313,11 +317,11 @@ void Game::render()
 
 void Game::addVisibleEntities()
 {
-	//// Borde derecho del mapa (+ una casilla)
-	//const int rightThreshold = mapOffset + WINDOW_WIDTH + TILE_SIDE;
+	// Borde derecho del mapa (+ una casilla)
+	const int rightThreshold = mapOffset + WINDOW_WIDTH + TILE_SIDE;
 
-	//while (nextObject < objectQueue.size() && objectQueue[nextObject]->getPosition().getX() < rightThreshold)
-	//	addObject(objectQueue[nextObject++]->clone());
+	while (nextObject < objectQueue.size() && objectQueue[nextObject]->getPosition().getX() < rightThreshold)
+		addObject(objectQueue[nextObject++]->clone());
 }
 
 // MANEJAR EVENTOS
@@ -341,6 +345,7 @@ void Game::handleEvents()
 void Game::addObject(SceneObject* o)
 {
 	gameList.push_back(o);
+	nextObject++;
 }
 
 // MANEJO DE COLISONES

@@ -3,32 +3,40 @@
 
 SceneObject::SceneObject(Game* game, Vector2D<int> pos, Texture* texture)
     : GameObject(game), position(pos), scale(1),
-    speed(0, 0), texture(texture), _isAlive(true), destRect(),
+    speed(0, 0), texture(texture), isAlive(true), destRect(),
     frame(0), frameTimer(0)
 {
 	width = TILE_SIDE;
 	height = TILE_SIDE;
+     
 
+	setListAnchor(_anchor);
 }
 
 SceneObject::SceneObject(const SceneObject& s)
 {
+    // movimiento
 	position = s.position;
-	width = s.width;
-	height = s.height;
 	speed = s.speed;
 	direction = s.direction;
-	canMove = s.canMove;
+
+    // representacion
+	width = s.width;
+	height = s.height;
 	texture = s.texture;
-	frame = s.frame;
 	flip = s.flip;
-	frameTimer = s.frameTimer;
 	flipSprite = s.flipSprite;
 	scale = s.scale;
-	c = s.c;
 	destRect = s.destRect;
 
-	//setListAnchor(_anchor);
+    // animacion
+	frame = s.frame;
+	frameTimer = s.frameTimer;
+
+    // logica
+    isAlive = s.isAlive;
+	c = s.c;
+	canMove = s.canMove;
 }
 
 SceneObject& SceneObject::operator=(const SceneObject& s)
