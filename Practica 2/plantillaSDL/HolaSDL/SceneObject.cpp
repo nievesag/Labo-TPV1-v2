@@ -13,6 +13,8 @@ SceneObject::SceneObject(Game* game, Vector2D<int> pos, Texture* texture)
 
 SceneObject::SceneObject(const SceneObject& s)
 {
+    game = s.game;
+
     // movimiento
 	position = s.position;
 	speed = s.speed;

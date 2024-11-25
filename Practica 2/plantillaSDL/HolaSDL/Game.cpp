@@ -386,6 +386,7 @@ void Game::loadLevel(const string& file, const string& root)
 		std::cout << "Error cargando el mapa";
 	}
 	loadObjectMap(mapa);
+
 	mapa.close();
 }
 
