@@ -49,49 +49,8 @@ void Block::update()
 	//updateAnim();
 }
 
-
-
 Collision Block::hit(const SDL_Rect& rect, Collision::Target t)
 {
-	/*
-	Collision c;
-
-	// si hay colision
-	if (SDL_HasIntersection(&rect, &destRect))
-	{
-		c.collides = true;
-		c.damages = false;
-
-		// si se origina en mario...
-		if (t == Collision::PLAYER)
-		{
-			// si la colision es por: abj 
-			if (rect.y <= (destRect.y + destRect.h))
-			{
-				if (tipo == LADRILLO && (game->getMarioState() == 1)) 
-				{
-					c.killBrick = true;
-				}
-				else if (tipo == SORPRESA || tipo == OCULTO)
-				{
-					c.spawnSeta = true;
-				}
-			}
-			else if ((rect.y + rect.h) <= destRect.y) {
-			
-				c.setGrounded = true;
-			}
-		}
-		// si con otras entidades...
-		else
-		{
-
-		}
-	}
-
-	return c;
-	*/
-
 	// Calcula la intersecci�n
 	SDL_Rect intersection;
 	SDL_Rect ownRect = getCollisionRect();
@@ -101,34 +60,36 @@ Collision Block::hit(const SDL_Rect& rect, Collision::Target t)
 	{
 		Collision c{ Collision::EMPTY, Collision::OBSTACLE, intersection.w, intersection.h };
 
-		// [...] Manejo del efecto del bloque
-		//c.collides = true;
-		//c.damages = false;
-		
 		// si se origina en mario...
 		if (t == Collision::ENEMIES)
 		{
 			// si la colision es por: abj 
-			if (rect.y <= (destRect.y + destRect.h))
+			if ((rect.y) >= (destRect.y + destRect.h) - 8)
 			{
-				if (tipo == LADRILLO) //falta esto en el if(game->getMarioState() == 1)
+				if (tipo == LADRILLO && game->getMarioState() == 1)
 				{
-					//c.killBrick = true;
+					cout << "ladrillo" << endl;
+
+					setAlive(false);
 				}
 				else if (tipo == SORPRESA || tipo == OCULTO)
 				{
-					//c.spawnSeta = true;
+					cout << "sorpresa" << endl;
+
+					manageSorpresa();
+
+					// seta
+					if (accion == POTENCIADOR) 
+					{
+						game->createSeta(position);
+					}
+					// moneda
+					else 
+					{
+						game->givePoints(200);
+					}
 				}
 			}
-			else if ((rect.y + rect.h) <= destRect.y) {
-
-				//c.setGrounded = true;
-			}
-		}
-		// si con otras entidades...
-		else
-		{
-
 		}
 
 		return c;

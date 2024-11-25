@@ -64,10 +64,22 @@ SceneObject& SceneObject::operator=(const SceneObject& s)
 
 void SceneObject::render()
 {
+   
+
     destRect.x = position.getX() - game->getMapOffset();
-    destRect.y = position.getY();
+    destRect.h = (texture->getFrameHeight() * scale);
     destRect.w = texture->getFrameWidth() * scale;
-    destRect.h = texture->getFrameHeight() * scale;
+   
+
+    if (texture == game->getTexture(Game::SUPERMARIO))
+    {
+        destRect.y = position.getY() - TILE_SIDE / 2;
+    }
+    else
+    {
+        destRect.y = position.getY();
+    }
+
 
     texture->renderFrame(destRect, 0, frame, 0, nullptr, flip);
 }

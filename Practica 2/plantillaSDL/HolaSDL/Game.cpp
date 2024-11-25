@@ -277,6 +277,20 @@ void Game::deleteEntities()
 	//}
 }
 
+void Game::createSeta(Point2D<int> p)
+{
+	p.setY(p.getY() - TILE_SIDE);
+
+	SceneObject* seta = new Mushroom(this, p, getTexture(MUSHROOM));
+
+	gameList.push_back(seta);
+}
+
+void Game::createCoin(Point2D<int> p)
+{
+	SceneObject* coin = new Coin(this, p, getTexture(MUSHROOM));
+}
+
 // PINTAR
 void Game::render() 
 {

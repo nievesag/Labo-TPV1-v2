@@ -92,5 +92,7 @@ protected:
     // - Si lo usamos en player, target sera none.
      Collision tryToMove(const Vector2D<int>& speed, Collision::Target target);
 
-    void setScale(int n) { scale = n; }
+    void setScale(double n) { scale = n; }
+
+    void setAlive(bool a) { isAlive = a;  }
 };

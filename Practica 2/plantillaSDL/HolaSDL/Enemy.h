@@ -36,18 +36,7 @@ public:
 	virtual void update() override;
 
 	// -- hit --
-	// controla las colisiones
-	//	-> Si el enemigo es golpeado desde arriba por el player: se muere
-	//	-> Otra colision: 
-	//		-> si supermario: vuelve a mario
-	//		-> si mario: quita vida
 	virtual Collision hit(const SDL_Rect& rect, Collision::Target t) override;
-
-	void killEnemy() { alive = false; }
-
-	bool getAlive() {
-		return alive;
-	}
 	
 	//virtual Collision tryToMove(Vector2D<int>& v, Collision::Target t) override;
 	

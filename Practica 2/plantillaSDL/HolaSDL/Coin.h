@@ -19,11 +19,6 @@ using namespace std;
 
 class Coin : public Pickable
 {
-	Point2D<int> new_position;	// posicion que tendria si avanza en Point2D
-	SDL_Rect new_rect;				// rect que tendria si avanza en Point2D
-
-	bool alive;
-
 public:
 	Coin(Game* g, Point2D<int> p, Texture* t);
 
@@ -31,12 +26,6 @@ public:
 
 	// -- update --
 	void update() override;
-
-	void killCoin() { alive = false; }
-
-	bool getAlive() {
-		return alive;
-	}
 
 	void triggerAction() override;
 

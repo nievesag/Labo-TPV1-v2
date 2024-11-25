@@ -4,9 +4,8 @@
 Player::Player(Game* g, Point2D<int> p, Texture* t, int l)
 	: SceneObject(g, p, t), lives(l)
 {
-	game->setMarioState(0);
-
-	setScale(2);
+	//game->setMarioState(0);
+	
 
 	lives = 3;
 	canMove = true;
@@ -17,6 +16,12 @@ Player::Player(Game* g, Point2D<int> p, Texture* t, int l)
 	walkFrame = 0;
 	flipSprite = true;
 	flip = SDL_FLIP_NONE;
+
+	marioState = SUPERMARIO;
+	textureM = game->getTexture(Game::MARIO);		// textura inicial de mario
+	textureS = game->getTexture(Game::SUPERMARIO); // textura supermario
+
+	invencible = false;
 }
 
 void Player::render()
@@ -27,11 +32,8 @@ void Player::render()
 
 void Player::update()
 {
-	cout << position.getX() << endl;
-
 	if (speed.getY() < SPEED_LIMIT)
 		speed = speed + Vector2D<int>(0, GRAVITY);
-		//speed += {0, GRAVITY};
 
 	if (canMove)
 		c = tryToMove(speed, Collision::ENEMIES);
@@ -67,11 +69,105 @@ void Player::update()
 
 		if (position.getX() - game->getMapOffset() < TILE_SIDE) canMove = false;
 	}
+
+	updateTexture();
+	finishLevel();
+}
+
+void Player::updateTexture()
+{
+	if (marioState != SUPERMARIO) 
+	{
+		setScale(2);
+		texture = textureM;
+	}
+	else
+	{
+		setScale(1.5);
+		texture = textureS;
+	}
 }
 
 Collision Player::hit(const SDL_Rect& region, Collision::Target target)
 {
-	return Collision();
+	// Comprueba si hay colision
+	SDL_Rect ownRect = getCollisionRect();
+
+	// si la colision es con los enemies
+	if (target == Collision::PLAYER && SDL_HasIntersection(&ownRect, &region) )
+	{
+		manageDamage();
+	}
+
+	return NO_COLLISION; // constante Collision{}
+}
+
+void Player::manageDamage()
+{
+	if (!invencible)
+	{
+		if (marioState == SUPERMARIO)
+		{
+			marioState = MARIO;
+			//position.setY(position.getY() + 0.5);
+		}
+		else
+		{
+			if (lives > 0)
+			{
+				invencible = true;
+				lives--;
+			}
+
+			if (lives <= 0) isAlive = false;
+		}
+	}
+
+	invencible = true;
+}
+
+void Player::finishLevel()
+{
+	if (position.getX() >= flagPosition)
+	{
+		velX = 0;
+		cout << "FINAL" << endl;
+	}
+}
+
+void Player::updateAnim()
+{
+	if (speed.getX() != 0 && grounded)
+	{
+		frameTimer++;
+		if (frameTimer >= 1)
+		{
+			frameTimer = 0;
+
+			int cycleLength = immune ? 4 : 5;
+			walkFrame = (walkFrame + 1) % cycleLength;
+
+			// Asigna el frame correspondiente
+			if (walkFrame == 0 || walkFrame == (cycleLength - 1)) {
+				frame = 2;
+			}
+			else if (walkFrame == 1) {
+				frame = 3;
+			}
+			else if (walkFrame == 2) {
+				frame = 4;
+			}
+			else if (immune && walkFrame == 3) {
+				frame = -1;
+			}
+		}
+	}
+	else if (!grounded) {
+		frame = 6; // Frame cuando est� en el aire
+	}
+	else {
+		frame = 0; // Frame cuando est� en reposo
+	}
 }
 
 void Player::jump()
@@ -172,34 +268,6 @@ void Player::manageCollisions(Collision collision)
 SceneObject* Player::clone() const
 {
 	return new Player(*this);
-}
-
-void Player::updateAnim()
-{
-	if (!grounded) 
-	{
-		// Frame del salto
-		frame = 6;
-	}
-	else if (keyA != keyD) 
-	{
-		frameTimer++;
-		if (frameTimer >= 120) // Velocidad del ciclo
-		{  
-			frameTimer = 0;
-			marioFrame = (marioFrame + 1) % 4;  // Ciclo 0,1,2,3, y luego se reinicie 
-
-			// Ciclo de caminar 2 -> 3 -> 4 -> 3
-			if (marioFrame == 0 || frame == 3) frame = 2;
-			else if (marioFrame == 1) frame = 3;
-			else if (marioFrame == 2) frame = 4;
-		}
-	}
-	else 
-	{
-		// Cuando esta quieto
-		frame = 0;
-	}
 }
 
 void Player::updateOffset()

@@ -5,14 +5,13 @@
 Mushroom::Mushroom(Game* g, Point2D<int> p, Texture* t)
 	: Pickable(g, p, t)
 {
-	position.setY(position.getY() * 32);
-	position.setX(position.getX() * 32);
+	setScale(2);
+	speed.setX(5);
+}
 
-	position = position - Point2D<int>(0, 1);
-
-	direction = Vector2D<int>(0, 0);
-
-	alive = true;
+void Mushroom::render()
+{
+	Pickable::render();
 }
 
 void Mushroom::update()
@@ -22,34 +21,35 @@ void Mushroom::update()
 
 void Mushroom::moveSeta()
 {
-	//direction = Vector2D<int>(-1, 0);
-	//new_position.setX(position.getX() + (direction.getX() * ENEMY_SPEED * 20));
-	//new_position.setY(position.getY());
+	// Acelra la velocidad con la gravedad
+	if (speed.getY() < SPEED_LIMIT)
+		speed = speed + Vector2D<int>(0, GRAVITY);
 
-	//new_rect.h = destRect.h;
-	//new_rect.w = destRect.w;
-	//new_rect.x = new_position.getX();
-	//new_rect.y = new_position.getY();
+	// Velocidad en este ciclo (no siempre avanza lateralmente)
+	Vector2D<int> realSpeed = speed;
 
-	//// si no hay colision -> actualiza la posicion
-	//if (!(game->checkCollisions(new_rect, Collision::Target::ENEMIES).collides))
-	//{
-	//	position.setX(new_position.getX());
-	//	position.setY(new_position.getY());
+	if (moveDelay-- == 0)
+		moveDelay = MOVE_PERIOD;
+	else
+		realSpeed.setX(0);
 
-	//	destRect.h = texture->getFrameHeight() * 2;
-	//	destRect.w = texture->getFrameWidth() * 2;
-	//	destRect.x = position.getX();
-	//	destRect.y = position.getY();
-	//}
-	//else
-	//{
-	//	//direction.setX(direction.getX() * -1);
-	//}
+	// Intenta moverse
+	Collision collision = tryToMove(realSpeed, Collision::PLAYER);
+
+	// Si toca un objeto en horizontal cambia de direccion
+	if (collision.horizontal)
+		speed.setX(-speed.getX());
+
+	// Si toca un objeto en vertical anula la velocidad (para que no se acumule la gravedad)
+	if (collision.vertical)
+		speed.setY(0);
+
+	// SceneObject::update(); // si hiciera falta
 }
 
 void Mushroom::triggerAction()
 {
+	game->setMarioState(1);
 }
 
 void Mushroom::updateAnim()
