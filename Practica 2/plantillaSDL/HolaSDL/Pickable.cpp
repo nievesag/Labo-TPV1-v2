@@ -24,6 +24,7 @@ Collision Pickable::hit(const SDL_Rect& rect, Collision::Target t)
 		delete this;
 	}
 
+	// NO COLISION??????????
 	return NO_COLLISION; // constante Collision{}
 }
 
