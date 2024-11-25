@@ -4,9 +4,7 @@
 Enemy::Enemy(Game* g, Point2D<int> p, Texture* t)
 	: SceneObject(g, p, t)
 {
-    //direction = Vector2D<int>(0, 0);
 	setScale(2);
-
 	speed.setX(-3);
 }
 
@@ -30,15 +28,12 @@ void Enemy::update()
 
 	// Si toca un objeto en horizontal cambia de dirección
 	if (collision.horizontal)
-		speed.setX(-speed.getX());
 
 	// Si toca un objeto en vertical anula la velocidad (para que no se acumule la gravedad)
 	if (collision.vertical)
 		speed.setY(0);
 
-	
 	// SceneObject::update(); // si hiciera falta
-	
 }
 
 
@@ -60,18 +55,21 @@ Collision Enemy::hit(const SDL_Rect& rect, Collision::Target t)
 			c.result = Collision::DAMAGE;
 
 			// si la colision es por: arr -> muere el enemigo
-			if (((rect.y + rect.h) <= destRect.y + 1))
+			if (((rect.y) >= destRect.y - destRect.h) && rect.y != destRect.y)
 			{
 				c.target = Collision::ENEMIES;
+				cout << "pega enemigo arriba" << endl;
 			}
 
 			// otra colision -> hiere a mario
-			else 
+			else
 			{
 				c.target = Collision::PLAYER;
+				cout << "au" << endl;
 			}
 		}
-		else {
+		else 
+		{
 
 		}
 		
@@ -102,8 +100,3 @@ void Enemy::updateAnim()
 {
 
 }
-
-
-
-
-

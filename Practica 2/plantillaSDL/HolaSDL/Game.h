@@ -148,6 +148,9 @@ public:
 
 	void updateEntities();
 
+	void createSeta(Point2D<int> p);
+	void createCoin(Point2D<int> p);
+
 	// ---- handleEvents ----
 	// input del jugador
 	void handleEvents();

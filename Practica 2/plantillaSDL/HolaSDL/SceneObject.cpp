@@ -3,7 +3,7 @@
 
 SceneObject::SceneObject(Game* game, Vector2D<int> pos, Texture* texture)
     : GameObject(game), position(pos), scale(1),
-    speed(0, 0), texture(texture), _isAlive(true), destRect(),
+    speed(0, 0), texture(texture), isAlive(true), destRect(),
     frame(0), frameTimer(0)
 {
     width = TILE_SIDE;
@@ -18,8 +18,6 @@ void SceneObject::render()
     destRect.h = texture->getFrameHeight() * scale;
 
     texture->renderFrame(destRect, 0, frame, 0, nullptr, flip);
-
-   
 }
 
 SDL_Rect SceneObject::getCollisionRect() const

@@ -18,7 +18,7 @@ protected:
     Texture* texture;
     SDL_Rect destRect;
 
-    bool _isAlive;
+    bool isAlive;
 
     Collision c;
 
@@ -78,6 +78,6 @@ protected:
      Collision tryToMove(const Vector2D<int>& speed, Collision::Target target);
 
     void setScale(int n) { scale = n; }
+
+    void setAlive(bool a) { isAlive = a;  }
 };
-
-

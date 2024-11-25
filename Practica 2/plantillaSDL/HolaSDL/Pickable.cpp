@@ -7,18 +7,10 @@ Pickable::Pickable(Game* g, Point2D<int> p, Texture* t)
 	
 }
 
-void Pickable::render()
-{
-	texture->renderFrame(destRect, 0, 0);
-}
-
 void Pickable::update()
 {
-
-	game->checkCollisions(destRect, Collision::PLAYER);
+	
 }
-
-
 
 Collision Pickable::hit(const SDL_Rect& rect, Collision::Target t)
 {
@@ -38,4 +30,13 @@ Collision Pickable::hit(const SDL_Rect& rect, Collision::Target t)
 void Pickable::manageCollisions(Collision c)
 {
 
+}
+
+SceneObject* Pickable::clone() const
+{
+	return nullptr;
+}
+
+void Pickable::updateAnim()
+{
 }

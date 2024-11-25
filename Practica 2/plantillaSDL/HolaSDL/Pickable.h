@@ -20,21 +20,18 @@ using namespace std;
 
 class Pickable : public SceneObject
 {
-private:
-	bool alive;
-	bool picked = false;
-
 public:
 	Pickable(Game* g, Point2D<int> p, Texture* t);
 
-	virtual void render() override;
-	virtual void update();
+	//virtual void render() override;
+	virtual void update() override;
 
 	virtual Collision hit(const SDL_Rect& rect, Collision::Target t) override;
 
-	bool isPicked() { return picked; }
-
 	void manageCollisions(Collision c) override;
+
+	SceneObject* clone() const override;
+	virtual void updateAnim() override;
 
 protected:
 	virtual void triggerAction() = 0;

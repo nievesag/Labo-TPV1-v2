@@ -20,26 +20,21 @@ using namespace std;
 class Mushroom : public Pickable
 {
 private:
-	//Vector2D<int> direction;	// direccion de movimiento
-
-	Point2D<int> new_position;	// posicion que tendria si avanza en Point2D
-	SDL_Rect new_rect;				// rect que tendria si avanza en Point2D
-
-	bool alive;
+	int moveDelay = 5;
 
 public:
 	Mushroom(Game* g, Point2D<int> p, Texture* t);
+
+	void render() override;
 
 	// -- update --
 	void update() override;
 
 	void moveSeta();
 
-	void killSeta() { alive = false; }
+	void triggerAction() override;
 
-	bool getAlive() {
-		return alive;
-	}
+	SceneObject* clone() const override;
 
 };
 

@@ -165,8 +165,6 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			pos.setX(pos.getX() * TILE_SIDE);
 			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
 
-		
-
 			lineStream >> lives;
 			player = new Player(this, pos);
 
@@ -286,14 +284,14 @@ void Game::update()
 
 void Game::updateEntities()
 {
-	
+	/*
 	for (SceneObject* obj : gameList) {
 		if(!obj->getAlive())
 		{
 			delete obj;
 			gameList.erase();
 		}
-	}
+	}*/
 
 	/*
 	// GOOMBAS
@@ -344,6 +342,20 @@ void Game::updateEntities()
 		}
 	}
 	*/
+}
+
+void Game::createSeta(Point2D<int> p)
+{
+	p.setY(p.getY() - TILE_SIDE);
+
+	SceneObject* seta = new Mushroom(this, p, getTexture(MUSHROOM));
+
+	gameList.push_back(seta);
+}
+
+void Game::createCoin(Point2D<int> p)
+{
+	SceneObject* coin = new Coin(this, p, getTexture(MUSHROOM));
 }
 
 // PINTAR
