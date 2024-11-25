@@ -177,10 +177,10 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			lineStream >> pos;
 
 			pos.setX(pos.getX() * TILE_SIDE);
-			pos.setY(pos.getY() * TILE_SIDE - 2);
+			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
 		
 
-			SceneObject* goomba = new Enemy(this, pos, getTexture(GOOMBA));
+			SceneObject* goomba = new Goomba(this, pos, getTexture(GOOMBA));
 			gameList.push_back(goomba);
 		}
 		else if (tipoL == 'B')
@@ -204,10 +204,10 @@ void Game::loadObjectMap(std::ifstream& mapa)
 		{
 			lineStream >> pos;
 			pos.setX(pos.getX() * TILE_SIDE);
-			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
+			pos.setY(pos.getY() * TILE_SIDE - (TILE_SIDE * 2));
 		
 
-			SceneObject* koopa = new Enemy(this, pos, getTexture(KOOPA));
+			SceneObject* koopa = new Koopa(this, pos, getTexture(KOOPA));
 			gameList.push_back(koopa);
 		}
 		else if (tipoL == 'L')
@@ -286,7 +286,7 @@ void Game::update()
 
 void Game::updateEntities()
 {
-	/*
+	
 	for (SceneObject* obj : gameList) {
 		if(!obj->getAlive())
 		{
@@ -295,6 +295,7 @@ void Game::updateEntities()
 		}
 	}
 
+	/*
 	// GOOMBAS
 	for (int i = 0; i < goombaVec.size(); i++) 
 	{

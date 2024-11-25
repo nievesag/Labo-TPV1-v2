@@ -10,6 +10,8 @@ Goomba::Goomba(Game* g, Point2D<int> p, Texture* t)
 
 	//frozen = true;
 	//alive = true;
+	frame = 0;
+	frameTimer = 0;
 }
 
 
@@ -22,7 +24,7 @@ void Goomba::update() {
 void Goomba::render()
 {
 
-	SceneObject::render();
+	Enemy::render();
 	updateAnim();
 }
 

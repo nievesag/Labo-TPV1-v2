@@ -45,14 +45,14 @@ void Enemy::update()
 
 Collision Enemy::hit(const SDL_Rect& rect, Collision::Target t)
 {
-	// Calcula la intersecci�n
+	// Calcula la interseccion
 	SDL_Rect intersection;
 	SDL_Rect ownRect = getCollisionRect();
 	bool hasIntersection = SDL_IntersectRect(&ownRect, &rect, &intersection);
 
 	if (hasIntersection) 
 	{
-		Collision c{Collision::EMPTY, Collision::OBSTACLE, intersection.w, intersection.h };
+		Collision c{Collision::EMPTY, Collision::NONE, intersection.w, intersection.h };
 
 		// si se origina en mario...
 		if (t == Collision::ENEMIES)
@@ -70,6 +70,9 @@ Collision Enemy::hit(const SDL_Rect& rect, Collision::Target t)
 			{
 				c.target = Collision::PLAYER;
 			}
+		}
+		else {
+
 		}
 		
 		return c;
@@ -99,6 +102,8 @@ void Enemy::updateAnim()
 {
 
 }
+
+
 
 
 

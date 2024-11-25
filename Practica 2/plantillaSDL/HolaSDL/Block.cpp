@@ -4,8 +4,10 @@
 Block::Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accionL)
 	: SceneObject(g, position, t)
 {
-	game = g;
+	setScale(2);
 	frame = 0;
+	frameTimer = 0;
+	flip = SDL_FLIP_NONE;
 	// Asignamos el tipo de bloque basado en el car�cter le�do
 	switch (tipoL) {
 	case 'B':
@@ -37,12 +39,14 @@ Block::Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accion
 
 void Block::render()
 {
+	SceneObject::render();
+	updateAnim();
 }
 
 
 void Block::update()
 {
-	updateAnim();
+	//updateAnim();
 }
 
 
@@ -153,7 +157,7 @@ void Block::updateAnim()
 {
 	if (tipo == SORPRESA) {
 		frameTimer++;
-		if (frameTimer >= 3050) {  // Velocidad del ciclo
+		if (frameTimer >= 5) {  // Velocidad del ciclo
 			frameTimer = 0;
 			frame = (frame + 1) % 3;  // Ciclo 0,1,2,3, y luego se reinicie 
 

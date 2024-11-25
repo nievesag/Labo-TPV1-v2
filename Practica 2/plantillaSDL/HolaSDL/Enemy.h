@@ -59,6 +59,7 @@ public:
 	SceneObject* clone() const override;
 	virtual void updateAnim() override;
 
+
 };
 
 #endif
