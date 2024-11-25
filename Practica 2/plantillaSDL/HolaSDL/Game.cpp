@@ -327,7 +327,10 @@ void Game::addObject(SceneObject* o)
 	{
 		gameList.push_front(o);
 	}
-	gameList.push_back(o);
+	else
+	{
+		gameList.push_back(o);
+	}
 	nextObject++;
 }
 
