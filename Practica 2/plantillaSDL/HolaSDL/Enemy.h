@@ -49,19 +49,14 @@ public:
 		return alive;
 	}
 	
-	virtual Collision tryToMove(Vector2D<int>& v, Collision::Target t) override;
+	//virtual Collision tryToMove(Vector2D<int>& v, Collision::Target t) override;
 	
 	virtual void collisionResult();
 
-	virtual void manageCollisions(Collision collision) override;
+	virtual void manageCollisions(Collision c) override;
 
 	SceneObject* clone() const override;
 	virtual void updateAnim() override;
-
-	//void updateRect() override;
-
-protected:
-	virtual void moveEnemy(); 
 };
 
 #endif

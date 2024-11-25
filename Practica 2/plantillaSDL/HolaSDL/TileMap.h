@@ -32,7 +32,7 @@ public:
 	// detecta colisiones
 	Collision hit(const SDL_Rect& rect, Collision::Target t);
 
-	void manageCollisions(Collision collision) override;
+	void manageCollisions(Collision c) override;
 	SceneObject* clone() const override;
 
 	void updateAnim() override {};

@@ -1,47 +1,44 @@
-#ifndef PLAYER_H
-#define PLAYER_H
-
-#include "checkML.h"
-#include <SDL.h>
-#include "Vector2D.h"
-#include "Texture.h"
-#include <istream>
-#include <iostream>
-#include <fstream>
-#include <string>
-//#include "Game.h"
-#include "Collision.h"
+#pragma once
 #include "SceneObject.h"
-
-// para evitar inclusiones cruzadas
-class Game;
-
-using uint = unsigned int;
-using namespace std;
 
 class Player : public SceneObject
 {
-	// atributos privados
-private:
-	Texture* textureM = nullptr;
-	Texture* textureS = nullptr;
 
-	int maxLives = 3;
-	int lives;					// numero de vidas restantes, 3 al inicio
-	bool alive = true;
-	
-	
-	int marioState;
-	enum State {
-		MARIO, SUPERMARIO
-	};
+public:
+	Player(Game* game, Vector2D<int> pos);
+
+	void render() override;
+	void update() override;
+
+	Collision hit(const SDL_Rect& region, Collision::Target target) override;
+	SceneObject* clone() const override;
+
+
+	void resetPlayer();
+	void updateAnim() override;
+	void jump();
+
+	int getLives() { return lives; }
+	void setLives(int n) { lives = n; }
+
+	void isSupermario();
+	void handleEvent(SDL_Event event);
+
+	virtual void manageCollisions(Collision c) override;
+
+
+private:
+	int lives;
+	bool immune;
+
+	int velX;
+	bool grounded, jumping;
+
+	int walkFrame;
 
 	// INPUT
 	// flags para control de input
 	bool keyA = false, keyD = false, keyS = false, keySpace = false, keyE = false, keyDer = false;
-
-	bool grounded;		// si esta en el suelo, solo puede saltar cuando lo este
-	bool jumping;
 
 	bool flipSprite = false;
 
@@ -107,12 +104,10 @@ public:
 		grounded = g;
 	}
 
-	Vector2D<double> getNextMoveVector();
-
 private:
-	void moveMario(bool moveX, bool moveY);
+
 
 	void checkFall();
+
 };
 
-#endif	

@@ -1,4 +1,4 @@
-#include "Game.h"
+ï»¿#include "Game.h"
 
 #include <string>
 #include <iostream>
@@ -36,10 +36,10 @@ const array<TextureSpec, Game::NUM_TEXTURES> textureSpec{
 
 Game::Game() : randomGenerator(time(nullptr)), exit(false)
 {
-	int winX, winY; // Posición de la ventana
+	int winX, winY; // PosiciÃ³n de la ventana
 	winX = winY = SDL_WINDOWPOS_CENTERED;
 
-	// Inicialización del sistema, ventana y renderer
+	// InicializaciÃ³n del sistema, ventana y renderer
 	SDL_Init(SDL_INIT_EVERYTHING);
 
 	// ERRORES DE SDL
@@ -165,19 +165,22 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			pos.setX(pos.getX() * TILE_SIDE);
 			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
 
-			pos = pos - Point2D<int>(0, 1);
+		
 
 			lineStream >> lives;
-			player = new Player(this, pos, getTexture(MARIO), lives);
+			player = new Player(this, pos);
 
 			objectQueue.push_back(player);
 		}
 		else if(tipoL == 'G')
 		{
 			lineStream >> pos;
-			pos = pos - Point2D<int>(0, 1);
 
-			SceneObject* goomba = new Enemy(this, pos, getTexture(GOOMBA));
+			pos.setX(pos.getX() * TILE_SIDE);
+			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
+
+			SceneObject* goomba = new Goomba(this, pos, getTexture(GOOMBA));
+
 			objectQueue.push_back(goomba);
 		}
 		else if (tipoL == 'B')
@@ -186,7 +189,9 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			char accionL;
 
 			lineStream >> pos;
-			pos = pos - Point2D<int>(0, 1);
+			pos.setX(pos.getX() * TILE_SIDE);
+			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
+		
 
 			lineStream >> tipoL;
 			lineStream >> accionL;
@@ -198,15 +203,19 @@ void Game::loadObjectMap(std::ifstream& mapa)
 		else if(tipoL == 'K')
 		{
 			lineStream >> pos;
-			pos = pos - Point2D<int>(0, 1);
-
-			SceneObject* koopa = new Enemy(this, pos, getTexture(KOOPA));
+			pos.setX(pos.getX() * TILE_SIDE);
+			pos.setY(pos.getY() * TILE_SIDE - (TILE_SIDE * 2));
+		
+			SceneObject* koopa = new Koopa(this, pos, getTexture(KOOPA));
 			objectQueue.push_back(koopa);
+
 		}
 		else if (tipoL == 'L')
 		{
 			lineStream >> pos;
-			pos = pos - Point2D<int>(0, 1);
+			pos.setX(pos.getX() * TILE_SIDE);
+			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
+			
 
 			Vector2D<int> speed;
 			double x = 0;
@@ -220,7 +229,9 @@ void Game::loadObjectMap(std::ifstream& mapa)
 		else if (tipoL == 'C')
 		{
 			lineStream >> pos;
-			pos = pos - Point2D<int>(0, 1);
+			pos.setX(pos.getX() * TILE_SIDE);
+			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
+		
 
 			Pickable* coin = new Coin(this, pos, getTexture(COIN));
 			objectQueue.push_back(coin);
@@ -251,14 +262,12 @@ void Game::run()
 		update(); // actualiza todos los objetos de juego
 		render(); // renderiza todos los objetos de juego
 		handleEvents();
+		// Tiempo que se ha tardado en ejecutar lo anterior
+		uint32_t elapsed = SDL_GetTicks() - startTime;
 
-		// tiempo desde ultima actualizacion
-		frameTime = SDL_GetTicks() - startTime;
-
-		if (frameTime < TIME_BT_FRAMES) 
-		{
-			SDL_Delay(TIME_BT_FRAMES - frameTime);
-		}
+		// Duerme el resto de la duraciï¿½n del frame
+		if (elapsed < FRAMERATE)
+			SDL_Delay(FRAMERATE - elapsed);
 	}
 }
 
@@ -277,7 +286,7 @@ void Game::update()
 
 void Game::updateEntities()
 {
-	/*
+	
 	for (SceneObject* obj : gameList) {
 		if(!obj->getAlive())
 		{
@@ -285,7 +294,6 @@ void Game::updateEntities()
 			gameList.erase();
 		}
 	}
-	*/
 }
 
 // PINTAR
@@ -328,7 +336,7 @@ void Game::handleEvents()
 		if (event.type == SDL_QUIT) EndGame();
 
 		// MANEJO DE EVENTOS DE OBJETOS DE JUEGO
-		else { player->handleEvents(event); }
+		else { player->handleEvent(event); }
 	}
 }
 

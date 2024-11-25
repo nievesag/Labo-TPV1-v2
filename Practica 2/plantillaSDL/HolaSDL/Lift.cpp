@@ -3,7 +3,7 @@
 #include "Collision.h"
 
 Lift::Lift(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s)
-	: SceneObject(g, p, t, s)
+	: SceneObject(g, p, t)
 {
 	direction = Vector2D<int>(0, 1);
 }
@@ -34,7 +34,7 @@ Collision Lift::hit(const SDL_Rect& rect, Collision::Target t)
 	return Collision();
 }
 
-void Lift::manageCollisions(Collision collision)
+void Lift::manageCollisions(Collision c)
 {
 }
 

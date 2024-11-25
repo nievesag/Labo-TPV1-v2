@@ -34,7 +34,7 @@ public:
 
 	bool isPicked() { return picked; }
 
-	void manageCollisions(Collision collision) override;
+	void manageCollisions(Collision c) override;
 
 	//SceneObject* clone() const override;
 

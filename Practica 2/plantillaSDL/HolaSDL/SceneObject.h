@@ -1,23 +1,17 @@
-#ifndef SCENEOBJECT_H
-#define SCENEOBJECT_H
+#pragma once
 
 #include "GameObject.h"
-#include "gameList.h"
-#include "Vector2D.h"
-#include "texture.h"
-#include <list>
 
+#include "GameList.h"
 #include "Collision.h"
 
 class SceneObject : public GameObject
 {
-	// atributos protegidos
 protected:
-	Point2D<int> position; // Posicion del objeto
-	int width, height;		  // Dimension del objeto
-	Vector2D<int> speed;	  // Velocidad del objeto
-	Vector2D<int> direction;
-	bool canMove;
+    Vector2D<int> position;    // Coordenadas (x, y)
+    Vector2D<int> speed;       // Velocidad (vx, vy)
+    Vector2D<int> direction;
+    int width, height;        // Tama�o del objeto
 
 	Texture* texture;
 	int frame;
@@ -26,23 +20,30 @@ protected:
 	bool flipSprite;
 	int scale;
 
-	Collision c;
 
-	// rectangulo del render
-	SDL_Rect destRect;
+    Texture* texture;
+    SDL_Rect destRect;
 
-	// iterador de la lista
-	GameList<SceneObject>::anchor _anchor;
+    bool _isAlive;
 
-	virtual Collision tryToMove(Vector2D<int>& v, Collision::Target target);
+    Collision c;
 
-	void setScale(int n) { scale = n; }
+    // para que no se salga de la pantalla por la izquierda
+    bool canMove;
 
-	// metodos publicos
+    // Ancla a la lista de objetos del juego
+    GameList<SceneObject>::anchor _anchor;
+
+    int frame;
+    int frameTimer;
+    bool _flipSprite;
+    SDL_RendererFlip flip;
+
 public:
-	SceneObject(Game* g,Point2D<int> pos, Texture* t);
+    SceneObject(Game* game, Vector2D<int> pos, Texture* texture);
 
-	SceneObject(Game* g, Point2D<int> pos, Texture* t, Vector2D<int> s);
+    virtual ~SceneObject() {}
+
 
 	SceneObject(const SceneObject& s); // constructor copia
 	SceneObject& operator=(const SceneObject& s); // asignacion por copia
@@ -53,16 +54,16 @@ public:
 	virtual void manageCollisions(Collision collision) = 0;
 	virtual void render() override;
 
-	virtual void updateAnim() = 0;
+    virtual void update() override {}
 
-	void setListAnchor(GameList<SceneObject>::anchor&& anchor)
-	{
-		// se esta moviendo el argumento al atributo anchor de sceneobject
-		_anchor = std::move(anchor);
-	}
 
-	SDL_Rect getCollisionRect() const;
-	SDL_Rect getRenderRect() const;
+    // Recibe rectangulo que se vera afectado y si viene del jugador
+    virtual Collision hit(const SDL_Rect& region, Collision::Target target) = 0;
+
+    // igual este metodo aqui no tiene mucho sentido por el tilemap
+    //virtual void checkAlive() = 0;
+    virtual void updateAnim() = 0;
+
 
 	Point2D<int> getPosition()
 	{
@@ -79,6 +80,37 @@ public:
 
 	// devuelve una copia del objeto sobre el que se aplica (solo se aplicara sobre los objetos de objectQueue)
 	virtual SceneObject* clone() const = 0;
+
+    // devuelva una copia del objeto sobre el que 
+    // se aplica (solo se aplicar� sobre los objetos de objectQueue)
+
+    // Getters virtuales
+    virtual SDL_Rect getCollisionRect() const;
+
+    virtual SDL_Rect getRenderRect() const;
+
+    // Cuando el objeto SceneObject se destruya, siguiendo la secuencia natural de 
+    // eliminaci�n de los objetos, se destruir� su atributo anchor y esto implicar� 
+    // autom�ticamente su eliminaci�n de la lista
+    void setListAnchor(GameList<SceneObject>::anchor&& anchor) {
+        _anchor = std::move(anchor);
+    }
+
+    virtual void manageCollisions(Collision c) = 0;
+
+protected:
+    // El m�todo protegido tryToMove concentra el c�digo de la comprobaci�n
+    // de las colisiones para todos los objetos del juego. Recibe un vector
+    // con el movimiento que se quiere aplicar al objeto, prueba el movimiento
+    // en cambos ejes y devuelve la informaci�n de tipo Collision.
+    // Target: a qu� hace da�o. 
+    // - Si lo usamos en goomba, target sera player.
+    // - Si lo usamos en caparazon, target sera both.
+    // - Si lo usamos en player, target sera none.
+     Collision tryToMove(const Vector2D<int>& speed, Collision::Target target);
+
+    void setScale(int n) { scale = n; }
+
 };
 
-#endif
+

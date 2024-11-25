@@ -8,7 +8,7 @@ TileMap::TileMap(Game* g, std::istream& in, Point2D<int> p, Texture* t)
 	: SceneObject(g, p, t)
 {
 	load(in);
-	position = Point2D<int>(0, 0);
+	//position = Point2D<int>(0, 0);
 }
 
 TileMap::~TileMap()
@@ -80,7 +80,7 @@ void TileMap::update()
 
 Collision TileMap::hit(const SDL_Rect& rect, Collision::Target t) {
 	
-	Collision collision; // Inicializa una instancia de Collision
+	Collision c; // Inicializa una instancia de Collision
 
 	// Calcula las celdas del nivel que contienen las esquinas del rectángulo
 	// Celda del nivel que contiene la esquina superior izquierda del rectángulo
@@ -91,6 +91,12 @@ Collision TileMap::hit(const SDL_Rect& rect, Collision::Target t) {
 	int row1 = (rect.y + rect.h - 1) / TILE_SIDE;
 	int col1 = (rect.x + rect.w - 1) / TILE_SIDE;
 
+	//ajuste para que no pete
+	row0 = max(0, row0);
+	row1 = min(static_cast<int>(indices.size()) - 1, row1);
+	col0 = max(0, col0);
+	col1 = min(static_cast<int>(indices[0].size()) - 1, col1);
+
 	for (int row = row0; row <= row1; ++row) 
 	{
 		for (int col = col0; col <= col1; ++col) 
@@ -100,18 +106,30 @@ Collision TileMap::hit(const SDL_Rect& rect, Collision::Target t) {
 			// Verifica si hay colisión con un obstáculo 
 			if (index != -1 && index % texture->getNumColumns() < OBSTACLE_THRESHOLD) // ESTO CONFIRMA COLISION
 			{
-				collision.result = Collision::OBSTACLE;
+				//cout << "col";
+				SDL_Rect auxRect{
+					col * TILE_SIDE,
+					row * TILE_SIDE,
+					TILE_SIDE,
+					TILE_SIDE
+				};
 
-				//std::cout << collision.collides << endl;
-				return collision;
+				// Calculamos la interseccion
+				if (SDL_IntersectRect(&rect, &auxRect, &c.intersectionRect))
+				{
+					c.result = Collision::OBSTACLE; // el resultado sera obstacle porque el tilemap no hace damage
+					c.horizontal = c.intersectionRect.w;
+					c.vertical = c.intersectionRect.h;
+					return c;
+				}
 			}
 		}
 	}
 
-	return collision; // Retorna la instancia sin colisión si no encontró obstáculos
+	return c; // Retorna la instancia sin colisión si no encontró obstáculos
 }
 
-void TileMap::manageCollisions(Collision collision)
+void TileMap::manageCollisions(Collision c)
 {
 }
 

@@ -10,11 +10,13 @@ Goomba::Goomba(Game* g, Point2D<int> p, Texture* t)
 
 	//frozen = true;
 	//alive = true;
+	frame = 0;
+	frameTimer = 0;
 }
 
 
 void Goomba::update() {
-
+	Enemy::update();
 }
 
 
@@ -27,7 +29,8 @@ SceneObject* Goomba::clone() const
 void Goomba::render()
 {
 
-	SceneObject::render();
+	Enemy::render();
+	updateAnim();
 }
 
 void Goomba::collisionResult()
@@ -37,7 +40,7 @@ void Goomba::collisionResult()
 void Goomba::updateAnim()
 {
 	frameTimer++;
-	if (frameTimer >= 1200) {
+	if (frameTimer >= 5) {
 		frameTimer = 0;
 		frame = (frame + 1) % 2;
 	}

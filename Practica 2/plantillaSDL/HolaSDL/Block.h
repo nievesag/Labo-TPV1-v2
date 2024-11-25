@@ -78,7 +78,7 @@ public:
 
 	Point2D<int> getPos() const { return position; }
 
-	virtual void manageCollisions(Collision collision) override;
+	virtual void manageCollisions(Collision c) override;
 
 	SceneObject* clone() const override;
 

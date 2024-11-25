@@ -1,29 +1,13 @@
 #include "SceneObject.h"
 #include "Game.h"
 
-SceneObject::SceneObject(Game* g, Point2D<int> pos, Texture* t)
-	: GameObject(g), position(pos), texture(t), frame(0), frameTimer(0), 
-	destRect(), speed(0, 0)
+SceneObject::SceneObject(Game* game, Vector2D<int> pos, Texture* texture)
+    : GameObject(game), position(pos), scale(1),
+    speed(0, 0), texture(texture), _isAlive(true), destRect(),
+    frame(0), frameTimer(0)
 {
 	width = TILE_SIDE;
 	height = TILE_SIDE;
-
-	speed.setX(0);
-	speed.setY(0);
-	if (texture != nullptr) 
-	{
-		destRect.h = texture->getFrameHeight();
-		height = destRect.h;
-		destRect.w = texture->getFrameWidth();
-		width = destRect.w;
-		destRect.x = position.getX();
-		destRect.y = position.getY();
-	}
-	direction = Vector2D<int>(0, 0);
-	canMove = true;
-
-	// construir el anchor de la copia
-	// (indica que el objeto no esta incluido todavia en la lista de objetos del juego) :
 
 }
 
@@ -108,7 +92,7 @@ Collision SceneObject::tryToMove(Vector2D<int>& v, Collision::Target target)
 	collision.horizontal = 0; // la horizontal del choque vertical da igual
 
 	// Intenta moverse en horizontal
-	// (podría ser conveniente comprobar colisiones incluso aunque el objeto estuviera parado)
+	// (podrï¿½a ser conveniente comprobar colisiones incluso aunque el objeto estuviera parado)
 	if (speed.getX() != 0) 
 	{
 		rect.x += speed.getX();
@@ -117,7 +101,7 @@ Collision SceneObject::tryToMove(Vector2D<int>& v, Collision::Target target)
 
 		
 
-		// Copia la información de esta colisión a la que se devolverá
+		// Copia la informaciï¿½n de esta colisiï¿½n a la que se devolverï¿½
 		collision.horizontal = partial.horizontal;
 
 		if (partial.result == Collision::DAMAGE) collision.result = Collision::DAMAGE;
@@ -134,40 +118,77 @@ Collision SceneObject::tryToMove(Vector2D<int>& v, Collision::Target target)
 
 void SceneObject::render()
 {
-	destRect.x = position.getX() - game->getMapOffset();
-	destRect.y = position.getY();
-	destRect.w = texture->getFrameWidth() * scale;
-	destRect.h = texture->getFrameHeight() * scale;
+    destRect.x = position.getX() - game->getMapOffset();
+    destRect.y = position.getY();
+    destRect.w = texture->getFrameWidth() * scale;
+    destRect.h = texture->getFrameHeight() * scale;
 
-	texture->renderFrame(destRect, 0, frame, 0, nullptr, flip);
+    texture->renderFrame(destRect, 0, frame, 0, nullptr, flip);
 
-	
+   
 }
 
 SDL_Rect SceneObject::getCollisionRect() const
 {
-	
-
-	SDL_Rect collRect;
-
-	collRect.x = position.getX();
-	collRect.y = position.getY(); // la referencia es la esquina inferior izquierda
-	collRect.w = width;
-	collRect.h = height;
-
-	
-
-	return collRect;
+    return SDL_Rect{
+        position.getX(),
+        position.getY(), // - _height,
+        width,
+        height
+    };
 }
 
 SDL_Rect SceneObject::getRenderRect() const
 {
-	SDL_Rect renderRect;
+    return SDL_Rect{
+        position.getX() - game->getMapOffset(),
+        position.getY() - height,
+        width,
+        height
+    };
+}
 
-	renderRect.x = position.getX() - game->getMapOffset(); // coordenadas de la ventana
-	renderRect.y = position.getY() - height;
-	renderRect.w = width;
-	renderRect.h = height;
+void SceneObject::manageCollisions(Collision c)
+{
+}
 
-	return renderRect;
+Collision SceneObject::tryToMove(const Vector2D<int>& speed, Collision::Target target)
+{
+    // Enunciado
+    Collision c;
+    SDL_Rect rect = getCollisionRect();
+
+    // Movimiento vertical
+    if (speed.getY() != 0) {
+        rect.y += speed.getY();
+        c = game->checkCollisions(rect, target);
+
+        // Cantidad que se ha entrado en el obstï¿½culo (lo que hay que deshacer)
+        int fix = c.vertical * (speed.getY() > 0 ? 1 : -1);
+        //position += {0, speed.getY() - fix};
+        position = position + Vector2D<int>(0, speed.getY() - fix);
+
+        rect.y -= fix; // recoloca la caja para la siguiente colisiï¿½n
+    }
+
+    c.horizontal = 0;
+
+    // Intenta moverse en horizontal
+    // (podrï¿½a ser conveniente comprobar colisiones incluso aunque el objeto estuviera parado)
+    if (speed.getX() != 0) {
+        rect.x += speed.getX();
+
+        Collision partial = game->checkCollisions(rect, target);
+
+        // Copia la informaciï¿½n de esta colisiï¿½n a la que se devolverï¿½
+        c.horizontal = partial.horizontal;
+
+        if (partial.result == Collision::DAMAGE)
+            c.result = Collision::DAMAGE;
+
+        //position += {speed.getX() - c.horizontal * (speed.getX() > 0 ? 1 : -1), 0};
+        position = position + Vector2D<int>(speed.getX() - c.horizontal * (speed.getX() > 0 ? 1 : -1), 0);
+    }
+
+    return c;
 }
