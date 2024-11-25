@@ -8,9 +8,7 @@ SceneObject::SceneObject(Game* game, Vector2D<int> pos, Texture* texture)
 {
 	width = TILE_SIDE;
 	height = TILE_SIDE;
-     
 
-	setListAnchor(_anchor);
 }
 
 SceneObject::SceneObject(const SceneObject& s)
@@ -58,7 +56,6 @@ SceneObject& SceneObject::operator=(const SceneObject& s)
 		c = s.c;
 		destRect = s.destRect;
 
-		//setListAnchor(_anchor);
 	}
 	return *this;
 }

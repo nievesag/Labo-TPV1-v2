@@ -150,7 +150,7 @@ void Block::manageCollisions(Collision c)
 
 SceneObject* Block::clone() const
 {
-	return nullptr;
+	return new Block(*this);
 }
 
 void Block::updateAnim()

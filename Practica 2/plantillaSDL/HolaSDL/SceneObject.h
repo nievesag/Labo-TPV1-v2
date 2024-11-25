@@ -69,27 +69,24 @@ public:
 	// devuelve una copia del objeto sobre el que se aplica (solo se aplicara sobre los objetos de objectQueue)
 	virtual SceneObject* clone() const = 0;
 
-    // devuelva una copia del objeto sobre el que 
-    // se aplica (solo se aplicar� sobre los objetos de objectQueue)
-
     // Getters virtuales
     virtual SDL_Rect getCollisionRect() const;
 
     virtual SDL_Rect getRenderRect() const;
 
     // Cuando el objeto SceneObject se destruya, siguiendo la secuencia natural de 
-    // eliminaci�n de los objetos, se destruir� su atributo anchor y esto implicar� 
-    // autom�ticamente su eliminaci�n de la lista
+    // eliminacion de los objetos, se destruira su atributo anchor y esto implicara
+    // automaticamente su eliminacion de la lista
     void setListAnchor(GameList<SceneObject>::anchor&& anchor) {
         _anchor = std::move(anchor);
     }
 
 protected:
-    // El m�todo protegido tryToMove concentra el c�digo de la comprobaci�n
+    // El metodo protegido tryToMove concentra el codigo de la comprobacion
     // de las colisiones para todos los objetos del juego. Recibe un vector
     // con el movimiento que se quiere aplicar al objeto, prueba el movimiento
-    // en cambos ejes y devuelve la informaci�n de tipo Collision.
-    // Target: a qu� hace da�o. 
+    // en cambos ejes y devuelve la informacion de tipo Collision
+    // Target: a que hiere 
     // - Si lo usamos en goomba, target sera player.
     // - Si lo usamos en caparazon, target sera both.
     // - Si lo usamos en player, target sera none.

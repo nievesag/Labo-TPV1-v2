@@ -55,7 +55,7 @@ public:
 
 	virtual void manageCollisions(Collision c) override;
 
-	SceneObject* clone() const override;
+	//SceneObject* clone() const override;
 	virtual void updateAnim() override;
 };
 

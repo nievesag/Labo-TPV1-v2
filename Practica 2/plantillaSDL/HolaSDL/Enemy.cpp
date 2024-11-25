@@ -93,11 +93,6 @@ void Enemy::manageCollisions(Collision c)
 
 }
 
-SceneObject* Enemy::clone() const
-{
-	return new Enemy(*this);
-}
-
 void Enemy::updateAnim()
 {
 
