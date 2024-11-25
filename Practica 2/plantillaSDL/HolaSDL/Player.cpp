@@ -5,7 +5,6 @@ Player::Player(Game* g, Point2D<int> p, Texture* t, int l)
 	: SceneObject(g, p, t), lives(l)
 {
 	//game->setMarioState(0);
-	
 
 	lives = 3;
 	canMove = true;
@@ -285,30 +284,6 @@ void Player::updateOffset()
 	{
 		game->addMapOffset(1);
 	}
-}
-
-void Player::manageDamage()
-{
-	if (!invencible) 
-	{
-		if (marioState == SUPERMARIO)
-		{
-			marioState = MARIO;
-			position.setY(position.getY() + 0.5);
-		}
-		else
-		{
-			if (lives > 0) 
-			{
-				invencible = true;
-				lives--;
-			}
-
-			//if (lives <= 0) alive = false;
-		}
-	}
-
-	invencible = true;
 }
 
 void Player::manageInvencible()

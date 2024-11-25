@@ -36,11 +36,7 @@ public:
 
 	SceneObject* clone() const override;
 
-	//void updateRect() override;
-	void triggerAction() override;
 	void updateAnim() override;
-
-	SceneObject* clone() const override;
 };
 
 #endif
