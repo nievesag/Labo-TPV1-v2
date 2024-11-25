@@ -13,7 +13,7 @@ protected:
     Vector2D<int> direction;
     int width, height;        // Tamaño del objeto
 
-    int scale;
+    double scale;
 
     Texture* texture;
     SDL_Rect destRect;
@@ -77,7 +77,7 @@ protected:
     // - Si lo usamos en player, target sera none.
      Collision tryToMove(const Vector2D<int>& speed, Collision::Target target);
 
-    void setScale(int n) { scale = n; }
+    void setScale(double n) { scale = n; }
 
     void setAlive(bool a) { isAlive = a;  }
 };

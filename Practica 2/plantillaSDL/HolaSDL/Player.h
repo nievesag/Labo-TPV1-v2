@@ -33,10 +33,13 @@ public:
 		MARIO, SUPERMARIO
 	};
 
+	void finishLevel();
+
 	Texture* textureM = nullptr;
 	Texture* textureS = nullptr;
 
 	bool invencible;
+	int flagPosition = 6306;
 
 
 private:

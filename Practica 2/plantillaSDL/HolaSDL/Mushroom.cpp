@@ -6,7 +6,7 @@ Mushroom::Mushroom(Game* g, Point2D<int> p, Texture* t)
 	: Pickable(g, p, t)
 {
 	setScale(2);
-	speed.setX(3);
+	speed.setX(5);
 }
 
 void Mushroom::render()

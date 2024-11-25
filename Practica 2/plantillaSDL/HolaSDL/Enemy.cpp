@@ -5,7 +5,7 @@ Enemy::Enemy(Game* g, Point2D<int> p, Texture* t)
 	: SceneObject(g, p, t)
 {
 	setScale(2);
-	speed.setX(-3);
+	speed.setX(-7);
 }
 
 
@@ -28,6 +28,7 @@ void Enemy::update()
 
 	// Si toca un objeto en horizontal cambia de dirección
 	if (collision.horizontal)
+		speed.setX(-speed.getX());
 
 	// Si toca un objeto en vertical anula la velocidad (para que no se acumule la gravedad)
 	if (collision.vertical)

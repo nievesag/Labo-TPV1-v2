@@ -25,7 +25,7 @@ void Goomba::collisionResult()
 void Goomba::updateAnim()
 {
 	frameTimer++;
-	if (frameTimer >= 5) {
+	if (frameTimer >= 3) {
 		frameTimer = 0;
 		frame = (frame + 1) % 2;
 	}
