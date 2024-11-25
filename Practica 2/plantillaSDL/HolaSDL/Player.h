@@ -1,37 +1,14 @@
-#pragma once
+#ifndef PLAYER_H
+#define PLAYER_H
+
 #include "SceneObject.h"
 
 class Player : public SceneObject
 {
-
-public:
-	Player(Game* game, Vector2D<int> pos);
-
-	void render() override;
-	void update() override;
-
-	Collision hit(const SDL_Rect& region, Collision::Target target) override;
-	SceneObject* clone() const override;
-
-
-	void resetPlayer();
-	void updateAnim() override;
-	void jump();
-
-	int getLives() { return lives; }
-	void setLives(int n) { lives = n; }
-
-	void isSupermario();
-	void handleEvent(SDL_Event event);
-
-	virtual void manageCollisions(Collision c) override;
-
-
 private:
 	int lives;
 	bool immune;
 
-	int velX;
 	bool grounded, jumping;
 
 	int walkFrame;
@@ -52,6 +29,11 @@ private:
 	int marioFrame;
 	int velX;
 
+	int marioState;
+	enum State {
+		MARIO, SUPERMARIO
+	};
+
 public:
 	Player(Game* g, Point2D<int> p, Texture* t, int l);
 
@@ -66,10 +48,8 @@ public:
 	// alcanzar una determinada altura o colisionar con un objeto, momento en el que empezara a caer
 	void update() override;
 
-	void updateTexture();
-
 	// -- handleEvent --     
-	void handleEvents(const SDL_Event& event);
+	void handleEvent(const SDL_Event& event);
 
 	// -- hit --
 	Collision hit(const SDL_Rect& rect, Collision::Target t) override;
@@ -86,8 +66,6 @@ public:
 
 	void updateOffset();
 
-	void updateRect();
-
 	int getState() {
 		return marioState;
 	}
@@ -96,18 +74,13 @@ public:
 		marioState = s;
 	}
 
-	bool getAlive() {
-		return alive;
-	}
-
 	void setGrounded(bool g) {
 		grounded = g;
 	}
 
-private:
+	void resetPlayer();
 
-
-	void checkFall();
-
+	void jump();
 };
 
+#endif

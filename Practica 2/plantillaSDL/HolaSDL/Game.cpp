@@ -165,10 +165,8 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			pos.setX(pos.getX() * TILE_SIDE);
 			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
 
-		
-
 			lineStream >> lives;
-			player = new Player(this, pos);
+			player = new Player(this, pos, getTexture(MARIO), lives);
 
 			objectQueue.push_back(player);
 		}
@@ -287,13 +285,13 @@ void Game::update()
 void Game::updateEntities()
 {
 	
-	for (SceneObject* obj : gameList) {
-		if(!obj->getAlive())
-		{
-			delete obj;
-			gameList.erase();
-		}
-	}
+	//for (SceneObject* obj : gameList) {
+	//	if(!obj->getAlive())
+	//	{
+	//		delete obj;
+	//		gameList.erase();
+	//	}
+	//}
 }
 
 // PINTAR
@@ -315,11 +313,11 @@ void Game::render()
 
 void Game::addVisibleEntities()
 {
-	// Borde derecho del mapa (+ una casilla)
-	const int rightThreshold = mapOffset + WINDOW_WIDTH + TILE_SIDE;
+	//// Borde derecho del mapa (+ una casilla)
+	//const int rightThreshold = mapOffset + WINDOW_WIDTH + TILE_SIDE;
 
-	while (nextObject < objectQueue.size() && objectQueue[nextObject]->getPosition().getX() < rightThreshold)
-		addObject(objectQueue[nextObject++]->clone());
+	//while (nextObject < objectQueue.size() && objectQueue[nextObject]->getPosition().getX() < rightThreshold)
+	//	addObject(objectQueue[nextObject++]->clone());
 }
 
 // MANEJAR EVENTOS

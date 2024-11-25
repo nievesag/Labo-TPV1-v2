@@ -11,13 +11,6 @@ SceneObject::SceneObject(Game* game, Vector2D<int> pos, Texture* texture)
 
 }
 
-SceneObject::SceneObject(Game* g, Point2D<int> pos, Texture* t, Vector2D<int> s)
-	: GameObject(g), position(pos), speed(s), texture(t), frame(0), frameTimer(0), destRect()
-{
-	speed.setX(0);
-	speed.setY(0);
-}
-
 SceneObject::SceneObject(const SceneObject& s)
 {
 	position = s.position;
@@ -62,60 +55,6 @@ SceneObject& SceneObject::operator=(const SceneObject& s)
 	return *this;
 }
 
-// concentra la comprobacion de colisiones para todos los objetos del juego
-// tryToMove(vector movimiento que se quiere aplicar al objeto, a quien afecta la colision)
-// -> prueba el movimiento en ambos ejes y devuelve la informacion de tipo Collision
-Collision SceneObject::tryToMove(Vector2D<int>& v, Collision::Target target)
-{
-	Collision collision;
-	SDL_Rect rect = getCollisionRect();
-
-	// Intenta moverse en vertical
-	if (speed.getY() != 0)
-	{
-		rect.y += speed.getY();
-
-		collision = game->checkCollisions(rect, target);
-
-		// Cantidad que se ha entrado en el obstaculo (lo que hay que deshacer)
-		int fix = collision.vertical * (speed.getY() > 0 ? 1 : -1);
-		position.setX(position.getX() + 0);
-		position.setY(speed.getY() - fix);
-
-		// Obs: a ? b : c es el operador ternario: vale b si a es cierto y c en caso contrario
-
-		rect.y -= fix; // recoloca la caja para la siguiente colision
-
-		
-	}
-
-	collision.horizontal = 0; // la horizontal del choque vertical da igual
-
-	// Intenta moverse en horizontal
-	// (podr�a ser conveniente comprobar colisiones incluso aunque el objeto estuviera parado)
-	if (speed.getX() != 0) 
-	{
-		rect.x += speed.getX();
-
-		Collision partial = game->checkCollisions(rect, target);
-
-		
-
-		// Copia la informaci�n de esta colisi�n a la que se devolver�
-		collision.horizontal = partial.horizontal;
-
-		if (partial.result == Collision::DAMAGE) collision.result = Collision::DAMAGE;
-		
-		position.setX(speed.getX() - collision.horizontal * (speed.getX() > 0 ? 1 : -1));
-		position.setY(position.getY() + 0);
-
-		
-	}
-
-	return collision;
-}
-
-
 void SceneObject::render()
 {
     destRect.x = position.getX() - game->getMapOffset();
@@ -124,8 +63,6 @@ void SceneObject::render()
     destRect.h = texture->getFrameHeight() * scale;
 
     texture->renderFrame(destRect, 0, frame, 0, nullptr, flip);
-
-   
 }
 
 SDL_Rect SceneObject::getCollisionRect() const

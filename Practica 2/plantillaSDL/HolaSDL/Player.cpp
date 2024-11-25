@@ -1,8 +1,8 @@
 #include "Player.h"
 #include "Game.h"
 
-Player::Player(Game* game, Vector2D<int> pos)
-	: SceneObject(game, pos, game->getTexture(Game::MARIO))
+Player::Player(Game* g, Point2D<int> p, Texture* t, int l)
+	: SceneObject(g, p, t), lives(l)
 {
 	game->setMarioState(0);
 
@@ -15,9 +15,8 @@ Player::Player(Game* game, Vector2D<int> pos)
 	jumping = false;
 
 	walkFrame = 0;
-	_flipSprite = true;
+	flipSprite = true;
 	flip = SDL_FLIP_NONE;
-
 }
 
 void Player::render()
@@ -28,7 +27,6 @@ void Player::render()
 
 void Player::update()
 {
-
 	if (speed.getY() < SPEED_LIMIT)
 		speed = speed + Vector2D<int>(0, GRAVITY);
 		//speed += {0, GRAVITY};
@@ -74,53 +72,6 @@ Collision Player::hit(const SDL_Rect& region, Collision::Target target)
 	return Collision();
 }
 
-SceneObject* Player::clone() const
-{
-	return nullptr;
-}
-
-
-
-
-void Player::resetPlayer()
-{
-}
-
-void Player::updateAnim()
-{
-	if (speed.getX() != 0 && grounded)
-	{
-		frameTimer++;
-		if (frameTimer >= 1)
-		{
-			frameTimer = 0;
-
-			int cycleLength = immune ? 4 : 5;
-			walkFrame = (walkFrame + 1) % cycleLength;
-
-			// Asigna el frame correspondiente
-			if (walkFrame == 0 || walkFrame == (cycleLength - 1)) {
-				frame = 2;
-			}
-			else if (walkFrame == 1) {
-				frame = 3;
-			}
-			else if (walkFrame == 2) {
-				frame = 4;
-			}
-			else if (immune && walkFrame == 3) {
-				frame = -1;
-			}
-		}
-	}
-	else if (!grounded) {
-		frame = 6; // Frame cuando est� en el aire
-	}
-	else {
-		frame = 0; // Frame cuando est� en reposo
-	}
-}
-
 void Player::jump()
 {
 	if (!jumping && grounded)
@@ -132,11 +83,8 @@ void Player::jump()
 	}
 }
 
-void Player::isSupermario()
-{
-}
 
-void Player::handleEvent(SDL_Event event)
+void Player::handleEvent(const SDL_Event& event)
 {
 	// escanea y evalua que tecla has tocado
 	SDL_Scancode key = event.key.keysym.scancode;
@@ -208,11 +156,6 @@ void Player::handleEvent(SDL_Event event)
 	}
 }
 
-void Player::manageCollisions(Collision c)
-{
-}
-
-
 void Player::manageCollisions(Collision collision)
 {
 	// si el target soy yo...
@@ -275,19 +218,6 @@ void Player::updateOffset()
 	}
 }
 
-void Player::checkFall()
-{
-	// para ver si se ha caido a un agujero
-	if (position.getY() > deadH) 
-	{
-		position.setY(10 * TILE_SIDE);
-		game->setMapOffset(0);
-		position.setX(1);
-		marioState = MARIO;
-		lives--;
-	}
-}
-
 void Player::manageDamage()
 {
 	if (!invencible) 
@@ -305,7 +235,7 @@ void Player::manageDamage()
 				lives--;
 			}
 
-			if (lives <= 0) alive = false;
+			//if (lives <= 0) alive = false;
 		}
 	}
 
@@ -324,8 +254,3 @@ void Player::manageInvencible()
 		invencible = false;
 	}
 }
-
-
-
-
-

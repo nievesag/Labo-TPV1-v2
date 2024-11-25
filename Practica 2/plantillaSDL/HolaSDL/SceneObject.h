@@ -14,14 +14,12 @@ protected:
     int width, height;        // Tama�o del objeto
 
 	Texture* texture;
-	int frame;
 	SDL_RendererFlip flip;
+	int frame;
 	int frameTimer;
 	bool flipSprite;
 	int scale;
 
-
-    Texture* texture;
     SDL_Rect destRect;
 
     bool _isAlive;
@@ -34,11 +32,6 @@ protected:
     // Ancla a la lista de objetos del juego
     GameList<SceneObject>::anchor _anchor;
 
-    int frame;
-    int frameTimer;
-    bool _flipSprite;
-    SDL_RendererFlip flip;
-
 public:
     SceneObject(Game* game, Vector2D<int> pos, Texture* texture);
 
@@ -50,12 +43,10 @@ public:
 
 	// ---- hit ----
 	// colisiones
-	virtual Collision hit(const SDL_Rect& rect, Collision::Target t) = 0;
 	virtual void manageCollisions(Collision collision) = 0;
 	virtual void render() override;
 
     virtual void update() override {}
-
 
     // Recibe rectangulo que se vera afectado y si viene del jugador
     virtual Collision hit(const SDL_Rect& region, Collision::Target target) = 0;
@@ -64,13 +55,11 @@ public:
     //virtual void checkAlive() = 0;
     virtual void updateAnim() = 0;
 
-
 	Point2D<int> getPosition()
 	{
 		return position;
 	}
 	
-
 	// Para gestion de cola de objetos ->
 	//	Se usa para poder clonar los objetos polimorficamente e insertar copias en la lista de objetos del juego
 	//	Para evitar tener que recargar el mapa desde el archivo al reiniciar el nivel (muere mario)
@@ -96,8 +85,6 @@ public:
         _anchor = std::move(anchor);
     }
 
-    virtual void manageCollisions(Collision c) = 0;
-
 protected:
     // El m�todo protegido tryToMove concentra el c�digo de la comprobaci�n
     // de las colisiones para todos los objetos del juego. Recibe un vector
@@ -110,7 +97,4 @@ protected:
      Collision tryToMove(const Vector2D<int>& speed, Collision::Target target);
 
     void setScale(int n) { scale = n; }
-
 };
-
-
