@@ -126,6 +126,8 @@ private:
 	// puntuacion del jugador
 	int points;
 
+	int currentWorld;
+
 public:
 	// ---- constructora ----
 	Game();
@@ -141,7 +143,7 @@ public:
 	// bucle principal del juego
 	void run();
 
-	// ---- render ----
+	// ---- render ----s
 	// renderiza la pantalla
 	void render();
 
@@ -149,7 +151,7 @@ public:
 	// actualiza el estado de juego
 	void update();
 
-	void updateEntities();
+	void deleteEntities();
 
 	void addVisibleEntities();
 
@@ -158,6 +160,9 @@ public:
 	// ---- handleEvents ----
 	// input del jugador
 	void handleEvents();
+
+	
+	void loadLevel(const string& file, const string& root);
 
 	// ---- checkCollisions ----
 	// Los goombas, koopas y mushrooms:

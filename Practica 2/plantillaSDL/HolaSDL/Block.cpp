@@ -143,7 +143,7 @@ void Block::manageSorpresa()
 	frame = 4;
 }
 
-void Block::manageCollisions(Collision c)
+void Block::manageCollisions(Collision col)
 {
 
 }

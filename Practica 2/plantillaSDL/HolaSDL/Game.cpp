@@ -36,6 +36,9 @@ const array<TextureSpec, Game::NUM_TEXTURES> textureSpec{
 
 Game::Game() : randomGenerator(time(nullptr)), exit(false)
 {
+	nextObject = 0;
+	currentWorld = 1;
+
 	int winX, winY; // Posición de la ventana
 	winX = winY = SDL_WINDOWPOS_CENTERED;
 
@@ -82,32 +85,9 @@ Game::~Game()
 
 void Game::init()
 {
-	nextObject = 0;
-
 	loadTextures();
 
-	// TILEMAP
-	std::ifstream tiles("../assets/maps/world1.csv");
-	// control de errores
-	if (!tiles.is_open()) 
-	{
-		std::cout << "Error cargando el tilemap";
-	}
-
-	Point2D<int> pos = Point2D<int>(0, 0);
-	SceneObject* tilemap = new TileMap(this, tiles, pos, getTexture(BACKGROUND));
-	objectQueue.push_back(tilemap);
-	tiles.close();
-
-	// MAPA
-	std::ifstream mapa("../assets/maps/world1.txt");
-	// control de errores
-	if (!mapa.is_open())
-	{
-		std::cout << "Error cargando el mapa";
-	}
-	loadObjectMap(mapa);
-	mapa.close();
+	loadLevel(to_string(currentWorld - '0'), "../assets/maps/world");
 }
 
 // CARGA
@@ -280,15 +260,14 @@ void Game::update()
 		obj->update();
 	}
 
-	updateEntities();
+	deleteEntities();
 
 	// si muere el player acaba el juego
 	//if (!player->getAlive()) EndGame();
 }
 
-void Game::updateEntities()
+void Game::deleteEntities()
 {
-	
 	//for (SceneObject* obj : gameList) {
 	//	if(!obj->getAlive())
 	//	{
@@ -344,6 +323,10 @@ void Game::handleEvents()
 
 void Game::addObject(SceneObject* o)
 {
+	if(nextObject == 1)
+	{
+		gameList.push_front(o);
+	}
 	gameList.push_back(o);
 	nextObject++;
 }
@@ -371,6 +354,36 @@ Collision Game::checkCollisions(const SDL_Rect& rect, Collision::Target target)
 void Game::EndGame()
 {
 	exit = true;
+}
+
+void Game::loadLevel(const string& file, const string& root)
+{
+	// TILEMAP
+	// ifstream in(root + file + ".txt");
+	// "../assets/maps/world" +
+	// "to_string(k - '0')" + -> siendo k el mundo en el que estes
+	// ".csv"
+	std::ifstream tiles(root + file + ".csv");
+	// control de errores
+	if (!tiles.is_open())
+	{
+		std::cout << "Error cargando el tilemap";
+	}
+
+	Point2D<int> pos = Point2D<int>(0, 0);
+	SceneObject* tilemap = new TileMap(this, tiles, pos, getTexture(BACKGROUND));
+	objectQueue.push_back(tilemap);
+	tiles.close();
+
+	// MAPA
+	std::ifstream mapa(root + file + ".txt");
+	// control de errores
+	if (!mapa.is_open())
+	{
+		std::cout << "Error cargando el mapa";
+	}
+	loadObjectMap(mapa);
+	mapa.close();
 }
 
 void Game::playerLives()
