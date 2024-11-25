@@ -4,7 +4,7 @@
 Player::Player(Game* game, Vector2D<int> pos)
 	: SceneObject(game, pos, game->getTexture(Game::MARIO))
 {
-	game->setMarioState(0);
+	//game->setMarioState(0);
 
 	setScale(2);
 
@@ -18,6 +18,11 @@ Player::Player(Game* game, Vector2D<int> pos)
 	_flipSprite = true;
 	flip = SDL_FLIP_NONE;
 
+	marioState = MARIO;
+	textureM = game->getTexture(Game::MARIO);		// textura inicial de mario
+	textureS = game->getTexture(Game::SUPERMARIO); // textura supermario
+
+	invencible = false;
 }
 
 void Player::render()
@@ -28,7 +33,6 @@ void Player::render()
 
 void Player::update()
 {
-
 	if (speed.getY() < SPEED_LIMIT)
 		speed = speed + Vector2D<int>(0, GRAVITY);
 		//speed += {0, GRAVITY};
@@ -67,11 +71,52 @@ void Player::update()
 
 		if (position.getX() - game->getMapOffset() < TILE_SIDE) canMove = false;
 	}
+
+	updateTexture();
+}
+
+void Player::updateTexture()
+{
+	if (marioState != SUPERMARIO) texture = textureM;
+	else texture = textureS;
 }
 
 Collision Player::hit(const SDL_Rect& region, Collision::Target target)
 {
-	return Collision();
+	// Comprueba si hay colision
+	SDL_Rect ownRect = getCollisionRect();
+
+	// si la colision es con los enemies
+	if (target == Collision::PLAYER && SDL_HasIntersection(&ownRect, &region))
+	{
+		manageDamage();
+	}
+
+	return NO_COLLISION; // constante Collision{}
+}
+
+void Player::manageDamage()
+{
+	if (!invencible)
+	{
+		if (marioState == SUPERMARIO)
+		{
+			marioState = MARIO;
+			position.setY(position.getY() + 0.5);
+		}
+		else
+		{
+			if (lives > 0)
+			{
+				invencible = true;
+				lives--;
+			}
+
+			if (lives <= 0) isAlive = false;
+		}
+	}
+
+	invencible = true;
 }
 
 SceneObject* Player::clone() const
@@ -79,11 +124,9 @@ SceneObject* Player::clone() const
 	return nullptr;
 }
 
-
-
-
 void Player::resetPlayer()
 {
+
 }
 
 void Player::updateAnim()
@@ -130,10 +173,6 @@ void Player::jump()
 
 		speed.setY(-30);
 	}
-}
-
-void Player::isSupermario()
-{
 }
 
 void Player::handleEvent(SDL_Event event)

@@ -10,9 +10,10 @@ public:
 	void render() override;
 	void update() override;
 
+	void updateTexture();
+
 	Collision hit(const SDL_Rect& region, Collision::Target target) override;
 	SceneObject* clone() const override;
-
 
 	void resetPlayer();
 	void updateAnim() override;
@@ -21,10 +22,21 @@ public:
 	int getLives() { return lives; }
 	void setLives(int n) { lives = n; }
 
-	void isSupermario();
 	void handleEvent(SDL_Event event);
 
 	virtual void manageCollisions(Collision c) override;
+
+	void manageDamage();
+
+	int marioState;
+	enum State {
+		MARIO, SUPERMARIO
+	};
+
+	Texture* textureM = nullptr;
+	Texture* textureS = nullptr;
+
+	bool invencible;
 
 
 private:
@@ -42,4 +54,3 @@ private:
 
 
 };
-

@@ -38,17 +38,18 @@ void Mushroom::moveSeta()
 
 	// Si toca un objeto en horizontal cambia de dirección
 	if (collision.horizontal)
+		speed.setX(-speed.getX());
 
-		// Si toca un objeto en vertical anula la velocidad (para que no se acumule la gravedad)
-		if (collision.vertical)
-			speed.setY(0);
+	// Si toca un objeto en vertical anula la velocidad (para que no se acumule la gravedad)
+	if (collision.vertical)
+		speed.setY(0);
 
 	// SceneObject::update(); // si hiciera falta
 }
 
 void Mushroom::triggerAction()
 {
-
+	game->setMarioState(1);
 }
 
 SceneObject* Mushroom::clone() const

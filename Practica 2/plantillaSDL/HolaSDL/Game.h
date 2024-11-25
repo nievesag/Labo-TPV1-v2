@@ -177,8 +177,8 @@ public:
 
 	int getRandomRange(int min, int max) { return std::uniform_int_distribution<int>(min, max)(randomGenerator); }
 
-	int getMarioState() const { return marioState; }
-	void setMarioState(int s) { marioState = s; }
+	int getMarioState() const { return player->marioState; }
+	void setMarioState(int s) const { player->marioState = s; }
 
 	// ----- SETTERS -----
 	void EndGame();
@@ -203,7 +203,7 @@ private:
 	// muestra en consola las vidas del jugador
 	void playerLives();
 
-	int marioState;
+	//int marioState;
 };
 
 inline Texture*
