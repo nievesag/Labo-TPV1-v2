@@ -254,8 +254,6 @@ void Game::run()
 // ACTUALIZAR
 void Game::update()
 {
-	cout << nextObject<< endl;
-
 	addVisibleEntities();
 
 	for (auto obj : gameList) {

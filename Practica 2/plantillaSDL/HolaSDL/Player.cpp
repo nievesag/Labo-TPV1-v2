@@ -27,6 +27,8 @@ void Player::render()
 
 void Player::update()
 {
+	cout << position.getX() << endl;
+
 	if (speed.getY() < SPEED_LIMIT)
 		speed = speed + Vector2D<int>(0, GRAVITY);
 		//speed += {0, GRAVITY};
@@ -82,7 +84,6 @@ void Player::jump()
 		speed.setY(-30);
 	}
 }
-
 
 void Player::handleEvent(const SDL_Event& event)
 {
