@@ -254,6 +254,8 @@ void Game::run()
 // ACTUALIZAR
 void Game::update()
 {
+	cout << nextObject<< endl;
+
 	addVisibleEntities();
 
 	for (auto obj : gameList) {
@@ -331,7 +333,6 @@ void Game::addObject(SceneObject* o)
 	{
 		gameList.push_back(o);
 	}
-	nextObject++;
 }
 
 // MANEJO DE COLISONES
