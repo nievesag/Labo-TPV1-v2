@@ -366,7 +366,9 @@ void Game::loadLevel(const string& file, const string& root)
 	// "../assets/maps/world" +
 	// "to_string(k - '0')" + -> siendo k el mundo en el que estes
 	// ".csv"
-	std::ifstream tiles(root + file + ".csv");
+	//std::ifstream tiles(root + file + ".csv");
+	std::ifstream tiles("../assets/maps/world1.csv");
+
 	// control de errores
 	if (!tiles.is_open())
 	{
@@ -379,7 +381,7 @@ void Game::loadLevel(const string& file, const string& root)
 	tiles.close();
 
 	// MAPA
-	std::ifstream mapa(root + file + ".txt");
+	std::ifstream mapa("../assets/maps/world1.txt");
 	// control de errores
 	if (!mapa.is_open())
 	{
