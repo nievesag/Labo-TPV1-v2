@@ -18,7 +18,7 @@ protected:
 	Texture* texture;
 	SDL_RendererFlip flip;
 	bool flipSprite;
-	int scale;
+	double scale;
     SDL_Rect destRect;
 
     // animacion
@@ -32,6 +32,8 @@ protected:
     GameList<SceneObject>::anchor _anchor; // Ancla a la lista de objetos del juego
 
 public:
+    SceneObject(Game* game, Vector2D<int> pos, Texture* texture, Vector2D<int> s);
+
     SceneObject(Game* game, Vector2D<int> pos, Texture* texture);
 
     virtual ~SceneObject() {}

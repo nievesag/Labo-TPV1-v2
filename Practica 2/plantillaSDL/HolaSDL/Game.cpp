@@ -148,7 +148,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
 
 			lineStream >> lives;
-			player = new Player(this, pos, getTexture(MARIO), lives);
+			player = new Player(this, pos, getTexture(MARIO), lives, Vector2D<int>(0, 0));
 
 			objectQueue.push_back(player);
 		}
@@ -239,9 +239,10 @@ void Game::run()
 		// get ticks al inicio del bucle
 		startTime = SDL_GetTicks();
 
+		handleEvents();
 		update(); // actualiza todos los objetos de juego
 		render(); // renderiza todos los objetos de juego
-		handleEvents();
+		
 		// Tiempo que se ha tardado en ejecutar lo anterior
 		uint32_t elapsed = SDL_GetTicks() - startTime;
 
@@ -254,11 +255,13 @@ void Game::run()
 // ACTUALIZAR
 void Game::update()
 {
+
 	addVisibleEntities();
 
 	for (auto obj : gameList) {
 		obj->update();
 	}
+	
 
 	deleteEntities();
 
@@ -311,10 +314,12 @@ void Game::render()
 void Game::addVisibleEntities()
 {
 	// Borde derecho del mapa (+ una casilla)
-	const int rightThreshold = mapOffset + WINDOW_WIDTH + TILE_SIDE;
+	const int rightThreshold = mapOffset + WIN_WIDTH + TILE_SIDE;
 
 	while (nextObject < objectQueue.size() && objectQueue[nextObject]->getPosition().getX() < rightThreshold)
+	{
 		addObject(objectQueue[nextObject++]->clone());
+	}
 }
 
 // MANEJAR EVENTOS

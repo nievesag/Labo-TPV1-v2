@@ -1,8 +1,8 @@
 #include "Player.h"
 #include "Game.h"
 
-Player::Player(Game* g, Point2D<int> p, Texture* t, int l)
-	: SceneObject(g, p, t), lives(l)
+Player::Player(Game* g, Point2D<int> p, Texture* t, int l, Vector2D<int> s)
+	: SceneObject(g, p, t, s), lives(l)
 {
 	//game->setMarioState(0);
 
@@ -16,7 +16,7 @@ Player::Player(Game* g, Point2D<int> p, Texture* t, int l)
 	flipSprite = true;
 	flip = SDL_FLIP_NONE;
 
-	marioState = SUPERMARIO;
+	marioState = MARIO;
 	textureM = game->getTexture(Game::MARIO);		// textura inicial de mario
 	textureS = game->getTexture(Game::SUPERMARIO); // textura supermario
 
@@ -71,6 +71,9 @@ void Player::update()
 
 	updateTexture();
 	finishLevel();
+	//speed.setX(6);
+
+	cout << speed.getX() << endl;
 }
 
 void Player::updateTexture()

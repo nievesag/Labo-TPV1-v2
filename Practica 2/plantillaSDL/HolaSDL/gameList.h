@@ -10,7 +10,6 @@
 #define GAME_LIST_H
 
 #include <cassert>
-#include <compare>
 
  /**
   * Lista de objetos que guardan una referencia opaca a su posición en la lista
@@ -217,8 +216,8 @@ public:
 		iterator(Node* node)
 			: node(node)
 		{
-			node->addref();
 			skip();
+			node->addref();
 		}
 
 		void
@@ -248,12 +247,12 @@ public:
 		{
 			Node* prev = node;
 			node = node->*pivot;
+			// Salta los nodos pendientes de eliminación
+			skip();
 			// Añade una referencia al nodo al que llegamos
 			node->addref();
 			// Elimina una referencia al nodo del que nos vamos
 			prev->unref();
-			// Salta los nodos pendientes de eliminación
-			skip();
 
 			return *this;
 		}

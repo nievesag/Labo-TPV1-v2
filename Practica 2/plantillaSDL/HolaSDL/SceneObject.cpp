@@ -1,14 +1,20 @@
 #include "SceneObject.h"
 #include "Game.h"
 
-SceneObject::SceneObject(Game* game, Vector2D<int> pos, Texture* texture)
-    : GameObject(game), position(pos), scale(1),
-    speed(0, 0), texture(texture), isAlive(true), destRect(),
+SceneObject::SceneObject(Game* g, Vector2D<int> pos, Texture* t)
+    : GameObject(game), position(pos), texture(texture), scale(1), isAlive(true), destRect(),
     frame(0), frameTimer(0)
+{
+    width = TILE_SIDE;
+    height = TILE_SIDE;
+}
+
+SceneObject::SceneObject(Game* game, Vector2D<int> pos, Texture* texture, Vector2D<int> s)
+    : GameObject(game), position(pos),  texture(texture), scale(1), isAlive(true), destRect(),
+    speed(s), frame(0), frameTimer(0)
 {
 	width = TILE_SIDE;
 	height = TILE_SIDE;
-
 }
 
 SceneObject::SceneObject(const SceneObject& s)
@@ -67,7 +73,7 @@ void SceneObject::render()
    
 
     destRect.x = position.getX() - game->getMapOffset();
-    destRect.h = (texture->getFrameHeight() * scale);
+    destRect.h = texture->getFrameHeight() * scale;
     destRect.w = texture->getFrameWidth() * scale;
    
 
