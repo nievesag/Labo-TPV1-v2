@@ -335,6 +335,14 @@ void Game::reloadWorld(const string& file, const string& root)
 			delete obj;
 		}
 	}
+	for (auto obj : objectQueue)
+	{
+		if (obj != player && obj != tilemap)
+		{
+			delete obj;
+		}
+	}
+
 	player = nullptr;
 	tilemap = nullptr;
 
