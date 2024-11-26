@@ -136,15 +136,16 @@ void Player::finishLevel()
 		velX = 0;
 		cout << "FINAL" << endl;
 		game->setCurrentLevel(game->getCurrentLevel()+1);
+		game->setVictory(true);
 
 		if(game->getCurrentLevel() > game->getMaxWorlds())
 		{
 			game->EndGame();
-			game->setVictory(true);
+			
 		}
 		else
 		{
-			game->reloadWorld(to_string(game->getCurrentLevel()), "../assets/maps/world");
+			game->loadLevel(to_string(game->getCurrentLevel()), "../assets/maps/world");
 		}
 	}
 }
@@ -310,7 +311,7 @@ void Player::checkFall()
 		
 		game->reloadWorld(to_string(game->getCurrentLevel()), "../assets/maps/world");
 		game->setFalled(false);
-		position.setX(100);
+		position.setX(20);
 		marioState = MARIO;
 		lives--;
 

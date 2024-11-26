@@ -330,10 +330,14 @@ void Game::reloadWorld(const string& file, const string& root)
 	// todos los objetos del juego (salvo el jugador y el tilemap) han de ser destruidos y reemplazados
 	for(auto obj : gameList )
 	{
+
 		if(obj != player && obj != tilemap)
 		{
+			
 			delete obj;
 		}
+
+	
 	}
 
 	
@@ -467,6 +471,12 @@ void Game::loadLevel(const string& file, const string& root)
 	loadObjectMap(mapa);
 
 	mapa.close();
+
+	if (isVictory) 
+	{
+		mapOffset = 0;
+		nextObject = 2;
+	}
 }
 
 void Game::playerLives()
