@@ -134,6 +134,8 @@ private:
 
 	int marioState;
 
+	bool falled = false;
+
 public:
 	// ---- constructora ----
 	Game();
@@ -173,6 +175,8 @@ public:
 	int getCurrentLevel() const { return currentWorld; }
 	void setCurrentLevel(int c) { currentWorld = c; }
 	int getMaxWorlds() const { return maxWorlds; }
+	void setFalled(bool f) { falled = f; }
+	bool getHasFalled() const { return falled; }
 	
 	void loadLevel(const string& file, const string& root);
 

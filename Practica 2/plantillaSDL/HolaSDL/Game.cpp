@@ -142,16 +142,23 @@ void Game::loadObjectMap(std::ifstream& mapa)
 		if(tipoL == 'M')
 		{
 			int lives;
-
+			cout << falled << endl;
 			lineStream >> pos;
 			
 			pos.setX(pos.getX() * TILE_SIDE);
 			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
 
 			lineStream >> lives;
-			player = new Player(this, pos, getTexture(MARIO), lives, Vector2D<int>(0, 0));
 
-			objectQueue.push_back(player);
+			if (player == nullptr)
+			{
+				cout << "hola" << endl;
+				player = new Player(this, pos, getTexture(MARIO), lives, Vector2D<int>(0, 0));
+				objectQueue.push_back(player);
+			}
+			/*player = new Player(this, pos, getTexture(MARIO), lives, Vector2D<int>(0, 0));
+
+			objectQueue.push_back(player);*/
 		}
 		else if(tipoL == 'G')
 		{
@@ -324,6 +331,8 @@ void Game::reloadWorld(const string& file, const string& root)
 			delete obj;
 		}
 	}
+	player = nullptr;
+	tilemap = nullptr;
 
 	mapOffset = 0;
 	nextObject = 0;

@@ -306,12 +306,15 @@ void Player::checkFall()
 	if (position.getY() > deadH)
 	{
 		position.setY(10 * TILE_SIDE);
-
+		game->setFalled(true);
+		
 		game->reloadWorld(to_string(game->getCurrentLevel()), "../assets/maps/world");
-
-		position.setX(1);
-		marioState = MARIO;
+		game->setFalled(false);
+		position.setX(60);
+		marioState = SUPERMARIO;
 		lives--;
+
+		position.getX();
 	}
 }
 
