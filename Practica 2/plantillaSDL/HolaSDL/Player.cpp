@@ -75,6 +75,8 @@ void Player::update()
 
 	updateTexture();
 	finishLevel();
+
+	cout << game->getPoints() << endl;
 }
 
 void Player::updateTexture()
@@ -131,12 +133,12 @@ void Player::manageDamage()
 
 void Player::finishLevel()
 {
-	if (position.getX() >= flagPosition)
+	if (position.getX() >= flagPosition && game->getCurrentLevel() == 1)
 	{
 		velX = 0;
 		cout << "FINAL" << endl;
 		game->setCurrentWorld(2);
-		//game->loadLevel(to_string(2), "../assets/maps/world");
+	
 	}
 }
 

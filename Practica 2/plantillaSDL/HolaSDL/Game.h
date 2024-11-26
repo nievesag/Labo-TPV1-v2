@@ -195,6 +195,8 @@ public:
 		points += p;
 	}
 
+	int getPoints() { return points; }
+
 	void loadLevel(const string& file, const string& root);
 
 private:
