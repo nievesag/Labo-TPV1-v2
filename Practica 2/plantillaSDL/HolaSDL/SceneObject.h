@@ -2,7 +2,7 @@
 
 #include "GameObject.h"
 
-#include "GameList.h"
+#include "gameList.h"
 #include "Collision.h"
 
 class SceneObject : public GameObject
