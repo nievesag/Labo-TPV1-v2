@@ -46,7 +46,7 @@ public:
 	int getLives() { return lives; }
 	void setLives(int n) { lives = n; }
 
-	void handleEvent(const SDL_Event& event);
+	void handleEvent(const SDL_Event& event) override;
 
 	virtual void manageCollisions(Collision c) override;
 

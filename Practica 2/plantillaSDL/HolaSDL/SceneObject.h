@@ -72,6 +72,8 @@ public:
 
     virtual SDL_Rect getRenderRect() const;
 
+    virtual void handleEvent(const SDL_Event& event);
+
     // Cuando el objeto SceneObject se destruya, siguiendo la secuencia natural de 
     // eliminacion de los objetos, se destruira su atributo anchor y esto implicara
     // automaticamente su eliminacion de la lista

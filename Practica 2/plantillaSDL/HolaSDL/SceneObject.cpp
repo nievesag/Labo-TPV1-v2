@@ -115,6 +115,11 @@ SDL_Rect SceneObject::getRenderRect() const
     };
 }
 
+void SceneObject::handleEvent(const SDL_Event& event)
+{
+
+}
+
 void SceneObject::manageCollisions(Collision c)
 {
 }

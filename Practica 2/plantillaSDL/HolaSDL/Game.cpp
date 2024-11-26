@@ -40,6 +40,7 @@ Game::Game() : randomGenerator(time(nullptr)), exit(false)
 	maxWorlds = 3;
 	currentWorld = 1;
 	isVictory = false;
+	marioState = 0;
 
 	int winX, winY; // Posición de la ventana
 	winX = winY = SDL_WINDOWPOS_CENTERED;
@@ -360,6 +361,9 @@ void Game::addObject(SceneObject* o)
 	}
 	else if(nextObject == 2)
 	{
+		// HACER QUE LA REFERENCIA DE PLAYER EN GAME COINCIDA CON EL OBJ CLONADO
+		// -> xd
+		player = o;
 		gameList.push_back(o);
 	}
 	else

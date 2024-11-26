@@ -99,7 +99,7 @@ private:
 	int mapOffset = 0;
 
 	// declaración de los elementos de juego
-	Player* player;
+	SceneObject* player;
 	SceneObject* tilemap;
 
 	GameList<SceneObject> gameList;
@@ -131,6 +131,8 @@ private:
 	int maxWorlds;
 
 	bool isVictory;
+
+	int marioState;
 
 public:
 	// ---- constructora ----
@@ -196,8 +198,8 @@ public:
 
 	int getRandomRange(int min, int max) { return std::uniform_int_distribution<int>(min, max)(randomGenerator); }
 
-	int getMarioState() const { return player->marioState; }
-	void setMarioState(int s) const { player->marioState = s; }
+	int getMarioState() const { return marioState; }
+	void setMarioState(int s) { marioState = s; }
 
 	// ----- SETTERS -----
 	void EndGame();
