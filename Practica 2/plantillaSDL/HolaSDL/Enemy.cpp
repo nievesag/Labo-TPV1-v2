@@ -8,7 +8,6 @@ Enemy::Enemy(Game* g, Point2D<int> p, Texture* t)
 	speed.setX(-7);
 }
 
-
 void Enemy::update() 
 {
 	// Acelra la velocidad con la gravedad
@@ -36,8 +35,6 @@ void Enemy::update()
 
 	// SceneObject::update(); // si hiciera falta
 }
-
-
 
 Collision Enemy::hit(const SDL_Rect& rect, Collision::Target t)
 {
@@ -69,18 +66,12 @@ Collision Enemy::hit(const SDL_Rect& rect, Collision::Target t)
 				cout << "au" << endl;
 			}
 		}
-		else 
-		{
-
-		}
 		
 		return c;
 	}
 
 	return NO_COLLISION;
 }
-
-
 
 void Enemy::collisionResult()
 {

@@ -8,7 +8,6 @@ TileMap::TileMap(Game* g, std::istream& in, Point2D<int> p, Texture* t)
 	: SceneObject(g, p, t)
 {
 	load(in);
-	//position = Point2D<int>(0, 0);
 }
 
 TileMap::~TileMap()
@@ -73,10 +72,7 @@ void TileMap::render()
 	}
 }
 
-void TileMap::update()
-{
-
-}
+void TileMap::update() { }
 
 Collision TileMap::hit(const SDL_Rect& rect, Collision::Target t) {
 	

@@ -54,6 +54,7 @@ void Mushroom::triggerAction()
 
 void Mushroom::updateAnim()
 {
+
 }
 
 SceneObject* Mushroom::clone() const

@@ -40,7 +40,6 @@ public:
 	Collision hit(const SDL_Rect& region, Collision::Target target) override;
 	SceneObject* clone() const override;
 
-	void resetPlayer();
 	void updateAnim() override;
 	void jump();
 

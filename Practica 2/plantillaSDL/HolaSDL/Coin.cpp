@@ -16,9 +16,8 @@ void Coin::render()
 
 void Coin::update()
 {
+
 }
-
-
 
 void Coin::triggerAction()
 {

@@ -8,7 +8,7 @@ Block::Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accion
 	frame = 0;
 	frameTimer = 0;
 	flip = SDL_FLIP_NONE;
-	// Asignamos el tipo de bloque basado en el car�cter le�do
+	// Asignamos el tipo de bloque basado en el caracter leido
 	switch (tipoL) {
 	case 'B':
 		tipo = LADRILLO;
@@ -16,7 +16,7 @@ Block::Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accion
 		break;
 	case '?':
 		tipo = SORPRESA;
-		frame = 0;  // Comienza la animaci�n del bloque sorpresa desde el primer frame
+		frame = 0;  // Comienza la animacion del bloque sorpresa desde el primer frame
 		break;
 	case 'H':
 		tipo = OCULTO;
@@ -24,7 +24,7 @@ Block::Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accion
 		break;
 	}
 
-	// Asignamos la acci�n del bloque basado en el car�cter le�do
+	// Asignamos la acci�n del bloque basado en el caracter leido
 	switch (accionL) {
 	case 'P':
 		accion = POTENCIADOR;
@@ -43,15 +43,14 @@ void Block::render()
 	updateAnim();
 }
 
-
 void Block::update()
 {
-	//updateAnim();
+	
 }
 
 Collision Block::hit(const SDL_Rect& rect, Collision::Target t)
 {
-	// Calcula la intersecci�n
+	// Calcula la interseccion
 	SDL_Rect intersection;
 	SDL_Rect ownRect = getCollisionRect();
 	bool hasIntersection = SDL_IntersectRect(&ownRect, &rect, &intersection);

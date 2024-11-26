@@ -4,8 +4,6 @@
 Player::Player(Game* g, Point2D<int> p, Texture* t, int l, Vector2D<int> s)
 	: SceneObject(g, p, t, s), lives(l)
 {
-	//game->setMarioState(0);
-
 	lives = 3;
 	canMove = true;
 	velX = 6;
@@ -71,7 +69,6 @@ void Player::update()
 
 	updateTexture();
 	finishLevel();
-	//speed.setX(6);
 
 	cout << speed.getX() << endl;
 }
@@ -111,7 +108,6 @@ void Player::manageDamage()
 		if (marioState == SUPERMARIO)
 		{
 			marioState = MARIO;
-			//position.setY(position.getY() + 0.5);
 		}
 		else
 		{
@@ -167,10 +163,10 @@ void Player::updateAnim()
 		}
 	}
 	else if (!grounded) {
-		frame = 6; // Frame cuando est� en el aire
+		frame = 6;
 	}
 	else {
-		frame = 0; // Frame cuando est� en reposo
+		frame = 0;
 	}
 }
 
@@ -211,7 +207,6 @@ void Player::handleEvent(const SDL_Event& event)
 		// SALTAR
 		else if (key == SDL_SCANCODE_SPACE)
 		{
-
 			keySpace = true;
 			if (!jumping && grounded)
 			{

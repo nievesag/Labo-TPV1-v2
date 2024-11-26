@@ -158,7 +158,6 @@ public:
 	void addObject(SceneObject* o);
 
 	void createSeta(Point2D<int> p);
-	void createCoin(Point2D<int> p);
 
 	// ---- handleEvents ----
 	// input del jugador
@@ -217,8 +216,6 @@ private:
 	// ---- playerLives ----
 	// muestra en consola las vidas del jugador
 	void playerLives();
-
-	//int marioState;
 };
 
 inline Texture*

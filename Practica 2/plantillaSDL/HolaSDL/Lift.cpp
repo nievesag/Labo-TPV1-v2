@@ -3,7 +3,7 @@
 #include "Collision.h"
 
 Lift::Lift(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s)
-	: SceneObject(g, p, t)
+	: SceneObject(g, p, t, s)
 {
 	direction = Vector2D<int>(0, 1);
 }
@@ -23,7 +23,6 @@ void Lift::updateAnim()
 
 }
 
-
 SceneObject* Lift::clone() const
 {
 	return new Lift(*this);
@@ -36,12 +35,11 @@ Collision Lift::hit(const SDL_Rect& rect, Collision::Target t)
 
 void Lift::manageCollisions(Collision c)
 {
+
 }
 
 void Lift::moveLift()
 {
-	// siendo la y la base del objeto(?)
-
 	// se sale por abajo || se sale por arriba
 	if(position.getY() > game->getWinHeight() || position.getY() + destRect.h < 0)
 	{

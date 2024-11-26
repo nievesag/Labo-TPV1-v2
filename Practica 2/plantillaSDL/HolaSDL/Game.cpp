@@ -287,11 +287,6 @@ void Game::createSeta(Point2D<int> p)
 	gameList.push_back(seta);
 }
 
-void Game::createCoin(Point2D<int> p)
-{
-	SceneObject* coin = new Coin(this, p, getTexture(MUSHROOM));
-}
-
 // PINTAR
 void Game::render() 
 {

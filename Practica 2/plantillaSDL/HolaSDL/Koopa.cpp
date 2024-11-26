@@ -11,7 +11,7 @@ Koopa::Koopa(Game* g, Point2D<int> p, Texture* t)
 
 void Koopa::update()
 {
-		//Hacer la logica del caparazon
+	//Hacer la logica del caparazon
 	Enemy::update();
 }
 
@@ -35,7 +35,8 @@ void Koopa::render()
 void Koopa::updateAnim()
 {
 	frameTimer++;
-	if (frameTimer >= 5) {
+	if (frameTimer >= 5) 
+	{
 		frameTimer = 0;
 		frame = (frame + 1) % 2;
 	}

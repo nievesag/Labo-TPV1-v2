@@ -49,33 +49,39 @@ SceneObject& SceneObject::operator=(const SceneObject& s)
 {
 	if(this != &s)
 	{
-		position = s.position;
-		width = s.width;
-		height = s.height;
-		speed = s.speed;
-		direction = s.direction;
-		canMove = s.canMove;
-		texture = s.texture;
-		frame = s.frame;
-		flip = s.flip;
-		frameTimer = s.frameTimer;
-		flipSprite = s.flipSprite;
-		scale = s.scale;
-		c = s.c;
-		destRect = s.destRect;
+        game = s.game;
 
+        // movimiento
+        position = s.position;
+        speed = s.speed;
+        direction = s.direction;
+
+        // representacion
+        width = s.width;
+        height = s.height;
+        texture = s.texture;
+        flip = s.flip;
+        flipSprite = s.flipSprite;
+        scale = s.scale;
+        destRect = s.destRect;
+
+        // animacion
+        frame = s.frame;
+        frameTimer = s.frameTimer;
+
+        // logica
+        isAlive = s.isAlive;
+        c = s.c;
+        canMove = s.canMove;
 	}
 	return *this;
 }
 
 void SceneObject::render()
 {
-   
-
     destRect.x = position.getX() - game->getMapOffset();
     destRect.h = texture->getFrameHeight() * scale;
     destRect.w = texture->getFrameWidth() * scale;
-   
 
     if (texture == game->getTexture(Game::SUPERMARIO))
     {
@@ -86,7 +92,6 @@ void SceneObject::render()
         destRect.y = position.getY();
     }
 
-
     texture->renderFrame(destRect, 0, frame, 0, nullptr, flip);
 }
 
@@ -94,7 +99,7 @@ SDL_Rect SceneObject::getCollisionRect() const
 {
     return SDL_Rect{
         position.getX(),
-        position.getY(), // - _height,
+        position.getY(),
         width,
         height
     };

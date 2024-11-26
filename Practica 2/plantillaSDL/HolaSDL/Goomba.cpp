@@ -8,7 +8,8 @@ Goomba::Goomba(Game* g, Point2D<int> p, Texture* t)
 	frameTimer = 0;
 }
 
-void Goomba::update() {
+void Goomba::update()
+{
 	Enemy::update();
 }
 
@@ -25,6 +26,7 @@ void Goomba::render()
 
 void Goomba::collisionResult()
 {
+
 }
 
 void Goomba::updateAnim()

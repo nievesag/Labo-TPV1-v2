@@ -38,7 +38,6 @@ public:
 
     virtual ~SceneObject() {}
 
-
 	SceneObject(const SceneObject& s); // constructor copia
 	SceneObject& operator=(const SceneObject& s); // asignacion por copia
 
@@ -56,10 +55,7 @@ public:
     //virtual void checkAlive() = 0;
     virtual void updateAnim() = 0;
 
-	Point2D<int> getPosition()
-	{
-		return position;
-	}
+	Point2D<int> getPosition() { return position; }
 	
 	// Para gestion de cola de objetos ->
 	//	Se usa para poder clonar los objetos polimorficamente e insertar copias en la lista de objetos del juego

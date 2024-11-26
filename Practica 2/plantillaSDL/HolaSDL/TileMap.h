@@ -35,6 +35,4 @@ public:
 	SceneObject* clone() const override;
 
 	void updateAnim() override {};
-
-	//void updateRect() override;
 };
