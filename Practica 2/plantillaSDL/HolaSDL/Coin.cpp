@@ -5,7 +5,10 @@
 Coin::Coin(Game* g, Point2D<int> p, Texture* t)
 	: Pickable(g, p, t)
 {
-
+	setScale(2);
+	frame = 0;
+	frameTimer = 0;
+	flip = SDL_FLIP_NONE;
 }
 
 void Coin::render()

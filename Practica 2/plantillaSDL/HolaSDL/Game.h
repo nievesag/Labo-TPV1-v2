@@ -123,7 +123,7 @@ private:
 	// puntuacion del jugador
 	int points;
 
-	int currentWorld = 1;
+	int currentWorld = 2;
 
 public:
 	// ---- constructora ----
@@ -188,11 +188,14 @@ public:
 	void addMapOffset(int newOffset) { mapOffset += newOffset; }
 	void setMapOffset(int newOffset) { mapOffset = newOffset; }
 	void setCurrentWorld(int newLvl) { currentWorld = newLvl; }
+	int getCurrentLevel() const { return currentWorld; }
 
 	void givePoints(int p)
 	{
 		points += p;
 	}
+
+	void loadLevel(const string& file, const string& root);
 
 private:
 	// ---- loadTexture ----
@@ -207,7 +210,7 @@ private:
 	void playerLives();
 
 	
-	void loadLevel(const string& file, const string& root);
+	
 };
 
 inline Texture*

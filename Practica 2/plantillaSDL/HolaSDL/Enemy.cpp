@@ -60,6 +60,7 @@ Collision Enemy::hit(const SDL_Rect& rect, Collision::Target t)
 			{
 				c.target = Collision::ENEMIES;
 				cout << "pega enemigo arriba" << endl;
+				delete this;
 			}
 
 			// otra colision -> hiere a mario

@@ -136,6 +136,7 @@ void Player::finishLevel()
 		velX = 0;
 		cout << "FINAL" << endl;
 		game->setCurrentWorld(2);
+		//game->loadLevel(to_string(2), "../assets/maps/world");
 	}
 }
 
