@@ -79,6 +79,8 @@ public:
 	void setGrounded(bool g) {
 		grounded = g;
 	}
+
+	void checkFall();
 };
 
 #endif

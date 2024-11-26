@@ -1,12 +1,10 @@
 #include "Enemy.h"
 #include "Game.h"
 
-Enemy::Enemy(Game* g, Point2D<int> p, Texture* t)
-	: SceneObject(g, p, t)
+Enemy::Enemy(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s)
+	: SceneObject(g, p, t, s)
 {
 	setScale(2);
-	speed.setX(-7);
-	speed.setY(0);
 }
 
 void Enemy::update() 
@@ -57,6 +55,7 @@ Collision Enemy::hit(const SDL_Rect& rect, Collision::Target t)
 			if (((rect.y) >= destRect.y - destRect.h) && rect.y != destRect.y)
 			{
 				c.target = Collision::ENEMIES;
+				delete this;
 				cout << "pega enemigo arriba" << endl;
 			}
 

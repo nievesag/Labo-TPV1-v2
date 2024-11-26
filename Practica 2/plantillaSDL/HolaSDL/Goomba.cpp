@@ -1,8 +1,8 @@
 #include "Goomba.h"
 #include "Game.h"
 
-Goomba::Goomba(Game* g, Point2D<int> p, Texture* t)
-	: Enemy(g, p, t)
+Goomba::Goomba(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s)
+	: Enemy(g, p, t, s)
 {
 	frame = 0;
 	frameTimer = 0;

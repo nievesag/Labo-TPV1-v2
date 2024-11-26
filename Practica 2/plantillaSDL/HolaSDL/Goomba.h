@@ -24,7 +24,7 @@ private:
 	
 
 public:
-	Goomba(Game* g, Point2D<int> p, Texture* t);
+	Goomba(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s);
 
 	// -- update --
 	void update() override;

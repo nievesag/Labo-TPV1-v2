@@ -72,9 +72,6 @@ Game::Game() : randomGenerator(time(nullptr)), exit(false)
 
 Game::~Game()
 {
-	// Elimina los objetos del juego
-	delete player;
-
 	// Elimina las texturas
 	for (Texture* texture : textures) delete texture;
 
@@ -163,8 +160,7 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			pos.setX(pos.getX() * TILE_SIDE);
 			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
 
-			SceneObject* goomba = new Goomba(this, pos, getTexture(GOOMBA));
-
+			SceneObject* goomba = new Goomba(this, pos, getTexture(GOOMBA), Vector2D<int>(-7, 0));
 			objectQueue.push_back(goomba);
 		}
 		else if (tipoL == 'B')
@@ -190,9 +186,8 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			pos.setX(pos.getX() * TILE_SIDE);
 			pos.setY(pos.getY() * TILE_SIDE - (TILE_SIDE * 2));
 		
-			SceneObject* koopa = new Koopa(this, pos, getTexture(KOOPA));
+			SceneObject* koopa = new Koopa(this, pos, getTexture(KOOPA), Vector2D<int>(-7, 0));
 			objectQueue.push_back(koopa);
-
 		}
 		else if (tipoL == 'L')
 		{
@@ -215,7 +210,6 @@ void Game::loadObjectMap(std::ifstream& mapa)
 			lineStream >> pos;
 			pos.setX(pos.getX() * TILE_SIDE);
 			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
-		
 
 			Pickable* coin = new Coin(this, pos, getTexture(COIN));
 			objectQueue.push_back(coin);
@@ -385,9 +379,10 @@ Collision Game::checkCollisions(const SDL_Rect& rect, Collision::Target target)
 
 	for (auto obj : gameList)
 	{
-		if(obj->hit(rect, target).result != Collision::NONE)
+		result = obj->hit(rect, target);
+
+		if(result.result != Collision::NONE)
 		{
-			result = obj->hit(rect, target);
 			return result;
 		}
 	}

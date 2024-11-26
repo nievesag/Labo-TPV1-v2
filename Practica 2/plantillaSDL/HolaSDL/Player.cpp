@@ -68,6 +68,9 @@ void Player::update()
 	}
 
 	updateTexture();
+
+	checkFall();
+
 	finishLevel();
 
 	marioState = game->getMarioState();
@@ -294,6 +297,21 @@ void Player::updateOffset()
 	if (screenX > TILE_SIDE * WINDOW_WIDTH / 2 && game->getMapOffset() < MAP_MAX_OFFSET) 
 	{
 		game->addMapOffset(1);
+	}
+}
+
+void Player::checkFall()
+{
+	// para ver si se ha caido a un agujero
+	if (position.getY() > deadH)
+	{
+		position.setY(10 * TILE_SIDE);
+
+		game->reloadWorld(to_string(game->getCurrentLevel()), "../assets/maps/world");
+
+		position.setX(1);
+		marioState = MARIO;
+		lives--;
 	}
 }
 
