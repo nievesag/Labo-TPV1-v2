@@ -37,7 +37,9 @@ const array<TextureSpec, Game::NUM_TEXTURES> textureSpec{
 Game::Game() : randomGenerator(time(nullptr)), exit(false)
 {
 	nextObject = 0;
+	maxWorlds = 3;
 	currentWorld = 1;
+	isVictory = false;
 
 	int winX, winY; // Posición de la ventana
 	winX = winY = SDL_WINDOWPOS_CENTERED;
@@ -250,6 +252,8 @@ void Game::run()
 		if (elapsed < FRAMERATE)
 			SDL_Delay(FRAMERATE - elapsed);
 	}
+
+	deleteEntities();
 }
 
 // ACTUALIZAR
@@ -261,21 +265,20 @@ void Game::update()
 		obj->update();
 	}
 
-	deleteEntities();
-
 	// si muere el player acaba el juego
 	//if (!player->getAlive()) EndGame();
 }
 
 void Game::deleteEntities()
 {
-	//for (SceneObject* obj : gameList) {
-	//	if(!obj->getAlive())
-	//	{
-	//		delete obj;
-	//		gameList.erase();
-	//	}
-	//}
+	// si se ha perdido
+	if(exit)
+	{
+		for (SceneObject* obj : gameList) 
+		{
+			delete obj;
+		}
+	}
 }
 
 void Game::createSeta(Point2D<int> p)
@@ -318,10 +321,9 @@ void Game::addVisibleEntities()
 void Game::reloadWorld(const string& file, const string& root)
 {
 	// todos los objetos del juego (salvo el jugador y el tilemap) han de ser destruidos y reemplazados
-
 	for(auto obj : gameList )
 	{
-		if(obj != player)
+		if(obj != player && obj != tilemap)
 		{
 			delete obj;
 		}
@@ -329,35 +331,7 @@ void Game::reloadWorld(const string& file, const string& root)
 
 	nextObject = 0;
 
-	// TILEMAP
-	// ifstream in(root + file + ".txt");
-	// "../assets/maps/world" +
-	// "to_string(k - '0')" + -> siendo k el mundo en el que estes
-	// ".csv"
-	std::ifstream tiles(root + file + ".csv");
-	//std::ifstream tiles("../assets/maps/world1.csv");
-	cout << root + file + ".csv" << endl;
-	// control de errores
-	if (!tiles.is_open())
-	{
-		std::cout << "Error cargando el tilemap";
-	}
-
-	Point2D<int> pos = Point2D<int>(0, 0);
-	SceneObject* tilemap = new TileMap(this, tiles, pos, getTexture(BACKGROUND));
-	objectQueue.push_back(tilemap);
-	tiles.close();
-
-	// MAPA
-	std::ifstream mapa(root + file + ".txt");
-	// control de errores
-	if (!mapa.is_open())
-	{
-		std::cout << "Error cargando el mapa";
-	}
-	loadObjectMap(mapa);
-
-	mapa.close();
+	loadLevel(file, root);
 }
 
 // MANEJAR EVENTOS
@@ -383,6 +357,10 @@ void Game::addObject(SceneObject* o)
 	if(nextObject == 1)
 	{
 		gameList.push_front(o);
+	}
+	else if(nextObject == 2)
+	{
+		gameList.push_back(o);
 	}
 	else
 	{
@@ -432,7 +410,7 @@ void Game::loadLevel(const string& file, const string& root)
 	}
 
 	Point2D<int> pos = Point2D<int>(0, 0);
-	SceneObject* tilemap = new TileMap(this, tiles, pos, getTexture(BACKGROUND));
+	tilemap = new TileMap(this, tiles, pos, getTexture(BACKGROUND));
 	objectQueue.push_back(tilemap);
 	tiles.close();
 

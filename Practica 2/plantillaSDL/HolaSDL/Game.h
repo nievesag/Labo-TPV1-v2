@@ -100,6 +100,7 @@ private:
 
 	// declaración de los elementos de juego
 	Player* player;
+	SceneObject* tilemap;
 
 	GameList<SceneObject> gameList;
 
@@ -127,6 +128,9 @@ private:
 	int points;
 
 	int currentWorld;
+	int maxWorlds;
+
+	bool isVictory;
 
 public:
 	// ---- constructora ----
@@ -166,6 +170,7 @@ public:
 	void reloadWorld(const string& file, const string& root);
 	int getCurrentLevel() const { return currentWorld; }
 	void setCurrentLevel(int c) { currentWorld = c; }
+	int getMaxWorlds() const { return maxWorlds; }
 	
 	void loadLevel(const string& file, const string& root);
 
@@ -199,6 +204,7 @@ public:
 	void setExit(bool aux) { exit = aux; }
 	void addMapOffset(int newOffset) { mapOffset += newOffset; }
 	void setMapOffset(int newOffset) { mapOffset = newOffset; }
+	void setVictory(bool v) { isVictory = v; }
 
 	void givePoints(int p)
 	{

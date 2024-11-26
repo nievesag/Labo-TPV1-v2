@@ -130,8 +130,17 @@ void Player::finishLevel()
 	{
 		velX = 0;
 		cout << "FINAL" << endl;
-		game->setCurrentLevel(2);
-		game->reloadWorld(to_string(game->getCurrentLevel()), "../assets/maps/world");
+		game->setCurrentLevel(game->getCurrentLevel()+1);
+
+		if(game->getCurrentLevel() > game->getMaxWorlds())
+		{
+			game->EndGame();
+			game->setVictory(true);
+		}
+		else
+		{
+			game->reloadWorld(to_string(game->getCurrentLevel()), "../assets/maps/world");
+		}
 	}
 }
 
