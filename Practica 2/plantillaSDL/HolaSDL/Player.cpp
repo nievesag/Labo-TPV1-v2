@@ -130,10 +130,12 @@ void Player::manageDamage()
 
 void Player::finishLevel()
 {
-	if (position.getX() >= flagPosition)
+	if (position.getX() >= flagPosition && game->getCurrentLevel() == 1)
 	{
 		velX = 0;
 		cout << "FINAL" << endl;
+		game->setCurrentLevel(2);
+		game->reloadWorld(to_string(game->getCurrentLevel()), "../assets/maps/world");
 	}
 }
 

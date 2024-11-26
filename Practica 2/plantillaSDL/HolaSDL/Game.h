@@ -164,6 +164,9 @@ public:
 	// input del jugador
 	void handleEvents();
 
+	void reloadWorld(const string& file, const string& root);
+	int getCurrentLevel() const { return currentWorld; }
+	void setCurrentLevel(int c) { currentWorld = c; }
 	
 	void loadLevel(const string& file, const string& root);
 

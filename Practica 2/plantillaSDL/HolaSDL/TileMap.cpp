@@ -18,7 +18,7 @@ TileMap::~TileMap()
 
 void TileMap::load(std::istream& file)
 {
-	std::ifstream archivo("../assets/maps/world1.csv");
+	std::ifstream archivo("../assets/maps/world" + to_string(game->getCurrentLevel()) + ".csv");
 	if (!archivo.is_open()) {
 		std::cerr << "Error al abrir el archivo" << std::endl;
 		return;
