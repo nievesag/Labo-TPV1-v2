@@ -70,6 +70,8 @@ void Player::update()
 	updateTexture();
 	finishLevel();
 
+	marioState = game->getMarioState();
+
 	//cout << speed.getX() << endl;
 }
 
