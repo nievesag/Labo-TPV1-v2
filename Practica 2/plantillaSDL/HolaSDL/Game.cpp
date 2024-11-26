@@ -84,28 +84,29 @@ void Game::init()
 {
 	loadTextures();
 
-	// TILEMAP
-	std::ifstream tiles("../assets/maps/world1.csv");
-	// control de errores
-	if (!tiles.is_open()) 
-	{
-		std::cout << "Error cargando el tilemap";
-	}
+	//// TILEMAP
+	//std::ifstream tiles("../assets/maps/world1.csv");
+	//// control de errores
+	//if (!tiles.is_open()) 
+	//{
+	//	std::cout << "Error cargando el tilemap";
+	//}
 
-	Point2D<int> pos = Point2D<int>(0, 0);
-	SceneObject* tilemap = new TileMap(this, tiles, pos, getTexture(BACKGROUND));
-	gameList.push_back(tilemap);
-	tiles.close();
+	//Point2D<int> pos = Point2D<int>(0, 0);
+	//SceneObject* tilemap = new TileMap(this, tiles, pos, getTexture(BACKGROUND));
+	//gameList.push_back(tilemap);
+	//tiles.close();
 
-	// MAPA
-	std::ifstream mapa("../assets/maps/world1.txt");
-	// control de errores
-	if (!mapa.is_open())
-	{
-		std::cout << "Error cargando el mapa";
-	}
-	loadObjectMap(mapa);
-	mapa.close();
+	//// MAPA
+	//std::ifstream mapa("../assets/maps/world1.txt");
+	//// control de errores
+	//if (!mapa.is_open())
+	//{
+	//	std::cout << "Error cargando el mapa";
+	//}
+	//loadObjectMap(mapa);
+	//mapa.close();
+	loadLevel(to_string(currentWorld), "../assets/maps/world");
 }
 
 // CARGA
@@ -422,3 +423,38 @@ void Game::playerLives()
 {
 	//cout << "VIDAS RESTANTES: " <<  << endl;
 }
+
+void Game::loadLevel(const string& file, const string& root)
+{
+	// TILEMAP
+	// ifstream in(root + file + ".txt");
+	// "../assets/maps/world" +
+	// "to_string(k - '0')" + -> siendo k el mundo en el que estes
+	// ".csv"
+	std::ifstream tiles(root + file + ".csv");
+	//std::ifstream tiles("../assets/maps/world1.csv");
+	cout << root + file + ".csv" << endl;
+	// control de errores
+	if (!tiles.is_open())
+	{
+		std::cout << "Error cargando el tilemap";
+	}
+
+	Point2D<int> pos = Point2D<int>(0, 0);
+	SceneObject* tilemap = new TileMap(this, tiles, pos, getTexture(BACKGROUND));
+	gameList.push_back(tilemap);
+	tiles.close();
+
+	// MAPA
+	std::ifstream mapa(root + file + ".txt");
+	// control de errores
+	if (!mapa.is_open())
+	{
+		std::cout << "Error cargando el mapa";
+	}
+	loadObjectMap(mapa);
+
+	mapa.close();
+}
+
+

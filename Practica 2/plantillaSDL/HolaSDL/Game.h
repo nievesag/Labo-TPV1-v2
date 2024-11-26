@@ -123,6 +123,8 @@ private:
 	// puntuacion del jugador
 	int points;
 
+	int currentWorld = 1;
+
 public:
 	// ---- constructora ----
 	Game();
@@ -185,6 +187,7 @@ public:
 	void setExit(bool aux) { exit = aux; }
 	void addMapOffset(int newOffset) { mapOffset += newOffset; }
 	void setMapOffset(int newOffset) { mapOffset = newOffset; }
+	void setCurrentWorld(int newLvl) { currentWorld = newLvl; }
 
 	void givePoints(int p)
 	{
@@ -203,7 +206,8 @@ private:
 	// muestra en consola las vidas del jugador
 	void playerLives();
 
-	//int marioState;
+	
+	void loadLevel(const string& file, const string& root);
 };
 
 inline Texture*

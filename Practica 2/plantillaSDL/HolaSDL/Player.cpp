@@ -135,6 +135,7 @@ void Player::finishLevel()
 	{
 		velX = 0;
 		cout << "FINAL" << endl;
+		game->setCurrentWorld(2);
 	}
 }
 
