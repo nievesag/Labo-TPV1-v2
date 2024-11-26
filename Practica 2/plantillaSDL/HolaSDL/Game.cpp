@@ -274,6 +274,10 @@ void Game::deleteEntities()
 		{
 			delete obj;
 		}
+		for(auto obj : objectQueue)
+		{
+			delete obj;
+		}
 	}
 }
 
