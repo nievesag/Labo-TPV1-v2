@@ -7,6 +7,7 @@ Mushroom::Mushroom(Game* g, Point2D<int> p, Texture* t)
 {
 	setScale(2);
 	speed.setX(5);
+	speed.setY(0);
 }
 
 void Mushroom::render()
@@ -16,6 +17,8 @@ void Mushroom::render()
 
 void Mushroom::update()
 {
+	cout << position.getY() << endl;
+
 	moveSeta();
 }
 

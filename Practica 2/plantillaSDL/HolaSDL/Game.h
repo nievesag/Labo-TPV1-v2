@@ -96,7 +96,7 @@ private:
 
 	// desplazamiento actual de mapa, llevará la coordenada x del extremo izquierdo de la vista 
 	// (inicialmente cero)
-	int mapOffset = 0;
+	int mapOffset;
 
 	// declaración de los elementos de juego
 	SceneObject* player;

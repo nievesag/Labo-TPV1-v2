@@ -70,7 +70,7 @@ void Player::update()
 	updateTexture();
 	finishLevel();
 
-	cout << speed.getX() << endl;
+	//cout << speed.getX() << endl;
 }
 
 void Player::updateTexture()

@@ -6,6 +6,7 @@ Enemy::Enemy(Game* g, Point2D<int> p, Texture* t)
 {
 	setScale(2);
 	speed.setX(-7);
+	speed.setY(0);
 }
 
 void Enemy::update() 

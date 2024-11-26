@@ -68,7 +68,7 @@ Collision Block::hit(const SDL_Rect& rect, Collision::Target t)
 				if (tipo == LADRILLO && game->getMarioState() == 1)
 				{
 					cout << "ladrillo" << endl;
-
+					delete this;
 					setAlive(false);
 				}
 				else if (tipo == SORPRESA || tipo == OCULTO)

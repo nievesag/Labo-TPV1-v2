@@ -41,6 +41,7 @@ Game::Game() : randomGenerator(time(nullptr)), exit(false)
 	currentWorld = 1;
 	isVictory = false;
 	marioState = 0;
+	mapOffset = 0;
 
 	int winX, winY; // Posición de la ventana
 	winX = winY = SDL_WINDOWPOS_CENTERED;
@@ -330,6 +331,7 @@ void Game::reloadWorld(const string& file, const string& root)
 		}
 	}
 
+	mapOffset = 0;
 	nextObject = 0;
 
 	loadLevel(file, root);
@@ -368,6 +370,7 @@ void Game::addObject(SceneObject* o)
 	}
 	else
 	{
+		
 		gameList.push_back(o);
 	}
 }
