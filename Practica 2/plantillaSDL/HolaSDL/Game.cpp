@@ -354,9 +354,10 @@ void Game::reloadWorld(const string& file, const string& root)
 		std::cout << "Error cargando el tilemap";
 	}
 
+
 	Point2D<int> pos = Point2D<int>(0, 0);
 	tilemap = new TileMap(this, tiles, pos, getTexture(BACKGROUND));
-	gameList.push_back(tilemap);
+	gameList.push_front(tilemap);
 	tiles.close();
 
 	// MAPA
