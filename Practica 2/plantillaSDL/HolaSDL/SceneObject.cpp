@@ -2,7 +2,7 @@
 #include "Game.h"
 
 SceneObject::SceneObject(Game* g, Vector2D<int> pos, Texture* t)
-    : GameObject(game), position(pos), texture(texture), scale(1), isAlive(true), destRect(),
+    : GameObject(g), position(pos), texture(t), scale(1), isAlive(true), destRect(),
     frame(0), frameTimer(0)
 {
     width = TILE_SIDE;

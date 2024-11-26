@@ -16,7 +16,6 @@ class Game;
 class TileMap : public SceneObject
 {
 private:
-	Texture* background = nullptr; 
 	vector<vector<int>> indices;
 	int x, y;
 
