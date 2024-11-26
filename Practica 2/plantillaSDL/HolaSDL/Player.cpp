@@ -310,11 +310,10 @@ void Player::checkFall()
 		
 		game->reloadWorld(to_string(game->getCurrentLevel()), "../assets/maps/world");
 		game->setFalled(false);
-		position.setX(60);
-		marioState = SUPERMARIO;
+		position.setX(100);
+		marioState = MARIO;
 		lives--;
 
-		position.getX();
 	}
 }
 
