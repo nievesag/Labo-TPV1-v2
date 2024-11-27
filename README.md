@@ -1,5 +1,5 @@
 # TPV1-GDV
-Prácticas y ejercicios. Curso 2024-2025. Nieves Alonso Gilsanz.
+Prácticas y ejercicios. Curso 2024-2025.
 
 | Práctica | Código |
 |:--:|:--:|
