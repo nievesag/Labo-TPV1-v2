@@ -1,0 +1,88 @@
+Clases:
+
+- Texture =)
+- Vector2D =)
+- TileMap
+	Se encarga de dibujar el fondo y los obstáculos del nivel según avanza el personaje
+	- puntero a la textura del conjunto de patrones
+	- matriz bidimensional de índices para describir el mapa
+	+ constructor : lee dicha matriz desde un archivo CSV
+	+ render
+	+ update
+	+ hit : detectar colisiones sobre los obstáculos
+- Block
+	- Point2D posición de un bloque
+	- enum tipo de bloque (ladrillo , sorpresa , vacío u oculto)
+	- enum acción (potenciador o moneda)
+	- puntero a su textura
+	- puntero al juego
+	+ constructor
+	+ render
+	+ update
+	+ hit : manejar colisiones -> 
+		Obstáculo para todos los personajes cuando lo golpeen desde arriba o desde un lateral, 
+		si Mario lo golpa desde abajo: 
+		*si el bloque es de ladrillo y el protagonista es Super Mario, el bloque se destruirá
+		*si el bloque es sorpresa u oculto y la acción es potenciador, hará aparecer una superchampiñón 
+		sobre el bloque y lo convertirá en bloque vacío
+		*no hará nada en el resto de casos
+- Goomba
+	- Point2D posición del goomba
+	- int(?)/Vector2D dirección de movimiento
+	- puntero a su textura
+	- puntero al juego
+	+ constructor
+	+ render
+	+ update
+	+ hit : manejar colisiones -> 
+		*Si el goomba es golpeado desde arriba por el jugador morirá
+		*Otra colisión será el jugador el que pierda una vida
+- Koopa
+	Mismos atributos y comportamiento que el goomba
+	(en futuras versiones al ser golpeado se hará caparazón y podrá lanzar)
+- Mushroom
+	- Point2D posición del superchampiñón
+	- int(?)/Vector2D dirección de movimiento
+	- puntero a su textura
+	- puntero al juego
+	+ constructor
+	+ render
+	+ update
+	+ hit : manejar colisiones -> 
+		*Se mueve hacia la derecha en el mapa, cambiando de dirección cuando choca con un obstáculo
+		*Si Mario colisiona con el superchampiñón se convierte en Super Mario
+- Player
+	- Point2D posición del player
+	- int(?)/Vector2D dirección de movimiento
+	- int vidas (3 al inicio)
+	- aspecto (Mario / SuperMario)
+	- puntero a su textura
+	- puntero al juego
+	+ constructor
+	+ render
+	+ update : movimiento
+	+ handleEvent : input, determina el estado de movimiento
+	+ hit : recibir daño -> 
+		*Mario colisiona con un enemigo o cae en una fosa del mapa se reducirá su número de vidas
+		y volverá a su posición inicial en el nivel
+		*Super Mario colisiona con un enemigo se convertirá en Mario, permanecerá donde está y se mantendrá 		invulnerable durante un par de segundos
+		*La partida finaliza cuando pierdes todas sus vidas o se alcance el mástil del final del nivel
+- Game =)
+	- tamaño ventana
+	- mapOffset : desplazamiento actual del mapa
+	- puntero a la ventana
+	- puntero al renderer
+	- punteros a los elementos del juego (con el tipo vector)
+	- bool exit
+	- array de texturas
+	- las constantes que sean necesarias. 
+	+ init 
+	+ destruirse
+	+ run : con el bucle principal del juego
+	+ render
+	+ update
+	+ handleEvents
+	métodos aux que se puedan necesitar como:
+	+ getMapOffset
+	+ collides
+	
