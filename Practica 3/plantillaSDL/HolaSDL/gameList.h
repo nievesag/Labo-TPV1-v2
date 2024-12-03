@@ -11,37 +11,37 @@
 
 #include <cassert>
 
- /**
-  * Lista de objetos que guardan una referencia opaca a su posición en la lista
-  * para borrarse eficientemente. Los métodos de inserción de la lista fijan esa
-  * referencia, para lo que la clase @c T debe proporcionar un método
-  * @c setListAnchor que reciba por movimiento un objeto de tipo @c GameList::anchor.
-  *
-  * @tparam T Tipo de los objetos almacenados (sin puntero, aunque los objetos
-  * se almacenan como punteros).
-  */
+/**
+ * Lista de objetos que guardan una referencia opaca a su posición en la lista
+ * para borrarse eficientemente. Los métodos de inserción de la lista fijan esa
+ * referencia, para lo que la clase @c T debe proporcionar un método
+ * @c setListAnchor que reciba por movimiento un objeto de tipo @c GameList::anchor.
+ *
+ * @tparam T Tipo de los objetos almacenados (sin puntero, aunque los objetos
+ * se almacenan como punteros).
+ */
 template<typename T>
 class GameList
 {
 	/// Nodo de la lista doblemente enlazada
 	struct Node
 	{
-		Node* prev, * next;
+		Node *prev, *next;
 		T* elem;      ///< Elemento
 		int refCount; ///< Contador de referencias (iteradores) al objeto
 
 		Node(Node* base, T* elem = nullptr)
-			: elem(elem)
-			, refCount(1)
+		  : elem(elem)
+		  , refCount(1)
 		{
 			linkAfter(base);
 		}
 
 		Node()
-			: prev(this)
-			, next(this)
-			, elem(reinterpret_cast<T*>(1))
-			, refCount(1)
+		  : prev(this)
+		  , next(this)
+		  , elem(reinterpret_cast<T*>(1))
+		  , refCount(1)
 		{
 			// Constructor para el nodo fantasma
 		}
@@ -100,7 +100,7 @@ class GameList
 
 	/// Puntero a uno de los atributo (next o prev) de Node
 	/// (para implementar iteradores en ambos sentidos)
-	using Pivot = Node * (Node::*);
+	using Pivot = Node* (Node::*);
 
 public:
 	/// Referencia que permite borrar elementos de la lista
@@ -120,7 +120,7 @@ public:
 
 		/// Se puede mover un ancla
 		anchor(anchor&& other)
-			: pointer(other.pointer)
+		  : pointer(other.pointer)
 		{
 			other.pointer = nullptr;
 		}
@@ -179,7 +179,7 @@ public:
 
 	/// Permite mover la lista
 	GameList(GameList&& other)
-		: ghostNode(other.ghostNode)
+	  : ghostNode(other.ghostNode)
 	{
 		// Ajusta los enlaces porque el nodo fantasma ha
 		// cambiado de dirección de memoria
@@ -214,14 +214,14 @@ public:
 		Node* node;
 
 		iterator(Node* node)
-			: node(node)
+		  : node(node)
 		{
 			skip();
 			node->addref();
 		}
 
 		void
-			skip()
+		skip()
 		{
 			// Se salta los nodos con elemento nulo, es decir,
 			// con elemento que ha sido borrado
