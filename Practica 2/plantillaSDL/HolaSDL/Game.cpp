@@ -360,6 +360,7 @@ void Game::reloadWorld(const string& file, const string& root)
 
 
 	Point2D<int> pos = Point2D<int>(0, 0);
+
 	tilemap = new TileMap(this, tiles, pos, getTexture(BACKGROUND));
 	gameList.push_front(tilemap);
 	tiles.close();
@@ -458,6 +459,7 @@ void Game::loadLevel(const string& file, const string& root)
 
 	Point2D<int> pos = Point2D<int>(0, 0);
 	tilemap = new TileMap(this, tiles, pos, getTexture(BACKGROUND));
+
 	objectQueue.push_back(tilemap);
 	tiles.close();
 

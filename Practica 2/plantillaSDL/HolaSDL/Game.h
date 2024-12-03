@@ -99,7 +99,7 @@ private:
 	int mapOffset;
 
 	// declaración de los elementos de juego
-	SceneObject* player;
+	SceneObject* player; // -> volver a tipo player , no usar clone con el player
 	SceneObject* tilemap;
 
 	GameList<SceneObject> gameList;

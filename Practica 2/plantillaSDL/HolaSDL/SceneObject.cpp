@@ -83,7 +83,7 @@ void SceneObject::render()
     destRect.h = texture->getFrameHeight() * scale;
     destRect.w = texture->getFrameWidth() * scale;
 
-    if (texture == game->getTexture(Game::SUPERMARIO))
+    if (texture == game->getTexture(Game::SUPERMARIO)) // esto en el player
     {
         destRect.y = position.getY() - TILE_SIDE / 2;
     }

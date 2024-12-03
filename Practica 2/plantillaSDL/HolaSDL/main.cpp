@@ -26,6 +26,13 @@ int main(int argc, char* argv[])
         game.run();
     }
 
+    // GAME ERROR
+    catch (GameError& ge) 
+    {
+        std::cout << ge.what() << std::endl;
+    }
+
+    /*
     // ERROR DE SDL
     catch (SDLError& SDLError) {
 
@@ -41,6 +48,7 @@ int main(int argc, char* argv[])
     catch (FileFormatError& FileFormatError) {
         std::cout << FileFormatError.what() << std::endl;
     }
+    */
 
     // ERROR GENERICO
     catch (...)
