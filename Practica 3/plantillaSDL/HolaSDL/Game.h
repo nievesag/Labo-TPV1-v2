@@ -29,6 +29,7 @@
 #include "Texture.h"
 #include "Vector2D.h"
 #include "Collision.h"
+#include "GameStateMachine.h"
 class TileMap;
 
 // GAME OBJECTS
@@ -80,6 +81,10 @@ public:
 		NUM_TEXTURES  // Truco C++: número de texturas definidas
 	};
 
+	// Constante globales
+	static constexpr uint WIN_WIDTH = TILE_SIDE * WINDOW_WIDTH;  // ancho ventana
+	static constexpr uint WIN_HEIGHT = TILE_SIDE * WINDOW_HEIGHT; // alto ventana
+
 private:
 	// ARRAY DE TEXTURAS -> array estático de tam NUM_TEXTURES de elementos de tipo Texture* 
 	std::array<Texture*, NUM_TEXTURES> textures;
@@ -88,9 +93,9 @@ private:
 	SDL_Window* window = nullptr;	  // puntero a Ventana de la SDL
 	SDL_Renderer* renderer = nullptr; // puntero a Renderizador de la SDL (para dibujar)
 
-	// Constante globales
-	static constexpr uint WIN_WIDTH = TILE_SIDE * WINDOW_WIDTH;  // ancho ventana
-	static constexpr uint WIN_HEIGHT = TILE_SIDE * WINDOW_HEIGHT; // alto ventana
+
+	// maquina de estados
+	GameStateMachine* gsMachine;
 
 	bool exit; // salida de juego
 

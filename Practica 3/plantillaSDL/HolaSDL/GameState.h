@@ -26,6 +26,10 @@ protected:
 	std::list<EventHandler*> eventHandlers;
 
 public:
+	GameState(Game* game);
+
+	virtual ~GameState() = default;
+
 	// render del estado
 	virtual void render() const;
 
@@ -33,10 +37,14 @@ public:
 	virtual void update();
 
 	// gestiona los eventos del estado
-	virtual void HandleEvent(const SDL_Event& event);
+	virtual void handleEvent(const SDL_Event& event);
 
 	// getter del juego
 	Game* getGame() const { return game; }
+
+	void addEventListener(EventHandler* l);
+
+	void addObject(SceneObject* o);
 };
 
 #endif

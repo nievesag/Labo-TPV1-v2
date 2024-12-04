@@ -29,9 +29,31 @@ class PlayState : public GameState
 	// (siempre se añaden en orden porque la lista esta ordenada por abscisas)
 	int nextObject;
 
+
 public:
 	int getMapOffset() { return mapOffset; }
 
+	void loadLevel(const std::string& file, const std::string& root);
+
+	void playerLives();
+
+	void loadObjectMap(std::ifstream& mapa);
+
+	void update();
+
+	void deleteEntities();
+
+	void createSeta(Point2D<int> p);
+
+	void render();
+
+	void addVisibleEntities();
+
+	void reloadWorld(const std::string& file, const std::string& root);
+
+	void addObject(SceneObject* o);
+
+	Collision checkCollisions(const SDL_Rect& rect, Collision::Target target);
 };
 
 #endif
