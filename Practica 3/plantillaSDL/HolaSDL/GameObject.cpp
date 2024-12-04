@@ -8,6 +8,10 @@ GameObject::GameObject(Game* g) : game(g)
 {
 }
 
+GameObject::GameObject(GameState* state)
+{
+}
+
 GameObject::~GameObject()
 {
 }

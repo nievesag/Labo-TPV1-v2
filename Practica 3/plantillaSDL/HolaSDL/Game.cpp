@@ -34,7 +34,7 @@ const array<TextureSpec, Game::NUM_TEXTURES> textureSpec{
 	{"lift.png", 1, 1}
 };
 
-Game::Game() : randomGenerator(time(nullptr)), exit(false)
+Game::Game() : exit(false)
 {
 	nextObject = 0;
 	maxWorlds = 3;

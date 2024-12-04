@@ -1,9 +1,10 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include "EventHandler.h"
 #include "SceneObject.h"
 
-class Player : public SceneObject
+class Player : public SceneObject, EventHandler
 {
 private:
 	int lives;

@@ -6,6 +6,7 @@
 #include "Vector2D.h"
 #include "Texture.h"
 
+class GameState;
 class Game;
 
 class GameObject
@@ -16,12 +17,17 @@ protected:
 	// puntero al game
 	Game* game;
 
+	// puntero al estado de juego (no al sdl application, al playState)
+	GameState* state = nullptr;
+
 	// metodos publicos
 public:
 
 	GameObject();
 
 	GameObject(Game* game);
+
+	GameObject(GameState* state);
 
 	// destructora virtual
 	virtual ~GameObject();

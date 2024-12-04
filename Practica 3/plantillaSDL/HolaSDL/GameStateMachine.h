@@ -32,8 +32,10 @@ public:
 	// Apila un nuevo estado, que se convierte en el estado actual,
 	// manteniendo el anterior en la pila
 	void pushState(std::shared_ptr<GameState> state);
+
 	// Reemplaza el estado actual por el nuevo estado
 	void replaceState(std::shared_ptr<GameState> state);
+
 	// Desapila el estado actual y pasa al siguiente en la pila
 	// (no hace nada si no la pila es vacía)
 	void popState();
