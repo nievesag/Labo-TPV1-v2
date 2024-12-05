@@ -24,7 +24,7 @@ public:
 	TileMap(Game* g, std::istream& in, Point2D<int> p, Texture* t);
 	~TileMap();
 
-	void render() override;
+	void render() const override;
 	void update() override;
 	void load(std::istream& file);
 

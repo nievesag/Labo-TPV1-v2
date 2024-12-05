@@ -33,7 +33,7 @@ private:
 public:
 	Player(Game* game, Vector2D<int> pos, Texture* t, int l, Vector2D<int> s);
 
-	void render() override;
+	void render() const override;
 	void update() override;
 
 	void updateTexture();

@@ -26,7 +26,7 @@ public:
 	Lift(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s);
 
 	// -- render --
-	void render() override;
+	void render() const override;
 
 	// -- update --
 	void update() override;

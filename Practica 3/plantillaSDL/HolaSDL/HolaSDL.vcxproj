@@ -74,7 +74,6 @@
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="EndState.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="FileFormatError.cpp" />
     <ClCompile Include="FileNotFoundError.cpp" />
     <ClCompile Include="Game.cpp" />

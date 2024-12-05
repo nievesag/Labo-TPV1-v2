@@ -31,9 +31,11 @@ class PlayState : public GameState
 
 
 public:
-	int getMapOffset() { return mapOffset; }
+	// constructora
+	PlayState(Game* game, const std::string& file, const std::string& root);
 
-	void loadLevel(const std::string& file, const std::string& root);
+	int getMapOffset() { return mapOffset; } // no se si esto deberia guardarlo el playstate o el game
+
 
 	void playerLives();
 

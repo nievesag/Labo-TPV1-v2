@@ -8,7 +8,7 @@ Lift::Lift(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s)
 	direction = Vector2D<int>(0, 1);
 }
 
-void Lift::render()
+void Lift::render() const
 {
 	texture->render(destRect);
 }

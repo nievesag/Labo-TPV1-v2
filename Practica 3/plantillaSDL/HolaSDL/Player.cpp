@@ -21,7 +21,7 @@ Player::Player(Game* g, Point2D<int> p, Texture* t, int l, Vector2D<int> s)
 	invencible = false;
 }
 
-void Player::render()
+void Player::render() const
 {
 	SceneObject::render();
 	updateAnim();
@@ -140,7 +140,7 @@ void Player::finishLevel()
 
 		if(game->getCurrentLevel() > game->getMaxWorlds())
 		{
-			game->EndGame();
+			game->setExit(true);
 			
 		}
 		else

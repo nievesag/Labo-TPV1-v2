@@ -37,7 +37,7 @@ Block::Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accion
 	alive = true;
 }
 
-void Block::render()
+void Block::render() const
 {
 	SceneObject::render();
 	updateAnim();

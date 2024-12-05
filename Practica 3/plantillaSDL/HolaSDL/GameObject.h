@@ -18,16 +18,18 @@ protected:
 	Game* game;
 
 	// puntero al estado de juego (no al sdl application, al playState)
-	GameState* state = nullptr;
+	GameState* state;
 
 	// metodos publicos
 public:
 
 	GameObject();
 
-	GameObject(Game* game);
+	GameObject(Game* g);
 
-	GameObject(GameState* state);
+	GameObject(GameState* s);
+
+	GameObject(Game* g, GameState* s);
 
 	// destructora virtual
 	virtual ~GameObject();

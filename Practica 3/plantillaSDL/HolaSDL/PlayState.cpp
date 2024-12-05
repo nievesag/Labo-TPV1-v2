@@ -1,8 +1,21 @@
 #include "PlayState.h"
+#include "TileMap.h"
 
 #include <iostream>
 
-#include "TileMap.h"
+#include "Coin.h"
+#include "Lift.h"
+
+PlayState::PlayState(Game* game, const std::string& file, const std::string& root)
+	: GameState(game)
+{
+	game->loadLevel(file, root);
+
+	/*
+	infoBar = new Infobar(Point2D<>(0, winHeight - game->getTexture(Nave)->getFrameHeight()), game->getTexture(Nave), infobarSpacing, this, game->getRenderer());
+	gamelist.push_back(infoBar);
+	*/
+}
 
 void PlayState::loadObjectMap(std::ifstream& mapa)
 {
@@ -41,7 +54,7 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 			if (player == nullptr)
 			{
 				cout << "hola" << endl;
-				player = new Player(this, pos, getTexture(MARIO), lives, Vector2D<int>(0, 0));
+				player = new Player(game, pos, game->getTexture(Game::MARIO), lives, Vector2D<int>(0, 0));
 				objectQueue.push_back(player);
 			}
 			/*player = new Player(this, pos, getTexture(MARIO), lives, Vector2D<int>(0, 0));
@@ -55,7 +68,7 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 			pos.setX(pos.getX() * TILE_SIDE);
 			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
 
-			SceneObject* goomba = new Goomba(this, pos, getTexture(GOOMBA), Vector2D<int>(-7, 0));
+			SceneObject* goomba = new Goomba(game, pos, game->getTexture(Game::GOOMBA), Vector2D<int>(-7, 0));
 			objectQueue.push_back(goomba);
 		}
 		else if (tipoL == 'B')
@@ -71,7 +84,7 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 			lineStream >> tipoL;
 			lineStream >> accionL;
 
-			SceneObject* block = new Block(this, pos, getTexture(BLOCK), tipoL, accionL);
+			SceneObject* block = new Block(game, pos, game->getTexture(Game::BLOCK), tipoL, accionL);
 
 			objectQueue.push_back(block);
 		}
@@ -81,7 +94,7 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 			pos.setX(pos.getX() * TILE_SIDE);
 			pos.setY(pos.getY() * TILE_SIDE - (TILE_SIDE * 2));
 
-			SceneObject* koopa = new Koopa(this, pos, getTexture(KOOPA), Vector2D<int>(-7, 0));
+			SceneObject* koopa = new Koopa(game, pos, game->getTexture(Game::KOOPA), Vector2D<int>(-7, 0));
 			objectQueue.push_back(koopa);
 		}
 		else if (tipoL == 'L')
@@ -97,7 +110,7 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 			lineStream >> y;
 			speed.setY(y);
 
-			SceneObject* lift = new Lift(this, pos, getTexture(LIFT), speed);
+			SceneObject* lift = new Lift(game, pos,game->getTexture(Game::LIFT), speed);
 			objectQueue.push_back(lift);
 		}
 		else if (tipoL == 'C')
@@ -106,7 +119,7 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 			pos.setX(pos.getX() * TILE_SIDE);
 			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
 
-			Pickable* coin = new Coin(this, pos, getTexture(COIN));
+			Pickable* coin = new Coin(game, pos, game->getTexture(Game::COIN));
 			objectQueue.push_back(coin);
 		}
 		else if (tipoL == 'P')
@@ -266,44 +279,6 @@ Collision PlayState::checkCollisions(const SDL_Rect& rect, Collision::Target tar
 	return result;
 }
 
-void PlayState::loadLevel(const string& file, const string& root)
-{
-	// TILEMAP
-	// ifstream in(root + file + ".txt");
-	// "../assets/maps/world" +
-	// "to_string(k - '0')" + -> siendo k el mundo en el que estes
-	// ".csv"
-	std::ifstream tiles(root + file + ".csv");
-	//std::ifstream tiles("../assets/maps/world1.csv");
-	cout << root + file + ".csv" << endl;
-	// control de errores
-	if (!tiles.is_open())
-	{
-		std::cout << "Error cargando el tilemap";
-	}
-
-	Point2D<int> pos = Point2D<int>(0, 0);
-	tilemap = new TileMap(game, tiles, pos, game->getTexture(Game::BACKGROUND));
-	objectQueue.push_back(tilemap);
-	tiles.close();
-
-	// MAPA
-	std::ifstream mapa(root + file + ".txt");
-	// control de errores
-	if (!mapa.is_open())
-	{
-		std::cout << "Error cargando el mapa";
-	}
-	loadObjectMap(mapa);
-
-	mapa.close();
-
-	if (isVictory)
-	{
-		mapOffset = 0;
-		nextObject = 2;
-	}
-}
 
 void PlayState::playerLives()
 {

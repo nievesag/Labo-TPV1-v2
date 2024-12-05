@@ -30,17 +30,33 @@ const array<TextureSpec, Game::NUM_TEXTURES> textureSpec{
 	{"goomba.png", 3, 1},
 	{"koopa.png", 4, 1},
 	{"coin.png", 4, 1},
-	{"lift.png", 1, 1}
+	{"lift.png", 1, 1},
+	{"portada.png", 1, 1},
+	{"continuar.png", 1, 1},
+	{"salir.png", 1, 1},
+	{"numbers.png", 1, 10},
+	{"volver.png", 1, 1},
+	{"nombreMario.png", 1, 1},
+	{"nivel1.png", 1, 1},
+	{"nivel2.png", 1, 1},
+	{"piranha.png", 2, 1},
+	{"plant.png", 4, 1},
+	{"gameOver.png", 1, 1},
+	{"hasGanado.png", 1, 1},
+	{"shell.png", 2, 1},
+	{"star.png", 4, 1},
+	{"firemario.png", 21, 1}
 };
 
 Game::Game() : exit(false)
 {
 	nextObject = 0;
+	mapOffset = 0;
+
 	maxWorlds = 3;
 	currentWorld = 1;
 	isVictory = false;
 	marioState = 0;
-	mapOffset = 0;
 
 	int winX, winY; // Posición de la ventana
 	winX = winY = SDL_WINDOWPOS_CENTERED;
@@ -98,6 +114,46 @@ void Game::init()
 	loadLevel(to_string(currentWorld), "../assets/maps/world");
 }
 
+void Game::loadLevel(const string& file, const string& root)
+{
+	// TILEMAP
+	// ifstream in(root + file + ".txt");
+	// "../assets/maps/world" +
+	// "to_string(k - '0')" + -> siendo k el mundo en el que estes
+	// ".csv"
+	std::ifstream tiles(root + file + ".csv");
+	//std::ifstream tiles("../assets/maps/world1.csv");
+	cout << root + file + ".csv" << endl;
+	// control de errores
+	if (!tiles.is_open())
+	{
+		std::cout << "Error cargando el tilemap";
+	}
+
+	Point2D<int> pos = Point2D<int>(0, 0);
+	tilemap = new TileMap(game, tiles, pos, game->getTexture(Game::BACKGROUND));
+	objectQueue.push_back(tilemap);
+	tiles.close();
+
+	// MAPA
+	std::ifstream mapa(root + file + ".txt");
+	// control de errores
+	if (!mapa.is_open())
+	{
+		std::cout << "Error cargando el mapa";
+	}
+	loadObjectMap(mapa);
+
+	mapa.close();
+
+	if (isVictory)
+	{
+		mapOffset = 0;
+		nextObject = 2;
+	}
+}
+
+
 // CARGA
 void Game::loadTextures()
 {
@@ -123,6 +179,9 @@ void Game::loadTextures()
 	}
 }
 
+void Game::playerLives()
+{
+}
 
 // RUN
 void Game::run()
@@ -156,7 +215,6 @@ void Game::update()
 	gsMachine->update();
 }
 
-
 // PINTAR
 void Game::render() 
 {
@@ -168,8 +226,6 @@ void Game::render()
 	// presenta la escena en pantalla
 	SDL_RenderPresent(renderer);
 }
-
-
 
 // MANEJAR EVENTOS
 void Game::handleEvents()
@@ -188,4 +244,3 @@ void Game::handleEvents()
 		else { player->handleEvent(event); }
 	}
 }
-

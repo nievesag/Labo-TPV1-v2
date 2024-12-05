@@ -10,7 +10,7 @@ Mushroom::Mushroom(Game* g, Point2D<int> p, Texture* t)
 	speed.setY(0);
 }
 
-void Mushroom::render()
+void Mushroom::render() const
 {
 	Pickable::render();
 }

@@ -25,9 +25,8 @@ SceneObject* Koopa::clone() const
 	return new Koopa(*this);
 }
 
-void Koopa::render()
+void Koopa::render() const
 {
-
 	Enemy::render();
 	updateAnim();
 }

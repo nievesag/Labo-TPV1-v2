@@ -8,7 +8,7 @@ Coin::Coin(Game* g, Point2D<int> p, Texture* t)
 
 }
 
-void Coin::render()
+void Coin::render() const
 {
 	Pickable::render();
 	updateAnim();

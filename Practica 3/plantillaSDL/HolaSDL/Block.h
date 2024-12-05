@@ -51,7 +51,7 @@ public:
 	Block(Game* g, Point2D<int> p, Texture* t, char tipoL, char accionL);
 
 	// -- render --
-	void render() override;
+	void render() const override;
 
 	// -- update --
 	void update() override;

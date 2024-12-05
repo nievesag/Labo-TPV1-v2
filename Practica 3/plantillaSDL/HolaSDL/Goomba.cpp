@@ -18,7 +18,7 @@ SceneObject* Goomba::clone() const
 	return new Goomba(*this);
 }
 
-void Goomba::render()
+void Goomba::render() const
 {
 	Enemy::render();
 	updateAnim();

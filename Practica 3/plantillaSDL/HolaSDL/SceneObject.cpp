@@ -79,7 +79,8 @@ SceneObject& SceneObject::operator=(const SceneObject& s)
 
 void SceneObject::render() const
 {
-    // esta gestion habra q hacerla en un metodo update rect a parte
+    // QUE CADA OBJETO TENGA SU RENDER
+    // HACER METODO UPDATERECT PARA MODIFICAR LOS ATRIBUTOS DEL DESTRECT PORQ AHORA RENDER ES CONST
 
     destRect.x = position.getX() - game->getMapOffset();
     destRect.h = texture->getFrameHeight() * scale;

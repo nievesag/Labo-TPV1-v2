@@ -16,7 +16,7 @@ private:
 
 public:
 	// constructora
-	MainMenuState(Game* game);
+	MainMenuState(Game* g);
 
 	// renderizado del estado
 	void render() const override;
@@ -25,7 +25,7 @@ public:
 
 private:
 	// funciones de los botones
-	void loadLevel();
+	void loadLevel(const std::string& file);
 	void salir();
 };
 

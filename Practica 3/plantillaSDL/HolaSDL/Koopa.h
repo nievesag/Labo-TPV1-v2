@@ -31,7 +31,7 @@ public:
 	virtual void collisionResult() override;
 	SceneObject* clone() const override;
 
-	void render() override;
+	void render() const override;
 
 	virtual void updateAnim() override;
 };

@@ -1,7 +1,7 @@
 #ifndef BUTTON_H
 #define BUTTON_H
-#include <functional>
 
+#include <functional>
 #include "EventHandler.h"
 #include "GameObject.h"
 #include "GameState.h"
@@ -9,7 +9,7 @@
 // utiliza callbacks funcionales de tipo <void(void)>
 using SDLEventCallback = std::function<void(void)>;
 
-class Button: public GameObject, EventHandler
+class Button: public EventHandler, public GameObject
 {
 	// boton en pantalla
 	Texture* buttonTexture;	// textura del boton

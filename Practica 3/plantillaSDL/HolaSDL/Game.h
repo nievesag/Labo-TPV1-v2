@@ -78,6 +78,21 @@ public:
 		KOOPA,
 		COIN,
 		LIFT,
+		PORTADA,
+		CONTINUAR,
+		SALIR,
+		NUMBERS,
+		VOLVER,
+		NOMBREMARIO,
+		NIVEL1,
+		NIVEL2,
+		PIRANHA,
+		PLANT,
+		GAMEOVER,
+		GANADO,
+		SHELL,
+		STAR,
+		FIREMARIO,
 		NUM_TEXTURES  // Truco C++: número de texturas definidas
 	};
 
@@ -93,7 +108,6 @@ private:
 	SDL_Window* window = nullptr;	  // puntero a Ventana de la SDL
 	SDL_Renderer* renderer = nullptr; // puntero a Renderizador de la SDL (para dibujar)
 
-
 	// maquina de estados
 	GameStateMachine* gsMachine;
 
@@ -103,6 +117,10 @@ private:
 
 	// color de fondo
 	int r, g, b;
+
+	// desplazamiento actual de mapa, llevará la coordenada x del extremo izquierdo de la vista 
+	// (inicialmente cero)
+	int mapOffset;
 
 	// puntuacion del jugador
 	int points;
@@ -139,27 +157,19 @@ public:
 	// actualiza el estado de juego
 	void update();
 
-	void deleteEntities();
-
-	void addVisibleEntities();
-
-	void addObject(SceneObject* o);
-
-	void createSeta(Point2D<int> p);
 
 	// ---- handleEvents ----
 	// input del jugador
 	void handleEvents();
 
+	/*
 	void reloadWorld(const string& file, const string& root);
-	int getCurrentLevel() const { return currentWorld; }
-	void setCurrentLevel(int c) { currentWorld = c; }
-	int getMaxWorlds() const { return maxWorlds; }
-	void setFalled(bool f) { falled = f; }
-	bool getHasFalled() const { return falled; }
-	
 	void loadLevel(const string& file, const string& root);
-
+	void deleteEntities();
+	void addVisibleEntities();
+	void addObject(SceneObject* o);
+	void createSeta(Point2D<int> p);
+	void loadObjectMap(std::ifstream& mapa);
 	// ---- checkCollisions ----
 	// Los goombas, koopas y mushrooms:
 	// - se mueven en una dir fija
@@ -167,23 +177,34 @@ public:
 	// - invierten su dirección si encuentran un obstaculo horizontal
 	// Estas cosas requieren que los objetos del juego tengan un puntero a Game para llamar a collides
 	Collision checkCollisions(const SDL_Rect& rect, Collision::Target target);
+	void EndGame();
+	*/
 
-	// ----- GETTERS -----s
-	uint getWinWidth() { return WIN_WIDTH; }
-	uint getWinHeight() { return WIN_HEIGHT; }
+	int getCurrentLevel() const { return currentWorld; }
+	void setCurrentLevel(int c) { currentWorld = c; }
+	int getMaxWorlds() const { return maxWorlds; }
+	void setFalled(bool f) { falled = f; }
+	bool getHasFalled() const { return falled; }
 
+	// ----- GETTERS -----
+	uint getWinWidth() const { return WIN_WIDTH; }
+	uint getWinHeight() const { return WIN_HEIGHT; }
 
 	Texture* getTexture(TextureName name) const;
 
 	SDL_Renderer* getRenderer() { return renderer; }
 
-	bool GetExit() { return exit; }
+	bool GetExit() const { return exit; }
+
+	// maquina de estados
+	GameStateMachine* getgsMachine() const { return gsMachine; }
+
+	void loadLevel(const std::string& file, const std::string& root);
 
 	int getMarioState() const { return marioState; }
 	void setMarioState(int s) { marioState = s; }
 
 	// ----- SETTERS -----
-	void EndGame();
 	void setExit(bool aux) { exit = aux; }
 	void addMapOffset(int newOffset) { mapOffset += newOffset; }
 	void setMapOffset(int newOffset) { mapOffset = newOffset; }
@@ -198,9 +219,6 @@ private:
 	// ---- loadTexture ----
 	// se cargan las texturas y se guardan en el array
 	void loadTextures();
-
-	// ---- loadMap ----
-	void loadObjectMap(std::ifstream& mapa);
 
 	// ---- playerLives ----
 	// muestra en consola las vidas del jugador

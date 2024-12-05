@@ -1,3 +1,4 @@
+#include "checkML.h"
 #include "Button.h"
 
 Button::Button(GameState* gameState, Texture* texture, Point2D<double> pos)
@@ -5,6 +6,9 @@ Button::Button(GameState* gameState, Texture* texture, Point2D<double> pos)
 {
 	// para animacion
 	currentFrame = MOUSEOUT; // frame inicial a 0
+
+	point.x = 0;
+	point.y = 0;
 
 	// setea posiciones y dimensiones en el destRect
 	destRect = SDL_Rect{ (int)pos.getX(), (int)pos.getY(), texture->getFrameWidth(), texture->getFrameHeight() };
