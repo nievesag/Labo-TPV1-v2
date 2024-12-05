@@ -17,7 +17,7 @@ void Button::emit() const
 		buttonCallback();
 }
 
-void Button::render()
+void Button::render() const
 {
 	if (currentFrame == MOUSEOVER) 
 	{

@@ -38,7 +38,7 @@ public:
 
 	// METODOS PUBLICOS
 	// ---- render ----
-	void render() override;
+	void render() const override;
 
 	// ---- update ----
 	void update() override;

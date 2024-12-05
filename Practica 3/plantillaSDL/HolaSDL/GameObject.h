@@ -33,7 +33,7 @@ public:
 	virtual ~GameObject();
 
 	// ---- render ----
-	virtual void render() = 0;
+	virtual void render() const = 0;
 
 	// ---- update ----
 	virtual void update() = 0;

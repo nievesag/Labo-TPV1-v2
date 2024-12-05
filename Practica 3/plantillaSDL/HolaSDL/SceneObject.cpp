@@ -77,8 +77,10 @@ SceneObject& SceneObject::operator=(const SceneObject& s)
 	return *this;
 }
 
-void SceneObject::render()
+void SceneObject::render() const
 {
+    // esta gestion habra q hacerla en un metodo update rect a parte
+
     destRect.x = position.getX() - game->getMapOffset();
     destRect.h = texture->getFrameHeight() * scale;
     destRect.w = texture->getFrameWidth() * scale;

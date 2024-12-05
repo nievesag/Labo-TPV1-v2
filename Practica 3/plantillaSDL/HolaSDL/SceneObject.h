@@ -44,7 +44,7 @@ public:
 	// ---- hit ----
 	// colisiones
 	virtual void manageCollisions(Collision collision) = 0;
-	virtual void render() override;
+	virtual void render() const override;
 
     virtual void update() override {}
 
