@@ -16,6 +16,8 @@ class PlayState : public GameState
 
 	GameList<SceneObject> gameList;
 
+	bool falled = false;
+
 	// --- mecanismo para insertar los objetos del juego solo cuando se vuelven visibles en el mapa ---
 	// (en el caso de los objetos animados, esto es imprescindible para que aparezcan en la posicion esperada)
 
@@ -29,13 +31,21 @@ class PlayState : public GameState
 	// (siempre se añaden en orden porque la lista esta ordenada por abscisas)
 	int nextObject;
 
+	// color de fondo
+	int r, g, b;
+
+	bool isVictory;
 
 public:
 	// constructora
-	PlayState(Game* game, const std::string& file, const std::string& root);
+	PlayState(Game* g, const std::string& file, const std::string& root);
 
-	int getMapOffset() { return mapOffset; } // no se si esto deberia guardarlo el playstate o el game
-
+	void addMapOffset(int newOffset) { mapOffset += newOffset; }
+	void setMapOffset(int newOffset) { mapOffset = newOffset; }
+	int getMapOffset() const { return mapOffset; } // no se si esto deberia guardarlo el playstate o el game
+	void setVictory(bool v) { isVictory = v; }
+	void setFalled(bool f) { falled = f; }
+	bool getHasFalled() const { return falled; }
 
 	void playerLives();
 
@@ -52,6 +62,8 @@ public:
 	void addVisibleEntities();
 
 	void reloadWorld(const std::string& file, const std::string& root);
+
+	void loadLevel(const std::string& file, const std::string& root);
 
 	void addObject(SceneObject* o);
 

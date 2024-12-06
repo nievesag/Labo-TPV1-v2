@@ -1,9 +1,12 @@
 #include "Player.h"
 #include "Game.h"
+#include "PlayState.h"
 
-Player::Player(Game* g, Point2D<int> p, Texture* t, int l, Vector2D<int> s)
-	: SceneObject(g, p, t, s), lives(l)
+Player::Player(Game* g, Point2D<int> p, Texture* t, int l, Vector2D<int> s, PlayState* play)
+	: SceneObject(g, p, t, s, play), lives(l)
 {
+	playState->addEventListener(this);
+
 	lives = 3;
 	canMove = true;
 	velX = 6;
@@ -24,11 +27,13 @@ Player::Player(Game* g, Point2D<int> p, Texture* t, int l, Vector2D<int> s)
 void Player::render() const
 {
 	SceneObject::render();
-	updateAnim();
 }
 
 void Player::update()
 {
+	updateRect();
+	updateAnim();
+
 	if (speed.getY() < SPEED_LIMIT)
 		speed = speed + Vector2D<int>(0, GRAVITY);
 
@@ -53,10 +58,10 @@ void Player::update()
 		flip = SDL_FLIP_NONE;
 
 		// Limites
-		if (position.getX() - game->getMapOffset() >= game->getWinWidth() / 2
-			&& game->getMapOffset() <= MAP_MAX_OFFSET)
+		if (position.getX() - playState->getMapOffset() >= game->getWinWidth() / 2
+			&& playState->getMapOffset() <= MAP_MAX_OFFSET)
 		{
-			game->setMapOffset(game->getMapOffset() + speed.getX());
+			playState->setMapOffset(playState->getMapOffset() + speed.getX());
 		}
 		canMove = true;
 	}
@@ -64,7 +69,7 @@ void Player::update()
 	{
 		flip = SDL_FLIP_HORIZONTAL;
 
-		if (position.getX() - game->getMapOffset() < TILE_SIDE) canMove = false;
+		if (position.getX() - playState->getMapOffset() < TILE_SIDE) canMove = false;
 	}
 
 	updateTexture();
@@ -136,7 +141,7 @@ void Player::finishLevel()
 		velX = 0;
 		cout << "FINAL" << endl;
 		game->setCurrentLevel(game->getCurrentLevel()+1);
-		game->setVictory(true);
+		playState->setVictory(true);
 
 		if(game->getCurrentLevel() > game->getMaxWorlds())
 		{
@@ -145,7 +150,7 @@ void Player::finishLevel()
 		}
 		else
 		{
-			game->loadLevel(to_string(game->getCurrentLevel()), "../assets/maps/world");
+			playState->loadLevel(to_string(game->getCurrentLevel()), "../assets/maps/world");
 		}
 	}
 }
@@ -293,11 +298,11 @@ void Player::updateOffset()
 	// COOR TOTALES => la pos de mario sin convertir
 	// COOR DE LA VISTA => COOR TOTALES - MAPOFFSET
 
-	int screenX = position.getX() * TILE_SIDE - game->getMapOffset();
+	int screenX = position.getX() * TILE_SIDE - playState->getMapOffset();
 
-	if (screenX > TILE_SIDE * WINDOW_WIDTH / 2 && game->getMapOffset() < MAP_MAX_OFFSET) 
+	if (screenX > TILE_SIDE * WINDOW_WIDTH / 2 && playState->getMapOffset() < MAP_MAX_OFFSET)
 	{
-		game->addMapOffset(1);
+		playState->addMapOffset(1);
 	}
 }
 
@@ -307,14 +312,13 @@ void Player::checkFall()
 	if (position.getY() > deadH)
 	{
 		position.setY(10 * TILE_SIDE);
-		game->setFalled(true);
+		playState->setFalled(true);
 		
-		game->reloadWorld(to_string(game->getCurrentLevel()), "../assets/maps/world");
-		game->setFalled(false);
+		playState->reloadWorld(to_string(game->getCurrentLevel()), "../assets/maps/world");
+		playState->setFalled(false);
 		position.setX(20);
 		marioState = MARIO;
 		lives--;
-
 	}
 }
 

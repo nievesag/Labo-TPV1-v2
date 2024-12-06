@@ -21,7 +21,7 @@ private:
 
 public:
 	//TileMap();
-	TileMap(Game* g, std::istream& in, Point2D<int> p, Texture* t);
+	TileMap(Game* g, std::istream& in, Point2D<int> p, Texture* t, PlayState* play);
 	~TileMap();
 
 	void render() const override;

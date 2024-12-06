@@ -23,7 +23,7 @@ private:
 	int moveDelay = 5;
 
 public:
-	Mushroom(Game* g, Point2D<int> p, Texture* t);
+	Mushroom(Game* g, Point2D<int> p, Texture* t, PlayState* play);
 
 	void render() const override;
 

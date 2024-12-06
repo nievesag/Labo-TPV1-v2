@@ -2,8 +2,8 @@
 #include "Game.h"
 #include "Collision.h"
 
-Mushroom::Mushroom(Game* g, Point2D<int> p, Texture* t)
-	: Pickable(g, p, t)
+Mushroom::Mushroom(Game* g, Point2D<int> p, Texture* t, PlayState* play)
+	: Pickable(g, p, t, play)
 {
 	setScale(2);
 	speed.setX(5);

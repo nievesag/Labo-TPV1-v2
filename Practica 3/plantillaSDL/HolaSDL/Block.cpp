@@ -1,8 +1,9 @@
 #include "Block.h"
 #include "Game.h"
+#include "PlayState.h"
 
-Block::Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accionL)
-	: SceneObject(g, position, t)
+Block::Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accionL, PlayState* play)
+	: SceneObject(g, position, t, play)
 {
 	setScale(2);
 	frame = 0;
@@ -40,12 +41,11 @@ Block::Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accion
 void Block::render() const
 {
 	SceneObject::render();
-	updateAnim();
 }
 
 void Block::update()
 {
-	
+	updateAnim();
 }
 
 Collision Block::hit(const SDL_Rect& rect, Collision::Target t)
@@ -80,7 +80,7 @@ Collision Block::hit(const SDL_Rect& rect, Collision::Target t)
 					// seta
 					if (accion == POTENCIADOR) 
 					{
-						game->createSeta(position);
+						playState->createSeta(position);
 					}
 					// moneda
 					else 

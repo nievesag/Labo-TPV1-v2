@@ -1,8 +1,8 @@
 #include "Goomba.h"
 #include "Game.h"
 
-Goomba::Goomba(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s)
-	: Enemy(g, p, t, s)
+Goomba::Goomba(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s, PlayState* play)
+	: Enemy(g, p, t, s, play)
 {
 	frame = 0;
 	frameTimer = 0;
@@ -10,6 +10,8 @@ Goomba::Goomba(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s)
 
 void Goomba::update()
 {
+	updateRect();
+	updateAnim();
 	Enemy::update();
 }
 
@@ -21,7 +23,6 @@ SceneObject* Goomba::clone() const
 void Goomba::render() const
 {
 	Enemy::render();
-	updateAnim();
 }
 
 void Goomba::collisionResult()

@@ -2,8 +2,8 @@
 #include "Game.h"
 #include "Collision.h"
 
-Lift::Lift(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s)
-	: SceneObject(g, p, t, s)
+Lift::Lift(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s, PlayState* play)
+	: SceneObject(g, p, t, s, play)
 {
 	direction = Vector2D<int>(0, 1);
 }

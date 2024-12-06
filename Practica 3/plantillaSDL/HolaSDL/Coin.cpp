@@ -2,8 +2,8 @@
 #include "Game.h"
 #include "Collision.h"
 
-Coin::Coin(Game* g, Point2D<int> p, Texture* t)
-	: Pickable(g, p, t)
+Coin::Coin(Game* g, Point2D<int> p, Texture* t, PlayState* play)
+	: Pickable(g, p, t, play)
 {
 
 }
@@ -11,12 +11,12 @@ Coin::Coin(Game* g, Point2D<int> p, Texture* t)
 void Coin::render() const
 {
 	Pickable::render();
-	updateAnim();
 }
 
 void Coin::update()
 {
-
+	updateRect();
+	updateAnim();
 }
 
 void Coin::triggerAction()

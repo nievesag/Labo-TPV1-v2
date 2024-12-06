@@ -1,8 +1,8 @@
 #include "Pickable.h"
 #include "Game.h"
 
-Pickable::Pickable(Game* g, Point2D<int> p, Texture* t)
-	: SceneObject(g, p, t)
+Pickable::Pickable(Game* g, Point2D<int> p, Texture* t, PlayState* play)
+	: SceneObject(g, p, t, play)
 {
 	
 }

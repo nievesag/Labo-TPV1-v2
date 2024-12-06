@@ -1,11 +1,12 @@
 #include "TileMap.h"
+#include "PlayState.h"
 
 // Velocidad y frecuencia de cambio de frame
 constexpr int SPEED = 10;
 constexpr int FRAME_PERIOD = 20;
 
-TileMap::TileMap(Game* g, std::istream& in, Point2D<int> p, Texture* t)
-	: SceneObject(g, p, t)
+TileMap::TileMap(Game* g, std::istream& in, Point2D<int> p, Texture* t, PlayState* play)
+	: SceneObject(g, p, t, play)
 {
 	load(in);
 }
@@ -42,9 +43,9 @@ void TileMap::load(std::istream& file)
 void TileMap::render() const
 {
 	// Primera columna de la matriz del mapa visible en la ventana
-	int x0 = game->getMapOffset() / TILE_SIDE;
+	int x0 = playState->getMapOffset() / TILE_SIDE;
 	// Anchura oculta de esa primera columna
-	int d0 = game->getMapOffset() % TILE_SIDE;
+	int d0 = playState->getMapOffset() % TILE_SIDE;
 
 	// tamaño del cuadro a pintarse
 	SDL_Rect rect;

@@ -1,8 +1,8 @@
 #include "Game.h"
 #include "Koopa.h"
 
-Koopa::Koopa(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s)
-	: Enemy(g, p, t, s)
+Koopa::Koopa(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s, PlayState* play)
+	: Enemy(g, p, t, s, play)
 {
 	frame = 0;
 	frameTimer = 0;
@@ -12,6 +12,9 @@ Koopa::Koopa(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s)
 void Koopa::update()
 {
 	//Hacer la logica del caparazon
+
+	updateRect();
+	updateAnim();
 	Enemy::update();
 }
 
@@ -28,7 +31,6 @@ SceneObject* Koopa::clone() const
 void Koopa::render() const
 {
 	Enemy::render();
-	updateAnim();
 }
 
 void Koopa::updateAnim()

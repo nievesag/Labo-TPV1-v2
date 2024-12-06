@@ -1,17 +1,18 @@
 #include "SceneObject.h"
+#include "PlayState.h"
 #include "Game.h"
 
-SceneObject::SceneObject(Game* g, Vector2D<int> pos, Texture* t)
+SceneObject::SceneObject(Game* g, Vector2D<int> pos, Texture* t, PlayState* p)
     : GameObject(g), position(pos), texture(t), scale(1), isAlive(true), destRect(),
-    frame(0), frameTimer(0)
+    frame(0), frameTimer(0), playState(p)
 {
     width = TILE_SIDE;
     height = TILE_SIDE;
 }
 
-SceneObject::SceneObject(Game* game, Vector2D<int> pos, Texture* texture, Vector2D<int> s)
+SceneObject::SceneObject(Game* game, Vector2D<int> pos, Texture* texture, Vector2D<int> s, PlayState* p)
     : GameObject(game), position(pos),  texture(texture), scale(1), isAlive(true), destRect(),
-    speed(s), frame(0), frameTimer(0)
+    speed(s), frame(0), frameTimer(0), playState(p)
 {
 	width = TILE_SIDE;
 	height = TILE_SIDE;
@@ -82,7 +83,14 @@ void SceneObject::render() const
     // QUE CADA OBJETO TENGA SU RENDER
     // HACER METODO UPDATERECT PARA MODIFICAR LOS ATRIBUTOS DEL DESTRECT PORQ AHORA RENDER ES CONST
 
-    destRect.x = position.getX() - game->getMapOffset();
+
+
+    texture->renderFrame(destRect, 0, frame, 0, nullptr, flip);
+}
+
+void SceneObject::updateRect()
+{
+    destRect.x = position.getX() - playState->getMapOffset();
     destRect.h = texture->getFrameHeight() * scale;
     destRect.w = texture->getFrameWidth() * scale;
 
@@ -94,8 +102,6 @@ void SceneObject::render() const
     {
         destRect.y = position.getY();
     }
-
-    texture->renderFrame(destRect, 0, frame, 0, nullptr, flip);
 }
 
 SDL_Rect SceneObject::getCollisionRect() const
@@ -111,7 +117,7 @@ SDL_Rect SceneObject::getCollisionRect() const
 SDL_Rect SceneObject::getRenderRect() const
 {
     return SDL_Rect{
-        position.getX() - game->getMapOffset(),
+        position.getX() - playState->getMapOffset(),
         position.getY() - height,
         width,
         height
@@ -136,7 +142,7 @@ Collision SceneObject::tryToMove(const Vector2D<int>& speed, Collision::Target t
     // Movimiento vertical
     if (speed.getY() != 0) {
         rect.y += speed.getY();
-        c = game->checkCollisions(rect, target);
+        c = playState->checkCollisions(rect, target);
 
         // Cantidad que se ha entrado en el obst�culo (lo que hay que deshacer)
         int fix = c.vertical * (speed.getY() > 0 ? 1 : -1);
@@ -153,7 +159,7 @@ Collision SceneObject::tryToMove(const Vector2D<int>& speed, Collision::Target t
     if (speed.getX() != 0) {
         rect.x += speed.getX();
 
-        Collision partial = game->checkCollisions(rect, target);
+        Collision partial = playState->checkCollisions(rect, target);
 
         // Copia la informaci�n de esta colisi�n a la que se devolver�
         c.horizontal = partial.horizontal;

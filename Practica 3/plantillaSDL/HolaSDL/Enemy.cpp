@@ -1,12 +1,12 @@
 #include "Enemy.h"
 #include "Game.h"
 
-Enemy::Enemy(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s)
-	: SceneObject(g, p, t, s)
+Enemy::Enemy(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s, PlayState* play)
+	: SceneObject(g, p, t, s, play)
 {
 	setScale(2);
 }
-
+  
 void Enemy::update() 
 {
 	// Acelra la velocidad con la gravedad

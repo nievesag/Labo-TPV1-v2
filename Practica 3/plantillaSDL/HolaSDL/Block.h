@@ -13,6 +13,7 @@
 #include "Collision.h"
 #include "SceneObject.h"
 
+class PlayState;
 class Game;
 
 using uint = unsigned int;
@@ -45,10 +46,8 @@ private:
 
 	bool alive;
 
-	//SDL_Rect destRect;
-
 public:
-	Block(Game* g, Point2D<int> p, Texture* t, char tipoL, char accionL);
+	Block(Game* g, Point2D<int> p, Texture* t, char tipoL, char accionL, PlayState* play);
 
 	// -- render --
 	void render() const override;

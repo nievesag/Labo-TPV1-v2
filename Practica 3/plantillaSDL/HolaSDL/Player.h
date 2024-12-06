@@ -4,6 +4,8 @@
 #include "EventHandler.h"
 #include "SceneObject.h"
 
+class PlayState;
+
 class Player : public SceneObject, EventHandler
 {
 private:
@@ -30,8 +32,10 @@ private:
 	int marioFrame;
 	int velX;
 
+	PlayState* playState;
+
 public:
-	Player(Game* game, Vector2D<int> pos, Texture* t, int l, Vector2D<int> s);
+	Player(Game* game, Vector2D<int> pos, Texture* t, int l, Vector2D<int> s, PlayState* play);
 
 	void render() const override;
 	void update() override;
@@ -46,6 +50,8 @@ public:
 
 	int getLives() { return lives; }
 	void setLives(int n) { lives = n; }
+
+	int getFrame() { return marioFrame; }
 
 	void handleEvent(const SDL_Event& event) override;
 

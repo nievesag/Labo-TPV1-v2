@@ -5,6 +5,8 @@
 #include "gameList.h"
 #include "Collision.h"
 
+class PlayState;
+
 class SceneObject : public GameObject
 {
 protected:
@@ -31,10 +33,13 @@ protected:
     bool canMove; // para que no se salga de la pantalla por la izquierda
     GameList<SceneObject>::anchor _anchor; // Ancla a la lista de objetos del juego
 
-public:
-    SceneObject(Game* game, Vector2D<int> pos, Texture* texture, Vector2D<int> s);
+    //
+    PlayState* playState;
 
-    SceneObject(Game* game, Vector2D<int> pos, Texture* texture);
+public:
+    SceneObject(Game* game, Vector2D<int> pos, Texture* texture, Vector2D<int> s, PlayState* p);
+
+    SceneObject(Game* game, Vector2D<int> pos, Texture* texture, PlayState* p);
 
     virtual ~SceneObject() {}
 
@@ -45,6 +50,8 @@ public:
 	// colisiones
 	virtual void manageCollisions(Collision collision) = 0;
 	virtual void render() const override;
+
+    void updateRect();
 
     virtual void update() override {}
 

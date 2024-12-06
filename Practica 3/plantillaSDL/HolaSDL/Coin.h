@@ -20,7 +20,7 @@ using namespace std;
 class Coin : public Pickable
 {
 public:
-	Coin(Game* g, Point2D<int> p, Texture* t);
+	Coin(Game* g, Point2D<int> p, Texture* t, PlayState* play);
 
 	void render() const override;
 

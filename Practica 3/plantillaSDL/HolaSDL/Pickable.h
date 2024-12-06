@@ -21,7 +21,7 @@ using namespace std;
 class Pickable : public SceneObject
 {
 public:
-	Pickable(Game* g, Point2D<int> p, Texture* t);
+	Pickable(Game* g, Point2D<int> p, Texture* t, PlayState* play);
 
 	//virtual void render() override;
 	virtual void update() override;

@@ -62,8 +62,9 @@ constexpr int MAP_MAX_OFFSET = 6100;
 constexpr int GRAVITY = 3;
 const Collision NO_COLLISION = { Collision::EMPTY, Collision::NONE, 0, 0 };
 
+
 // ------------------------------ GAME ------------------------------
-class Game
+class Game: private GameStateMachine
 {
 public:
 	// ----- TEXTURES -----
@@ -100,6 +101,9 @@ public:
 	static constexpr uint WIN_WIDTH = TILE_SIDE * WINDOW_WIDTH;  // ancho ventana
 	static constexpr uint WIN_HEIGHT = TILE_SIDE * WINDOW_HEIGHT; // alto ventana
 
+	using GameStateMachine::pushState;
+	using GameStateMachine::replaceState;
+
 private:
 	// ARRAY DE TEXTURAS -> array estático de tam NUM_TEXTURES de elementos de tipo Texture* 
 	std::array<Texture*, NUM_TEXTURES> textures;
@@ -115,12 +119,6 @@ private:
 
 	uint32_t startTime, frameTime;	// manejo de tiempo en run
 
-	// color de fondo
-	int r, g, b;
-
-	// desplazamiento actual de mapa, llevará la coordenada x del extremo izquierdo de la vista 
-	// (inicialmente cero)
-	int mapOffset;
 
 	// puntuacion del jugador
 	int points;
@@ -129,10 +127,7 @@ private:
 	int maxWorlds;
 
 	bool isVictory;
-
 	int marioState;
-
-	bool falled = false;
 
 public:
 	// ---- constructora ----
@@ -183,8 +178,7 @@ public:
 	int getCurrentLevel() const { return currentWorld; }
 	void setCurrentLevel(int c) { currentWorld = c; }
 	int getMaxWorlds() const { return maxWorlds; }
-	void setFalled(bool f) { falled = f; }
-	bool getHasFalled() const { return falled; }
+
 
 	// ----- GETTERS -----
 	uint getWinWidth() const { return WIN_WIDTH; }
@@ -199,16 +193,12 @@ public:
 	// maquina de estados
 	GameStateMachine* getgsMachine() const { return gsMachine; }
 
-	void loadLevel(const std::string& file, const std::string& root);
-
 	int getMarioState() const { return marioState; }
 	void setMarioState(int s) { marioState = s; }
 
 	// ----- SETTERS -----
 	void setExit(bool aux) { exit = aux; }
-	void addMapOffset(int newOffset) { mapOffset += newOffset; }
-	void setMapOffset(int newOffset) { mapOffset = newOffset; }
-	void setVictory(bool v) { isVictory = v; }
+
 
 	void givePoints(int p)
 	{

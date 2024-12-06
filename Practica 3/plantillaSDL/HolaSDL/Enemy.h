@@ -30,7 +30,7 @@ private:
 	int moveDelay = 5;
 
 public:
-	Enemy(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s);
+	Enemy(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s, PlayState* play);
 
 	// -- update --
 	virtual void update() override;

@@ -23,7 +23,7 @@ class Koopa : public Enemy
 private:
 
 public:
-	Koopa(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s);
+	Koopa(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s, PlayState* play);
 
 	// -- update --
 	void update() override;

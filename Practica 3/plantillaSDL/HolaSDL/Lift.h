@@ -23,7 +23,7 @@ class Lift : public SceneObject
 private:
 
 public:
-	Lift(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s);
+	Lift(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s, PlayState* play);
 
 	// -- render --
 	void render() const override;

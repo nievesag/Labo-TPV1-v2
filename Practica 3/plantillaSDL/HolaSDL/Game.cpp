@@ -50,9 +50,6 @@ const array<TextureSpec, Game::NUM_TEXTURES> textureSpec{
 
 Game::Game() : exit(false)
 {
-	nextObject = 0;
-	mapOffset = 0;
-
 	maxWorlds = 3;
 	currentWorld = 1;
 	isVictory = false;
@@ -79,7 +76,7 @@ Game::Game() : exit(false)
 	catch (...) 
 	{
 		std::cout << "Error cargando ventana de juego o renderer";
-		EndGame();
+		setExit(true);
 	}
 
 	init();
@@ -110,49 +107,7 @@ void Game::init()
 	gsMachine = new GameStateMachine();
 	GameState* mms = new MainMenuState(this);
 	gsMachine->pushState(mms);
-
-	loadLevel(to_string(currentWorld), "../assets/maps/world");
 }
-
-void Game::loadLevel(const string& file, const string& root)
-{
-	// TILEMAP
-	// ifstream in(root + file + ".txt");
-	// "../assets/maps/world" +
-	// "to_string(k - '0')" + -> siendo k el mundo en el que estes
-	// ".csv"
-	std::ifstream tiles(root + file + ".csv");
-	//std::ifstream tiles("../assets/maps/world1.csv");
-	cout << root + file + ".csv" << endl;
-	// control de errores
-	if (!tiles.is_open())
-	{
-		std::cout << "Error cargando el tilemap";
-	}
-
-	Point2D<int> pos = Point2D<int>(0, 0);
-	tilemap = new TileMap(game, tiles, pos, game->getTexture(Game::BACKGROUND));
-	objectQueue.push_back(tilemap);
-	tiles.close();
-
-	// MAPA
-	std::ifstream mapa(root + file + ".txt");
-	// control de errores
-	if (!mapa.is_open())
-	{
-		std::cout << "Error cargando el mapa";
-	}
-	loadObjectMap(mapa);
-
-	mapa.close();
-
-	if (isVictory)
-	{
-		mapOffset = 0;
-		nextObject = 2;
-	}
-}
-
 
 // CARGA
 void Game::loadTextures()
@@ -175,7 +130,7 @@ void Game::loadTextures()
 	}
 	catch (...) {
 		cout << "Textura no encontrada";
-		EndGame();
+		setExit(true);
 	}
 }
 
@@ -206,7 +161,7 @@ void Game::run()
 		render(); // renderiza todos los objetos de juego
 	}
 
-	deleteEntities();
+	//deleteEntities();
 }
 
 // ACTUALIZAR
@@ -238,9 +193,9 @@ void Game::handleEvents()
 	while (SDL_PollEvent(&event) && !exit) 
 	{
 		// si se solicita quit bool exit = true
-		if (event.type == SDL_QUIT) EndGame();
+		if (event.type == SDL_QUIT) setExit(true);
 
 		// MANEJO DE EVENTOS DE OBJETOS DE JUEGO
-		else { player->handleEvent(event); }
+		else { gsMachine->handleEvent(event); }
 	}
 }
