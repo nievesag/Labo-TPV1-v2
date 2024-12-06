@@ -68,6 +68,10 @@ public:
 	void addObject(SceneObject* o);
 
 	Collision checkCollisions(const SDL_Rect& rect, Collision::Target target);
+
+	// ---- handleEvents ----
+	// input del jugador
+	void handleEvents();
 };
 
 #endif

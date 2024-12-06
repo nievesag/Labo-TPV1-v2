@@ -5,6 +5,7 @@
 
 #include "Coin.h"
 #include "Lift.h"
+#include "PauseState.h"
 
 PlayState::PlayState(Game* g, const std::string& file, const std::string& root)
 	: GameState(g)
@@ -279,6 +280,27 @@ Collision PlayState::checkCollisions(const SDL_Rect& rect, Collision::Target tar
 	}
 
 	return result;
+}
+
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void PlayState::handleEvents() // NO SE SI AQUI O EN EL GAME ENTIENDO DE AQUI PERO NO SE, hay mas eventos a parte de los de aqui?
+{
+	SDL_Event event; // crea evento
+
+	// MIENTRAS HAYA EVENTOS
+		// si hay eventos &event se llena con el evento a ejecutar si no NULL
+		// es decir, pollea hasta que se hayan manejado todos los eventos
+	while (SDL_PollEvent(&event) && !exit)
+	{
+		// si se solicita quit bool exit = true
+		if (event.type == SDL_QUIT) game->setExit(true);
+		else if (event.type == SDL_KEYDOWN && event.key.keysym.scancode == SDL_SCANCODE_ESCAPE) 
+		{
+			game->getgsMachine()->pushState(new PauseState(game, this));
+		}
+		// MANEJO DE EVENTOS DE OBJETOS DE JUEGO
+		else { GameState::handleEvent(event); }
+	}
 }
 
 void PlayState::loadLevel(const string& file, const string& root)

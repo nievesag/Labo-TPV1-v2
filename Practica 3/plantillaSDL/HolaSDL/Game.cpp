@@ -180,21 +180,3 @@ void Game::render()
 	// presenta la escena en pantalla
 	SDL_RenderPresent(renderer);
 }
-
-// MANEJAR EVENTOS
-void Game::handleEvents()
-{
-	SDL_Event event; // crea evento
-
-	// MIENTRAS HAYA EVENTOS
-		// si hay eventos &event se llena con el evento a ejecutar si no NULL
-		// es decir, pollea hasta que se hayan manejado todos los eventos
-	while (SDL_PollEvent(&event) && !exit) 
-	{
-		// si se solicita quit bool exit = true
-		if (event.type == SDL_QUIT) setExit(true);
-
-		// MANEJO DE EVENTOS DE OBJETOS DE JUEGO
-		else { gsMachine->handleEvent(event); }
-	}
-}

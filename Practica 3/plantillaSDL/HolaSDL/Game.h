@@ -179,7 +179,6 @@ public:
 	void setCurrentLevel(int c) { currentWorld = c; }
 	int getMaxWorlds() const { return maxWorlds; }
 
-
 	// ----- GETTERS -----
 	uint getWinWidth() const { return WIN_WIDTH; }
 	uint getWinHeight() const { return WIN_HEIGHT; }

@@ -82,6 +82,7 @@
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameStateMachine.cpp" />
     <ClCompile Include="Goomba.cpp" />
+    <ClCompile Include="Infobar.cpp" />
     <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="Lift.cpp" />
     <ClCompile Include="main.cpp" />
@@ -115,6 +116,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateMachine.h" />
     <ClInclude Include="Goomba.h" />
+    <ClInclude Include="Infobar.h" />
     <ClInclude Include="Koopa.h" />
     <ClInclude Include="Lift.h" />
     <ClInclude Include="MainMenuState.h" />
