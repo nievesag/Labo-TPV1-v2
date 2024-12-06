@@ -26,7 +26,7 @@ protected:
 	std::list<EventHandler*> eventHandlers;
 
 public:
-	GameState(Game* game);
+	GameState(Game* g);
 
 	virtual ~GameState() = default;
 

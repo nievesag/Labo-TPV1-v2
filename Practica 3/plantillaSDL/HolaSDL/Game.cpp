@@ -52,7 +52,6 @@ Game::Game() : exit(false)
 {
 	maxWorlds = 3;
 	currentWorld = 1;
-	isVictory = false;
 	marioState = 0;
 
 	int winX, winY; // Posición de la ventana

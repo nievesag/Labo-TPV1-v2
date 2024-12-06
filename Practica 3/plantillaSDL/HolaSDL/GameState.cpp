@@ -1,6 +1,6 @@
 #include "GameState.h"
 
-GameState::GameState(Game* game)
+GameState::GameState(Game* g) : game(g)
 {
 
 }

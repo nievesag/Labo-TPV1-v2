@@ -199,7 +199,6 @@ public:
 	// ----- SETTERS -----
 	void setExit(bool aux) { exit = aux; }
 
-
 	void givePoints(int p)
 	{
 		points += p;

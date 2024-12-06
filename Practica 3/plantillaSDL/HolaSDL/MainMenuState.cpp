@@ -5,9 +5,9 @@
 #include "Button.h"
 
 MainMenuState::MainMenuState(Game* g)
-	: GameState(g), nivelUno(new Button(this, game->getTexture(Game::NIVEL1), Point2D<double>(0, 0))),
-	nivelDos(new Button(this, game->getTexture(Game::NIVEL2), Point2D<double>(0, 100))),
-	buttonSalir(new Button(this, game->getTexture(Game::SALIR), Point2D<double>(0, 200)))
+	: GameState(g), nivelUno(new Button(this, g->getTexture(Game::NIVEL1), Point2D<double>(0, 0))),
+	nivelDos(new Button(this, g->getTexture(Game::NIVEL2), Point2D<double>(0, 100))),
+	buttonSalir(new Button(this, g->getTexture(Game::SALIR), Point2D<double>(0, 200)))
 {
 	// lo mete a la lista de objetos para poder renderizarlos
 	/*
