@@ -7,14 +7,14 @@ GameState::GameState(Game* g) : game(g)
 
 void GameState::render() const
 {
-	for (auto obj : gameList) {
+	for (auto obj : stateList) {
 		obj->render();
 	}
 }
 
 void GameState::update()
 {
-	for (auto obj : gameList) {
+	for (auto obj : stateList) {
 		obj->update();
 	}
 }
@@ -31,7 +31,7 @@ void GameState::addEventListener(EventHandler* l)
 	eventHandlers.push_back(l);
 }
 
-void GameState::addObject(SceneObject* o)
+void GameState::addObject(GameObject* o)
 {
-	gameList.push_back(o);
+	stateList.push_back(o);
 }

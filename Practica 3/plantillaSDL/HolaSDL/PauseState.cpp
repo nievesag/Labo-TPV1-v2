@@ -10,11 +10,9 @@ PauseState::PauseState(Game* game, PlayState* playState)
 	buttonSalir(new Button(this, game->getTexture(Game::SALIR), Point2D<double>(0, 200)))
 {
 	// lo aniede a la lista de objetos para poder renderizarlo
-	/*
 	addObject(buttonSalir);
 	addObject(buttonVolverMenu);
 	addObject(buttonContinuar);
-	*/
 
 	// para que los botones puedan reaccionar a eventos
 	addEventListener(buttonContinuar);
@@ -29,10 +27,12 @@ PauseState::PauseState(Game* game, PlayState* playState)
 
 void PauseState::render() const
 {
+	for (auto e : stateList) e->render();
 }
 
 void PauseState::update()
 {
+	for (auto e : stateList) e->update();
 }
 
 void PauseState::continuarPartida()

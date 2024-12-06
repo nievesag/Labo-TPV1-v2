@@ -10,6 +10,7 @@
 #define GAME_LIST_H
 
 #include <cassert>
+#include <compare>
 
 /**
  * Lista de objetos que guardan una referencia opaca a su posición en la lista

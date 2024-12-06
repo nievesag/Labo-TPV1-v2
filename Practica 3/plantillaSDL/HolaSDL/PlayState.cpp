@@ -145,9 +145,7 @@ void PlayState::update()
 {
 	addVisibleEntities();
 
-	for (auto obj : gameList) {
-		obj->update();
-	}
+	for (auto e : stateList) e->update();
 
 	// si muere el player acaba el juego
 	//if (!player->getAlive()) EndGame();
@@ -176,24 +174,22 @@ void PlayState::createSeta(Point2D<int> p)
 	SceneObject* seta = new Mushroom(game, p, game->getTexture(Game::MUSHROOM), this);
 
 	gameList.push_back(seta);
+	stateList.push_back(seta);
 }
 
 void PlayState::render()
 {
-	for (auto obj : gameList) 
-	{
-		obj->render();
-	}
+	for (auto e : stateList) e->render();
 }
 
 void PlayState::reloadWorld(const string& file, const string& root)
 {
 	// todos los objetos del juego (salvo el jugador y el tilemap) han de ser destruidos y reemplazados
-	for (auto obj : gameList)
+	for (auto e : stateList)
 	{
-		if (obj != player && obj != tilemap)
+		if (e != player && e != tilemap)
 		{
-			delete obj;
+			delete e;
 		}
 	}
 
@@ -246,17 +242,18 @@ void PlayState::addObject(SceneObject* o)
 	if (nextObject == 1)
 	{
 		gameList.push_front(o);
+		stateList.push_front(o);
 	}
 	else if (nextObject == 2)
 	{
 		// HACER QUE LA REFERENCIA DE PLAYER EN GAME COINCIDA CON EL OBJ CLONADO
-		// -> xd
 		player = o;
+		gameList.push_back(o);
 		gameList.push_back(o);
 	}
 	else
 	{
-
+		stateList.push_back(o);
 		gameList.push_back(o);
 	}
 }
@@ -322,6 +319,7 @@ void PlayState::loadLevel(const string& file, const string& root)
 	Point2D<int> pos = Point2D<int>(0, 0);
 	tilemap = new TileMap(game, tiles, pos, game->getTexture(Game::BACKGROUND), this);
 	objectQueue.push_back(tilemap);
+	stateList.push_back(tilemap);
 	tiles.close();
 
 	// MAPA

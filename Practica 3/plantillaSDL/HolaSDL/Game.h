@@ -152,11 +152,6 @@ public:
 	// actualiza el estado de juego
 	void update();
 
-
-	// ---- handleEvents ----
-	// input del jugador
-	void handleEvents();
-
 	/*
 	void reloadWorld(const string& file, const string& root);
 	void loadLevel(const string& file, const string& root);

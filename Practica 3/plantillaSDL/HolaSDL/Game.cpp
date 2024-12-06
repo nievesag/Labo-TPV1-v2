@@ -144,8 +144,6 @@ void Game::run()
 	{
 		// get ticks al inicio del bucle
 		startTime = SDL_GetTicks();
-
-		handleEvents();
 		
 		// Tiempo que se ha tardado en ejecutar lo anterior
 		uint32_t elapsed = SDL_GetTicks() - startTime;

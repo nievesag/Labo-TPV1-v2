@@ -11,8 +11,6 @@ class PauseState : public GameState
 private:
 	PlayState* playState;
 
-	Game* game;
-
 	// punteros a los botones del PAUSE MENU
 	Button* buttonContinuar;
 	Button* buttonVolverMenu;

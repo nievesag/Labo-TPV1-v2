@@ -9,10 +9,8 @@ EndState::EndState(Game* game, bool victory)
 	buttonSalir(new Button(this, game->getTexture(Game::SALIR), Point2D<double>(0, 100)))
 {
 	// lo mete a la lista de objetos para poder renderizarlos
-	/*
 	addObject(buttonVolverMenu);
-	addObject(buttonSalir);
-	*/
+	addObject(buttonSalir); 
 
 	// para que los botones puedan reaccionar a eventos
 	addEventListener(buttonVolverMenu);
@@ -28,12 +26,12 @@ void EndState::render() const
 	if (victory) game->getTexture(Game::GANADO)->render();
 	else game->getTexture(Game::GAMEOVER)->render();
 
-	for (auto g : gameList) g->render();
+	for (auto e : stateList) e->render();
 }
 
 void EndState::update()
 {
-	for (auto g : gameList) g->update();
+	for (auto e : stateList) e->update();
 }
 
 void EndState::volverMenu()

@@ -10,11 +10,9 @@ MainMenuState::MainMenuState(Game* g)
 	buttonSalir(new Button(this, g->getTexture(Game::SALIR), Point2D<double>(0, 200)))
 {
 	// lo mete a la lista de objetos para poder renderizarlos
-	/*
 	addObject(nivelUno);
 	addObject(nivelDos);
-	addObject(buttonSalir);
-	*/
+	addObject(buttonSalir); 
 
 	// para que los botones puedan reaccionar a eventos
 	addEventListener(nivelUno);
@@ -32,12 +30,12 @@ void MainMenuState::render() const
 	// renderiza la imagen de fondo
 	game->getTexture(Game::PORTADA)->render();
 
-	for (auto g : gameList) g->render();
+	for (auto g : stateList) g->render();
 }
 
 void MainMenuState::update()
 {
-	for (auto g : gameList) g->update();
+	for (auto g : stateList) g->update();
 }
 
 void MainMenuState::loadLevel(const std::string& file)

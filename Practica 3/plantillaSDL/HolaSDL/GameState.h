@@ -20,7 +20,7 @@ protected:
 	Game* game; // referencia al game
 
 	// lista de objetos del juego
-	GameList<SceneObject> gameList;
+	GameList<GameObject> stateList;
 
 	// lista de punteros a oyentes
 	std::list<EventHandler*> eventHandlers;
@@ -44,7 +44,7 @@ public:
 
 	void addEventListener(EventHandler* l);
 
-	void addObject(SceneObject* o);
+	void addObject(GameObject* o);
 };
 
 #endif

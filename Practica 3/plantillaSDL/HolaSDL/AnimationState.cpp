@@ -10,12 +10,12 @@ AnimationState::AnimationState(Game* g, GameState* n, Player* p)
 
 void AnimationState::render() const
 {
-	for (auto e : gameList) e->render();
+	for (auto e : stateList) e->render();
 }
 
 void AnimationState::update()
 {
-	for (auto e : gameList) e->update();
+	for (auto e : stateList) e->update();
 
 	if(player->getPosition().getY() > game->getWinHeight())
 	{
