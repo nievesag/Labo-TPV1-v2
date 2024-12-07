@@ -60,6 +60,8 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 				cout << "hola" << endl;
 				player = new Player(game, pos, game->getTexture(Game::MARIO), lives, Vector2D<int>(0, 0), this);
 				objectQueue.push_back(player);
+				
+
 			}
 			/*player = new Player(this, pos, getTexture(MARIO), lives, Vector2D<int>(0, 0));
 
@@ -145,7 +147,7 @@ void PlayState::update()
 {
 	addVisibleEntities();
 
-	for (auto e : stateList) e->update();
+	for (auto e : gameList) e->update();
 
 	// si muere el player acaba el juego
 	//if (!player->getAlive()) EndGame();
@@ -179,13 +181,13 @@ void PlayState::createSeta(Point2D<int> p)
 
 void PlayState::render()
 {
-	for (auto e : stateList) e->render();
+	for (auto e : gameList) e->render();
 }
 
 void PlayState::reloadWorld(const string& file, const string& root)
 {
 	// todos los objetos del juego (salvo el jugador y el tilemap) han de ser destruidos y reemplazados
-	for (auto e : stateList)
+	for (auto e : gameList)
 	{
 		if (e != player && e != tilemap)
 		{
@@ -242,18 +244,18 @@ void PlayState::addObject(SceneObject* o)
 	if (nextObject == 1)
 	{
 		gameList.push_front(o);
-		stateList.push_front(o);
+		//stateList.push_front(o);
 	}
 	else if (nextObject == 2)
 	{
 		// HACER QUE LA REFERENCIA DE PLAYER EN GAME COINCIDA CON EL OBJ CLONADO
 		player = o;
 		gameList.push_back(o);
-		gameList.push_back(o);
+		//stateList.push_back(o);
 	}
 	else
 	{
-		stateList.push_back(o);
+		//stateList.push_back(o);
 		gameList.push_back(o);
 	}
 }

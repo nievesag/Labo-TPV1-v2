@@ -32,7 +32,7 @@ private:
 	int marioFrame;
 	int velX;
 
-	PlayState* playState;
+	
 
 public:
 	Player(Game* game, Vector2D<int> pos, Texture* t, int l, Vector2D<int> s, PlayState* play);

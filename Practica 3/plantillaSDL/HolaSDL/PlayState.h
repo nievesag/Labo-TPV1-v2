@@ -11,7 +11,7 @@ class PlayState : public GameState
 	int mapOffset;
 
 	// declaración de los elementos de juego
-	SceneObject* player;
+	SceneObject* player = nullptr;
 	SceneObject* tilemap;
 
 	GameList<SceneObject> gameList;
