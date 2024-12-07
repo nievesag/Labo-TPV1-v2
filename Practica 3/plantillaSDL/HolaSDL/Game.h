@@ -111,6 +111,7 @@ private:
 	// ----- SDL -----
 	SDL_Window* window = nullptr;	  // puntero a Ventana de la SDL
 	SDL_Renderer* renderer = nullptr; // puntero a Renderizador de la SDL (para dibujar)
+	SDL_Event event; // evento a pollear
 
 	// maquina de estados
 	GameStateMachine* gsMachine;
@@ -151,6 +152,8 @@ public:
 	// ---- update ----
 	// actualiza el estado de juego
 	void update();
+
+	void handleEvents();
 
 	/*
 	void reloadWorld(const string& file, const string& root);

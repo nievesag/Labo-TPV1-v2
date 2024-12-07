@@ -5,9 +5,9 @@
 
 PauseState::PauseState(Game* game, PlayState* playState)
 	: GameState(game), playState(playState),
-	buttonContinuar(new Button(this, game->getTexture(Game::CONTINUAR), Point2D<double>(0, 0))),
-	buttonVolverMenu(new Button(this, game->getTexture(Game::VOLVER), Point2D<double>(0, 100))),
-	buttonSalir(new Button(this, game->getTexture(Game::SALIR), Point2D<double>(0, 200)))
+	buttonContinuar(new Button(this, game->getTexture(Game::CONTINUAR), game->getTexture(Game::MUSHROOM), Point2D<double>(0, 0))),
+	buttonVolverMenu(new Button(this, game->getTexture(Game::VOLVER), game->getTexture(Game::MUSHROOM), Point2D<double>(0, 100))),
+	buttonSalir(new Button(this, game->getTexture(Game::SALIR), game->getTexture(Game::MUSHROOM), Point2D<double>(0, 200)))
 {
 	// lo aniede a la lista de objetos para poder renderizarlo
 	addObject(buttonSalir);

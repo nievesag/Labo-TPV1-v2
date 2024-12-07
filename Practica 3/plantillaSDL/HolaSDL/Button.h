@@ -14,6 +14,8 @@ class Button: public EventHandler, public GameObject
 	// boton en pantalla
 	Texture* buttonTexture;	// textura del boton
 	Point2D<double> buttonPos;	// posicion del boton en pantalla
+	Texture* setaTexture; 
+	SDL_Rect setaRect;
 
 	// estados del boton para render y animacion
 	int currentFrame;
@@ -34,7 +36,7 @@ class Button: public EventHandler, public GameObject
 	void emit() const;
 
 public:
-	Button(GameState* gameState, Texture* texture, Point2D<double> pos);
+	Button(GameState* gameState, Texture* texture, Texture* mushroomTex, Point2D<double> pos);
 
 	// METODOS PUBLICOS
 	// ---- render ----

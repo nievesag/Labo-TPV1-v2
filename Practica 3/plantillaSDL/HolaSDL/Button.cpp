@@ -1,8 +1,8 @@
 #include "checkML.h"
 #include "Button.h"
 
-Button::Button(GameState* gameState, Texture* texture, Point2D<double> pos)
-	: GameObject(gameState), buttonTexture(texture), buttonPos(pos)
+Button::Button(GameState* gameState, Texture* texture, Texture* mushroomTex, Point2D<double> pos)
+	: GameObject(gameState), buttonTexture(texture), setaTexture(mushroomTex), buttonPos(pos)
 {
 	// para animacion
 	currentFrame = MOUSEOUT; // frame inicial a 0
@@ -12,6 +12,13 @@ Button::Button(GameState* gameState, Texture* texture, Point2D<double> pos)
 
 	// setea posiciones y dimensiones en el destRect
 	destRect = SDL_Rect{ (int)pos.getX(), (int)pos.getY(), texture->getFrameWidth(), texture->getFrameHeight() };
+
+
+
+	setaRect = SDL_Rect{ (int)pos.getX() - setaTexture->getFrameWidth() - 15,
+							 (int)pos.getY() + 3,
+							 setaTexture->getFrameWidth(),
+							 setaTexture->getFrameHeight() };
 }
 
 void Button::emit() const
@@ -27,6 +34,8 @@ void Button::render() const
 	{
 		buttonTexture->render(destRect, SDL_Color{ 0,255,0,255 }); // cambia color
 		// falta lo del icono del champi
+		setaTexture->render(setaRect);
+		
 	}
 	else buttonTexture->render(destRect);
 }

@@ -45,6 +45,8 @@ public:
 	void addEventListener(EventHandler* l);
 
 	void addObject(GameObject* o);
+
+
 };
 
 #endif

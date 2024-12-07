@@ -296,7 +296,10 @@ void PlayState::handleEvents() // NO SE SI AQUI O EN EL GAME ENTIENDO DE AQUI PE
 			game->getgsMachine()->pushState(new PauseState(game, this));
 		}
 		// MANEJO DE EVENTOS DE OBJETOS DE JUEGO
-		else { GameState::handleEvent(event); }
+		else 
+		{
+			GameState::handleEvent(event);
+		}
 	}
 }
 

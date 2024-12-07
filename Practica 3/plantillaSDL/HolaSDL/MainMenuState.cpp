@@ -4,10 +4,10 @@
 #include "PlayState.h"
 #include "Button.h"
 
-MainMenuState::MainMenuState(Game* g)
-	: GameState(g), nivelUno(new Button(this, g->getTexture(Game::NIVEL1), Point2D<double>(0, 0))),
-	nivelDos(new Button(this, g->getTexture(Game::NIVEL2), Point2D<double>(0, 100))),
-	buttonSalir(new Button(this, g->getTexture(Game::SALIR), Point2D<double>(0, 200)))
+MainMenuState::MainMenuState(Game* g): GameState(g), 
+nivelUno(new Button(this, g->getTexture(Game::NIVEL1), g->getTexture(Game::MUSHROOM), Point2D<double>(200, 275))),
+	nivelDos(new Button(this, g->getTexture(Game::NIVEL2), g->getTexture(Game::MUSHROOM), Point2D<double>(200, 325))),
+	buttonSalir(new Button(this, g->getTexture(Game::SALIR), g->getTexture(Game::MUSHROOM), Point2D<double>(225, 375)))
 {
 	// lo mete a la lista de objetos para poder renderizarlos
 	addObject(nivelUno);

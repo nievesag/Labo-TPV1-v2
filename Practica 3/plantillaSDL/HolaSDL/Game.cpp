@@ -142,6 +142,8 @@ void Game::run()
 {
 	while (!exit)
 	{
+
+		handleEvents();
 		// get ticks al inicio del bucle
 		startTime = SDL_GetTicks();
 		
@@ -165,6 +167,20 @@ void Game::run()
 void Game::update()
 {
 	gsMachine->update();
+}
+
+void Game::handleEvents()
+{
+	// MIENTRAS HAYA EVENTOS
+		// si hay eventos &event se llena con el evento a ejecutar si no NULL
+		// es decir, pollea hasta que se hayan manejado todos los eventos
+	while (SDL_PollEvent(&event) && !exit) {
+		if (event.type == SDL_QUIT)
+			exit = true;
+		else {
+			gsMachine->handleEvent(event);
+		}
+	}
 }
 
 // PINTAR
