@@ -129,6 +129,7 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 
 			Pickable* coin = new Coin(game, pos, game->getTexture(Game::COIN), this);
 			objectQueue.push_back(coin);
+			addObject(coin);
 		}
 		else if (tipoL == 'P')
 		{

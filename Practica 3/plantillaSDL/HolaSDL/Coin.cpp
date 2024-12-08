@@ -5,7 +5,7 @@
 Coin::Coin(Game* g, Point2D<int> p, Texture* t, PlayState* play)
 	: Pickable(g, p, t, play)
 {
-
+	scale = 2;
 }
 
 void Coin::render() const
@@ -50,4 +50,12 @@ void Coin::updateAnim()
 			frame = 3;
 		}
 	}
+}
+
+void Coin::updateRect()
+{
+	destRect.x = position.getX() - playState->getMapOffset();
+	destRect.h = texture->getFrameHeight() * scale;
+	destRect.w = texture->getFrameWidth() * scale;
+	destRect.y = position.getY();
 }

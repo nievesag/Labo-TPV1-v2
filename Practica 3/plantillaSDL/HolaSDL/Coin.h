@@ -32,6 +32,8 @@ public:
 	SceneObject* clone() const override;
 
 	void updateAnim() override;
+
+	virtual void updateRect() override;
 private:
 	int coinFrame;
 };
