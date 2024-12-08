@@ -71,7 +71,7 @@ public:
 
 	// ---- handleEvents ----
 	// input del jugador
-	void handleEvents();
+	void handleEvent(const SDL_Event& event) override;
 };
 
 #endif

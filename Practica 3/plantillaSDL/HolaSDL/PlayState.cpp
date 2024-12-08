@@ -12,6 +12,7 @@ PlayState::PlayState(Game* g, const std::string& file, const std::string& root)
 {
 	nextObject = 0;
 	mapOffset = 0;
+	game->setCurrentLevel(std::stoi(file));
 	loadLevel(file, root);
 
 	/*
@@ -58,9 +59,9 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 			{
 				cout << "hola" << endl;
 				player = new Player(game, pos, game->getTexture(Game::MARIO), lives, Vector2D<int>(0, 0), this);
-				objectQueue.push_back(player);
-				addObject(player);
-				
+				//objectQueue.push_back(player);
+				//addObject(player);
+				stateList.push_back(player);
 				
 			}
 			
@@ -289,27 +290,16 @@ Collision PlayState::checkCollisions(const SDL_Rect& rect, Collision::Target tar
 	return result;
 }
 
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-void PlayState::handleEvents() // NO SE SI AQUI O EN EL GAME ENTIENDO DE AQUI PERO NO SE, hay mas eventos a parte de los de aqui?
+void PlayState::handleEvent(const SDL_Event& event)
 {
-	SDL_Event event; // crea evento
+	GameState::handleEvent(event);
 
-	// MIENTRAS HAYA EVENTOS
-		// si hay eventos &event se llena con el evento a ejecutar si no NULL
-		// es decir, pollea hasta que se hayan manejado todos los eventos
-	while (SDL_PollEvent(&event) && !exit)
-	{
-		// si se solicita quit bool exit = true
-		if (event.type == SDL_QUIT) game->setExit(true);
-		else if (event.type == SDL_KEYDOWN && event.key.keysym.scancode == SDL_SCANCODE_ESCAPE) 
-		{
-			game->getgsMachine()->pushState(new PauseState(game, this));
-		}
-		// MANEJO DE EVENTOS DE OBJETOS DE JUEGO
-		else 
-		{
-			GameState::handleEvent(event);
-		}
+	// si se pulsa esc
+	if (event.type == SDL_KEYDOWN && event.key.keysym.scancode == SDL_SCANCODE_E) {
+
+		// pausa el juego
+		// (aniade el estado de pausa a la maquina de estados de application)
+		game->getgsMachine()->pushState(new PauseState(game, this));
 	}
 }
 
@@ -332,7 +322,8 @@ void PlayState::loadLevel(const string& file, const string& root)
 	Point2D<int> pos = Point2D<int>(0, 0);
 	tilemap = new TileMap(game, tiles, pos, game->getTexture(Game::BACKGROUND), this);
 	//objectQueue.push_front(tilemap);
-	addObject(tilemap);
+	//addObject(tilemap);
+	stateList.push_front(tilemap);
 	tiles.close();
 
 	// MAPA
