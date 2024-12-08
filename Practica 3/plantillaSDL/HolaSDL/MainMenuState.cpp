@@ -30,7 +30,9 @@ void MainMenuState::render() const
 	// renderiza la imagen de fondo
 	game->getTexture(Game::PORTADA)->render();
 
-	for (auto g : stateList) g->render();
+	GameState::render();
+
+	//for (auto g : stateList) g->render();
 }
 
 void MainMenuState::update()

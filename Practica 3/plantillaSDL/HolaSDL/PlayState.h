@@ -57,7 +57,7 @@ public:
 
 	void createSeta(Point2D<int> p);
 
-	void render();
+	void render() const override;
 
 	void addVisibleEntities();
 

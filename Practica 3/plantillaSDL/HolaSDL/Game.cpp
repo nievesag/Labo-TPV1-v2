@@ -142,7 +142,6 @@ void Game::run()
 {
 	while (!exit)
 	{
-
 		handleEvents();
 		// get ticks al inicio del bucle
 		startTime = SDL_GetTicks();

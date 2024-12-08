@@ -60,8 +60,7 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 				cout << "hola" << endl;
 				player = new Player(game, pos, game->getTexture(Game::MARIO), lives, Vector2D<int>(0, 0), this);
 				objectQueue.push_back(player);
-				
-
+				//stateList.push_back(player);
 			}
 			/*player = new Player(this, pos, getTexture(MARIO), lives, Vector2D<int>(0, 0));
 
@@ -179,9 +178,14 @@ void PlayState::createSeta(Point2D<int> p)
 	stateList.push_back(seta);
 }
 
-void PlayState::render()
+void PlayState::render() const
 {
-	for (auto e : gameList) e->render();
+	// Fondo azul
+	SDL_SetRenderDrawColor(game->getRenderer(), r, g, b, 255);
+
+	GameState::render();
+
+	//for (auto e : gameList) e->render();
 }
 
 void PlayState::reloadWorld(const string& file, const string& root)
@@ -244,18 +248,18 @@ void PlayState::addObject(SceneObject* o)
 	if (nextObject == 1)
 	{
 		gameList.push_front(o);
-		//stateList.push_front(o);
+		stateList.push_front(o);
 	}
 	else if (nextObject == 2)
 	{
 		// HACER QUE LA REFERENCIA DE PLAYER EN GAME COINCIDA CON EL OBJ CLONADO
 		player = o;
 		gameList.push_back(o);
-		//stateList.push_back(o);
+		stateList.push_back(o);
 	}
 	else
 	{
-		//stateList.push_back(o);
+		stateList.push_back(o);
 		gameList.push_back(o);
 	}
 }

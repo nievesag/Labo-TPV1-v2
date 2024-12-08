@@ -17,7 +17,6 @@ class TileMap : public SceneObject
 {
 private:
 	vector<vector<int>> indices;
-	int x, y;
 
 public:
 	//TileMap();

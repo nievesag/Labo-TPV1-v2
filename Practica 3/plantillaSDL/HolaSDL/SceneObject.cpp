@@ -84,7 +84,6 @@ void SceneObject::render() const
     // HACER METODO UPDATERECT PARA MODIFICAR LOS ATRIBUTOS DEL DESTRECT PORQ AHORA RENDER ES CONST
 
 
-
     texture->renderFrame(destRect, 0, frame, 0, nullptr, flip);
 }
 
