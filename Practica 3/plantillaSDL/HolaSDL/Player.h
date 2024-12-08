@@ -4,8 +4,6 @@
 #include "EventHandler.h"
 #include "SceneObject.h"
 
-class PlayState;
-
 
 class Player : public SceneObject, EventHandler
 {

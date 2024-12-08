@@ -48,7 +48,7 @@ const array<TextureSpec, Game::NUM_TEXTURES> textureSpec{
 	{"firemario.png", 21, 1}
 };
 
-Game::Game() : exit(false)
+Game::Game() : exit(false), gsMachine(new GameStateMachine())
 {
 	maxWorlds = 3;
 	currentWorld = 1;
@@ -103,7 +103,7 @@ void Game::init()
 	loadTextures();
 
 	// maquina de estados
-	gsMachine = new GameStateMachine();
+	//gsMachine = new GameStateMachine();
 	GameState* mms = new MainMenuState(this);
 	gsMachine->pushState(mms);
 }

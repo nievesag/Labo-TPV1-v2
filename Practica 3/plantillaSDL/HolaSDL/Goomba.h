@@ -13,7 +13,7 @@
 #include "Collision.h"
 #include "Enemy.h"
 
-class Game;
+
 
 using uint = unsigned int;
 using namespace std;

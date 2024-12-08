@@ -10,14 +10,13 @@
 PlayState::PlayState(Game* g, const std::string& file, const std::string& root)
 	: GameState(g)
 {
-	nextObject = 0;
-	mapOffset = 0;
-	loadLevel(file, root);
 
-	/*
-	infoBar = new Infobar(Point2D<>(0, winHeight - game->getTexture(Nave)->getFrameHeight()), game->getTexture(Nave), infobarSpacing, this, game->getRenderer());
-	gamelist.push_back(infoBar);
-	*/
+	mapOffset = 0;
+	
+	lastLevel = 2; // nuestro juego tiene 2 niveles
+	nextObject = 0;
+
+	loadLevel(file, root);
 }
 
 void PlayState::loadObjectMap(std::ifstream& mapa)
@@ -58,7 +57,7 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 			{
 				cout << "hola" << endl;
 				player = new Player(game, pos, game->getTexture(Game::MARIO), lives, Vector2D<int>(0, 0), this);
-				objectQueue.push_back(player);
+				
 				addObject(player);
 				
 				
@@ -72,9 +71,8 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 			pos.setX(pos.getX() * TILE_SIDE);
 			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
 
-			 goomba = new Goomba(game, pos, game->getTexture(Game::GOOMBA), Vector2D<int>(-7, 0), this);
+			SceneObject* goomba = new Goomba(game, pos, game->getTexture(Game::GOOMBA), Vector2D<int>(-7, 0), this);
 			objectQueue.push_back(goomba);
-			addObject(goomba);
 		}
 		else if (tipoL == 'B')
 		{
@@ -89,13 +87,9 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 			lineStream >> tipoL;
 			lineStream >> accionL;
 
-			 block = new Block(game, pos, game->getTexture(Game::BLOCK), tipoL, accionL, this);
+			 SceneObject* block = new Block(game, pos, game->getTexture(Game::BLOCK), tipoL, accionL, this);
 
 			objectQueue.push_back(block);
-			addObject(block);
-			
-		
-
 		
 		}
 		else if (tipoL == 'K')
@@ -104,9 +98,8 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 			pos.setX(pos.getX() * TILE_SIDE);
 			pos.setY(pos.getY() * TILE_SIDE - (TILE_SIDE * 2));
 
-			koopa = new Koopa(game, pos, game->getTexture(Game::KOOPA), Vector2D<int>(-7, 0), this);
+			SceneObject* koopa = new Koopa(game, pos, game->getTexture(Game::KOOPA), Vector2D<int>(-7, 0), this);
 			objectQueue.push_back(koopa);
-			addObject(koopa);
 			
 		}
 		else if (tipoL == 'L')
@@ -151,10 +144,14 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 
 void PlayState::update()
 {
-	//addVisibleEntities();
+	const int rightThreshold = mapOffset + Game::WIN_WIDTH + TILE_SIDE;
 
-	for (auto e : gameList) e->update();
+	while (nextObject < objectQueue.size() && objectQueue[nextObject]->getPosition().getX() < rightThreshold)
+	{
+		addObject(objectQueue[nextObject++]->clone()); 
+	}
 
+	for (auto obj : stateList) obj->update();
 	// si muere el player acaba el juego
 	//if (!player->getAlive()) EndGame();
 }
@@ -190,11 +187,11 @@ void PlayState::render() const
 	// Fondo azul
 	SDL_SetRenderDrawColor(game->getRenderer(), r, g, b, 255);
 
-	GameState::render();
+	//GameState::render();
 
 	cout << mapOffset << endl;
 
-	//for (auto e : gameList) e->render();
+	for (auto obj : stateList) obj->render();
 }
 
 void PlayState::reloadWorld(const string& file, const string& root)
@@ -202,14 +199,14 @@ void PlayState::reloadWorld(const string& file, const string& root)
 	// todos los objetos del juego (salvo el jugador y el tilemap) han de ser destruidos y reemplazados
 	for (auto e : gameList)
 	{
-		if (e != player && e != tilemap)
+		if (e != player)
 		{
 			delete e;
 		}
 	}
-
+	objectQueue.clear();
 	mapOffset = 0;
-	nextObject = 2;
+	nextObject = 0;
 
 	// TILEMAP
 	// ifstream in(root + file + ".txt");
@@ -227,7 +224,7 @@ void PlayState::reloadWorld(const string& file, const string& root)
 
 	Point2D<int> pos = Point2D<int>(0, 0);
 	tilemap = new TileMap(game, tiles, pos, game->getTexture(Game::BACKGROUND), this);
-	gameList.push_front(tilemap);
+	addObject(tilemap);
 	tiles.close();
 
 	// MAPA
@@ -254,24 +251,9 @@ void PlayState::addVisibleEntities()
 
 void PlayState::addObject(SceneObject* o)
 {
-	if (nextObject == 1)
-	{
 		gameList.push_front(o);
 		stateList.push_front(o);
-	}
-	else if (nextObject == 2)
-	{
-		// HACER QUE LA REFERENCIA DE PLAYER EN GAME COINCIDA CON EL OBJ CLONADO
-		//player = o;
-		gameList.push_back(o);
-		stateList.push_back(o);
-	}
-	else
-	{
-		
-		gameList.push_back(o);
-		stateList.push_back(o);
-	}
+
 }
 
 // MANEJO DE COLISONES
@@ -337,8 +319,7 @@ void PlayState::loadLevel(const string& file, const string& root)
 
 	Point2D<int> pos = Point2D<int>(0, 0);
 	tilemap = new TileMap(game, tiles, pos, game->getTexture(Game::BACKGROUND), this);
-	objectQueue.push_back(tilemap);
-	stateList.push_back(tilemap);
+	addObject(tilemap);
 	tiles.close();
 
 	// MAPA

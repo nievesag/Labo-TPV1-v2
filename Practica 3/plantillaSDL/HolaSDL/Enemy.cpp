@@ -87,3 +87,8 @@ void Enemy::updateAnim()
 {
 
 }
+
+SceneObject* Enemy::clone() const
+{
+	return nullptr;
+}

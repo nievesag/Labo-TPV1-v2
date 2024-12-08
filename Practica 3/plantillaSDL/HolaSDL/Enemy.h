@@ -16,8 +16,6 @@
 
 #include "PlayState.h"
 
-class PlayState;
-class Game;
 
 using uint = unsigned int;
 using namespace std;
@@ -26,10 +24,10 @@ class Enemy : public SceneObject
 {
 private:
 
-	bool frozen; // para llevar control de objetos inactivos
+	//bool frozen; // para llevar control de objetos inactivos
 	bool alive;
 
-	bool grounded;
+	bool grounded = true;
 	int moveDelay = 5;
 
 public:
@@ -49,6 +47,8 @@ public:
 
 	//SceneObject* clone() const override;
 	virtual void updateAnim() override;
+
+	virtual SceneObject* clone() const override;
 };
 
 #endif

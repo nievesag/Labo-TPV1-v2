@@ -18,7 +18,7 @@ SceneObject::SceneObject(Game* game, Vector2D<int> pos, Texture* texture, Vector
 	height = TILE_SIDE;
 }
 
-SceneObject::SceneObject(const SceneObject& s)
+SceneObject::SceneObject(const SceneObject& s) : GameObject(s.game)
 {
     game = s.game;
 

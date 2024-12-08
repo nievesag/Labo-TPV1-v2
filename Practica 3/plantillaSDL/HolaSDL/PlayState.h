@@ -13,10 +13,8 @@ private:
 
 	// declaración de los elementos de juego
 	SceneObject* player = nullptr;
-	SceneObject* tilemap;
-	SceneObject* goomba;
-	SceneObject* koopa;
-	SceneObject* block;
+	SceneObject* tilemap = nullptr;
+
 
 	GameList<SceneObject> gameList;
 
@@ -39,6 +37,12 @@ private:
 
 	bool isVictory;
 
+	// nivel actual del juego
+	int level;
+
+	// ultimo nivel
+	int lastLevel;
+
 public:
 	// constructora
 	PlayState(Game* g, const std::string& file, const std::string& root);
@@ -49,6 +53,14 @@ public:
 	void setVictory(bool v) { isVictory = v; }
 	void setFalled(bool f) { falled = f; }
 	bool getHasFalled() const { return falled; }
+
+	// devuelve el numero total de niveles (o el numero del nivel final)
+	int getLastLevel() const { return lastLevel; }
+
+	int getLevel() { return level; }
+	void setLevel(int n) { level = n; }
+
+
 
 	void playerLives();
 
