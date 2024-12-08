@@ -51,7 +51,7 @@ public:
 	virtual void manageCollisions(Collision collision) = 0;
 	virtual void render() const override;
 
-    void updateRect();
+    virtual void updateRect();
 
     virtual void update() override {}
 

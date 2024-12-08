@@ -12,7 +12,8 @@ PlayState::PlayState(Game* g, const std::string& file, const std::string& root)
 {
 	nextObject = 0;
 	mapOffset = 0;
-	game->setCurrentLevel(std::stoi(file));
+	int k = std::stoi(file);
+	game->setCurrentLevel(k);
 	loadLevel(file, root);
 
 	/*
@@ -128,6 +129,7 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 
 			Pickable* coin = new Coin(game, pos, game->getTexture(Game::COIN), this);
 			objectQueue.push_back(coin);
+			addObject(coin);
 		}
 		else if (tipoL == 'P')
 		{
@@ -323,6 +325,8 @@ void PlayState::loadLevel(const string& file, const string& root)
 	tilemap = new TileMap(game, tiles, pos, game->getTexture(Game::BACKGROUND), this);
 	//objectQueue.push_front(tilemap);
 	//addObject(tilemap);
+	gameList.push_front(tilemap);
+
 	stateList.push_front(tilemap);
 	tiles.close();
 

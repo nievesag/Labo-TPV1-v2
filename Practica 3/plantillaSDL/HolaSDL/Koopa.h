@@ -34,6 +34,8 @@ public:
 	void render() const override;
 
 	virtual void updateAnim() override;
+
+	virtual void updateRect() override;
 };
 
 #endif

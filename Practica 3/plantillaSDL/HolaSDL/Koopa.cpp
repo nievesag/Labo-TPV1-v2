@@ -42,3 +42,11 @@ void Koopa::updateAnim()
 		frame = (frame + 1) % 2;
 	}
 }
+
+void Koopa::updateRect()
+{
+	destRect.x = position.getX() - playState->getMapOffset();
+	destRect.h = texture->getFrameHeight() * scale;
+	destRect.w = texture->getFrameWidth() * scale;
+	destRect.y = position.getY() - 32;
+}

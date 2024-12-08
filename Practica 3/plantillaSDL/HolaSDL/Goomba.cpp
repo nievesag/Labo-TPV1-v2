@@ -6,6 +6,7 @@ Goomba::Goomba(Game* g, Point2D<int> p, Texture* t, Vector2D<int> s, PlayState* 
 {
 	frame = 0;
 	frameTimer = 0;
+	flip = SDL_FLIP_NONE;
 }
 
 void Goomba::update()

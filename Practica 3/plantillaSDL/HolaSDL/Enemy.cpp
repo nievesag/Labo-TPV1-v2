@@ -26,7 +26,20 @@ void Enemy::update()
 
 	// Si toca un objeto en horizontal cambia de dirección
 	if (collision.horizontal)
-		speed.setX(-speed.getX());
+	{
+		if (flip == SDL_FLIP_HORIZONTAL)
+		{
+			speed.setX(-speed.getX());
+			flip = SDL_FLIP_NONE;
+		}
+		else if(flip == SDL_FLIP_NONE)
+		{
+			speed.setX(-speed.getX());
+			flip = SDL_FLIP_HORIZONTAL;
+		}
+		
+	}
+
 
 	// Si toca un objeto en vertical anula la velocidad (para que no se acumule la gravedad)
 	if (collision.vertical)
