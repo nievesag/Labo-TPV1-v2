@@ -104,6 +104,7 @@ void SceneObject::updateRect()
     {
         destRect.y = position.getY();
     }
+
 }
 
 SDL_Rect SceneObject::getCollisionRect() const

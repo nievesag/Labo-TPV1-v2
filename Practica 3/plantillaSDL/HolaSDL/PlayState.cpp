@@ -12,6 +12,8 @@ PlayState::PlayState(Game* g, const std::string& file, const std::string& root)
 {
 	nextObject = 0;
 	mapOffset = 0;
+	int k = std::stoi(file);
+	game->setCurrentLevel(k);
 	loadLevel(file, root);
 
 	/*
@@ -332,7 +334,9 @@ void PlayState::loadLevel(const string& file, const string& root)
 	Point2D<int> pos = Point2D<int>(0, 0);
 	tilemap = new TileMap(game, tiles, pos, game->getTexture(Game::BACKGROUND), this);
 	//objectQueue.push_front(tilemap);
-	addObject(tilemap);
+	//addObject(tilemap);
+	gameList.push_front(tilemap);
+	stateList.push_front(tilemap);
 	tiles.close();
 
 	// MAPA
