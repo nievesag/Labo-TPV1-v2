@@ -5,8 +5,6 @@
 Player::Player(Game* g, Point2D<int> p, Texture* t, int l, Vector2D<int> s, PlayState* play)
 	: SceneObject(g, p, t, s, play), lives(l)
 {
-	
-
 	lives = 3;
 	canMove = true;
 	velX = 6;
@@ -22,7 +20,7 @@ Player::Player(Game* g, Point2D<int> p, Texture* t, int l, Vector2D<int> s, Play
 	textureS = game->getTexture(Game::SUPERMARIO); // textura supermario
 
 	invencible = false;
-	playState->addEventListener(this);
+	play->addEventListener(this);
 }
 
 void Player::render() const

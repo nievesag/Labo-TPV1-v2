@@ -1,7 +1,6 @@
 #include "Block.h"
 #include "Game.h"
 
-
 Block::Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accionL, PlayState* play)
 	: SceneObject(g, position, t, play)
 {
@@ -47,6 +46,7 @@ void Block::render() const
 
 void Block::update()
 {
+	updateRect();
 	updateAnim();
 }
 

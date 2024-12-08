@@ -154,25 +154,6 @@ public:
 	void update();
 
 	void handleEvents();
-
-	/*
-	void reloadWorld(const string& file, const string& root);
-	void loadLevel(const string& file, const string& root);
-	void deleteEntities();
-	void addVisibleEntities();
-	void addObject(SceneObject* o);
-	void createSeta(Point2D<int> p);
-	void loadObjectMap(std::ifstream& mapa);
-	// ---- checkCollisions ----
-	// Los goombas, koopas y mushrooms:
-	// - se mueven en una dir fija
-	// - caen si dejan de tener un obstaculo a sus pies / desaparecen si caen por un hueco bajo el suelo del mapa
-	// - invierten su dirección si encuentran un obstaculo horizontal
-	// Estas cosas requieren que los objetos del juego tengan un puntero a Game para llamar a collides
-	Collision checkCollisions(const SDL_Rect& rect, Collision::Target target);
-	void EndGame();
-	*/
-
 	int getCurrentLevel() const { return currentWorld; }
 	void setCurrentLevel(int c) { currentWorld = c; }
 	int getMaxWorlds() const { return maxWorlds; }

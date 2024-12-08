@@ -46,7 +46,6 @@ public:
 
 	void addObject(GameObject* o);
 
-
 };
 
 #endif

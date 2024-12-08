@@ -14,9 +14,6 @@ private:
 	// declaración de los elementos de juego
 	SceneObject* player = nullptr;
 	SceneObject* tilemap;
-	SceneObject* goomba;
-	SceneObject* koopa;
-	SceneObject* block;
 
 	GameList<SceneObject> gameList;
 

@@ -72,7 +72,7 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 			pos.setX(pos.getX() * TILE_SIDE);
 			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
 
-			 goomba = new Goomba(game, pos, game->getTexture(Game::GOOMBA), Vector2D<int>(-7, 0), this);
+			SceneObject* goomba = new Goomba(game, pos, game->getTexture(Game::GOOMBA), Vector2D<int>(-7, 0), this);
 			objectQueue.push_back(goomba);
 			addObject(goomba);
 		}
@@ -85,18 +85,12 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 			pos.setX(pos.getX() * TILE_SIDE);
 			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
 
-
 			lineStream >> tipoL;
 			lineStream >> accionL;
 
-			 block = new Block(game, pos, game->getTexture(Game::BLOCK), tipoL, accionL, this);
-
+			SceneObject* block = new Block(game, pos, game->getTexture(Game::BLOCK), tipoL, accionL, this);
 			objectQueue.push_back(block);
 			addObject(block);
-			
-		
-
-		
 		}
 		else if (tipoL == 'K')
 		{
@@ -104,7 +98,7 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 			pos.setX(pos.getX() * TILE_SIDE);
 			pos.setY(pos.getY() * TILE_SIDE - (TILE_SIDE * 2));
 
-			koopa = new Koopa(game, pos, game->getTexture(Game::KOOPA), Vector2D<int>(-7, 0), this);
+			SceneObject* koopa = new Koopa(game, pos, game->getTexture(Game::KOOPA), Vector2D<int>(-7, 0), this);
 			objectQueue.push_back(koopa);
 			addObject(koopa);
 			
@@ -228,6 +222,7 @@ void PlayState::reloadWorld(const string& file, const string& root)
 	Point2D<int> pos = Point2D<int>(0, 0);
 	tilemap = new TileMap(game, tiles, pos, game->getTexture(Game::BACKGROUND), this);
 	gameList.push_front(tilemap);
+	stateList.push_front(tilemap);
 	tiles.close();
 
 	// MAPA
@@ -268,7 +263,6 @@ void PlayState::addObject(SceneObject* o)
 	}
 	else
 	{
-		
 		gameList.push_back(o);
 		stateList.push_back(o);
 	}
@@ -337,8 +331,8 @@ void PlayState::loadLevel(const string& file, const string& root)
 
 	Point2D<int> pos = Point2D<int>(0, 0);
 	tilemap = new TileMap(game, tiles, pos, game->getTexture(Game::BACKGROUND), this);
-	objectQueue.push_back(tilemap);
-	stateList.push_back(tilemap);
+	//objectQueue.push_front(tilemap);
+	stateList.push_front(tilemap);
 	tiles.close();
 
 	// MAPA

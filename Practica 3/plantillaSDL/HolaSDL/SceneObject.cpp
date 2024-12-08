@@ -44,6 +44,8 @@ SceneObject::SceneObject(const SceneObject& s)
     isAlive = s.isAlive;
 	c = s.c;
 	canMove = s.canMove;
+
+    playState = s.playState;
 }
 
 SceneObject& SceneObject::operator=(const SceneObject& s)
@@ -74,6 +76,9 @@ SceneObject& SceneObject::operator=(const SceneObject& s)
         isAlive = s.isAlive;
         c = s.c;
         canMove = s.canMove;
+
+        playState = s.playState;
+
 	}
 	return *this;
 }
@@ -82,8 +87,6 @@ void SceneObject::render() const
 {
     // QUE CADA OBJETO TENGA SU RENDER
     // HACER METODO UPDATERECT PARA MODIFICAR LOS ATRIBUTOS DEL DESTRECT PORQ AHORA RENDER ES CONST
-
-
     texture->renderFrame(destRect, 0, frame, 0, nullptr, flip);
 }
 
