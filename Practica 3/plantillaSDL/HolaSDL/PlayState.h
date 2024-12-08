@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "GameState.h"
+#include "Player.h"
 
 class PlayState : public GameState 
 {
@@ -12,7 +13,7 @@ private:
 	int mapOffset;
 
 	// declaración de los elementos de juego
-	SceneObject* player = nullptr;
+	Player* player = nullptr;
 	SceneObject* tilemap;
 
 	GameList<SceneObject> gameList;

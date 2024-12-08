@@ -61,6 +61,8 @@ public:
 
 	void manageDamage();
 
+	void resetPosition(Vector2D<int> pos);
+
 	int marioState;
 	enum State {
 		MARIO, SUPERMARIO

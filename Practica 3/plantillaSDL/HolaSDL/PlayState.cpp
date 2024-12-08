@@ -6,6 +6,7 @@
 #include "Coin.h"
 #include "Lift.h"
 #include "PauseState.h"
+#include "Player.h"
 
 PlayState::PlayState(Game* g, const std::string& file, const std::string& root)
 	: GameState(g)
@@ -63,7 +64,11 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 				//objectQueue.push_back(player);
 				//addObject(player);
 				stateList.push_back(player);
-				
+				gameList.push_back(player);
+			}
+			else
+			{
+				player->resetPosition(pos);
 			}
 			
 		}
@@ -76,7 +81,7 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 
 			SceneObject* goomba = new Goomba(game, pos, game->getTexture(Game::GOOMBA), Vector2D<int>(-7, 0), this);
 			objectQueue.push_back(goomba);
-			addObject(goomba);
+			//addObject(goomba);
 		}
 		else if (tipoL == 'B')
 		{
@@ -92,7 +97,7 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 
 			SceneObject* block = new Block(game, pos, game->getTexture(Game::BLOCK), tipoL, accionL, this);
 			objectQueue.push_back(block);
-			addObject(block);
+			//addObject(block);
 		}
 		else if (tipoL == 'K')
 		{
@@ -102,7 +107,7 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 
 			SceneObject* koopa = new Koopa(game, pos, game->getTexture(Game::KOOPA), Vector2D<int>(-7, 0), this);
 			objectQueue.push_back(koopa);
-			addObject(koopa);
+			//addObject(koopa);
 			
 		}
 		else if (tipoL == 'L')
@@ -129,7 +134,7 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 
 			Pickable* coin = new Coin(game, pos, game->getTexture(Game::COIN), this);
 			objectQueue.push_back(coin);
-			addObject(coin);
+			//addObject(coin);
 		}
 		else if (tipoL == 'P')
 		{
@@ -148,9 +153,9 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 
 void PlayState::update()
 {
-	//addVisibleEntities();
+	addVisibleEntities();
 
-	for (auto e : gameList) e->update();
+	GameState::update();
 
 	// si muere el player acaba el juego
 	//if (!player->getAlive()) EndGame();
@@ -178,8 +183,9 @@ void PlayState::createSeta(Point2D<int> p)
 
 	SceneObject* seta = new Mushroom(game, p, game->getTexture(Game::MUSHROOM), this);
 
-	gameList.push_back(seta);
-	stateList.push_back(seta);
+	objectQueue.push_back(seta);
+	/*gameList.push_back(seta);
+	stateList.push_back(seta);*/
 }
 
 void PlayState::render() const
@@ -189,7 +195,7 @@ void PlayState::render() const
 
 	GameState::render();
 
-	cout << mapOffset << endl;
+	//cout << mapOffset << endl;
 
 	//for (auto e : gameList) e->render();
 }
@@ -199,13 +205,13 @@ void PlayState::reloadWorld(const string& file, const string& root)
 	// todos los objetos del juego (salvo el jugador y el tilemap) han de ser destruidos y reemplazados
 	for (auto e : gameList)
 	{
-		if (e != player && e != tilemap)
+		if (e != player)
 		{
 			delete e;
 		}
 	}
 
-	mapOffset = 0;
+	setMapOffset(0);
 	nextObject = 2;
 
 	// TILEMAP
@@ -252,23 +258,11 @@ void PlayState::addVisibleEntities()
 
 void PlayState::addObject(SceneObject* o)
 {
-	if (nextObject == 1)
-	{
-		gameList.push_front(o);
-		stateList.push_front(o);
-	}
-	else if (nextObject == 2)
-	{
-		// HACER QUE LA REFERENCIA DE PLAYER EN GAME COINCIDA CON EL OBJ CLONADO
-		//player = o;
+	
 		gameList.push_back(o);
 		stateList.push_back(o);
-	}
-	else
-	{
-		gameList.push_back(o);
-		stateList.push_back(o);
-	}
+	
+	
 }
 
 // MANEJO DE COLISONES

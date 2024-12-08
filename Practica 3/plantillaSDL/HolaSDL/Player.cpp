@@ -134,6 +134,11 @@ void Player::manageDamage()
 	invencible = true;
 }
 
+void Player::resetPosition(Vector2D<int> pos)
+{
+	position = pos;
+}
+
 void Player::finishLevel()
 {
 	if (position.getX() >= flagPosition && game->getCurrentLevel() == 1)
@@ -142,6 +147,10 @@ void Player::finishLevel()
 		cout << "FINAL" << endl;
 		game->setCurrentLevel(game->getCurrentLevel()+1);
 		playState->setVictory(true);
+		int k = game->getCurrentLevel();
+		string level = std::to_string(k);
+		
+		
 
 		if(game->getCurrentLevel() > game->getMaxWorlds())
 		{
@@ -150,7 +159,7 @@ void Player::finishLevel()
 		}
 		else
 		{
-			playState->loadLevel(to_string(game->getCurrentLevel()), "../assets/maps/world");
+			playState->reloadWorld(level, "../assets/maps/world");
 		}
 	}
 }
