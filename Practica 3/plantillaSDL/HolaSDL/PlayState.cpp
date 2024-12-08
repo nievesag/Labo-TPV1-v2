@@ -332,7 +332,7 @@ void PlayState::loadLevel(const string& file, const string& root)
 	Point2D<int> pos = Point2D<int>(0, 0);
 	tilemap = new TileMap(game, tiles, pos, game->getTexture(Game::BACKGROUND), this);
 	//objectQueue.push_front(tilemap);
-	stateList.push_front(tilemap);
+	addObject(tilemap);
 	tiles.close();
 
 	// MAPA
