@@ -22,7 +22,7 @@ SceneObject* Goomba::clone() const
 
 void Goomba::render() const
 {
-	Enemy::render();
+	SceneObject::render();
 }
 
 void Goomba::collisionResult()

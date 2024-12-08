@@ -2,6 +2,7 @@
 
 GameObject::GameObject()
 {
+
 }
 
 GameObject::GameObject(Game* g) : game(g)

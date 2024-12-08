@@ -18,6 +18,8 @@ protected:
 
 	// metodos publicos
 public:
+
+	GameObject();
 	GameObject(Game* game);
 
 	// destructora virtual

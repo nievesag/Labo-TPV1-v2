@@ -12,7 +12,6 @@ PlayState::PlayState(Game* g, const std::string& file, const std::string& root)
 {
 	nextObject = 0;
 	mapOffset = 0;
-
 	loadLevel(file, root);
 
 	/*
@@ -60,11 +59,11 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 				cout << "hola" << endl;
 				player = new Player(game, pos, game->getTexture(Game::MARIO), lives, Vector2D<int>(0, 0), this);
 				objectQueue.push_back(player);
-				//stateList.push_back(player);
+				addObject(player);
+				
+				
 			}
-			/*player = new Player(this, pos, getTexture(MARIO), lives, Vector2D<int>(0, 0));
-
-			objectQueue.push_back(player);*/
+			
 		}
 		else if (tipoL == 'G')
 		{
@@ -73,8 +72,9 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 			pos.setX(pos.getX() * TILE_SIDE);
 			pos.setY(pos.getY() * TILE_SIDE - TILE_SIDE);
 
-			SceneObject* goomba = new Goomba(game, pos, game->getTexture(Game::GOOMBA), Vector2D<int>(-7, 0), this);
+			 goomba = new Goomba(game, pos, game->getTexture(Game::GOOMBA), Vector2D<int>(-7, 0), this);
 			objectQueue.push_back(goomba);
+			addObject(goomba);
 		}
 		else if (tipoL == 'B')
 		{
@@ -89,9 +89,14 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 			lineStream >> tipoL;
 			lineStream >> accionL;
 
-			SceneObject* block = new Block(game, pos, game->getTexture(Game::BLOCK), tipoL, accionL, this);
+			 block = new Block(game, pos, game->getTexture(Game::BLOCK), tipoL, accionL, this);
 
 			objectQueue.push_back(block);
+			addObject(block);
+			
+		
+
+		
 		}
 		else if (tipoL == 'K')
 		{
@@ -99,8 +104,10 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 			pos.setX(pos.getX() * TILE_SIDE);
 			pos.setY(pos.getY() * TILE_SIDE - (TILE_SIDE * 2));
 
-			SceneObject* koopa = new Koopa(game, pos, game->getTexture(Game::KOOPA), Vector2D<int>(-7, 0), this);
+			koopa = new Koopa(game, pos, game->getTexture(Game::KOOPA), Vector2D<int>(-7, 0), this);
 			objectQueue.push_back(koopa);
+			addObject(koopa);
+			
 		}
 		else if (tipoL == 'L')
 		{
@@ -144,7 +151,7 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 
 void PlayState::update()
 {
-	addVisibleEntities();
+	//addVisibleEntities();
 
 	for (auto e : gameList) e->update();
 
@@ -184,6 +191,8 @@ void PlayState::render() const
 	SDL_SetRenderDrawColor(game->getRenderer(), r, g, b, 255);
 
 	GameState::render();
+
+	cout << mapOffset << endl;
 
 	//for (auto e : gameList) e->render();
 }
@@ -253,14 +262,15 @@ void PlayState::addObject(SceneObject* o)
 	else if (nextObject == 2)
 	{
 		// HACER QUE LA REFERENCIA DE PLAYER EN GAME COINCIDA CON EL OBJ CLONADO
-		player = o;
+		//player = o;
 		gameList.push_back(o);
 		stateList.push_back(o);
 	}
 	else
 	{
-		stateList.push_back(o);
+		
 		gameList.push_back(o);
+		stateList.push_back(o);
 	}
 }
 

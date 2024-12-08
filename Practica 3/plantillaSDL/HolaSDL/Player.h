@@ -6,6 +6,7 @@
 
 class PlayState;
 
+
 class Player : public SceneObject, EventHandler
 {
 private:

@@ -1,6 +1,6 @@
 #include "Block.h"
 #include "Game.h"
-#include "PlayState.h"
+
 
 Block::Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accionL, PlayState* play)
 	: SceneObject(g, position, t, play)
@@ -40,7 +40,9 @@ Block::Block(Game* g, Point2D<int> position, Texture* t, char tipoL, char accion
 
 void Block::render() const
 {
+
 	SceneObject::render();
+
 }
 
 void Block::update()

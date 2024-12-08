@@ -6,6 +6,7 @@
 
 class PlayState : public GameState 
 {
+private:
 	// desplazamiento actual de mapa, llevará la coordenada x del extremo izquierdo de la vista 
 	// (inicialmente cero)
 	int mapOffset;
@@ -13,6 +14,9 @@ class PlayState : public GameState
 	// declaración de los elementos de juego
 	SceneObject* player = nullptr;
 	SceneObject* tilemap;
+	SceneObject* goomba;
+	SceneObject* koopa;
+	SceneObject* block;
 
 	GameList<SceneObject> gameList;
 
@@ -30,7 +34,6 @@ class PlayState : public GameState
 	// indice de la secuencia, siguiente objeto a ser metido si esta dentro de la vista
 	// (siempre se añaden en orden porque la lista esta ordenada por abscisas)
 	int nextObject;
-
 	// color de fondo
 	int r, g, b;
 

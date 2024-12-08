@@ -12,6 +12,7 @@
 
 #include "Collision.h"
 #include "SceneObject.h"
+#include "PlayState.h"
 
 class PlayState;
 class Game;

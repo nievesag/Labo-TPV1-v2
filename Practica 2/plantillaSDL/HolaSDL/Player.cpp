@@ -75,7 +75,7 @@ void Player::update()
 
 	marioState = game->getMarioState();
 
-	//cout << speed.getX() << endl;
+	cout << game->getMapOffset() << endl;
 }
 
 void Player::updateTexture()

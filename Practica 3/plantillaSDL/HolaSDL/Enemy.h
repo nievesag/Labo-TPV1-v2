@@ -14,6 +14,9 @@
 
 #include "Collision.h"
 
+#include "PlayState.h"
+
+class PlayState;
 class Game;
 
 using uint = unsigned int;
