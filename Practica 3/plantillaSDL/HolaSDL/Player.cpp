@@ -114,7 +114,7 @@ Collision Player::hit(const SDL_Rect& region, Collision::Target target)
 		GameState* ps = new AnimationState(game, playState, animation );
 
 		// lo pasa al gsMachine que ya luego hace sus cosas
-		game->getgsMachine()->pushState(ps);
+		//game->getgsMachine()->pushState(ps);
 	}
 
 	return NO_COLLISION; // constante Collision{}

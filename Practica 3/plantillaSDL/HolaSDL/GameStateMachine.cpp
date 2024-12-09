@@ -6,7 +6,7 @@
  * @date TPV1 2024
  */
 
-#include "gameStateMachine.h"
+#include "GameStateMachine.h"
 
 using namespace std;
 

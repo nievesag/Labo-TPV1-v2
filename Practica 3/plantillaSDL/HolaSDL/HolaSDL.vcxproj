@@ -76,6 +76,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FileFormatError.cpp" />
     <ClCompile Include="FileNotFoundError.cpp" />
+    <ClCompile Include="Font.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameError.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -109,6 +110,7 @@
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="FileFormatError.h" />
     <ClInclude Include="FileNotFoundError.h" />
+    <ClInclude Include="Font.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameError.h" />
     <ClInclude Include="gameList.h" />

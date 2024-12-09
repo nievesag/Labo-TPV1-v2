@@ -13,7 +13,7 @@
 #include <SDL_events.h>
 #include <stack>
 
-#include "gameState.h"
+#include "GameState.h"
 
 /**
  * Máquina de estados del juego.

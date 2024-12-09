@@ -5,9 +5,9 @@
 
 PauseState::PauseState(Game* game, PlayState* playState)
 	: GameState(game), playState(playState),
-	buttonContinuar(new Button(this, game->getTexture(Game::CONTINUAR), game->getTexture(Game::MUSHROOM), Point2D<double>(0, 0))),
-	buttonVolverMenu(new Button(this, game->getTexture(Game::VOLVER), game->getTexture(Game::MUSHROOM), Point2D<double>(0, 100))),
-	buttonSalir(new Button(this, game->getTexture(Game::SALIR), game->getTexture(Game::MUSHROOM), Point2D<double>(0, 200)))
+	buttonContinuar(new Button(this, game->getTexture(Game::CONTINUAR), game->getTexture(Game::MUSHROOM), Point2D<double>(175, 100))),
+	buttonVolverMenu(new Button(this, game->getTexture(Game::VOLVER), game->getTexture(Game::MUSHROOM), Point2D<double>(125, 250))),
+	buttonSalir(new Button(this, game->getTexture(Game::SALIR), game->getTexture(Game::MUSHROOM), Point2D<double>(225, 375)))
 {
 	// lo aniede a la lista de objetos para poder renderizarlo
 	addObject(buttonSalir);
@@ -27,6 +27,7 @@ PauseState::PauseState(Game* game, PlayState* playState)
 
 void PauseState::render() const
 {
+	SDL_SetRenderDrawColor(game->getRenderer(), 0, 0, 0, 255);
 	for (auto e : stateList) e->render();
 }
 

@@ -19,10 +19,9 @@ PlayState::PlayState(Game* g, const std::string& file, const std::string& root)
 	game->setCurrentLevel(k);
 	loadLevel(file, root);
 
-	/*
-	infoBar = new Infobar(Point2D<>(0, winHeight - game->getTexture(Nave)->getFrameHeight()), game->getTexture(Nave), infobarSpacing, this, game->getRenderer());
-	gamelist.push_back(infoBar);
-	*/
+	infobar = new InfoBar(game, this);
+	stateList.push_back(infobar);
+	
 }
 
 void PlayState::loadObjectMap(std::ifstream& mapa)
@@ -192,9 +191,9 @@ void PlayState::createSeta(Point2D<int> p)
 
 	SceneObject* seta = new Mushroom(game, p, game->getTexture(Game::MUSHROOM), this);
 
-	objectQueue.push_back(seta);
-	/*gameList.push_back(seta);
-	stateList.push_back(seta);*/
+	//objectQueue.push_back(seta);
+	gameList.push_back(seta);
+	stateList.push_back(seta);
 }
 
 void PlayState::render() const

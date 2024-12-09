@@ -5,8 +5,8 @@
 
 EndState::EndState(Game* game, bool victory)
 	: GameState(game), victory(victory),
-	buttonVolverMenu(new Button(this, game->getTexture(Game::VOLVER), game->getTexture(Game::MUSHROOM), Point2D<double>(0, 0))),
-	buttonSalir(new Button(this, game->getTexture(Game::SALIR), game->getTexture(Game::MUSHROOM), Point2D<double>(0, 100)))
+	buttonVolverMenu(new Button(this, game->getTexture(Game::VOLVER), game->getTexture(Game::MUSHROOM), Point2D<double>(125, 100))),
+	buttonSalir(new Button(this, game->getTexture(Game::SALIR), game->getTexture(Game::MUSHROOM), Point2D<double>(225, 250)))
 {
 	// lo mete a la lista de objetos para poder renderizarlos
 	addObject(buttonVolverMenu);

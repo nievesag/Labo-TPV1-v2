@@ -182,6 +182,8 @@ public:
 		points += p;
 	}
 
+	int getPoints() { return points; }
+
 private:
 	// ---- loadTexture ----
 	// se cargan las texturas y se guardan en el array

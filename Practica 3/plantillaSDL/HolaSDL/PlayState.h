@@ -4,6 +4,7 @@
 #include <vector>
 #include "GameState.h"
 #include "Player.h"
+#include "Infobar.h"
 
 class PlayState : public GameState 
 {
@@ -15,6 +16,7 @@ private:
 	// declaración de los elementos de juego
 	Player* player = nullptr;
 	SceneObject* tilemap;
+	InfoBar* infobar;
 
 	GameList<SceneObject> gameList;
 
