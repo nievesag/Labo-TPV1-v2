@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "Coin.h"
+#include "EndState.h"
 #include "Lift.h"
 #include "PauseState.h"
 #include "Player.h"
@@ -155,10 +156,14 @@ void PlayState::update()
 {
 	addVisibleEntities();
 
+<<<<<<< Updated upstream
 	GameState::update();
 
 	// si muere el player acaba el juego
 	//if (!player->getAlive()) EndGame();
+=======
+	for (auto e : gameList) e->update();
+>>>>>>> Stashed changes
 }
 
 void PlayState::deleteEntities()

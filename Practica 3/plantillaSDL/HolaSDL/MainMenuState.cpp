@@ -31,8 +31,6 @@ void MainMenuState::render() const
 	game->getTexture(Game::PORTADA)->render();
 
 	GameState::render();
-
-	//for (auto g : stateList) g->render();
 }
 
 void MainMenuState::update()

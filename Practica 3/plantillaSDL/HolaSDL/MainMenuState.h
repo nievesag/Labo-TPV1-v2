@@ -23,7 +23,6 @@ public:
 
 	void update() override;
 
-
 private:
 	// funciones de los botones
 	void loadLevel(const std::string& file);
