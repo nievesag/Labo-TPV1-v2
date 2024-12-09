@@ -61,6 +61,8 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 			if (player == nullptr)
 			{
 				cout << "hola" << endl;
+				/*pos.setX(6100);
+				setMapOffset(6100);*/
 				player = new Player(game, pos, game->getTexture(Game::MARIO), lives, Vector2D<int>(0, 0), this);
 				//objectQueue.push_back(player);
 				//addObject(player);
@@ -70,6 +72,7 @@ void PlayState::loadObjectMap(std::ifstream& mapa)
 			else
 			{
 				player->resetPosition(pos);
+
 			}
 			
 		}
@@ -174,10 +177,6 @@ void PlayState::deleteEntities()
 	// si se ha perdido
 	if (exit)
 	{
-		for (SceneObject* obj : gameList)
-		{
-			delete obj;
-		}
 		for (auto obj : objectQueue)
 		{
 			delete obj;

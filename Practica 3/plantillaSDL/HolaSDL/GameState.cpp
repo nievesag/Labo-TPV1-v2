@@ -5,6 +5,14 @@ GameState::GameState(Game* g) : game(g)
 
 }
 
+GameState::~GameState()
+{
+	// borrar statelist
+	for (auto o : stateList) {
+		delete o;
+	}
+}
+
 void GameState::render() const
 {
 	for (auto obj : stateList) {

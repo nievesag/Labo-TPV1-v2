@@ -28,7 +28,7 @@ protected:
 public:
 	GameState(Game* g);
 
-	virtual ~GameState() = default;
+	virtual ~GameState();
 
 	// render del estado
 	virtual void render() const;
