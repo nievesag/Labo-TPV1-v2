@@ -26,7 +26,7 @@ void EndState::render() const
 	if (victory) game->getTexture(Game::GANADO)->render();
 	else game->getTexture(Game::GAMEOVER)->render();
 
-	for (auto e : stateList) e->render();
+	GameState::render();
 }
 
 void EndState::update()

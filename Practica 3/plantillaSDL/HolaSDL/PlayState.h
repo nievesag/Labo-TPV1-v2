@@ -36,6 +36,7 @@ private:
 	int r, g, b;
 
 	bool isVictory;
+	bool endVictory;
 
 public:
 	// constructora

@@ -160,6 +160,13 @@ void PlayState::update()
 
 	// si muere el player acaba el juego
 	//if (!player->getAlive()) EndGame();
+
+	if (endVictory || (player->getLives() <= 0))
+	{
+		// finaliza el juego
+		// (aniade el estado de fin a la maquina de estados de application)
+		game->getgsMachine()->pushState(new EndState(game, endVictory));
+	}
 }
 
 void PlayState::deleteEntities()
