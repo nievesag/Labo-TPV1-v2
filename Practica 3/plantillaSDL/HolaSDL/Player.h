@@ -43,6 +43,7 @@ public:
 	void updateTexture();
 
 	Collision hit(const SDL_Rect& region, Collision::Target target) override;
+	bool manageAnimation();
 	SceneObject* clone() const override;
 
 	void updateAnim() override;

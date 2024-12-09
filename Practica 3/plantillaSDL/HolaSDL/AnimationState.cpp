@@ -2,23 +2,26 @@
 
 #include "Game.h"
 
-AnimationState::AnimationState(Game* g, GameState* n, Player* p)
-	: GameState(g), player(p), next(n)
+AnimationState::AnimationState(Game* g, GameState* a, std::function<bool()> f)
+	: GameState(g), actual(a)
 {
-
+	callbacks.push_back(f);
 }
 
 void AnimationState::render() const
 {
-	for (auto e : stateList) e->render();
+	actual->render();
 }
 
 void AnimationState::update()
 {
-	for (auto e : stateList) e->update();
-
-	if(player->getPosition().getY() > game->getWinHeight())
+	// llama a todas las funciones registradas
+	for (AnimationCallback func : callbacks)
 	{
-		game->getgsMachine()->pushState(next);
+		if(!func())
+		{
+			// se desapila
+			game->getgsMachine()->popState();
+		}
 	}
 }

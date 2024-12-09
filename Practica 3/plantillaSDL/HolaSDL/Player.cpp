@@ -1,4 +1,6 @@
 #include "Player.h"
+
+#include "AnimationState.h"
 #include "Game.h"
 #include "PlayState.h"
 
@@ -107,9 +109,26 @@ Collision Player::hit(const SDL_Rect& region, Collision::Target target)
 	if (target == Collision::PLAYER && SDL_HasIntersection(&ownRect, &region) )
 	{
 		manageDamage();
+
+		const std::function<bool()> animation = [this]()->bool { return manageAnimation(); };
+		GameState* ps = new AnimationState(game, playState, animation );
+
+		// lo pasa al gsMachine que ya luego hace sus cosas
+		game->getgsMachine()->pushState(ps);
 	}
 
 	return NO_COLLISION; // constante Collision{}
+}
+
+bool Player::manageAnimation()
+{
+	// mientras la altura en y sea menor (aun no se cae) -> lo hace caer
+	if (position.getY() < deadH)
+	{
+		position.setY(position.getY()-10);
+		return true;
+	}
+	return false; // se ha caido
 }
 
 void Player::manageDamage()
