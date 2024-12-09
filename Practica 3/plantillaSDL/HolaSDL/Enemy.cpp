@@ -76,6 +76,7 @@ Collision Enemy::hit(const SDL_Rect& rect, Collision::Target t)
 			else
 			{
 				c.target = Collision::PLAYER;
+				playState->getPlayer()->decreaseLives();
 				cout << "au" << endl;
 			}
 		}

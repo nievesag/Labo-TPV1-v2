@@ -21,6 +21,7 @@ Player::Player(Game* g, Point2D<int> p, Texture* t, int l, Vector2D<int> s, Play
 
 	invencible = false;
 	play->addEventListener(this);
+	
 }
 
 void Player::render() const
@@ -141,6 +142,7 @@ void Player::resetPosition(Vector2D<int> pos)
 
 void Player::finishLevel()
 {
+	cout << position.getX() << endl;
 	if (position.getX() >= flagPosition && game->getCurrentLevel() == 1)
 	{
 		velX = 0;
@@ -161,6 +163,10 @@ void Player::finishLevel()
 		{
 			playState->reloadWorld(level, "../assets/maps/world");
 		}
+	}
+	else if (position.getX() >= flag2Position && game->getCurrentLevel() == 2)
+	{
+		playState->setEndVictory(true);
 	}
 }
 
@@ -325,7 +331,7 @@ void Player::checkFall()
 		
 		playState->reloadWorld(to_string(game->getCurrentLevel()), "../assets/maps/world");
 		playState->setFalled(false);
-		position.setX(20);
+		position.setX(40);
 		marioState = MARIO;
 		lives--;
 	}

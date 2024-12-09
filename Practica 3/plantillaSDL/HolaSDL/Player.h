@@ -51,6 +51,8 @@ public:
 	int getLives() { return lives; }
 	void setLives(int n) { lives = n; }
 
+	void decreaseLives() { lives--; }
+
 	int getFrame() { return marioFrame; }
 
 	void handleEvent(const SDL_Event& event) override;
@@ -74,6 +76,7 @@ public:
 	Texture* textureS = nullptr;
 
 	int flagPosition = 6306;
+	int flag2Position = 6305;
 
 	void updateOffset();
 

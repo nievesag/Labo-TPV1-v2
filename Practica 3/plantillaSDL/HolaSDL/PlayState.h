@@ -48,6 +48,9 @@ public:
 	void setVictory(bool v) { isVictory = v; }
 	void setFalled(bool f) { falled = f; }
 	bool getHasFalled() const { return falled; }
+	void setEndVictory(bool v) { endVictory = v; }
+
+	Player* getPlayer() { return player; }
 
 	void playerLives();
 

@@ -221,7 +221,7 @@ void PlayState::reloadWorld(const string& file, const string& root)
 	}
 
 	setMapOffset(0);
-	nextObject = 2;
+	nextObject = 0;
 
 	// TILEMAP
 	// ifstream in(root + file + ".txt");
@@ -343,12 +343,7 @@ void PlayState::loadLevel(const string& file, const string& root)
 	loadObjectMap(mapa);
 
 	mapa.close();
-
-	if (isVictory)
-	{
-		mapOffset = 0;
-		nextObject = 2;
-	}
+	
 }
 
 void PlayState::playerLives()
