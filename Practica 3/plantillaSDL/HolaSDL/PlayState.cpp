@@ -12,6 +12,7 @@
 PlayState::PlayState(Game* g, const std::string& file, const std::string& root)
 	: GameState(g)
 {
+	endVictory = false;
 	nextObject = 0;
 	mapOffset = 0;
 	int k = std::stoi(file);
