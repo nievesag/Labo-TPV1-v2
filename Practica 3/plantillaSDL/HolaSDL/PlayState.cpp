@@ -156,14 +156,10 @@ void PlayState::update()
 {
 	addVisibleEntities();
 
-<<<<<<< Updated upstream
 	GameState::update();
 
 	// si muere el player acaba el juego
 	//if (!player->getAlive()) EndGame();
-=======
-	for (auto e : gameList) e->update();
->>>>>>> Stashed changes
 }
 
 void PlayState::deleteEntities()
